@@ -40,10 +40,11 @@ const Hero = () => {
             >
               <Link
                 to="/start"
-                className="group relative overflow-hidden rounded-full bg-slate-900 px-8 py-3 text-base font-bold text-white shadow-2xl transition hover:bg-slate-800"
+                className="group relative rounded-full bg-white p-[2px] shadow-2xl transition hover:bg-gradient-to-r hover:from-primary hover:via-accent-pink hover:to-primary/70"
               >
-                Get started. It’s FREE!
-                <span className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <span className="relative flex items-center justify-center rounded-full bg-white px-8 py-3 text-base font-bold text-slate-900 transition group-hover:text-slate-900">
+                  Get started. It’s FREE!
+                </span>
               </Link>
               <div className="text-sm text-slate-500">
                 Free forever.

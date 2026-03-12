@@ -1,19 +1,19 @@
 import { useState } from "react";
 import {
-  CheckCircle2,
-  MessageSquare,
-  Brain,
-  Bot,
-  Zap,
-  Clock,
+  LayoutGrid,
+  ClipboardList,
+  CheckSquare,
+  FolderOpen,
+  Monitor,
+  Triangle,
   CalendarDays,
-  FileText,
-  PenTool,
+  Clock,
+  IndianRupee,
+  CalendarRange,
+  BarChart3,
+  Crosshair,
   Settings2,
-  LayoutDashboard,
-  CalendarCheck,
-  PlusCircle,
-  ChevronRight,
+  Users,
 } from "lucide-react";
 
 import featureProjects from "../assets/projects.jpeg";
@@ -33,45 +33,52 @@ const features = [
   {
     id: "projects",
     label: "Projects",
-    icon: CheckCircle2,
+    icon: LayoutGrid,
     image: featureProjects,
   },
-  { id: "chat", label: "Chat", icon: MessageSquare, image: featureChat },
-  { id: "brain", label: "Brain MAX", icon: Brain, image: featureBrain },
-  { id: "agents", label: "AI Agents", icon: Bot, image: featureAgents },
-  { id: "sprints", label: "Sprints", icon: Zap, image: featureSprints },
-  { id: "time", label: "Time Tracking", icon: Clock, image: featureTime },
+  { id: "docs", label: "Docs", icon: ClipboardList, image: featureDocs },
+  { id: "sprints", label: "Sprints", icon: CheckSquare, image: featureSprints },
+  { id: "chat", label: "Chat", icon: FolderOpen, image: featureChat },
+  {
+    id: "whiteboards",
+    label: "Whiteboards",
+    icon: Monitor,
+    image: featureWhiteboards,
+  },
+  { id: "brain", label: "Brain MAX", icon: Triangle, image: featureBrain },
   {
     id: "calendar",
     label: "Calendar",
     icon: CalendarDays,
     image: featureCalendar,
   },
-  { id: "docs", label: "Docs", icon: FileText, image: featureDocs },
+  { id: "time", label: "Time Tracking", icon: Clock, image: featureTime },
+  { id: "billing", label: "Billing", icon: IndianRupee, image: featureAgents },
   {
-    id: "whiteboards",
-    label: "Whiteboards",
-    icon: PenTool,
-    image: featureWhiteboards,
-  },
-  {
-    id: "automations",
-    label: "Automations",
-    icon: Settings2,
-    image: featureAutomations,
+    id: "scheduling",
+    label: "Scheduling",
+    icon: CalendarRange,
+    image: featureScheduling,
   },
   {
     id: "dashboards",
     label: "Dashboards",
-    icon: LayoutDashboard,
+    icon: BarChart3,
     image: featureDashboards,
   },
   {
-    id: "scheduling",
-    label: "Scheduling",
-    icon: CalendarCheck,
-    image: featureScheduling,
+    id: "automations",
+    label: "Automations",
+    icon: Crosshair,
+    image: featureAutomations,
   },
+  {
+    id: "settings",
+    label: "Settings",
+    icon: Settings2,
+    image: featureProjects,
+  },
+  { id: "agents", label: "AI Agents", icon: Users, image: featureAgents },
 ];
 
 const FeatureShowcase = () => {
@@ -80,41 +87,45 @@ const FeatureShowcase = () => {
   const activeData = features.find((f) => f.id === activeFeature);
 
   return (
-    <div className="flex w-full max-w-[1200px] mx-auto gap-0 items-stretch">
-      {/* Left sidebar menu */}
-      <nav className="flex flex-col gap-1 min-w-[210px] pr-6 justify-center">
-        {features.map((feature) => {
-          const isActive = activeFeature === feature.id;
-          return (
-            <button
-              key={feature.id}
-              onClick={() => setActiveFeature(feature.id)}
-              className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-left transition-all duration-200 cursor-pointer group ${
-                isActive
-                  ? "text-primary font-semibold"
-                  : "text-slate-600 hover:bg-primary/10"
-              }`}
-            >
-              {isActive ? (
-                <ChevronRight className="h-4 w-4 shrink-0 text-primary" />
-              ) : (
-                <PlusCircle className="h-4 w-4 shrink-0 text-slate-400 group-hover:text-slate-700" />
-              )}
-              <span className="text-[15px] whitespace-nowrap">
-                {feature.label}
-              </span>
-            </button>
-          );
-        })}
-      </nav>
+    <div className="w-full px-24 py-10">
+      {" "}
+      {/* outer spacing */}
+      <div className="flex w-full h-[80vh] rounded-2xl overflow-hidden border border-border shadow-xl">
+        {/* Sidebar */}
+        <nav className="flex flex-col items-center py-4 gap-2 bg-[#3B2A5A] w-[60px] shrink-0">
+          {features.map((feature) => {
+            const isActive = activeFeature === feature.id;
+            const Icon = feature.icon;
 
-      {/* Right side - Feature screenshot, height matches sidebar */}
-      <div className="flex-1 rounded-2xl overflow-hidden shadow-xl border border-border bg-card">
-        <img
-          src={activeData.image}
-          alt={activeData.label}
-          className="w-full h-full object-cover transition-opacity duration-300"
-        />
+            return (
+              <button
+                key={feature.id}
+                onClick={() => setActiveFeature(feature.id)}
+                title={feature.label}
+                className={`group relative flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 ${
+                  isActive
+                    ? "bg-feature-sidebar-active"
+                    : "hover:bg-feature-sidebar-hover"
+                }`}
+              >
+                <Icon className="h-[18px] w-[18px] text-white stroke-[1.5]" />
+
+                <span className="pointer-events-none absolute left-full ml-2 whitespace-nowrap rounded-md bg-slate-900 px-2 py-1 text-xs font-medium text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                  {feature.label}
+                </span>
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Image Section */}
+        <div className="flex-1 overflow-hidden">
+          <img
+            src={activeData.image}
+            alt={activeData.label}
+            className="w-full h-full object-cover transition-all duration-300"
+          />
+        </div>
       </div>
     </div>
   );
