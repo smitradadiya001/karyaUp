@@ -6,6 +6,73 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <section className="relative overflow-hidden bg-white pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 text-center min-h-[calc(100vh-80px)] flex items-center justify-center">
+      {/* Ultra-Refined Stripe-style Swoop Mesh Gradient */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* The "Swoop" Container with sharp edge and perspective */}
+        <div 
+          className="absolute top-0 right-0 w-[80%] h-full bg-slate-50"
+          style={{
+            clipPath: "polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%)",
+            filter: "drop-shadow(-20px 0 50px rgba(0,0,0,0.05))"
+          }}
+        >
+          {/* Animated Mesh Layers within the Swoop */}
+          <div className="absolute inset-0 overflow-hidden">
+            {/* Base Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#7e22ce] via-[#581c87] to-[#7e22ce] opacity-95" />
+            
+            {/* Dynamic Mesh Elements */}
+            <motion.div
+              animate={{
+                x: [-200, 200, -200],
+                y: [-100, 100, -100],
+                rotate: [0, 45, 0],
+              }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+              className="absolute top-[-20%] left-[-10%] w-[120%] h-[120%]"
+            >
+              {/* Vibrant Fuchsia Blow */}
+              <motion.div
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ duration: 15, repeat: Infinity }}
+                className="absolute top-[10%] left-[20%] w-[800px] h-[800px] bg-[#d946ef] rounded-full blur-[150px] opacity-60 mix-blend-overlay"
+              />
+              
+              {/* Electric Indigo Pop */}
+              <motion.div
+                animate={{ x: [0, 100, 0] }}
+                transition={{ duration: 20, repeat: Infinity }}
+                className="absolute bottom-[20%] right-[10%] w-[700px] h-[700px] bg-[#6366f1] rounded-full blur-[180px] opacity-50 mix-blend-overlay"
+              />
+              
+              {/* Stripe-signature Orange/Amber Flare */}
+              <motion.div
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 10, repeat: Infinity }}
+                className="absolute top-[5%] right-[15%] w-[400px] h-[400px] bg-orange-400 rounded-full blur-[120px] opacity-40 mix-blend-color-dodge"
+              />
+              
+              {/* Soft Pink Highlight */}
+              <motion.div
+                animate={{ scale: [1, 1.5, 1] }}
+                transition={{ duration: 18, repeat: Infinity }}
+                className="absolute top-[40%] left-[40%] w-[500px] h-[500px] bg-pink-400 rounded-full blur-[130px] opacity-40 mix-blend-soft-light"
+              />
+
+              {/* Cyan Accent for depth */}
+              <motion.div
+                animate={{ y: [0, -50, 0] }}
+                transition={{ duration: 14, repeat: Infinity }}
+                className="absolute bottom-[30%] left-[10%] w-[350px] h-[350px] bg-cyan-400/20 rounded-full blur-[90px] mix-blend-overlay"
+              />
+            </motion.div>
+
+            {/* Subtle moving noise texture if desired, or skip for clean look */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+          </div>
+        </div>
+      </div>
+
       {/* Background ambient glow centered */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#7e22ce]/15 rounded-full blur-[100px] opacity-60 pointer-events-none" />
 
@@ -17,7 +84,7 @@ const Hero = () => {
           className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6"
         >
           The platform to run your <br className="hidden sm:block" />
-          <motion.span 
+          <motion.span
             className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
             animate={{ backgroundPosition: ["0% center", "-200% center"] }}
             transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -72,7 +139,7 @@ const Hero = () => {
         >
           <p>No credit card required • Setup in minutes</p>
           <p className="flex items-center gap-2">
-            Teams get started in 
+            Teams get started in
             <span className="inline-flex items-center justify-center bg-purple-50 border border-purple-100 text-[#7e22ce] px-2 py-0.5 text-xs rounded-md font-bold">
               &lt; 5 minutes
             </span>
