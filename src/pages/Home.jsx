@@ -11,6 +11,7 @@ import FeatureOverview from "../components/FeatureOverview";
 import TeamsSection from "../components/TeamsSection";
 import Integrations from "../components/Integrations";
 import Management from "../components/Management";
+import DataImport from "../components/DataImport";
 import FinalCTA from "../components/FinalCTA";
 
 export default function Home() {
@@ -30,7 +31,8 @@ export default function Home() {
       <FeatureOverview />
       <TeamsSection />
       <Integrations />
-      {/* <Management /> */}
+      <DataImport />
+       <Management /> 
       <FinalCTA />
     </>
   );

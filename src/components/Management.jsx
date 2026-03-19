@@ -1,5 +1,7 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { CreditCard, Calendar, BarChart, Briefcase } from 'lucide-react';
+import TeamImg from "../assets/Team.png";
 
 const Management = () => {
     const items = [
@@ -10,138 +12,57 @@ const Management = () => {
     ];
 
     return (
-        <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-16">
-                    <div className="flex-1">
-                        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4 sm:mb-6">More than just tasks.</h2>
-                        <p className="text-base sm:text-xl text-gray-600 mb-8 sm:mb-10 leading-relaxed">
-                            KaryaUp handles the essentials of your business operations. From salary to attendance, everything is seamlessly integrated.
+        <section className="py-12 sm:py-16 lg:py-20 bg-white overflow-hidden relative">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+                    {/* Text and Features Side (40% Width) - Condensed */}
+                    <div className="lg:flex-[0.4] w-full">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-6">
+                            More than <br />
+                            <motion.span
+                                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
+                                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                            >
+                                just tasks.
+                            </motion.span>
+                        </h2>
+                        <p className="text-lg sm:text-xl font-medium text-slate-500 mb-8 sm:mb-10 leading-relaxed">
+                            KaryaUp handles the essentials of your business operations. From salary to attendance, everything is seamlessly integrated into your elite workflow.
                         </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
                             {items.map((item, idx) => (
-                                <div key={idx} className="flex items-start gap-4">
-                                    <div className="p-3 bg-white rounded-lg shadow-sm text-primary">
-                                        {item.icon}
+                                <div key={idx} className="flex items-start gap-5 group">
+                                    <div className="p-3.5 bg-purple-50 rounded-2xl text-[#7e22ce] border border-purple-100 group-hover:scale-110 transition-transform">
+                                        {React.cloneElement(item.icon, { className: "w-5 h-5" })}
                                     </div>
                                     <div>
-                                        <h4 className="font-bold text-gray-900">{item.title}</h4>
-                                        <p className="text-sm text-gray-600">{item.desc}</p>
+                                        <h4 className="font-black text-slate-800 text-lg mb-0.5 tracking-tight">{item.title}</h4>
+                                        <p className="text-sm font-bold text-slate-400 leading-tight">{item.desc}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    <div className="flex-1 relative w-full">
-                        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-                            <div className="px-4 sm:px-6 py-4 border-b border-gray-100 flex items-center justify-between gap-2">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                                </div>
-                                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">KaryaUp Dashboard</span>
-                                <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center">
-                                    <span className="text-[8px] font-bold text-primary">SM</span>
-                                </div>
-                            </div>
-
-                            <div className="p-4 sm:p-5 space-y-4">
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                    <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-xl p-3">
-                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Total Payroll</p>
-                                        <p className="text-lg font-black text-gray-900">Rs 12.4L</p>
-                                        <p className="text-[9px] font-bold text-green-500 mt-0.5">+8% this month</p>
-                                    </div>
-                                    <div className="bg-gradient-to-br from-green-50 to-green-100/50 rounded-xl p-3">
-                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Present Today</p>
-                                        <p className="text-lg font-black text-gray-900">47/52</p>
-                                        <p className="text-[9px] font-bold text-green-500 mt-0.5">90.3% attendance</p>
-                                    </div>
-                                    <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-xl p-3">
-                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Leaves Pending</p>
-                                        <p className="text-lg font-black text-gray-900">5</p>
-                                        <p className="text-[9px] font-bold text-amber-500 mt-0.5">3 urgent</p>
-                                    </div>
-                                </div>
-
-                                <div className="bg-gray-50 rounded-xl p-4">
-                                    <div className="flex justify-between items-center mb-3">
-                                        <span className="text-xs font-bold text-gray-700">Monthly Payroll Overview</span>
-                                        <span className="text-[9px] text-gray-400 font-semibold">Last 6 months</span>
-                                    </div>
-                                    <div className="flex items-end gap-2 h-20">
-                                        {[55, 70, 60, 85, 75, 90].map((h, i) => (
-                                            <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                                                <div
-                                                    className="w-full rounded-md transition-all"
-                                                    style={{
-                                                        height: `${h}%`,
-                                                        background: i === 5
-                                                            ? 'linear-gradient(180deg, #7e22ce, #a78bfa)'
-                                                            : '#e5e7eb',
-                                                    }}
-                                                ></div>
-                                                <span className="text-[7px] text-gray-400 font-semibold">
-                                                    {['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'][i]}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col sm:flex-row gap-3">
-                                    <div className="flex-1 bg-gray-50 rounded-xl p-3">
-                                        <span className="text-[10px] font-bold text-gray-500 mb-2 block">Team Attendance</span>
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {Array.from({ length: 12 }).map((_, i) => (
-                                                <div key={i} className="flex items-center gap-1">
-                                                    <div className={`w-5 h-5 rounded-full ${i < 9 ? 'bg-purple-200' : 'bg-gray-200'} flex items-center justify-center`}>
-                                                        <span className="text-[6px] font-bold text-gray-500">{String.fromCharCode(65 + i)}</span>
-                                                    </div>
-                                                    <div className={`w-1.5 h-1.5 rounded-full ${i < 9 ? 'bg-green-400' : i < 11 ? 'bg-red-400' : 'bg-yellow-400'}`}></div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="w-full sm:w-32 bg-gray-50 rounded-xl p-3">
-                                        <span className="text-[10px] font-bold text-gray-500 mb-1 block">Performance</span>
-                                        <div className="relative w-16 h-16 mx-auto">
-                                            <svg viewBox="0 0 36 36" className="w-full h-full">
-                                                <path
-                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                                    fill="none"
-                                                    stroke="#e5e7eb"
-                                                    strokeWidth="3"
-                                                />
-                                                <path
-                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                                    fill="none"
-                                                    stroke="#7e22ce"
-                                                    strokeWidth="3"
-                                                    strokeDasharray="87, 100"
-                                                    strokeLinecap="round"
-                                                />
-                                            </svg>
-                                            <span className="absolute inset-0 flex items-center justify-center text-xs font-black text-gray-800">87%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    {/* Image Side: Larger Vanishing Card (60% Width, Deep Connection) */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 60 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                        className="lg:flex-[0.6] relative w-full lg:-mr-32 xl:-mr-56"
+                    >
+                        {/* Vanishing Card Container */}
+                        <div className="relative overflow-hidden border border-slate-200/80 rounded-[2.5rem] bg-white shadow-2xl shadow-purple-900/5">
+                            <img
+                                src={TeamImg}
+                                alt="KaryaUp Management Dashboard"
+                                className="w-full h-[280px] sm:h-[320px] lg:h-[360px] object-cover object-left"
+                            />
+                            {/* Ultra-smooth, ultra-wide right-side fade (Deep Vanishing look) */}
+                            <div className="pointer-events-none absolute inset-y-0 right-0 w-[45%] lg:w-[50%] bg-gradient-to-r from-transparent via-white/50 to-white" />
                         </div>
-
-                        <div className="absolute -top-4 -right-4 p-3 bg-white rounded-xl shadow-lg border border-gray-100 w-40 animate-float z-20 hidden sm:block">
-                            <div className="flex justify-between items-center mb-1">
-                                <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Salary</span>
-                                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                            </div>
-                            <div className="text-base font-black text-gray-900">Rs 4,25,000</div>
-                            <div className="text-[9px] text-gray-400 font-medium">Processed this month</div>
-                        </div>
-
-                        <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-purple-100/40 rounded-full blur-3xl -z-10"></div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

@@ -24,9 +24,6 @@ export default function ScatteredWork() {
 
   return (
     <section className="w-full pt-16 pb-12 sm:pb-16 px-6 bg-white relative overflow-hidden font-sans">
-      {/* Background Decorative Blobs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-100/30 rounded-full blur-[120px] -translate-y-1/2" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-100/30 rounded-full blur-[120px] translate-y-1/2" />
 
       <div className="max-w-[1440px] mx-auto relative z-10">
         <div className="text-center mb-10 px-4">
@@ -42,8 +39,14 @@ export default function ScatteredWork() {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-[0.9]"
           >
-            Consolidate your tools <br className="hidden md:block" />
-            for <span className="text-[#7e22ce]">maximum output.</span>
+            Consolidate your <br className="hidden md:block" />tools 
+            for<br className="hidden md:block" /> <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
+              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
+              maximum output.
+            </motion.span>
           </motion.h2>
         </div>
 
@@ -54,7 +57,7 @@ export default function ScatteredWork() {
           className="bg-white border border-slate-200 rounded-[3rem] shadow-2xl shadow-purple-900/5 overflow-hidden flex flex-col lg:flex-row"
         >
           {/* THE PROBLEM SIDE */}
-          <div className="w-full lg:w-1/2 p-8 lg:p-12 bg-slate-50/50 border-b lg:border-b-0 lg:border-r border-slate-100">
+          <div className="w-full lg:w-1/2 p-8 lg:p-12 bg-white border-b lg:border-b-0 lg:border-r border-slate-100">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-500 border border-red-100">
                 <AlertCircle size={20} />
@@ -136,7 +139,7 @@ export default function ScatteredWork() {
                 <motion.div
                   key={i}
                   whileHover={{ y: -5, borderColor: "#7e22ce" }}
-                  className="p-5 rounded-2xl border border-slate-100 bg-slate-50/30 transition-all group"
+                  className="p-5 rounded-2xl border border-slate-100 bg-white shadow-sm transition-all group"
                 >
                   <h4 className="font-black text-slate-800 text-lg mb-1 group-hover:text-[#7e22ce] transition-colors">{item.text}</h4>
                   <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">{item.desc}</p>
@@ -183,9 +186,6 @@ export default function ScatteredWork() {
                 </div>
               </motion.div>
             </div>
-
-            {/* Internal Shimmer */}
-            <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(126,34,206,0.05),transparent_60%)] pointer-events-none" />
           </div>
         </motion.div>
       </div>

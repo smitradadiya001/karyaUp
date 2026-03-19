@@ -37,9 +37,13 @@ const BorderBeam = ({
         />
         <defs>
           <linearGradient id="rainbow-beam" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#7e22ce" />
-            <stop offset="50%" stopColor="#d946ef" />
-            <stop offset="100%" stopColor="#7e22ce" />
+            <stop offset="0%" stopColor="#ff0000" />
+            <stop offset="17%" stopColor="#ff7f00" />
+            <stop offset="33%" stopColor="#ffff00" />
+            <stop offset="50%" stopColor="#00ff00" />
+            <stop offset="67%" stopColor="#0000ff" />
+            <stop offset="83%" stopColor="#4b0082" />
+            <stop offset="100%" stopColor="#9400d3" />
           </linearGradient>
         </defs>
       </svg>

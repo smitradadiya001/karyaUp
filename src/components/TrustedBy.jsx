@@ -12,7 +12,7 @@ const TrustedBy = () => {
     ];
 
     return (
-        <section className="py-6 sm:py-6 bg-white overflow-hidden  ">
+        <section className="py-8 sm:py-12 bg-white overflow-hidden border-t border-b border-black/[0.08]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <p className="text-xs sm:text-sm font-bold text-black-400 uppercase tracking-widest mb-4 sm:mb-6">
                     Trusted by the best teams
