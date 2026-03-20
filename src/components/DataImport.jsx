@@ -73,7 +73,7 @@ const DataImport = () => {
                                 initial={{ scale: 0.8, opacity: 0 }}
                                 whileInView={{ scale: 1, opacity: 1 }}
                                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                                className="w-36 h-36 lg:w-48 lg:h-48 flex items-center justify-center p-4 -translate-y-[2px]"
+                                className="w-36 h-36 lg:w-48 lg:h-48 flex items-center justify-center p-4 -translate-y-[12px]"
                             >
                                 <img src={KaryaUpLogo} alt="Karyaup" className="w-full h-full object-contain" />
                             </motion.div>
@@ -85,7 +85,7 @@ const DataImport = () => {
                             <motion.div 
                                 animate={{ y: [0, -15, 0] }}
                                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                                className="self-start pl-4 lg:pl-0 pointer-events-auto"
+                                className="self-start pl-4 lg:pl-0 pointer-events-auto -translate-y-8"
                             >
                                 <img src={ClickUpLogo} alt="ClickUp" className="w-20 h-20 lg:w-28 lg:h-28 object-contain drop-shadow-2xl" />
                             </motion.div>
@@ -94,7 +94,7 @@ const DataImport = () => {
                             <motion.div 
                                 animate={{ y: [0, 15, 0] }}
                                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                className="self-start pl-16 lg:pl-12 pointer-events-auto"
+                                className="self-start pl-4 lg:pl-0 pointer-events-auto"
                             >
                                 <img src={JiraLogo} alt="Jira" className="w-20 h-20 lg:w-28 lg:h-28 object-contain drop-shadow-2xl" />
                             </motion.div>

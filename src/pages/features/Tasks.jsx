@@ -1,9 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Check, CornerDownLeft, Sparkles, Filter, ChevronDown, Download, Clock, Target, CheckCircle2, AlertCircle, Users, Activity, BarChart3, PieChart, TrendingUp, Calendar } from "lucide-react";
+import { Check, Sparkles, Activity, BarChart3, Clock, Target, Calendar, Share2, LayoutDashboard } from "lucide-react";
+import Heroimg from "../../assets/Heroimg.png";
 import Task2 from "../../assets/Task2.png";
 import AgentAssign from "../../assets/Agent-Assign.png";
-import ChartImg from "../../assets/chart.png";
+import FeatureCTA from "../../components/FeatureCTA";
+
+import logo from "../../assets/logo.png";
 import BorderBeam from "../../components/BorderBeam";
 
 const tags = "Assignees · Due dates · Priorities · Sub-tasks";
@@ -220,19 +223,19 @@ export default function Tasks() {
       </section>
 
       {/* Task Analytics Feature Highlight */}
-      <section className="mt-20 sm:mt-24 py-16 sm:py-24 bg-slate-50 relative overflow-hidden">
+      <section className="mt-12 sm:mt-16 py-8 sm:py-16 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center">
-            {/* Curved SVG Chart - Pixel Perfect Recreation */}
+            {/* Curved SVG Chart */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false, margin: "-100px" }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="relative order-2 lg:order-1 w-full"
+              className="relative order-2 lg:order-1 w-full flex items-center justify-center lg:justify-start"
             >
-              <div className="relative z-10 bg-white border border-slate-100 rounded-[3rem] p-8 sm:p-12 shadow-2xl h-[500px] flex flex-col">
-                <div className="flex-1 relative pb-10 sm:pb-12 border-l border-b border-slate-200">
+              <div className="relative z-10 h-[350px] w-full flex flex-col pl-12">
+                <div className="flex-1 relative overflow-hidden">
                   <svg className="w-full h-full overflow-visible" viewBox="0 0 800 300" preserveAspectRatio="none">
                     {/* Horizontal Grid Lines */}
                     {[0, 1, 2, 3, 4].map(i => (
@@ -260,12 +263,8 @@ export default function Tasks() {
                       </text>
                     ))}
 
-                    {/* Active tasks (Blue/Purple) - Matching reference image peaks */}
                     <motion.path
-                      d="M0,150 C50,150 70,240 120,240 C150,240 170,225 220,225 
-                         C270,225 290,300 340,300 C390,300 420,0 470,0 
-                         C520,0 550,255 600,255 C630,255 650,300 700,300 
-                         C730,300 750,45 800,255"
+                      d="M0,150 C50,150 70,240 120,240 C150,240 170,225 220,225 C270,225 290,300 340,300 C390,300 420,0 470,0 C520,0 550,255 600,255 C630,255 650,300 700,300 C730,300 750,45 800,255"
                       fill="none"
                       stroke="#6366f1"
                       strokeWidth="3.5"
@@ -275,11 +274,8 @@ export default function Tasks() {
                       transition={{ duration: 3, ease: "easeInOut" }}
                     />
 
-                    {/* Completed tasks (Green) - Matching reference image peaks */}
                     <motion.path
-                      d="M0,300 C50,300 80,150 130,150 C180,150 200,300 250,300 
-                         L450,300 C500,300 530,90 580,90 
-                         C630,90 650,250 700,250 C750,250 780,300 800,300"
+                      d="M0,300 C50,300 80,150 130,150 C180,150 200,300 250,300 L450,300 C500,300 530,90 580,90 C630,90 650,250 700,250 C750,250 780,300 800,300"
                       fill="none"
                       stroke="#10b981"
                       strokeWidth="3.5"
@@ -289,11 +285,8 @@ export default function Tasks() {
                       transition={{ duration: 3, ease: "easeInOut", delay: 0.3 }}
                     />
 
-                    {/* Overdue tasks (Orange) - Matching reference image peaks */}
                     <motion.path
-                      d="M0,300 L250,300 C300,300 320,165 370,165 
-                         C420,165 450,285 500,285 L600,285 
-                         C650,285 680,225 730,225 C760,225 780,150 800,300"
+                      d="M0,300 L250,300 C300,300 320,165 370,165 C420,165 450,285 500,285 L600,285 C650,285 680,225 730,225 C760,225 780,150 800,300"
                       fill="none"
                       stroke="#f59e0b"
                       strokeWidth="3.5"
@@ -304,17 +297,20 @@ export default function Tasks() {
                     />
                   </svg>
                   
-                  {/* X-Axis Labels - Spaced out for readability */}
-                  <div className="absolute -bottom-10 inset-x-0 hidden sm:flex justify-between text-[11px] font-bold text-slate-400 select-none px-2">
-                    <span>2026-02-20</span>
-                    <span>2026-03-11</span>
-                    <span>2026-03-15</span>
-                    <span>2026-03-19</span>
-                  </div>
+                  {/* Right-side fade effect */}
+                  <div className="pointer-events-none absolute inset-y-0 right-0 w-32 sm:w-48 bg-gradient-to-r from-transparent to-white z-20" />
                 </div>
 
-                {/* Legend at Bottom matching provided image */}
-                <div className="mt-20 flex flex-wrap justify-center gap-x-12 gap-y-6">
+                {/* X-Axis Labels */}
+                <div className="flex justify-between text-[11px] font-bold text-slate-400 select-none px-2 mt-2">
+                  <span>2026-02-20</span>
+                  <span>2026-03-11</span>
+                  <span>2026-03-15</span>
+                  <span>2026-03-19</span>
+                </div>
+
+                {/* Legend */}
+                <div className="mt-6 flex flex-wrap justify-center gap-x-10 gap-y-4">
                   {[
                     { l: "Completed", c: "#10b981" },
                     { l: "Overdue", c: "#f59e0b" },
@@ -325,7 +321,7 @@ export default function Tasks() {
                          <div className="w-full h-[3px] rounded-full" style={{ backgroundColor: i.c }} />
                          <div className="absolute w-2.5 h-2.5 rounded-full border-2 border-white shadow-sm ring-1 ring-slate-100" style={{ backgroundColor: i.c }} />
                        </div>
-                       <span className="text-sm font-bold text-slate-600 tracking-tight group-hover:text-slate-900 transition-colors uppercase tracking-widest text-[11px]">
+                       <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 group-hover:text-slate-900 transition-colors">
                         {i.l}
                        </span>
                     </div>
@@ -337,7 +333,7 @@ export default function Tasks() {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-gradient-to-br from-purple-100/60 to-blue-100/40 rounded-full blur-[140px] -z-10 animate-pulse" />
             </motion.div>
 
-            {/* Text Content - Swapped to Right */}
+            {/* Text Content */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -345,7 +341,7 @@ export default function Tasks() {
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               className="order-1 lg:order-2"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7e22ce]/10 border border-[#7e22ce]/20 text-[#7e22ce] text-[10px] font-black uppercase tracking-widest mb-6">
+              <div className="inline-flex items-center gap-2 px-1 py-1 rounded-full bg-[#7e22ce]/10 border border-[#7e22ce]/20 text-[#7e22ce] text-[10px] font-black uppercase tracking-widest mb-6">
                 <Activity className="w-3.5 h-3.5" />
                 Visual Analytics
               </div>
@@ -382,43 +378,14 @@ export default function Tasks() {
           </div>
         </div>
       </section>
-      <section className="mt-24 sm:mt-32 pb-24 sm:pb-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 sm:mb-20">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight">
-              Tasks built for <br className="hidden sm:block" />
-              <motion.span
-                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              >
-                modern team performance.
-              </motion.span>
-            </h2>
-          </div>
-          <div className="max-w-5xl mx-auto grid gap-6 sm:gap-8">
-            {[
-              {
-                title: "Create tasks your team actually finishes",
-                desc: "Break work into clear steps with owners, due dates, priorities, and status — so everyone knows what to do next.",
-              },
-              {
-                title: "Keep all context inside the task",
-                desc: "Attachments, notes, and comments stay with the task. No more hunting across tools to find what matters.",
-              },
-              {
-                title: "Stay on top with filters + views",
-                desc: "Search and filter by member, priority, or brand to instantly focus. Switch views as your workflow changes.",
-              },
-            ].map((b) => (
-              <div key={b.title} className="border border-slate-200 rounded-3xl p-6 sm:p-8 bg-white">
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900">{b.title}</h2>
-                <p className="mt-2 text-slate-600 font-medium">{b.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
+      {/* Feature CTA Section */}
+      <FeatureCTA 
+        title={<>Tasks that connect to <br /> everything you do</>}
+        description="Work smarter with tasks that can live in your whiteboards, chat, calendar—anywhere you work."
+        image={Task2}
+        imageAlt="KaryaUp Task Interface"
+      />
     </div>
   );
 }

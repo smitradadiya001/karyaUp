@@ -137,7 +137,7 @@ const TeamSolutions = () => {
     const active = teams[activeIdx];
 
     return (
-        <section className="pt-8 sm:pt-12 lg:pt-16 pb-6 sm:pb-8 lg:pb-10 bg-[white]">
+        <section className=" pb-6 sm:pb-8 lg:pb-10 bg-[white]">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Heading */}
                 <motion.div

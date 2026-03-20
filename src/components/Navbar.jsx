@@ -12,11 +12,11 @@ import KaryaUpBtn from "../assets/KaryaupBtn.png";
 import BorderBeam from "./BorderBeam";
 
 const navItems = [
-  { label: "Platform", to: "/platform" },
-  { label: "Features", to: "/features" },
-  { label: "Solutions", to: "/solutions" },
+  { label: "Platform" },
+  { label: "Features" },
+  { label: "Solutions" },
   { label: "Pricing", to: "/pricing" },
-  { label: "Resources", to: "/resources" },
+  { label: "Resources" },
 ];
 
 const platformMegaSections = [
@@ -33,7 +33,6 @@ const featuresMegaSections = [
     items: [
       { label: "Tasks", to: "/features/tasks", icon: CheckSquare, iconBg: "bg-emerald-600" },
       { label: "Dashboards", to: "/features/dashboards", icon: BarChart2, iconBg: "bg-rose-600" },
-      { label: "Board view", to: "/features/board-view", icon: LayoutDashboard, iconBg: "bg-blue-600" },
       { label: "Gantt", to: "/features/gantt", icon: AlignLeft, iconBg: "bg-red-600" },
     ],
   },
@@ -372,15 +371,12 @@ const Navbar = () => {
                 onMouseEnter={handlePlatformMouseEnter}
                 onMouseLeave={handlePlatformMouseLeave}
               >
-                <NavLink
-                  to="/platform"
-                  className={({ isActive }) =>
-                    `${linkBase} flex items-center gap-1 ${isActive ? linkActive : ""}`
-                  }
+                <div
+                  className={`${linkBase} flex items-center gap-1 cursor-default`}
                 >
                   Platform
                   <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isPlatformOpen ? "rotate-180" : ""}`} />
-                </NavLink>
+                </div>
 
                 {isPlatformOpen && (
                   <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
@@ -443,15 +439,12 @@ const Navbar = () => {
                 onMouseEnter={handleFeaturesMouseEnter}
                 onMouseLeave={handleFeaturesMouseLeave}
               >
-                <NavLink
-                  to="/features"
-                  className={({ isActive }) =>
-                    `${linkBase} flex items-center gap-1 ${isActive ? linkActive : ""}`
-                  }
+                <div
+                  className={`${linkBase} flex items-center gap-1 cursor-default`}
                 >
                   Features
                   <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isFeaturesOpen ? "rotate-180" : ""}`} />
-                </NavLink>
+                </div>
 
                 {isFeaturesOpen && (
                   <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
@@ -493,15 +486,12 @@ const Navbar = () => {
                 onMouseEnter={handleSolutionsMouseEnter}
                 onMouseLeave={handleSolutionsMouseLeave}
               >
-                <NavLink
-                  to="/solutions"
-                  className={({ isActive }) =>
-                    `${linkBase} flex items-center gap-1 ${isActive ? linkActive : ""}`
-                  }
+                <div
+                  className={`${linkBase} flex items-center gap-1 cursor-default`}
                 >
                   Solutions
                   <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isSolutionsOpen ? "rotate-180" : ""}`} />
-                </NavLink>
+                </div>
 
                 {isSolutionsOpen && (
                   <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
@@ -559,15 +549,12 @@ const Navbar = () => {
                 onMouseEnter={handleResourcesMouseEnter}
                 onMouseLeave={handleResourcesMouseLeave}
               >
-                <NavLink
-                  to="/resources"
-                  className={({ isActive }) =>
-                    `${linkBase} flex items-center gap-1 ${isActive ? linkActive : ""}`
-                  }
+                <div
+                  className={`${linkBase} flex items-center gap-1 cursor-default`}
                 >
                   Resources
                   <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isResourcesOpen ? "rotate-180" : ""}`} />
-                </NavLink>
+                </div>
 
                 {isResourcesOpen && (
                   <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
@@ -656,19 +643,28 @@ const Navbar = () => {
         <div className="md:hidden bg-white border-t border-gray-100 shadow-2xl">
           <div className="px-4 py-5 space-y-1">
             {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                onClick={closeAllMenus}
-                className={({ isActive }) =>
-                  `block rounded-xl px-4 py-3 text-base font-semibold transition ${isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-slate-700 hover:bg-primary/5"
-                  }`
-                }
-              >
-                {item.label}
-              </NavLink>
+              item.to ? (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  onClick={closeAllMenus}
+                  className={({ isActive }) =>
+                    `block rounded-xl px-4 py-3 text-base font-semibold transition ${isActive
+                      ? "bg-primary/10 text-primary"
+                      : "text-slate-700 hover:bg-primary/5"
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ) : (
+                <div
+                  key={item.label}
+                  className="block rounded-xl px-4 py-3 text-base font-semibold text-slate-700 pointer-events-none opacity-60"
+                >
+                  {item.label}
+                </div>
+              )
             ))}
 
             <div className="pt-6 pb-4 border-t border-gray-100 flex flex-col gap-3">

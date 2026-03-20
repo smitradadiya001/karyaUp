@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Check, X, HelpCircle, ArrowRight, Zap, 
   Shield, Star, Rocket, Globe, Minus, Plus,
   Sun, Moon, ChevronDown, Feather, Trophy, Briefcase
 } from "lucide-react";
+import NumberFlow from "@number-flow/react";
+import microsoftTeamsLogo from "../assets/MicrosoftTeam.png";
 
 const plans = [
   {
@@ -175,6 +177,27 @@ const DrawingIcon = ({ icon: IconName, size = 20, className }) => {
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState("monthly"); // "monthly" or "yearly"
   const [activeFaq, setActiveFaq] = useState(null);
+  const [showComparison, setShowComparison] = useState(false);
+  const [selectedApps, setSelectedApps] = useState(['slack', 'drive', 'gmail', 'meet', 'calendar', 'teams']);
+  const [userCount, setUserCount] = useState(250);
+
+  const apps = [
+    { id: 'slack', name: 'Slack', price: 9, logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg' },
+    { id: 'drive', name: 'Google Drive', price: 13, logo: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg' },
+    { id: 'gmail', name: 'Gmail', price: 6, logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg' },
+    { id: 'meet', name: 'Google Meet', price: 8, logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon_%282020%29.svg' },
+    { id: 'calendar', name: 'Google Calendar', price: 5, logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg' },
+    { id: 'teams', name: 'MS Teams', price: 12, logo: microsoftTeamsLogo },
+  ];
+
+  const toggleApp = (id) => {
+    setSelectedApps(prev => prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]);
+  };
+
+  const totalPerUser = apps.filter(a => selectedApps.includes(a.id)).reduce((acc, a) => acc + a.price, 0);
+  const currentTotal = totalPerUser * userCount * 12;
+  const karyaUpPrice = 12 * userCount * 12; // $12/user/month base
+  const savings = currentTotal - karyaUpPrice;
 
   const toggleBilling = () => {
     setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly");
@@ -183,30 +206,6 @@ export default function Pricing() {
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-purple-100 italic-none relative overflow-visible">
       
-      {/* Background Decorations */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Large Decorative Text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-slate-100/30 select-none tracking-tighter opacity-70">
-          PRICING
-        </div>
-
-        {/* Animated Blobs */}
-        <motion.div 
-          animate={{ x: [0, 100, 0], y: [0, -100, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-purple-100 rounded-full blur-[120px] opacity-30"
-        />
-        <motion.div 
-          animate={{ x: [0, -150, 0], y: [0, 50, 0] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-blue-100 rounded-full blur-[150px] opacity-30"
-        />
-        <motion.div 
-          animate={{ x: [0, 70, 0], y: [0, 120, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[20%] right-[10%] w-[30vw] h-[30vw] bg-indigo-50 rounded-full blur-[100px] opacity-20"
-        />
-      </div>
 
       <div className="relative z-10">
         {/* Hero Section */}
@@ -218,7 +217,13 @@ export default function Pricing() {
               className="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tighter"
             >
               Plans for <br /> 
-              every <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600">stage.</span>
+              every <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
+                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                stage.
+              </motion.span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -232,16 +237,22 @@ export default function Pricing() {
 
             {/* Billing Toggle (Premium Sliding Toggle) */}
             <div className="flex items-center justify-center mb-8">
-              <div className="relative bg-slate-100 p-1.5 rounded-2xl flex items-center gap-1 shadow-[inset_0_2px_4px_rgba(59,42,90,0.1),0_15px_30px_-5px_rgba(59,42,90,0.15)] border border-slate-200/50">
+              <div className="relative bg-slate-100 p-1.5 rounded-full flex items-center gap-1 shadow-[inset_0_2px_4px_rgba(59,42,90,0.1),0_15px_30px_-5px_rgba(59,42,90,0.15)] border border-slate-200/50">
                 <motion.div 
                   layoutId="billing-bg"
-                  animate={{ x: billingCycle === 'monthly' ? 0 : 124 }}
-                  className="absolute h-[calc(100%-12px)] w-[120px] bg-[#7e22ce] rounded-xl shadow-md border border-white/10"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  animate={{ 
+                    x: billingCycle === 'monthly' ? 0 : 124,
+                    backgroundPosition: ["0% center", "-200% center"]
+                  }}
+                  className="absolute h-[calc(100%-12px)] w-[120px] bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto] rounded-full shadow-md border border-white/10"
+                  transition={{ 
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    backgroundPosition: { duration: 4, repeat: Infinity, ease: "linear" }
+                  }}
                 />
                 <button 
                   onClick={() => setBillingCycle('monthly')}
-                  className={`relative z-10 w-[120px] py-2.5 rounded-xl text-xs font-black transition-colors ${
+                  className={`relative z-10 w-[120px] py-2.5 rounded-full text-xs font-black transition-colors ${
                     billingCycle === 'monthly' ? 'text-white' : 'text-slate-400 hover:text-slate-600'
                   }`}
                 >
@@ -249,7 +260,7 @@ export default function Pricing() {
                 </button>
                 <button 
                   onClick={() => setBillingCycle('yearly')}
-                  className={`relative z-10 w-[120px] py-2.5 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 ${
+                  className={`relative z-10 w-[120px] py-2.5 rounded-full text-xs font-black transition-all flex items-center justify-center gap-2 ${
                     billingCycle === 'yearly' ? 'text-white' : 'text-slate-400 hover:text-slate-600'
                   }`}
                 >
@@ -270,31 +281,40 @@ export default function Pricing() {
                 <motion.div
                   key={plan.name}
                   initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    backgroundPosition: plan.popular ? ["0% center", "-200% center"] : "0% center"
+                  }}
                   whileHover={{ 
-                    y: -30, 
-                    backgroundColor: "rgba(241, 245, 249, 0.9)", 
+                    backgroundColor: plan.popular ? undefined : "rgba(241, 245, 249, 0.9)", 
                   }}
                   transition={{ 
                     layout: { duration: 0.3 },
                     type: "spring",
                     stiffness: 400,
                     damping: 30,
-                    mass: 0.8
+                    mass: 0.8,
+                    backgroundPosition: plan.popular ? { duration: 4, repeat: Infinity, ease: "linear" } : {}
                   }}
-                  style={{ backgroundColor: theme.surface }}
-                  className="group relative cursor-pointer rounded-[2.5rem] p-10 border transition-all duration-500 flex flex-col border-white hover:border-slate-200 shadow-[0_25px_50px_-12px_rgba(59,42,90,0.2)] hover:shadow-[0_50px_100px_-20px_rgba(59,42,90,0.35)] will-change-transform"
+                  style={{ backgroundColor: plan.popular ? undefined : theme.surface }}
+                  className={`group relative cursor-pointer rounded-[2.5rem] p-10 border transition-all duration-500 flex flex-col hover:border-slate-200 shadow-[0_25px_50px_-12px_rgba(59,42,90,0.2)] hover:shadow-[0_50px_100px_-20px_rgba(59,42,90,0.35)] will-change-transform ${
+                    plan.popular 
+                      ? 'bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto] border-white/20' 
+                      : 'border-white'
+                  }`}
                 >
                   <motion.div
-                    className="absolute inset-0 rounded-[2.5rem] pointer-events-none border-2 border-transparent group-hover:border-purple-200/50 transition-colors duration-500"
+                    className={`absolute inset-0 rounded-[2.5rem] pointer-events-none border-2 border-transparent transition-colors duration-500 ${
+                      plan.popular ? 'group-hover:border-white/30' : 'group-hover:border-purple-200/50'
+                    }`}
                   />
                   {plan.popular && (
                     <div className="absolute top-10 right-[-1px] z-20">
                       <div 
-                        style={{ backgroundColor: theme.primary, boxShadow: `0 4px 12px ${theme.shadow}` }}
-                        className="text-[9px] font-black uppercase text-white px-4 py-2 rounded-l-full flex items-center gap-2 border-y border-l border-white/20"
+                        className="text-[9px] font-black uppercase text-[#7e22ce] px-4 py-2 rounded-l-full flex items-center gap-2 border-y border-l border-white/20 bg-white shadow-lg shadow-purple-900/20"
                       >
-                        <Star size={10} className="fill-white" />
+                        <Star size={10} className="fill-[#7e22ce]" />
                         Most Popular
                       </div>
                     </div>
@@ -302,14 +322,14 @@ export default function Pricing() {
 
                   <div className="relative z-10 flex flex-col flex-grow">
                     <div className="mb-10">
-                      <h3 className="text-2xl font-black mb-3 text-slate-900">{plan.name}</h3>
-                      <p className="text-sm font-medium leading-relaxed mb-8 text-slate-500">{plan.description}</p>
+                      <h3 className={`text-2xl font-black mb-3 ${plan.popular ? 'text-white' : 'text-slate-900'}`}>{plan.name}</h3>
+                      <p className={`text-sm font-medium leading-relaxed mb-8 ${plan.popular ? 'text-white/80' : 'text-slate-500'}`}>{plan.description}</p>
                       
                       <div className="flex items-baseline gap-1">
-                        <span className="text-5xl font-black text-slate-900">
+                        <span className={`text-5xl font-black ${plan.popular ? 'text-white' : 'text-slate-900'}`}>
                           ${billingCycle === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice}
                         </span>
-                        <span className="text-lg font-bold text-slate-400">/mo</span>
+                        <span className={`text-lg font-bold ${plan.popular ? 'text-white/60' : 'text-slate-400'}`}>/mo</span>
                       </div>
                     </div>
 
@@ -317,19 +337,25 @@ export default function Pricing() {
                       {plan.features.map(feature => (
                         <div key={feature} className="flex items-center gap-4">
                           <div 
-                            className="w-5 h-5 rounded-full flex items-center justify-center bg-slate-100 transition-colors group-hover:bg-slate-200 group-hover:text-[#7e22ce]"
-                            style={{ color: theme.primary }}
+                            className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors ${
+                              plan.popular 
+                                ? 'bg-white/20 text-white' 
+                                : 'bg-slate-100 text-[#7e22ce] group-hover:bg-slate-200'
+                            }`}
                           >
                             <Check size={12} strokeWidth={4} />
                           </div>
-                          <span className="text-sm font-bold text-slate-600">{feature}</span>
+                          <span className={`text-sm font-bold ${plan.popular ? 'text-white/90' : 'text-slate-600'}`}>{feature}</span>
                         </div>
                       ))}
                     </div>
 
                     <button 
-                      style={{ backgroundColor: theme.primary, color: 'white', boxShadow: `0 10px 20px -5px ${theme.shadow}` }}
-                      className="w-full py-3 rounded-xl font-black text-[15px] hover:opacity-90 hover:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                      className={`w-full py-4 rounded-full font-black transition-all flex items-center justify-center gap-2 ${
+                        plan.popular 
+                          ? 'bg-white text-[#7e22ce] hover:bg-slate-50 shadow-xl shadow-purple-900/30 active:scale-95' 
+                          : 'btn-primary'
+                      }`}
                     >
                       {plan.buttonText}
                       <ArrowRight size={18} />
@@ -340,92 +366,233 @@ export default function Pricing() {
             })}
           </div>
         </section>
-
-        {/* Comparison Section (Clean Reference-Based Table) */}
-        <section className="pt-32 pb-16 px-4 relative overflow-visible">
-          <div className="max-w-7xl mx-auto">
-            <motion.div 
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-24"
+        
+        {/* Toggle Comparison Button */}
+        <section className="pt-16 pb-24 flex justify-center">
+          <motion.button
+            onClick={() => setShowComparison(!showComparison)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-6 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm font-black text-slate-600 hover:text-[#7e22ce] hover:border-[#7e22ce]/30 transition-all shadow-sm hover:shadow-md"
+          >
+            {showComparison ? "Hide Detailed Comparison" : "Show Detailed Comparison"}
+            <motion.div
+              animate={{ rotate: showComparison ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
             >
-              <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">Compare <span className="text-primary italic">Plans.</span></h2>
-              <p className="text-slate-500 text-lg font-medium max-w-xl mx-auto leading-relaxed">Everything you need to know about our plans, laid out for complete transparency.</p>
+              <ChevronDown size={14} />
             </motion.div>
+          </motion.button>
+        </section>
 
-            <div className="bg-white rounded-[3rem] border border-slate-100 shadow-[0_40px_80px_-20px_rgba(59,42,90,0.18)] relative overflow-visible">
-              <div className="overflow-visible">
-                <table className="w-full text-left border-collapse min-w-[1000px]">
-                  <thead className="sticky top-0 z-[60]">
-                    <tr className="bg-white border-b border-slate-200 shadow-sm">
-                      <th className="py-6 px-8 w-1/4 bg-white rounded-tl-[3rem]" />
-                      {plans.map((plan, idx) => {
-                        const theme = colorMap.brand; // Use uniform brand theme for all table buttons
-                        return (
-                          <th key={plan.name} className={`py-6 px-6 text-center bg-white ${idx === plans.length - 1 ? 'rounded-tr-[3rem]' : ''}`}>
-                            <div className="flex flex-col items-center gap-3">
-                              <div className="text-base font-black text-slate-900">{plan.name}</div>
-                              <div className="text-[11px] font-bold text-slate-400">
-                                {plan.name === 'Enterprise' ? 'Contact us' : `$${billingCycle === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice} / mo`}
-                              </div>
-                              <button 
-                                style={{ backgroundColor: theme.primary, color: 'white', boxShadow: `0 4px 12px ${theme.shadow}` }}
-                                className="mt-2 px-5 py-2 rounded-lg text-xs font-black transition-all shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
-                              >
-                                {plan.name === 'Enterprise' ? 'Contact Sales' : 'Get Started'}
-                              </button>
-                            </div>
-                          </th>
-                        );
-                      })}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {comparisons.map((cat) => (
-                      <React.Fragment key={cat.category}>
-                        <tr>
-                          <td colSpan="5" className="py-6 px-10 bg-slate-50/30">
-                            <span className="text-lg font-black text-[#7e22ce] uppercase tracking-tight">{cat.category}</span>
-                          </td>
-                        </tr>
-                        {cat.items.map((item) => (
-                          <tr key={item.name} className="border-b border-slate-200 group hover:bg-slate-50 transition-colors">
-                            <td className="py-4 px-10">
-                              <span className="text-sm font-bold text-slate-600 group-hover:text-slate-900 transition-colors">{item.name}</span>
-                            </td>
-                            {plans.map((plan) => (
-                              <td key={`${plan.name}-${item.name}`} className="py-4 px-6 text-center">
-                                <div className="flex justify-center">
-                                  {(() => {
-                                    const val = item[plan.name.toLowerCase()];
-                                    if (typeof val === 'boolean') {
-                                      return val ? (
-                                        <div className="w-6 h-6 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
-                                          <Check size={14} strokeWidth={3} />
-                                        </div>
-                                      ) : (
-                                        <Minus className="text-slate-100" size={16} />
-                                      );
-                                    }
-                                    return <span className="text-sm font-black text-slate-900">{val}</span>;
-                                  })()}
+        {/* Comparison Section (Collapsible) */}
+        <AnimatePresence>
+          {showComparison && (
+            <motion.section 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
+              className="pb-16 px-4 relative overflow-hidden"
+            >
+              <div className="max-w-7xl mx-auto">
+
+                <div className="bg-white rounded-[3rem] border border-slate-100 relative overflow-visible">
+                  <div className="overflow-visible">
+                    <table className="w-full text-left border-collapse min-w-[1000px]">
+                      <thead className="sticky top-0 z-[60]">
+                        <tr className="bg-white border-b border-slate-200 shadow-sm">
+                          <th className="py-6 px-8 w-1/4 bg-white rounded-tl-[3rem]" />
+                          {plans.map((plan, idx) => {
+                            const theme = colorMap.brand; 
+                            return (
+                              <th key={plan.name} className={`py-6 px-6 text-center bg-white ${idx === plans.length - 1 ? 'rounded-tr-[3rem]' : ''}`}>
+                                <div className="flex flex-col items-center gap-3">
+                                  <div className="text-base font-black text-slate-900">{plan.name}</div>
+                                  <div className="text-[11px] font-bold text-slate-400">
+                                    {plan.name === 'Enterprise' ? 'Contact us' : `$${billingCycle === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice} / mo`}
+                                  </div>
+                                  <button 
+                                    className="mt-2 btn-primary rounded-full px-6 py-2 text-xs font-black transition-all"
+                                  >
+                                    {plan.name === 'Enterprise' ? 'Contact Sales' : 'Get Started'}
+                                  </button>
                                 </div>
+                              </th>
+                            );
+                          })}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {comparisons.map((cat) => (
+                          <React.Fragment key={cat.category}>
+                            <tr>
+                              <td colSpan="5" className="py-6 px-10 bg-slate-50/30">
+                                <motion.span 
+                                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                  className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto] uppercase tracking-tight"
+                                >
+                                  {cat.category}
+                                </motion.span>
                               </td>
+                            </tr>
+                            {cat.items.map((item) => (
+                              <tr key={item.name} className="border-b border-slate-200 group hover:bg-slate-50 transition-colors">
+                                <td className="py-4 px-10">
+                                  <span className="text-sm font-bold text-slate-600 group-hover:text-slate-900 transition-colors">{item.name}</span>
+                                </td>
+                                {plans.map((plan) => (
+                                  <td key={`${plan.name}-${item.name}`} className="py-4 px-6 text-center">
+                                    <div className="flex justify-center">
+                                      {(() => {
+                                        const val = item[plan.name.toLowerCase()];
+                                        if (typeof val === 'boolean') {
+                                          return val ? (
+                                            <div className="w-6 h-6 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                                              <Check size={14} strokeWidth={3} />
+                                            </div>
+                                          ) : (
+                                            <Minus className="text-slate-100" size={16} />
+                                          );
+                                        }
+                                        return <span className="text-sm font-black text-slate-900">{val}</span>;
+                                      })()}
+                                    </div>
+                                  </td>
+                                ))}
+                              </tr>
                             ))}
-                          </tr>
+                          </React.Fragment>
                         ))}
-                      </React.Fragment>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </motion.section>
+          )}
+        </AnimatePresence>
+
+        {/* Savings Calculator Section */}
+        <section className="py-12 px-4 bg-white relative overflow-hidden">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-5xl font-black mb-2 tracking-tight uppercase leading-tight">
+                The consolidation <br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >savings are real.</motion.span>
+              </h2>
+              <p className="text-slate-500 font-bold text-base">Stop paying for multiple tools and save thousands every year.</p>
+            </div>
+
+            <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-[0_30px_60px_-15px_rgba(59,42,90,0.1)] p-6 md:p-8 lg:p-10 flex flex-col lg:flex-row gap-10">
+              
+              {/* Left Side: Input */}
+              <div className="flex-1">
+                <h3 className="text-2xl font-black text-slate-900 mb-6">Your apps today</h3>
+                <p className="text-slate-400 font-bold text-[10px] mb-4 uppercase tracking-wider">Which apps do you use?</p>
+                
+                <div className="grid grid-cols-3 gap-3 mb-8">
+                  {apps.map((app) => (
+                    <motion.button
+                      key={app.id}
+                      onClick={() => toggleApp(app.id)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`relative aspect-square rounded-3xl flex items-center justify-center transition-all p-1.5 ${
+                        selectedApps.includes(app.id) 
+                          ? 'bg-[#7e22ce]/10' 
+                          : 'bg-transparent hover:bg-slate-50'
+                      }`}
+                    >
+                      <img 
+                        src={app.logo} 
+                        alt={app.name} 
+                        className={`${app.id === 'teams' ? 'w-20 h-20 mix-blend-multiply' : 'w-10 h-10'} object-contain`} 
+                      />
+                      {selectedApps.includes(app.id) && (
+                        <motion.div 
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="absolute -top-1 -right-1 w-5 h-5 bg-[#7e22ce] rounded-full flex items-center justify-center text-white"
+                        >
+                          <Check size={12} strokeWidth={4} />
+                        </motion.div>
+                      )}
+                    </motion.button>
+                  ))}
+                </div>
+
+                <div className="bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-slate-400 font-black text-[10px] uppercase tracking-wider">People strength</span>
+                    <span className="text-[#7e22ce] font-black text-base">{userCount}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5"
+                    max="1000"
+                    step="5"
+                    value={userCount}
+                    onChange={(e) => setUserCount(parseInt(e.target.value))}
+                    style={{ 
+                      background: `linear-gradient(to right, #7e22ce 0%, #7e22ce ${(userCount - 5) / 995 * 100}%, #e2e8f0 ${(userCount - 5) / 995 * 100}%, #e2e8f0 100%)` 
+                    }}
+                    className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-[#7e22ce]"
+                  />
+                </div>
+              </div>
+
+              {/* Right Side: Result */}
+              <div className="flex-1 bg-slate-50/30 rounded-[2rem] p-6 md:p-8 border border-slate-100 flex flex-col justify-between">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-black text-slate-900 mb-6">Apps to replace</h3>
+                  <div className="space-y-3 mb-6">
+                    {apps.filter(a => selectedApps.includes(a.id)).map(app => (
+                      <div key={app.id} className="flex justify-between items-center pb-2.5 border-b border-slate-100 last:border-0 last:pb-0">
+                        <span className="text-slate-500 font-bold text-sm tracking-tight">{app.name}</span>
+                        <span className="text-slate-900 font-black text-sm">${app.price} / user</span>
+                      </div>
                     ))}
-                  </tbody>
-                </table>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-slate-200 flex justify-between items-center mb-1">
+                    <span className="text-slate-900 font-black text-base italic">Total</span>
+                    <div className="text-slate-900 font-black text-xl flex items-center gap-1 uppercase tracking-tight">
+                      <NumberFlow value={currentTotal} prefix="$" format={{ notation: 'standard' }} /> <span className="text-xs text-slate-400">/year</span>
+                    </div>
+                  </div>
+                  <p className="text-slate-400 font-bold text-[9px] uppercase tracking-widest text-right mb-8">
+                    KaryaUp for {userCount} users = <NumberFlow value={karyaUpPrice} prefix="$" format={{ notation: 'standard' }} /> / YEAR
+                  </p>
+                </div>
+
+                <div className="bg-white/80 rounded-[1.5rem] p-4 border border-white shadow-sm flex items-center justify-between mb-6">
+                  <div>
+                    <p className="text-slate-400 font-black text-[9px] uppercase tracking-widest mb-0.5">Savings</p>
+                    <div className="text-2xl font-black text-[#7e22ce] tracking-tighter">
+                      <NumberFlow value={Math.max(0, savings)} prefix="$" format={{ notation: 'standard' }} />
+                    </div>
+                  </div>
+                  <div className="text-[9px] font-bold text-slate-400 leading-tight max-w-[120px] text-right uppercase tracking-tighter">
+                    Estimated annual ROI compared to individual tools.
+                  </div>
+                </div>
+
+                <button className="w-full btn-primary rounded-full py-3.5 font-black text-sm shadow-md shadow-purple-900/10">
+                  Start Saving Today
+                </button>
               </div>
             </div>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="pt-16 pb-32 px-4 bg-slate-50 relative overflow-hidden">
+        <section className="pt-8 pb-32 px-4 bg-white relative overflow-hidden">
           <div className="max-w-4xl mx-auto relative z-10">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -433,7 +600,13 @@ export default function Pricing() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 font-display tracking-tight">Got <span className="text-primary italic">Questions?</span></h2>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 font-display tracking-tight">
+                Got <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto] italic"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >Questions?</motion.span>
+              </h2>
               <p className="text-slate-500 text-lg font-medium max-w-2xl mx-auto leading-relaxed">Everything you need to know about our plans and features. Can't find what you're looking for?</p>
             </motion.div>
 
@@ -455,16 +628,30 @@ export default function Pricing() {
                     onClick={() => setActiveFaq(activeFaq === index ? null : index)}
                     className="w-full flex items-center justify-between p-6 text-left"
                   >
-                    <span className={`text-xl font-bold font-display transition-colors ${
-                      activeFaq === index ? 'text-primary' : 'text-slate-900 group-hover:text-primary'
-                    }`}>
+                    <motion.span 
+                      animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                      className={`text-xl font-bold font-display transition-colors ${
+                        activeFaq === index 
+                          ? 'text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]' 
+                          : 'text-slate-900 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#7e22ce] group-hover:via-[#ec4899] group-hover:to-[#7e22ce] group-hover:bg-[length:200%_auto]'
+                      }`}
+                    >
                       {faq.question}
-                    </span>
-                    <div className={`flex-shrink-0 ml-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      activeFaq === index ? 'bg-primary text-white rotate-180' : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200'
-                    }`}>
+                    </motion.span>
+                    <motion.div 
+                      animate={{ 
+                        backgroundPosition: activeFaq === index ? ["0% center", "-200% center"] : "0% center"
+                      }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                      className={`flex-shrink-0 ml-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                        activeFaq === index 
+                          ? 'bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto] text-white rotate-180' 
+                          : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200'
+                      }`}
+                    >
                       <ChevronDown size={20} className={`transform transition-transform duration-300 ${activeFaq === index ? 'scale-110' : ''}`} />
-                    </div>
+                    </motion.div>
                   </button>
                   <AnimatePresence>
                     {activeFaq === index && (
@@ -487,10 +674,6 @@ export default function Pricing() {
               ))}
             </div>
           </div>
-          
-          {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-50/50 rounded-full blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-50/50 rounded-full blur-[120px] -z-10 -translate-x-1/2 translate-y-1/2" />
         </section>
 
 

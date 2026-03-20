@@ -23,7 +23,7 @@ export default function ScatteredWork() {
   ];
 
   return (
-    <section className="w-full pt-16 pb-12 sm:pb-16 px-6 bg-white relative overflow-hidden font-sans">
+    <section className="w-full pt-16 px-6 bg-white relative overflow-hidden font-sans">
 
       <div className="max-w-[1440px] mx-auto relative z-10">
         <div className="text-center mb-10 px-4">

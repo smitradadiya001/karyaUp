@@ -23,7 +23,7 @@ export default function Home() {
       {/* <FeatureShowcase /> */}
       
      
-      {/* <AllInOne /> */}
+       <AllInOne /> 
       
       {/* <Roles /> */}
       <TeamSolutions />
@@ -32,7 +32,7 @@ export default function Home() {
       <TeamsSection />
       <Integrations />
       <DataImport />
-       <Management /> 
+      <Management /> 
       <FinalCTA />
     </>
   );

@@ -25,7 +25,6 @@ import ProfitTracking from "./pages/platform/ProfitTracking";
 // Features sub-pages
 import Tasks from "./pages/features/Tasks";
 import Dashboards from "./pages/features/Dashboards";
-import BoardView from "./pages/features/BoardView";
 import Gantt from "./pages/features/Gantt";
 import Chat from "./pages/features/Chat";
 import Notifications from "./pages/features/Notifications";
@@ -90,7 +89,6 @@ function App() {
           {/* Features sub-pages */}
           <Route path="/features/tasks" element={<Tasks />} />
           <Route path="/features/dashboards" element={<Dashboards />} />
-          <Route path="/features/board-view" element={<BoardView />} />
           <Route path="/features/gantt" element={<Gantt />} />
           <Route path="/features/chat" element={<Chat />} />
           <Route path="/features/notifications" element={<Notifications />} />

@@ -15,9 +15,13 @@ import featureTeam from '../assets/Team.jpeg';
 
 const MarqueeTile = ({ icon: Icon, label, isPaused }) => (
     <div 
-        className={`flex-shrink-0 w-32 h-32 border border-gray-100 flex flex-col items-center justify-center gap-2 bg-white transition-all duration-300 group/tile ${isPaused ? 'bg-gray-50' : 'hover:bg-gray-50'}`}
+        className={`flex-shrink-0 w-32 h-32 border border-gray-100 flex flex-col items-center justify-center gap-2 bg-white transition-all duration-500 group/tile relative
+            ${isPaused 
+                ? 'bg-[#7e22ce]/10 backdrop-blur-md border-[#7e22ce]/20 shadow-xl z-10 scale-105' 
+                : 'hover:bg-[#7e22ce]/10 hover:backdrop-blur-xl hover:border-[#7e22ce]/30 hover:shadow-2xl hover:scale-110 hover:z-30 cursor-pointer'
+            }`}
     >
-        <div className={`transition-all duration-300 ${isPaused ? 'scale-110 text-[#7e22ce]' : 'text-gray-500 group-hover/tile:text-[#7e22ce] group-hover/tile:rotate-3'}`}>
+        <div className={`transition-all duration-500 ${isPaused ? 'scale-110 text-[#7e22ce]' : 'text-gray-500 group-hover/tile:text-[#7e22ce] group-hover/tile:scale-110'}`}>
             <Icon className="w-8 h-8" strokeWidth={1.5} />
         </div>
         <span className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${isPaused ? 'text-[#7e22ce]' : 'text-gray-500 group-hover/tile:text-[#7e22ce]'}`}>
@@ -122,23 +126,35 @@ const AllInOne = () => {
 
     return (
         <section 
-            className="py-24 bg-white relative flex flex-col items-center justify-center min-h-[1000px] select-none overflow-hidden"
+            className="bg-white relative flex flex-col items-center justify-center min-h-[1000px] select-none overflow-hidden"
             onClick={(e) => {
                 // If clicking outside marquee rows, resume all
                 if (!e.target.closest('.group\\/row')) resumeAll();
             }}
         >
-            <div className="max-w-7xl mx-auto px-4 w-full mb-16 text-center relative z-20">
-                <motion.h2 
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    className="text-4xl md:text-5xl font-black text-gray-900 mb-4"
+            <div className="max-w-7xl mx-auto px-4 w-full text-center relative z-20">
+                <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="flex flex-col items-center mb-8"
                 >
-                    Replace all your tools with <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
-                        one beautiful platform.
-                    </span>
-                </motion.h2>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100 mb-6 shadow-sm">
+                        <Zap className="w-3.5 h-3.5 text-[#7e22ce]" />
+                        <span className="text-[10px] font-bold text-[#7e22ce] uppercase tracking-wider">Zero Friction Sync</span>
+                    </div>
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95]">
+                        Replace all your tools with <br />
+                        <motion.span
+                            className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
+                            animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                        >
+                            one beautiful platform.
+                        </motion.span>
+                    </h2>
+                </motion.div>
             </div>
 
             {/* Portal Layout Container */}
@@ -200,20 +216,6 @@ const AllInOne = () => {
 
             </div>
 
-            {/* Interaction Instruction */}
-            <AnimatePresence>
-                {pausedRowIndex !== null && (
-                    <motion.div 
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        className="mt-12 text-gray-400 text-[10px] font-bold tracking-[0.3em] uppercase cursor-pointer relative z-20"
-                        onClick={resumeAll}
-                    >
-                        Click background to resume
-                    </motion.div>
-                )}
-            </AnimatePresence>
         </section>
     );
 };
