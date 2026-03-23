@@ -7,18 +7,23 @@ export default function FeatureCTA({
   description, 
   buttonText = "Get started. It's FREE", 
   image, 
-  imageAlt = "KaryaUp Showcase" 
+  imageAlt = "KaryaUp Showcase",
+  imageClassName = "w-full",
+  containerClassName = "mt-24 mb-10",
+  paddingClassName = "p-3 lg:p-8",
+  titleClassName = "text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.1] mb-3 tracking-tight drop-shadow-lg",
+  imageOuterClassName = "relative w-[105%] lg:w-full translate-x-2 lg:translate-x-6"
 }) {
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 mb-10 group">
-      <div className="relative rounded-[2.5rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch p-3 lg:p-8 border border-white/5">
+    <section className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 group ${containerClassName}`}>
+      <div className={`relative rounded-[2.5rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch border border-white/5 ${paddingClassName}`}>
         {/* Ambient Background Gradients for Depth */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(168,85,247,0.4),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(236,72,153,0.1),transparent_40%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(126,34,206,0.1),transparent_40%)] pointer-events-none" />
         
         {/* Left Content Area */}
-        <div className="flex-[0.7] z-20 text-left flex flex-col justify-center pt-6 lg:pt-16 pb-4 lg:pb-10 pl-2 lg:pl-10">
+        <div className="flex-[0.5] xl:flex-[0.6] z-20 text-left flex flex-col justify-center pt-6 lg:pt-10 pb-4 lg:pb-8 pl-4 lg:pl-10">
           <motion.div 
              initial={{ opacity: 0, x: -20 }}
              whileInView={{ opacity: 1, x: 0 }}
@@ -44,7 +49,7 @@ export default function FeatureCTA({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.1] mb-3 tracking-tight drop-shadow-lg"
+            className={titleClassName}
           >
             {title}
           </motion.h2>
@@ -67,13 +72,13 @@ export default function FeatureCTA({
         </div>
 
         {/* Right Content Area: Interface Showcase with Glows */}
-        <div className="flex-1 relative mt-16 lg:mt-0 flex items-center justify-center lg:justify-start lg:pl-0">
+        <div className="flex-[1.5] xl:flex-[1.4] relative mt-12 lg:mt-0 flex items-center justify-end p-4 lg:p-6 lg:pr-10">
            <motion.div 
              initial={{ opacity: 0, x: 80, scale: 0.95 }}
              whileInView={{ opacity: 1, x: 0, scale: 1 }}
              viewport={{ once: true }}
              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-             className="relative lg:w-[155%] lg:translate-x-[18%]"
+             className={imageOuterClassName}
            >
              {/* Light spot overlay on image left side */}
              <div className="absolute top-1/4 -left-10 w-64 h-64 bg-white/10 blur-[80px] rounded-full z-30 pointer-events-none" />
@@ -83,11 +88,11 @@ export default function FeatureCTA({
              <div className="absolute -top-20 -right-20 w-80 h-80 bg-fuchsia-500/30 blur-[100px] rounded-full opacity-60 pointer-events-none" />
              
              {/* Image Wrapper with Gradient Border */}
-             <div className="relative p-[1.5px] rounded-[3.1rem] bg-gradient-to-br from-purple-500 via-fuchsia-500 to-[#7e22ce]">
+             <div className={`relative p-[1.5px] rounded-[2.1rem] bg-gradient-to-br from-purple-500 via-fuchsia-500 to-[#7e22ce] ${imageClassName}`}>
                <img 
                  src={image} 
                  alt={imageAlt} 
-                 className="relative w-full rounded-[3rem] border border-white/10 hover:border-white/20 transition-all duration-500 z-10"
+                 className="relative w-full h-auto object-contain rounded-[2rem] border border-white/10 hover:border-white/20 transition-all duration-500 z-10"
                />
              </div>
            </motion.div>

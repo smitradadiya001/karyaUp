@@ -165,8 +165,65 @@ html {
   .btn-glow-pill::after {
     content: '';
     @apply absolute inset-0 rounded-full pointer-events-none;
-    box-shadow: inset 0 2px 4px rgba(255,255,255,0.5), inset 0 -6px 14px 1px rgba(255,255,255,0.9);
-    border: 1.5px solid rgba(255,255,255,0.9);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), inset 0 -6px 14px 1px rgba(255, 255, 255, 0.9);
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+  }
+
+  /* Advanced Glass Layout Utilities */
+  .glass-text-shimmer {
+    @apply relative text-transparent bg-clip-text transition-all duration-700 font-bold;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image:
+      linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.7) 50%, transparent 60%),
+      linear-gradient(to right, #0f172a, #0f172a);
+    background-size: 200% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    animation: text-shimmer-static-base 12s linear infinite;
+    -webkit-text-stroke: 0.2px rgba(15, 23, 42, 0.05);
+  }
+
+  .glass-text-gradient-shimmer {
+    @apply relative text-transparent bg-clip-text transition-all duration-1000;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image:
+      linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.95) 50%, transparent 65%),
+      linear-gradient(to right, rgba(126, 34, 206, 0.6), rgba(236, 72, 153, 0.6), rgba(126, 34, 206, 0.6));
+    background-size: 150% 100%, 200% 100%;
+    animation: text-shimmer-static-base 10s linear infinite, gradient-move 8s linear infinite;
+    -webkit-text-stroke: 0.6px rgba(255, 255, 255, 0.6);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+    text-shadow:
+      -1px -1px 0 rgba(255, 255, 255, 0.5),
+      1px 1px 0 rgba(0, 0, 0, 0.1),
+      0 0 15px rgba(255, 255, 255, 0.15);
+  }
+
+  /* Keyframe to only move the first (shimmer) layer while keeping base static */
+  @keyframes text-shimmer-static-base {
+    0% {
+      background-position: 200% 0, 0 0;
+    }
+
+    100% {
+      background-position: -200% 0, 0 0;
+    }
+  }
+
+  .glass-card-premium {
+    @apply relative overflow-hidden backdrop-blur-2xl bg-white/40 border border-white/50 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 hover:bg-white/60 hover:shadow-[0_30px_70px_rgba(0,0,0,0.08)];
+  }
+
+  .badge-glass-multicolor {
+    @apply relative p-[1.5px] rounded-lg overflow-hidden inline-flex w-fit mb-4;
+    background: linear-gradient(to right, #7e22ce, #ec4899, #00ccff, #7e22ce);
+    background-size: 200% auto;
+    animation: gradient-move 4s linear infinite;
+    box-shadow: 0 0 15px rgba(126, 34, 206, 0.2);
+  }
+  .badge-glass-multicolor > div {
+    @apply px-3.5 py-1.5 rounded-[7px] bg-[#0a0514] backdrop-blur-md flex items-center gap-1.5 text-white/100 text-[11px] font-black uppercase tracking-widest ring-1 ring-white/10;
   }
 }
 
@@ -176,13 +233,14 @@ html {
 
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto];
-  animation: gradient-move 4s linear infinite;
+  animation: gradient-move 8s linear infinite;
 }
 
 @keyframes border-beam {
   from {
     stroke-dashoffset: 1;
   }
+
   to {
     stroke-dashoffset: 0;
   }

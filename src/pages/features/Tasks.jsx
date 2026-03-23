@@ -45,7 +45,7 @@ export default function Tasks() {
                   >
                     saves time
                   </motion.span>
-                  
+
                 </span>
               </motion.h1>
 
@@ -146,10 +146,10 @@ export default function Tasks() {
                   <div className="lg:col-span-5 flex items-center justify-center">
                     <div className="relative h-[380px] w-fit p-[1.5px] rounded-3xl overflow-hidden group">
                       {/* Animated Rainbow Border */}
-                      <div 
+                      <div
                         className="absolute inset-[-100%] bg-[conic-gradient(from_var(--border-angle),#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#9400d3,#ff0000)] animate-[spin-border_4s_linear_infinite]"
                       />
-                      
+
                       {/* Image Wrapper */}
                       <div className="relative h-full w-full bg-white rounded-[calc(1.5rem-1.5px)] flex items-center justify-center p-8 z-10">
                         <img
@@ -239,24 +239,24 @@ export default function Tasks() {
                   <svg className="w-full h-full overflow-visible" viewBox="0 0 800 300" preserveAspectRatio="none">
                     {/* Horizontal Grid Lines */}
                     {[0, 1, 2, 3, 4].map(i => (
-                      <line 
-                        key={i} 
-                        x1="0" 
-                        y1={i * 75} 
-                        x2="800" 
-                        y2={i * 75} 
-                        stroke="#f1f5f9" 
-                        strokeWidth="1.5" 
+                      <line
+                        key={i}
+                        x1="0"
+                        y1={i * 75}
+                        x2="800"
+                        y2={i * 75}
+                        stroke="#f1f5f9"
+                        strokeWidth="1.5"
                         strokeDasharray="4,4"
                       />
                     ))}
-                    
+
                     {/* Y-Axis Labels */}
                     {[20, 15, 10, 5, 0].map((v, i) => (
-                      <text 
-                        key={v} 
-                        x="-45" 
-                        y={i * 75 + 5} 
+                      <text
+                        key={v}
+                        x="-45"
+                        y={i * 75 + 5}
                         className="text-[12px] fill-slate-400 font-bold select-none"
                       >
                         {v}
@@ -296,7 +296,7 @@ export default function Tasks() {
                       transition={{ duration: 3, ease: "easeInOut", delay: 0.6 }}
                     />
                   </svg>
-                  
+
                   {/* Right-side fade effect */}
                   <div className="pointer-events-none absolute inset-y-0 right-0 w-32 sm:w-48 bg-gradient-to-r from-transparent to-white z-20" />
                 </div>
@@ -317,13 +317,13 @@ export default function Tasks() {
                     { l: "Active (created)", c: "#6366f1" }
                   ].map(i => (
                     <div key={i.l} className="flex items-center gap-3 group">
-                       <div className="relative w-8 h-4 flex items-center justify-center">
-                         <div className="w-full h-[3px] rounded-full" style={{ backgroundColor: i.c }} />
-                         <div className="absolute w-2.5 h-2.5 rounded-full border-2 border-white shadow-sm ring-1 ring-slate-100" style={{ backgroundColor: i.c }} />
-                       </div>
-                       <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 group-hover:text-slate-900 transition-colors">
+                      <div className="relative w-8 h-4 flex items-center justify-center">
+                        <div className="w-full h-[3px] rounded-full" style={{ backgroundColor: i.c }} />
+                        <div className="absolute w-2.5 h-2.5 rounded-full border-2 border-white shadow-sm ring-1 ring-slate-100" style={{ backgroundColor: i.c }} />
+                      </div>
+                      <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 group-hover:text-slate-900 transition-colors">
                         {i.l}
-                       </span>
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -356,10 +356,10 @@ export default function Tasks() {
                 </motion.span>
               </h2>
               <p className="mt-6 text-lg text-slate-600 font-medium leading-relaxed">
-                Gain a birds-eye view of your productivity. Track progress, identify bottlenecks, 
+                Gain a birds-eye view of your productivity. Track progress, identify bottlenecks,
                 and optimize your team's workflow with built-in, real-time analytics.
               </p>
-              
+
               <div className="mt-8 space-y-4">
                 {[
                   "Custom filters for members, status, and priority",
@@ -380,7 +380,7 @@ export default function Tasks() {
       </section>
 
       {/* Feature CTA Section */}
-      <FeatureCTA 
+      <FeatureCTA
         title={<>Tasks that connect to <br /> everything you do</>}
         description="Work smarter with tasks that can live in your whiteboards, chat, calendar—anywhere you work."
         image={Task2}

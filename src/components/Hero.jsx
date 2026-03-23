@@ -25,16 +25,12 @@ const Hero = () => {
               className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
             >
               The platform to<br /> run your <br />
-              <motion.span
-                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
-                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              >
+              <span className="glass-text-gradient-shimmer bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-600 bg-[length:200%_auto] inline-block">
                 entire company
-              </motion.span>
+              </span>
             </motion.h1>
 
-           
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -52,11 +48,11 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ 
+              transition={{
                 type: "spring",
                 damping: 25,
                 stiffness: 100,
-                delay: 0.7 
+                delay: 0.7
               }}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 sm:gap-8 mb-8"
             >
@@ -93,7 +89,7 @@ const Hero = () => {
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 stroke-[2.5]" />
                 <p className="flex items-center">
-                 • Setup in minutes
+                  • Setup in minutes
                   <span className="ml-2 inline-flex items-center justify-center bg-purple-50 border border-purple-100 text-[#7e22ce] px-2 py-0.5 text-xs rounded-md font-black italic">
                     &lt; 5 minutes
                   </span>
@@ -109,7 +105,7 @@ const Hero = () => {
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
             className="relative lg:-mr-24 xl:-mr-40"
           >
-            <div className="relative overflow-hidden border border-slate-200/80 rounded-3xl bg-white">
+            <div className="relative overflow-hidden border border-slate-200/80 rounded-3xl bg-white shadow-2xl">
               <img
                 src={DashboardImg}
                 alt="KaryaUp Dashboard Overview"

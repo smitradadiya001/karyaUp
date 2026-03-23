@@ -21,7 +21,6 @@ const navItems = [
 
 const platformMegaSections = [
   { label: "Project Management", to: "/platform/project-management", icon: Kanban, iconBg: "bg-blue-50 text-blue-600 border border-blue-100", description: "Plan, track, and collaborate on any project." },
-  { label: "Time Tracking", to: "/platform/time-tracking", icon: Clock, iconBg: "bg-amber-50 text-amber-600 border border-amber-100", description: "Track time, estimate tasks, and report on work." },
   { label: "Team Collaboration", to: "/platform/team-collaboration", icon: Users, iconBg: "bg-purple-50 text-purple-600 border border-purple-100", description: "Work seamlessly with your entire team." },
   { label: "Boss Dashboard", to: "/platform/boss-dashboard", icon: LayoutDashboard, iconBg: "bg-indigo-50 text-indigo-600 border border-indigo-100", description: "High-level overview of all company operations." },
   { label: "Profit Tracking", to: "/platform/profit-tracking", icon: CircleDollarSign, iconBg: "bg-emerald-50 text-emerald-600 border border-emerald-100", description: "Monitor budgets, costs, and project profitability." },
@@ -58,7 +57,6 @@ const featuresMegaSections = [
       { label: "Calendar", to: "/features/calendar", icon: Calendar, iconBg: "bg-pink-600" },
       { label: "Scheduling", to: "/features/scheduling", icon: Clock, iconBg: "bg-orange-600" },
       { label: "Automations", to: "/features/automations", icon: Zap, iconBg: "bg-indigo-600" },
-      { label: "Time tracking", to: "/features/time-tracking", icon: Timer, iconBg: "bg-teal-600" },
     ],
   },
   {

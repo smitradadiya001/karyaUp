@@ -1,18 +1,30 @@
-import React from "react";
-import SubPageLayout, { FeatureCard, CTABanner } from "../../components/SubPageLayout";
+import React from 'react';
+import FeatureCTA from "../../components/FeatureCTA";
+import TeamHero from "../../components/TeamHero";
+import TeamInfoSection from "../../components/TeamInfoSection";
+import TeamImg from "../../assets/Team.png";
 
 export default function Team() {
   return (
-    <SubPageLayout badge="Management" badgeColor="bg-blue-100 text-blue-700" title="Team Management" subtitle="Manage your entire workforce in one place — from onboarding to performance tracking.">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-4">
-        <FeatureCard icon="👤" title="Employee Profiles" desc="Maintain rich profiles for every team member including roles, skills, and contact information." />
-        <FeatureCard icon="🏢" title="Department Structure" desc="Organize staff into departments and reporting hierarchies that mirror your org chart." />
-        <FeatureCard icon="📋" title="Roles & Permissions" desc="Grant fine-grained access to tools and data based on an employee's role." />
-        <FeatureCard icon="📈" title="Performance Tracking" desc="Track KPIs, set goals, and run performance reviews from a single dashboard." />
-        <FeatureCard icon="🤝" title="Onboarding Checklists" desc="Guide new hires through a structured onboarding journey with task-based checklists." />
-        <FeatureCard icon="📊" title="Headcount Reports" desc="Generate reports on team size, growth, turnover, and departmental distribution." />
-      </div>
-      <CTABanner bg="bg-blue-50" titleColor="text-blue-900" btnColor="bg-blue-600" title="Manage your people, not paperwork." desc="One place for your entire team's info, tasks, and performance." />
-    </SubPageLayout>
+    <div className="min-h-screen bg-white pt-16 sm:pt-20 pb-0 text-slate-900">
+      
+      {/* Hero Section */}
+      <TeamHero />
+
+      {/* Team Info Section */}
+      <TeamInfoSection />
+
+      {/* Feature CTA Section */}
+      <FeatureCTA
+        title={<>Build a team that <br /> works in harmony</>}
+        description="Empower your people with the right tools, clear roles, and perfect workload balance."
+        image={TeamImg}
+        imageAlt="KaryaUp Team Management"
+        containerClassName="mt-10 mb-20"
+        titleClassName="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.2] mb-4 tracking-tight drop-shadow-lg"
+        imageOuterClassName="relative w-full translate-x-0 ml-auto"
+        imageClassName="w-[90%] lg:w-[100%] -translate-x-4 lg:translate-x-0 ml-auto"
+      />
+    </div>
   );
 }
