@@ -509,7 +509,14 @@ export default function Blog() {
             transition={{ delay: 0.1 }}
             className="text-[56px] md:text-[100px] font-black text-slate-900 leading-[0.9] tracking-[-0.05em] mb-10"
           >
-            Insights for the <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] to-[#6366f1]">next generation.</span>
+            Insights for the <br />{" "}
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
+              next generation.
+            </motion.span>
           </motion.h1>
 
           <motion.p 
@@ -556,7 +563,7 @@ export default function Blog() {
       </section>
 
       {/* Articles Grid */}
-      <section className="py-24 relative">
+      <section className=" relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <AnimatePresence mode="popLayout">
@@ -593,7 +600,7 @@ export default function Blog() {
       </section>
 
       {/* Recent Highlights - Horizontal Scroll Carousel */}
-      <section className="py-24 bg-gradient-to-br from-[#f5f0ff] via-[#faf5ff] to-[#ede9fe] overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-[#faf7ff] via-white to-[#f5f3ff] overflow-hidden">
         <div className="max-w-5xl mx-auto px-6 mb-12">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -608,7 +615,6 @@ export default function Blog() {
                 A curated selection of our most popular insights, guides, and updates from the KaryaUp team.
               </p>
             </div>
-            <div className="hidden md:block h-px flex-1 mx-8 bg-gradient-to-r from-purple-200 to-transparent mb-2" />
           </motion.div>
         </div>
 
@@ -618,16 +624,7 @@ export default function Blog() {
             className="flex gap-6 overflow-x-auto pb-8 scroll-smooth"
             style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-          {[
-            { bg: "bg-purple-300",  text: "text-purple-950",  tag: "bg-purple-400 text-purple-900",   border: "border-purple-400", meta: "text-purple-700",  excerpt: "text-purple-900/80" },
-            { bg: "bg-indigo-300",  text: "text-indigo-950",  tag: "bg-indigo-400 text-indigo-900",   border: "border-indigo-400", meta: "text-indigo-700",  excerpt: "text-indigo-900/80" },
-            { bg: "bg-sky-300",     text: "text-sky-950",     tag: "bg-sky-400 text-sky-900",         border: "border-sky-400",    meta: "text-sky-800",     excerpt: "text-sky-950/80" },
-            { bg: "bg-emerald-300", text: "text-emerald-950", tag: "bg-emerald-400 text-emerald-900", border: "border-emerald-400",meta: "text-emerald-800", excerpt: "text-emerald-950/80" },
-            { bg: "bg-amber-300",   text: "text-amber-950",   tag: "bg-amber-400 text-amber-900",     border: "border-amber-400",  meta: "text-amber-800",   excerpt: "text-amber-950/80" },
-            { bg: "bg-pink-300",    text: "text-pink-950",    tag: "bg-pink-400 text-pink-900",       border: "border-pink-400",   meta: "text-pink-800",    excerpt: "text-pink-950/80" },
-          ].map((color, i) => {
-            const article = articles[i];
-            if (!article) return null;
+          {articles.slice(0, 6).map((article, i) => {
             return (
               <motion.div
                 key={article.id}
@@ -636,20 +633,20 @@ export default function Blog() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
                 style={{ scrollSnapAlign: "start" }}
-                className={`w-[280px] ${color.bg} ${color.text} rounded-[32px] flex flex-col justify-between border ${color.border} shadow-lg shrink-0 h-[540px] p-8 group`}
+                className="w-[300px] rounded-[32px] flex flex-col justify-between border border-slate-200 bg-white shadow-[0_24px_60px_-40px_rgba(15,23,42,0.28)] shrink-0 h-[500px] p-8 group transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_-38px_rgba(126,34,206,0.22)]"
               >
                 {/* Top */}
                 <div className="flex flex-col gap-5">
-                  <span className={`inline-block text-[11px] font-black uppercase tracking-[0.2em] ${color.tag} px-4 py-2 rounded-full w-fit`}>
+                  <span className="inline-block text-[11px] font-black uppercase tracking-[0.2em] bg-purple-50 text-purple-700 border border-purple-100 px-4 py-2 rounded-full w-fit">
                     {article.category}
                   </span>
-                  <h3 className="text-[22px] font-extrabold leading-snug tracking-tight">
+                  <h3 className="text-[22px] font-extrabold leading-snug tracking-tight text-slate-900 group-hover:text-[#7e22ce] transition-colors duration-300">
                     {article.title}
                   </h3>
-                  <p className={`text-[14px] leading-relaxed ${color.excerpt} font-medium`}>
+                  <p className="text-[14px] leading-relaxed text-slate-500 font-medium">
                     {article.excerpt}
                   </p>
-                  <div className={`flex items-center gap-2 text-[12px] font-bold ${color.meta} mt-2`}>
+                  <div className="flex items-center gap-2 text-[12px] font-bold text-slate-400 mt-2">
                     <Clock size={12} />
                     <span>{article.readTime}</span>
                     <span>·</span>
@@ -658,12 +655,12 @@ export default function Blog() {
                 </div>
 
                 {/* Bottom */}
-                <div className={`pt-5 border-t ${color.border}`}>
-                  <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-sm mb-3 ${color.tag}`}>
+                <div className="pt-5 border-t border-slate-100">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-black text-sm mb-3 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 text-white">
                     {article.author.charAt(0)}
                   </div>
-                  <div className={`font-bold text-[14px] ${color.text}`}>{article.author}</div>
-                  <div className={`text-[11px] mt-0.5 ${color.meta} font-semibold uppercase tracking-wide`}>{article.role}</div>
+                  <div className="font-bold text-[14px] text-slate-900">{article.author}</div>
+                  <div className="text-[11px] mt-0.5 text-slate-400 font-semibold uppercase tracking-wide">{article.role}</div>
                 </div>
               </motion.div>
             );
@@ -672,121 +669,97 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* Newsletter - Premium Animated Style */}
-      <section className="py-32 px-6">
-        <motion.div 
-          whileHover={{ y: -10 }}
-          className="max-w-7xl mx-auto rounded-[56px] p-12 md:p-24 relative overflow-hidden shadow-[0_50px_120px_-20px_rgba(126,34,206,0.25)] border border-white/10 group"
-        >
-          {/* Mesh Gradient Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#7e22ce] to-[#ff4d94]" />
-          
-          {/* Animated Blobs - Mixed Purples and Pinks */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-70">
-            <motion.div 
-              animate={{ 
-                x: [0, 100, -50], 
-                y: [0, -50, 80],
-                scale: [1, 1.2, 0.9]
-              }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              className="absolute top-[-30%] left-[-20%] w-[100%] h-[100%] bg-purple-600 rounded-full blur-[120px]" 
-            />
-            <motion.div 
-              animate={{ 
-                x: [0, -80, 120], 
-                y: [0, 100, -40],
-                scale: [1, 1.3, 1]
-              }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute bottom-[-40%] right-[-10%] w-[120%] h-[120%] bg-pink-500 rounded-full blur-[140px]" 
-            />
-            <motion.div 
-              animate={{ 
-                x: [0, 50, -30], 
-                y: [0, 80, 50],
-                scale: [1, 1.1, 1.2]
-              }}
-              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-              className="absolute top-[20%] right-[10%] w-[60%] h-[60%] bg-indigo-500 rounded-full blur-[100px]" 
-            />
-          </div>
+      {/* Newsletter - Feature CTA Style */}
+      <section className="pt-16 pb-28 px-6">
+        <div className="max-w-6xl mx-auto group">
+          <motion.div
+            whileHover={{ y: -8 }}
+            className="relative rounded-[2.5rem] overflow-hidden bg-black border border-white/5 p-3 lg:p-8"
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(168,85,247,0.65),transparent_52%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(236,72,153,0.2),transparent_42%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(126,34,206,0.26),transparent_44%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(88,28,135,0.18),rgba(10,10,18,0)_40%,rgba(126,34,206,0.16))] pointer-events-none" />
 
-          {/* Noise Texture Removed as per user request */}
+            <div className="relative z-10 flex flex-col lg:flex-row items-stretch gap-10 lg:gap-0">
+              <div className="flex-[0.62] text-left flex flex-col justify-center pt-6 lg:pt-10 pb-4 lg:pb-8 pl-4 lg:pl-10">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[0.95] mb-4">
+                  Get the latest <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/70">
+                    KaryaUp
+                  </span>{" "}
+                  insights.
+                </h2>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-5 tracking-tight">
+                  Subscribe for more articles
+                </h3>
+                <p className="text-slate-400 text-sm sm:text-base font-medium mb-8 max-w-md leading-relaxed">
+                  Stay updated with the latest insights and updates on the future of work.
+                </p>
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16">
-            {/* Left Content */}
-            <div className="flex-1 text-center lg:text-left">
-              <h2 className="text-5xl md:text-7xl font-black text-white mb-4 tracking-tighter leading-[0.9]">
-                Get the latest <br /> 
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/70">KaryaUp</span> insights.
-              </h2>
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight">
-                Subscribe for more articles
-              </h3>
-              <p className="text-white/80 text-lg font-medium mb-12 max-w-lg leading-relaxed">
-                Stay updated with the latest insights and updates <br className="hidden md:block" /> on the future of work.
-              </p>
-              
-              <form className="max-w-md mx-auto lg:mx-0" onSubmit={handleSubscribe}>
-                <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 px-8 py-5 rounded-3xl bg-white border border-white/20 focus:ring-4 focus:ring-purple-500/20 outline-none font-bold text-slate-900 placeholder:text-slate-400 transition-all shadow-xl"
-                  />
-                  <button className="px-10 py-5 rounded-3xl bg-[#7e22ce] text-white font-black text-lg hover:bg-[#6b21a8] hover:scale-105 active:scale-95 transition-all shadow-[0_10px_30px_rgba(126,34,206,0.3)]">
-                    Subscribe
-                  </button>
-                </div>
-                {subscribeStatus && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={`p-4 rounded-2xl flex items-center justify-center text-sm font-black backdrop-blur-md ${
-                      subscribeStatus === "success" 
-                        ? "bg-emerald-500/20 text-emerald-100 border border-emerald-500/30" 
-                        : "bg-red-500/20 text-red-100 border border-red-500/30"
-                    }`}
+                <form className="max-w-xl" onSubmit={handleSubscribe}>
+                  <div className="flex flex-col sm:flex-row gap-4 mb-5">
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="flex-1 px-7 py-4 rounded-[1.25rem] bg-white border border-white/20 focus:ring-4 focus:ring-purple-500/20 outline-none font-bold text-slate-900 placeholder:text-slate-400 transition-all shadow-xl"
+                    />
+                    <button className="bg-white text-black px-8 py-4 rounded-[1.25rem] font-black text-base hover:bg-slate-50 transition-all shadow-2xl self-start">
+                      Subscribe
+                    </button>
+                  </div>
+                  {subscribeStatus && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`p-4 rounded-2xl flex items-center justify-center text-sm font-black backdrop-blur-md ${
+                        subscribeStatus === "success"
+                          ? "bg-emerald-500/20 text-emerald-100 border border-emerald-500/30"
+                          : "bg-red-500/20 text-red-100 border border-red-500/30"
+                      }`}
+                    >
+                      {message}
+                    </motion.div>
+                  )}
+                </form>
+              </div>
+
+              <div className="flex-[1.2] relative mt-8 lg:mt-0 flex items-center justify-end p-4 lg:p-6 lg:pr-10">
+                <motion.div
+                  initial={{ opacity: 0, x: 80, scale: 0.95 }}
+                  whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative w-[100%] lg:w-[88%] translate-x-0 lg:translate-x-3"
+                >
+                  <motion.div
+                    animate={{
+                      rotateY: [-5, 5, -5],
+                      rotateX: [2, -2, 2],
+                      y: [0, -10, 0],
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    style={{ transformStyle: "preserve-3d" }}
+                    className="relative"
                   >
-                    {message}
+                    <img
+                      src={dashboardMockup}
+                      alt="Product Showcase"
+                      className="relative w-full h-auto object-contain transition-all duration-500 z-10"
+                    />
                   </motion.div>
-                )}
-              </form>
+                </motion.div>
+              </div>
             </div>
-
-            {/* Right Side - 3D Animated Image (Subtle Movement) */}
-            <div className="flex-1 hidden lg:flex justify-center items-center perspective-1000">
-              <motion.div
-                animate={{
-                  rotateY: [-5, 5, -5],
-                  rotateX: [2, -2, 2],
-                  y: [0, -10, 0],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                style={{
-                  transformStyle: "preserve-3d",
-                }}
-                className="relative"
-              >
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#7e22ce]/40 to-transparent blur-3xl opacity-50 -z-10" />
-                <img 
-                  src={dashboardMockup} 
-                  alt="Product Showcase" 
-                  className="w-full h-auto object-contain pointer-events-none drop-shadow-2xl"
-                />
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </section>
     </div>
   );
 }
-

@@ -283,8 +283,7 @@ export default function Pricing() {
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ 
                     opacity: 1, 
-                    y: 0,
-                    backgroundPosition: plan.popular ? ["0% center", "-200% center"] : "0% center"
+                    y: 0
                   }}
                   whileHover={{ 
                     backgroundColor: plan.popular ? undefined : "rgba(241, 245, 249, 0.9)", 
@@ -294,13 +293,12 @@ export default function Pricing() {
                     type: "spring",
                     stiffness: 400,
                     damping: 30,
-                    mass: 0.8,
-                    backgroundPosition: plan.popular ? { duration: 4, repeat: Infinity, ease: "linear" } : {}
+                    mass: 0.8
                   }}
                   style={{ backgroundColor: plan.popular ? undefined : theme.surface }}
                   className={`group relative cursor-pointer rounded-[2.5rem] p-10 border transition-all duration-500 flex flex-col hover:border-slate-200 shadow-[0_25px_50px_-12px_rgba(59,42,90,0.2)] hover:shadow-[0_50px_100px_-20px_rgba(59,42,90,0.35)] will-change-transform ${
                     plan.popular 
-                      ? 'bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto] border-white/20' 
+                      ? 'bg-[radial-gradient(circle_at_70%_10%,#4c1d95_0%,#2a1244_35%,#14081f_100%)] border-white/20' 
                       : 'border-white'
                   }`}
                 >

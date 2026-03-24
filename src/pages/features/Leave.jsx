@@ -380,18 +380,18 @@ export default function Leave() {
       <FeatureCTA
         title={
           <>
-            Leave management that keeps
+            Leave that stays
             <br />
-            requests, approvals, and balance in sync
+            simple for everyone
           </>
         }
-        description="Let employees request leave in seconds, route approvals automatically, track every balance live, and give managers a clear calendar before coverage gaps appear."
+        description="Handle requests, approvals, and balances without extra follow-up."
         image={leaveImg}
         imageAlt="KaryaUp leave management dashboard"
         containerClassName="mt-8 mb-8"
         paddingClassName="p-3 lg:p-4 lg:py-6"
-        imageClassName="w-full max-w-[940px]"
-        imageOuterClassName="relative w-[108%] lg:w-full translate-x-2 lg:translate-x-8"
+        imageClassName="w-full max-w-[640px]"
+        imageOuterClassName="relative w-[92%] lg:w-[82%] translate-x-0 lg:translate-x-2"
       />
     </div>
   );
