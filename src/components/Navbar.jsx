@@ -5,7 +5,7 @@ import {
   CheckSquare, Kanban, Users, Clock, BarChart2, LayoutDashboard, CircleDollarSign,
   Megaphone, Contact,
   AlignLeft, MessageSquare, Video, UserCheck, CalendarOff, Banknote, Calendar, Zap, Timer, Blocks, PlayCircle, Bell,
-  FileText, FileCode, MonitorPlay, LogIn
+  FileText, FileCode, MonitorPlay, LogIn, Briefcase, Network, PieChart, Wallet
 } from "lucide-react";
 import logo from "../assets/logo.png";
 import KaryaUpBtn from "../assets/KaryaupBtn.png";
@@ -19,111 +19,92 @@ const navItems = [
   { label: "Resources" },
 ];
 
-const platformMegaSections = [
-  { label: "Project Management", to: "/platform/project-management", icon: Kanban, iconBg: "bg-blue-50 text-blue-600 border border-blue-100", description: "Plan, track, and collaborate on any project." },
-  { label: "Team Collaboration", to: "/platform/team-collaboration", icon: Users, iconBg: "bg-purple-50 text-purple-600 border border-purple-100", description: "Work seamlessly with your entire team." },
-  { label: "Boss Dashboard", to: "/platform/boss-dashboard", icon: LayoutDashboard, iconBg: "bg-indigo-50 text-indigo-600 border border-indigo-100", description: "High-level overview of all company operations." },
-  { label: "Profit Tracking", to: "/platform/profit-tracking", icon: CircleDollarSign, iconBg: "bg-emerald-50 text-emerald-600 border border-emerald-100", description: "Monitor budgets, costs, and project profitability." },
-];
+const platformMegaSections = {
+  core: [
+    { label: "Project Management", sublabel: "Tasks & roadmaps", to: "/platform/project-management", icon: Briefcase, iconColor: "text-blue-600" },
+    { label: "Team Collaboration", sublabel: "Work together, seamlessly", to: "/platform/team-collaboration", icon: Network, iconColor: "text-purple-600" },
+  ],
+  manage: [
+    { label: "Boss Dashboard", sublabel: "High-level overview", to: "/platform/boss-dashboard", icon: PieChart, iconColor: "text-indigo-600" },
+    { label: "Profit Tracking", sublabel: "Budgets & profitability", to: "/platform/profit-tracking", icon: Wallet, iconColor: "text-emerald-600" },
+    { label: "Attendance & Leave", sublabel: "HR at a glance", to: "/features/attendance", icon: UserCheck, iconColor: "text-teal-600" },
+  ],
+  featured: [
+    { label: "All-in-One Workspace", to: "/platform/project-management", icon: LayoutDashboard, iconColor: "text-violet-600", description: "Every tool your team needs under one roof." },
+    { label: "Salary & Payroll", to: "/features/salary", icon: Banknote, iconColor: "text-green-600", description: "Automate payroll and keep finances on track." },
+    { label: "Automations", to: "/features/automations", icon: Zap, iconColor: "text-orange-500", description: "Save time by automating repetitive workflows." },
+  ],
+};
 
 const featuresMegaSections = [
   {
     heading: "PROJECTS",
     items: [
-      { label: "Tasks", to: "/features/tasks", icon: CheckSquare, iconBg: "bg-emerald-600" },
-      { label: "Dashboards", to: "/features/dashboards", icon: BarChart2, iconBg: "bg-rose-600" },
-      { label: "Gantt", to: "/features/gantt", icon: AlignLeft, iconBg: "bg-red-600" },
+      { label: "Tasks", to: "/features/tasks", icon: CheckSquare, iconColor: "text-emerald-600" },
+      { label: "Dashboards", to: "/features/dashboards", icon: BarChart2, iconColor: "text-rose-600" },
+      { label: "Gantt", to: "/features/gantt", icon: AlignLeft, iconColor: "text-red-600" },
     ],
   },
   {
     heading: "COMMUNICATION",
     items: [
-      { label: "Chat", to: "/features/chat", icon: MessageSquare, iconBg: "bg-indigo-600" },
-      { label: "Notifications", to: "/features/notifications", icon: Bell, iconBg: "bg-amber-600" }
+      { label: "Chat", to: "/features/chat", icon: MessageSquare, iconColor: "text-indigo-600" },
+      { label: "Notifications", to: "/features/notifications", icon: Bell, iconColor: "text-amber-600" }
     ],
   },
   {
     heading: "MANAGEMENT",
     items: [
-      { label: "Team", to: "/features/team", icon: Users, iconBg: "bg-blue-600" },
-      { label: "Attendance", to: "/features/attendance", icon: UserCheck, iconBg: "bg-emerald-600" },
-      { label: "Leave", to: "/features/leave", icon: CalendarOff, iconBg: "bg-amber-600" },
-      { label: "Salary", to: "/features/salary", icon: Banknote, iconBg: "bg-emerald-700" },
+      { label: "Team", to: "/features/team", icon: Users, iconColor: "text-blue-600" },
+      { label: "Attendance", to: "/features/attendance", icon: UserCheck, iconColor: "text-teal-600" },
+      { label: "Leave", to: "/features/leave", icon: CalendarOff, iconColor: "text-fuchsia-600" },
+      { label: "Salary", to: "/features/salary", icon: Banknote, iconColor: "text-green-600" },
     ],
   },
   {
     heading: "TIME",
     items: [
-      { label: "Calendar", to: "/features/calendar", icon: Calendar, iconBg: "bg-pink-600" },
-      { label: "Scheduling", to: "/features/scheduling", icon: Clock, iconBg: "bg-orange-600" },
-      { label: "Automations", to: "/features/automations", icon: Zap, iconBg: "bg-indigo-600" },
+      { label: "Calendar", to: "/features/calendar", icon: Calendar, iconColor: "text-pink-600" },
+      { label: "Scheduling", to: "/features/scheduling", icon: Clock, iconColor: "text-orange-600" },
+      { label: "Automations", to: "/features/automations", icon: Zap, iconColor: "text-violet-600" },
     ],
   },
   {
     heading: "MORE",
     items: [
-      { label: "Integrations", to: "/features/integrations", icon: Blocks, iconBg: "bg-blue-600" },
-      { label: "Watch demo", to: "/features/demo", icon: PlayCircle, iconBg: "bg-gray-500" },
+      { label: "Integrations", to: "/features/integrations", icon: Blocks, iconColor: "text-cyan-600" },
+      { label: "Watch demo", to: "/features/demo", icon: PlayCircle, iconColor: "text-slate-600" },
     ],
   },
 ];
 
-const solutionsMegaSections = [
-  {
-    heading: "TEAMS",
-    items: [
-      { label: "Project management", to: "/solutions/project-management" },
-      { label: "Product development", to: "/solutions/product-development" },
-      { label: "Operations", to: "/solutions/operations" },
-      { label: "IT", to: "/solutions/it" },
-      { label: "Marketing", to: "/solutions/marketing" },
-      { label: "Human Resources", to: "/solutions/hr" },
-    ],
-  },
-  {
-    heading: "COMPANIES",
-    items: [
-      { label: "Enterprise", to: "/solutions/enterprise" },
-      { label: "Startup", to: "/solutions/startup" },
-      { label: "Non-profit", to: "/solutions/non-profit" },
-      { label: "Education", to: "/solutions/education" },
-      { label: "Agency", to: "/solutions/agency" },
-    ],
-  },
-  {
-    heading: "TEMPLATES",
-    className: "lg:col-span-2",
-    items: [
-      {
-        label: "Project Management",
-        to: "/solutions/templates/project-management",
-        icon: Kanban,
-        iconBg: "bg-blue-100 text-blue-600",
-        description: "Manage roadmaps, backlogs, bugs, agile dev, and documentation."
-      },
-      {
-        label: "Sales/CRM",
-        to: "/solutions/templates/crm",
-        icon: Contact,
-        iconBg: "bg-orange-100 text-orange-600",
-        description: "Manage leads, deals, and contacts."
-      },
-      {
-        label: "Marketing",
-        to: "/solutions/templates/marketing",
-        icon: Megaphone,
-        iconBg: "bg-indigo-100 text-indigo-600",
-        description: "Plan campaigns, organize assets, and create wikis."
-      },
-    ],
-  },
-];
+const solutionsMegaSections = {
+  byTeam: [
+    { label: "Product", sublabel: "Roadmaps & backlogs", to: "/solutions/product-development", icon: Kanban, iconColor: "text-violet-600" },
+    { label: "Operations", sublabel: "Workflows & SOPs", to: "/solutions/operations", icon: Zap, iconColor: "text-orange-500" },
+    { label: "IT", sublabel: "Requests & incidents", to: "/solutions/it", icon: Blocks, iconColor: "text-blue-600" },
+    { label: "Marketing", sublabel: "Campaigns & content", to: "/solutions/marketing", icon: Megaphone, iconColor: "text-pink-600" },
+    { label: "HR", sublabel: "Hiring & onboarding", to: "/solutions/hr", icon: Users, iconColor: "text-emerald-600" },
+  ],
+  bySize: [
+    { label: "Enterprise", sublabel: "Scale across org", to: "/solutions/enterprise", icon: LayoutDashboard, iconColor: "text-slate-700" },
+    { label: "Startup", sublabel: "Move fast, stay lean", to: "/solutions/startup", icon: Zap, iconColor: "text-yellow-500" },
+    { label: "Non-profit", sublabel: "Do more with less", to: "/solutions/non-profit", icon: CircleDollarSign, iconColor: "text-green-600" },
+    { label: "Education", sublabel: "Classes & projects", to: "/solutions/education", icon: FileText, iconColor: "text-indigo-600" },
+    { label: "Agency", sublabel: "Clients & deliverables", to: "/solutions/agency", icon: Briefcase, iconColor: "text-rose-600" },
+  ],
+  templates: [
+    { label: "Project Management", to: "/solutions/templates/project-management", icon: Kanban, iconColor: "text-blue-600", description: "Roadmaps, backlogs, agile dev." },
+    { label: "Sales / CRM", to: "/solutions/templates/crm", icon: Contact, iconColor: "text-orange-500", description: "Leads, deals, and contacts." },
+    { label: "Marketing", to: "/solutions/templates/marketing", icon: Megaphone, iconColor: "text-indigo-500", description: "Campaigns, assets, wikis." },
+  ],
+};
 
 const resourcesMegaSections = [
-  { label: "Blog", to: "/resources/blog", icon: FileText, iconBg: "bg-indigo-50 text-indigo-600 border border-indigo-100", description: "Read the latest news, articles, and tips." },
-  { label: "Documentation", to: "/resources/docs", icon: FileCode, iconBg: "bg-blue-50 text-blue-600 border border-blue-100", description: "Detailed guides on how to use every feature." },
-  { label: "Demo", to: "/resources/demo", icon: MonitorPlay, iconBg: "bg-rose-50 text-rose-600 border border-rose-100", description: "Watch a quick overview of the platform." },
-  { label: "Video Tutorials", to: "/resources/tutorials", icon: Video, iconBg: "bg-purple-50 text-purple-600 border border-purple-100", description: "Step-by-step video guides and walkthroughs." },
+  { label: "Blog", to: "/resources/blog", icon: FileText, iconColor: "text-indigo-600", description: "Read the latest news, articles, and tips." },
+  { label: "Documentation", to: "/resources/docs", icon: FileCode, iconColor: "text-blue-600", description: "Detailed guides on how to use every feature." },
+  { label: "Demo", to: "/resources/demo", icon: MonitorPlay, iconColor: "text-rose-600", description: "Watch a quick overview of the platform." },
+  { label: "Video Tutorials", to: "/resources/tutorials", icon: Video, iconColor: "text-purple-600", description: "Step-by-step video guides and walkthroughs." },
 ];
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -376,54 +357,28 @@ const Navbar = () => {
 
                 {isPlatformOpen && (
                   <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                      <div className="flex gap-16 md:gap-32 w-full max-w-5xl px-8">
-                        {/* Section 1 */}
-                        <div className="flex flex-col gap-6 flex-1">
-                          {platformMegaSections.slice(0, 3).map((item) => (
-                            <Link
-                              key={item.to}
-                              to={item.to}
-                              onClick={closeAllMenus}
-                              className="flex items-start gap-4 text-sm font-medium text-slate-800 hover:text-primary transition-colors group"
-                            >
-                              {item.icon && (
-                                <div className={`flex items-center justify-center shrink-0 w-[42px] h-[42px] rounded-[10px] ${item.iconBg || 'bg-gray-200'} transition-transform group-hover:scale-105`}>
-                                  <item.icon size={22} strokeWidth={2} />
-                                </div>
-                              )}
-                              <div className="flex flex-col">
-                                <span className="font-bold text-[17px] mb-1 text-black">{item.label}</span>
-                                <span className="text-[15px] text-gray-500 font-normal leading-snug">
-                                  {item.description}
-                                </span>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 w-full max-w-4xl px-8 mx-auto">
+                        {platformMegaSections.map((item) => (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={closeAllMenus}
+                            className="flex items-start gap-4 p-4 rounded-[16px] bg-white border border-transparent hover:border-purple-100 hover:bg-purple-50/30 hover:shadow-[0_8px_30px_rgb(126,34,206,0.06)] transition-all duration-300 group"
+                          >
+                            {item.icon && (
+                              <div className="flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+                                <item.icon size={24} strokeWidth={2} className={item.iconColor || 'text-purple-600'} />
                               </div>
-                            </Link>
-                          ))}
-                        </div>
-                        {/* Section 2 */}
-                        <div className="flex flex-col gap-6 flex-1">
-                          {platformMegaSections.slice(3).map((item) => (
-                            <Link
-                              key={item.to}
-                              to={item.to}
-                              onClick={closeAllMenus}
-                              className="flex items-start gap-4 text-sm font-medium text-slate-800 hover:text-primary transition-colors group"
-                            >
-                              {item.icon && (
-                                <div className={`flex items-center justify-center shrink-0 w-[42px] h-[42px] rounded-[10px] ${item.iconBg || 'bg-gray-200'} transition-transform group-hover:scale-105`}>
-                                  <item.icon size={22} strokeWidth={2} />
-                                </div>
-                              )}
-                              <div className="flex flex-col">
-                                <span className="font-bold text-[17px] mb-1 text-black">{item.label}</span>
-                                <span className="text-[15px] text-gray-500 font-normal leading-snug">
-                                  {item.description}
-                                </span>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
+                            )}
+                            <div className="flex flex-col">
+                              <span className="font-extrabold text-[16px] mb-1 text-slate-900 group-hover:text-[#7e22ce] transition-colors">{item.label}</span>
+                              <span className="text-[13px] text-slate-500 font-medium leading-relaxed group-hover:text-slate-600 transition-colors">
+                                {item.description}
+                              </span>
+                            </div>
+                          </Link>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -460,8 +415,8 @@ const Navbar = () => {
                                     className="flex items-center gap-3 text-[15px] font-medium text-slate-800 hover:text-primary transition-colors group"
                                   >
                                     {item.icon && (
-                                      <div className={`flex items-center justify-center w-[30px] h-[30px] rounded-[6px] ${item.iconBg || 'bg-gray-200'} text-white group-hover:scale-105 transition-transform`}>
-                                        <item.icon size={16} strokeWidth={2.5} />
+                                      <div className="flex items-center justify-center shrink-0 group-hover:scale-110 transition-all">
+                                        <item.icon size={20} strokeWidth={2.5} className={item.iconColor || 'text-emerald-600'} />
                                       </div>
                                     )}
                                     {item.label}
@@ -491,40 +446,67 @@ const Navbar = () => {
 
                 {isSolutionsOpen && (
                   <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                      <div className="grid gap-x-12 gap-y-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                        {solutionsMegaSections.map((section) => (
-                          <div key={section.heading} className={section.className || ""}>
-                            <h3 className="text-sm font-bold text-slate-400 tracking-wider mb-5">
-                              {section.heading}
-                            </h3>
-                            <ul className="space-y-4">
-                              {section.items.map((item) => (
-                                <li key={item.to}>
-                                  <Link
-                                    to={item.to}
-                                    onClick={closeAllMenus}
-                                    className={`flex ${item.description ? 'items-start' : 'items-center'} gap-4 text-sm font-medium text-slate-800 hover:text-primary transition-colors group`}
-                                  >
-                                    {item.icon && (
-                                      <div className={`flex items-center justify-center shrink-0 w-[42px] h-[42px] rounded-[10px] ${item.iconBg || 'bg-gray-200'} transition-transform group-hover:scale-105`}>
-                                        <item.icon size={22} strokeWidth={2} />
-                                      </div>
-                                    )}
-                                    <div className="flex flex-col">
-                                      <span className={item.description ? "font-bold text-[17px] mb-1 text-black" : "font-medium text-base"}>{item.label}</span>
-                                      {item.description && (
-                                        <span className="text-[15px] text-gray-500 font-normal leading-snug">
-                                          {item.description}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
+                    <div className="w-full flex">
+                      {/* Left Panel – By Team */}
+                      <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
+                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">By Team</p>
+                        {solutionsMegaSections.byTeam.map((item) => (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={closeAllMenus}
+                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-purple-50 transition-all"
+                          >
+                            <item.icon size={18} strokeWidth={2} className={item.iconColor} />
+                            <div>
+                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                              <p className="text-xs text-slate-400">{item.sublabel}</p>
+                            </div>
+                          </Link>
                         ))}
+                      </div>
+
+                      {/* Middle Panel – By Company Size */}
+                      <div className="flex-1 bg-slate-50 px-8 py-3 flex flex-col border-r border-slate-200">
+                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">By Company Size</p>
+                        {solutionsMegaSections.bySize.map((item) => (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={closeAllMenus}
+                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                          >
+                            <item.icon size={18} strokeWidth={2} className={item.iconColor} />
+                            <div>
+                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                              <p className="text-xs text-slate-400">{item.sublabel}</p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+
+                      {/* Right Panel – Templates */}
+                      <div className="flex-1 bg-white px-10 py-3">
+                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Popular Templates</p>
+                        <div className="flex flex-col gap-1">
+                          {solutionsMegaSections.templates.map((item) => (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              onClick={closeAllMenus}
+                              className="group flex items-center gap-4 p-4 rounded-2xl border border-transparent hover:border-purple-100 hover:bg-purple-50/40 hover:shadow-md transition-all"
+                            >
+                              <div className="w-10 h-10 rounded-xl bg-slate-50 shadow-sm border border-slate-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                                <item.icon size={20} strokeWidth={2} className={item.iconColor} />
+                              </div>
+                              <div>
+                                <p className="font-bold text-slate-900 text-[15px] group-hover:text-purple-700 transition-colors">{item.label}</p>
+                                <p className="text-[13px] text-slate-500">{item.description}</p>
+                              </div>
+                              <ArrowRight size={16} className="ml-auto text-slate-300 group-hover:text-purple-500 group-hover:translate-x-1 transition-all" />
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -566,8 +548,8 @@ const Navbar = () => {
                               className="flex items-start gap-4 text-sm font-medium text-slate-800 hover:text-primary transition-colors group"
                             >
                               {item.icon && (
-                                <div className={`flex items-center justify-center shrink-0 w-[42px] h-[42px] rounded-[10px] ${item.iconBg || 'bg-gray-200'} transition-transform group-hover:scale-105`}>
-                                  <item.icon size={22} strokeWidth={2} />
+                                <div className="flex items-center justify-center shrink-0 transition-all group-hover:scale-110 group-hover:-rotate-3">
+                                  <item.icon size={24} strokeWidth={2} className={item.iconColor || 'text-indigo-600'} />
                                 </div>
                               )}
                               <div className="flex flex-col">
@@ -589,8 +571,8 @@ const Navbar = () => {
                               className="flex items-start gap-4 text-sm font-medium text-slate-800 hover:text-primary transition-colors group"
                             >
                               {item.icon && (
-                                <div className={`flex items-center justify-center shrink-0 w-[42px] h-[42px] rounded-[10px] ${item.iconBg || 'bg-gray-200'} transition-transform group-hover:scale-105`}>
-                                  <item.icon size={22} strokeWidth={2} />
+                                <div className="flex items-center justify-center shrink-0 transition-all group-hover:scale-110 group-hover:-rotate-3">
+                                  <item.icon size={24} strokeWidth={2} className={item.iconColor || 'text-indigo-600'} />
                                 </div>
                               )}
                               <div className="flex flex-col">

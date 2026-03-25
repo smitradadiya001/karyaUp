@@ -11,6 +11,7 @@ import Features from "./pages/Features";
 import Solutions from "./pages/Solutions";
 import Resources from "./pages/Resources";
 import Pricing from "./pages/Pricing";
+import Privacy from "./pages/Privacy";
 import Login from "./pages/Login";
 import StartWorkspace from "./pages/StartWorkspace";
 import NotFound from "./pages/NotFound";
@@ -74,6 +75,7 @@ function App() {
           <Route path="/solutions" element={<Solutions />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/login" element={<Login />} />
           <Route path="/start" element={<StartWorkspace />} />
 
