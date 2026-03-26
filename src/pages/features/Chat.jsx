@@ -393,7 +393,7 @@ export default function Chat() {
                   className="text-4xl sm:text-5xl lg:text-5xl font-black text-white leading-tight mb-4 tracking-tight"
                 >
                   Your personal <br className="hidden sm:block" />
-                  <span className="glass-text-gradient-shimmer bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-400 bg-[length:200%_auto] inline-block">
+                  <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]">
                     Agent in every chat
                   </span>
                 </motion.h2>

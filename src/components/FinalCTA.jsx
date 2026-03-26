@@ -26,7 +26,7 @@ const FinalCTA = () => {
   }, []);
 
   return (
-    <section className="pt-8 pb-0 sm:pt-12 sm:pb-0 bg-white relative overflow-hidden font-sans">
+    <section className="pt-0 pb-0 sm:pt-0 sm:pb-0 bg-white relative overflow-hidden font-sans">
 
       {/* Background Mesh Gradient (Clarity Engine) */}
       <div className="absolute inset-0 z-0 overflow-hidden">

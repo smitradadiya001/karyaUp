@@ -8,13 +8,13 @@ import article3 from "../../assets/dashboard1.jpeg";
 import article4 from "../../assets/calender.jpeg";
 import article5 from "../../assets/attendance.jpeg";
 import article6 from "../../assets/salary.jpeg";
-import article7 from "../../assets/Task.jpeg";
-import article8 from "../../assets/Team.jpeg";
-import article9 from "../../assets/dashboard.jpeg";
-import article10 from "../../assets/work_analysis.jpeg";
-import article11 from "../../assets/dashboard1.jpeg";
-import article12 from "../../assets/projects.jpeg";
-import dashboardMockup from "../../assets/newsletter_illustration_v2.png";
+import Blog2 from "../../assets/Blog2.png";
+import Blog3 from "../../assets/Blog3.png";
+import Blog4 from "../../assets/Blog4.png";
+import Blog5 from "../../assets/Blog5.png";
+import Blog6 from "../../assets/Blog6.png";
+
+import BlogHero from "../../assets/Blog_Hero.png";
 
 const EASING = [0.2, 0.8, 0.2, 1];
 
@@ -28,8 +28,8 @@ const articles = [
     role: "Head of Operations",
     date: "March 25, 2024",
     readTime: "6 min read",
-    image: article1,
-    illustration: <TeamIllust />,
+    image: Blog2,
+    illustration: null,
     hookStat: "73% of tasks on average to-do lists never get done.",
     pullQuote: "A full calendar and an empty sprint are not the same problem — but they have the same root cause.",
     content: `
@@ -52,8 +52,8 @@ const articles = [
     role: "Senior Product Designer",
     date: "March 24, 2024",
     readTime: "4 min read",
-    image: article2,
-    illustration: <FocusIllust />,
+    image: Blog2,
+    illustration: null,
     hookStat: "73% of tasks on average to-do lists never get done.",
     content: `
       <p>The secret to productivity isn't doing more; it's doing less of what doesn't matter. The 3-task rule is about radical prioritization.</p>
@@ -75,8 +75,8 @@ const articles = [
     role: "Full Stack Lead",
     date: "March 22, 2024",
     readTime: "5 min read",
-    image: article3,
-    illustration: <TeamIllust />,
+    image: Blog3,
+    illustration: null,
     hookStat: "Teams with diverse thinking styles are 35% more likely to hit targets.",
     content: `
       <p>Stop looking for people who fit in. Start looking for people who add something new. Culture add over culture fit.</p>
@@ -98,8 +98,8 @@ const articles = [
     role: "HR Strategist",
     date: "March 20, 2024",
     readTime: "5 min read",
-    image: article4,
-    illustration: <OpsIllust />,
+    image: Blog4,
+    illustration: null,
     hookStat: "1 in 3 employees cite poor leave management as a reason to quit.",
     content: `
       <p>A broken leave policy is a silent killer of morale. If your team is afraid to take time off, you've already lost them.</p>
@@ -121,8 +121,8 @@ const articles = [
     role: "Experience Lead",
     date: "March 18, 2024",
     readTime: "4 min read",
-    image: article5,
-    illustration: <LeadIllust />,
+    image: Blog5,
+    illustration: null,
     hookStat: "Friction, not lack of motivation, causes 68% of disengagement at work.",
     content: `
       <p>Management is about removing obstacles, not cheerleading from the sidelines.</p>
@@ -144,8 +144,8 @@ const articles = [
     role: "Growth Advisor",
     date: "March 15, 2024",
     readTime: "3 min read",
-    image: article6,
-    illustration: <MeetingIllust />,
+    image: Blog6,
+    illustration: null,
     hookStat: "Employees spend 31 hours per month in unproductive meetings on average.",
     content: `
       <p>Don't ban meetings. Ban bad ones. Every meeting should have a cost-benefit analysis before the invite is sent.</p>
@@ -178,7 +178,7 @@ const PostRow = ({ article, onClick }) => {
         
         <h3 
           onClick={() => onClick(article)}
-          className="text-[32px] md:text-[42px] font-black text-[#0A2540] mb-8 leading-[1.05] tracking-tight hover:text-[#7e22ce] cursor-pointer transition-colors"
+          className="text-[32px] md:text-[42px] font-black text-[#0A2540] mb-8 leading-[1.05] tracking-tight cursor-pointer transition-colors"
         >
           {article.title}
         </h3>
@@ -429,13 +429,13 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-[#7e22ce] selection:text-white overflow-hidden">
-      <section className="relative pt-24 pb-16 overflow-hidden">
+      <section className="relative min-h-screen pt-2 pb-2 lg:pt-2 lg:pb-2 overflow-hidden flex items-center">
         <div className="absolute top-0 right-0 -z-10 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
         <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            <div className="text-center lg:text-left">
+            <div className="w-full max-w-4xl text-center lg:text-left">
                 <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -477,133 +477,26 @@ export default function Blog() {
                 </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-                className="mt-8 grid grid-cols-2 gap-x-4 gap-y-3 max-w-md mx-auto lg:mx-0"
-              >
-                {["Guides", "Leadership", "Ops", "Templates"].map((tag) => (
-                  <div key={tag} className="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-slate-50/50 border border-slate-200/60 shadow-sm hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300">
-                    <div className="w-5 h-5 rounded-md bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <Check className="w-3 h-3 text-[#7e22ce] stroke-[4]" />
-                    </div>
-                    <span className="text-[10px] font-black uppercase tracking-[0.12em] text-slate-600 truncate">{tag}</span>
-                  </div>
-                ))}
-              </motion.div>
             </div>
 
             <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-              className="relative lg:-mr-10"
+              className="relative mt-8 lg:mt-2 w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] mx-auto lg:mx-0 lg:ml-auto"
             >
-              <div className="absolute -inset-8 bg-gradient-to-tr from-[#7e22ce]/16 via-fuchsia-500/8 to-transparent blur-3xl opacity-55" />
-
-              <div className="relative overflow-hidden border border-slate-200/80 rounded-3xl shadow-2xl shadow-slate-900/10 bg-white p-4 sm:p-5">
-                <div className="relative rounded-[1.7rem] border border-slate-200 bg-[radial-gradient(circle_at_top,#faf5ff,white_58%)] p-5 sm:p-6 min-h-[470px]">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <div className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-700">
-                        Editorial Desk
-                      </div>
-                      <div className="mt-2 text-2xl font-black tracking-tight text-slate-900">
-                        Stories that move work
-                      </div>
-                    </div>
-                    <div className="rounded-full border border-purple-200 bg-white px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-purple-700 shadow-sm">
-                      12 fresh reads
-                    </div>
-                  </div>
-
-                  <div className="relative mt-8 flex justify-center">
-                    <div className="absolute left-0 top-8 hidden w-[190px] rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-xl lg:block">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-purple-100 text-[#7e22ce]">
-                          <TrendingUp className="h-5 w-5" />
-                        </div>
-                        <div>
-                          <div className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">
-                            Most read
-                          </div>
-                          <div className="mt-1 text-sm font-black leading-tight text-slate-900">
-                            Productivity systems
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="relative w-full max-w-[420px]">
-                      <img
-                        src={dashboardMockup}
-                        alt="KaryaUp blog and newsletter visual"
-                        className="w-full h-auto object-contain drop-shadow-[0_28px_60px_rgba(15,23,42,0.16)]"
-                      />
-                    </div>
-
-                    <div className="absolute right-0 top-20 hidden w-[210px] rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-xl lg:block">
-                      <div className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">
-                        Featured now
-                      </div>
-                      <div className="mt-2 text-sm font-black leading-tight text-slate-900">
-                        {articles[0].title}
-                      </div>
-                      <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-purple-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-purple-700">
-                        <BookOpen className="h-3.5 w-3.5" />
-                        {articles[0].category}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                    {articles.slice(0, 3).map((article) => (
-                      <div
-                        key={article.id}
-                        onClick={() => openArticle(article)}
-                        className="group rounded-[1.25rem] border border-slate-200 bg-white px-4 py-3 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:border-purple-200"
-                      >
-                        <div className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">
-                          {article.category}
-                        </div>
-                          <div className="mt-2 text-sm font-black leading-snug text-slate-900 group-hover:text-[#0048E5] transition-colors">
-                            {article.title}
-                          </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <div className="absolute -inset-8 bg-gradient-to-tr from-[#7e22ce]/14 via-fuchsia-500/8 to-transparent blur-3xl opacity-50" />
+              <img
+                src={BlogHero}
+                alt="KaryaUp blog hero visual"
+                className="relative w-full h-auto object-contain drop-shadow-[0_28px_70px_rgba(15,23,42,0.14)]"
+              />
             </motion.div>
           </div>
         </div>
       </section>
-      {/* Category Navigation (Horizontal Pill List) */}
-      <section className="sticky top-[72px] z-30 bg-white/80 backdrop-blur-md border-b border-slate-100 py-3">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-center overflow-x-auto no-scrollbar">
-            <div className="flex items-center justify-center gap-2 flex-wrap">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-2 rounded-full text-[14px] font-bold transition-all whitespace-nowrap ${
-                    activeCategory === cat
-                      ? "bg-[#0A2540] text-white"
-                      : "bg-transparent text-[#425466] hover:bg-[#F6F9FC] hover:text-[#0A2540]"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Articles Feed - Stripe List Style */}
-      <section className="relative py-24 min-h-[600px]">
+      <section className="relative pt-10 pb-24 min-h-[600px]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col">
             <AnimatePresence mode="popLayout" initial={false}>

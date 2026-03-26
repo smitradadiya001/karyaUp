@@ -313,7 +313,7 @@ const Navbar = () => {
         ? "bg-white shadow-md  border-gray-100"
         : isScrolled
           ? "bg-white/70 backdrop-blur-md shadow-sm "
-          : "bg-transparent"
+          : "bg-slate-950/18 backdrop-blur-sm"
         }`}
     >
       <div className="max-w-full mx-auto px-4 lg:px-4">
