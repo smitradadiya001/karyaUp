@@ -7,6 +7,7 @@ html {
   overflow-x: clip;
   width: 100%;
   max-width: 100%;
+  scrollbar-gutter: stable;
 }
 
 @theme {
@@ -134,6 +135,17 @@ html {
 
     100% {
       background-position: -200% center;
+    }
+  }
+
+  @keyframes loader-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-12px);
     }
   }
 }

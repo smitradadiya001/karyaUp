@@ -246,6 +246,28 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const shouldLockScroll =
+      isOpen || isPlatformOpen || isFeaturesOpen || isSolutionsOpen || isResourcesOpen;
+
+    if (!shouldLockScroll) {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [isOpen, isPlatformOpen, isFeaturesOpen, isSolutionsOpen, isResourcesOpen]);
+
+  const megaMenuPanelClass =
+    "absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top max-h-[calc(100vh-88px)] overflow-y-auto overscroll-contain";
+
   const handlePlatformMouseEnter = () => {
     if (platformTimerRef.current) {
       clearTimeout(platformTimerRef.current);
@@ -313,6 +335,8 @@ const Navbar = () => {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 py-3 ${isPlatformOpen || isFeaturesOpen || isSolutionsOpen || isResourcesOpen
         ? "bg-white md:shadow-md border-b border-gray-100"
+        : isOpen
+          ? "bg-transparent border-b border-transparent shadow-none backdrop-blur-0"
         : isScrolled
           ? "bg-white md:bg-white/70 md:backdrop-blur-md md:shadow-sm md:border-b md:border-slate-200/70"
           : "bg-transparent border-b border-transparent shadow-none backdrop-blur-0"
@@ -373,30 +397,40 @@ const Navbar = () => {
                 </div>
 
                 {isPlatformOpen && (
-                  <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                      <div className="flex gap-16 md:gap-32 w-full max-w-5xl px-8">
-                        {platformMegaColumns.map((column, index) => (
-                          <div key={index} className="flex flex-col gap-6 flex-1">
-                            {column.map((item) => (
-                            <Link
-                              key={item.to}
-                              to={item.to}
-                              onClick={closeAllMenus}
-                              className="flex items-start gap-4 text-sm font-medium text-slate-800 hover:text-primary transition-colors group"
-                            >
-                              {item.icon && (
-                                <div className="flex items-center justify-center shrink-0 transition-all group-hover:scale-110 group-hover:-rotate-3">
-                                  <item.icon size={24} strokeWidth={2} className={item.iconColor || 'text-purple-600'} />
-                                </div>
-                              )}
-                              <div className="flex flex-col">
-                                <span className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</span>
-                                <span className="text-xs text-slate-400">{item.description || item.sublabel}</span>
-                              </div>
-                            </Link>
-                            ))}
-                          </div>
+                  <div className={megaMenuPanelClass}>
+                    <div className="w-full flex">
+                      <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
+                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Core Workspace</p>
+                        {platformMegaSections.core.map((item) => (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={closeAllMenus}
+                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                          >
+                            <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-purple-600"} />
+                            <div>
+                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                              <p className="text-xs text-slate-400">{item.description || item.sublabel}</p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                      <div className="flex-1 bg-slate-50 px-8 py-3 flex flex-col border-r border-slate-200">
+                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Leadership Views</p>
+                        {platformMegaSections.manage.map((item) => (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={closeAllMenus}
+                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                          >
+                            <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-purple-600"} />
+                            <div>
+                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                              <p className="text-xs text-slate-400">{item.description || item.sublabel}</p>
+                            </div>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -417,35 +451,54 @@ const Navbar = () => {
                 </div>
 
                 {isFeaturesOpen && (
-                  <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                      <div className="grid gap-x-8 gap-y-12 grid-cols-2 md:grid-cols-5 lg:grid-cols-5">
-                        {featuresMegaSections.map((section) => (
-                          <div key={section.heading}>
-                            <h3 className="text-sm font-bold text-slate-400 tracking-wider mb-5">
-                              {section.heading}
-                            </h3>
-                            <ul className="space-y-4">
-                              {section.items.map((item) => (
-                                <li key={item.to}>
-                                  <Link
-                                    to={item.to}
-                                    onClick={closeAllMenus}
-                                    className="flex items-center gap-3 text-[15px] font-medium text-slate-800 hover:text-primary transition-colors group"
-                                  >
-                                    {item.icon && (
-                                      <div className="flex items-center justify-center shrink-0 group-hover:scale-110 transition-all">
-                                        <item.icon size={20} strokeWidth={2.5} className={item.iconColor || 'text-emerald-600'} />
-                                      </div>
-                                    )}
+                  <div className={megaMenuPanelClass}>
+                    <div className="grid w-full grid-cols-5">
+                      {featuresMegaSections.map((section, index) => (
+                        <div
+                          key={section.heading}
+                          className={`px-7 py-3 flex flex-col min-h-[240px] ${
+                            index % 2 === 0 ? "bg-white" : "bg-slate-50"
+                          } ${index !== featuresMegaSections.length - 1 ? "border-r border-slate-200/80" : ""}`}
+                        >
+                          <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-3">
+                            {section.heading}
+                          </p>
+                          <div className="flex flex-col gap-1">
+                            {section.items.map((item) => (
+                              <Link
+                                key={item.to}
+                                to={item.to}
+                                onClick={closeAllMenus}
+                                className={`group flex items-center gap-3 py-1.5 px-3 rounded-xl transition-all ${
+                                  "hover:bg-white hover:shadow-md"
+                                }`}
+                              >
+                                <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-slate-600"} />
+                                <div className="flex flex-col">
+                                  <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">
                                     {item.label}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
+                                  </p>
+                                  <p className="text-xs text-slate-400 whitespace-nowrap">
+                                    {item.label === "Tasks" && "Tasks and ownership"}
+                                    {item.label === "Dashboards" && "Live performance view"}
+                                    {item.label === "Gantt" && "Timeline planning"}
+                                    {item.label === "Chat" && "Work chat in context"}
+                                    {item.label === "Notifications" && "Instant updates"}
+                                    {item.label === "Team" && "Members and roles"}
+                                    {item.label === "Attendance" && "Daily time logs"}
+                                    {item.label === "Leave" && "Time-off requests"}
+                                    {item.label === "Salary" && "Payroll and payouts"}
+                                    {item.label === "Calendar" && "Schedules and meetings"}
+                                    {item.label === "Automations" && "Rule-based workflows"}
+                                    {item.label === "Integrations" && "Connected tools"}
+                                    {item.label === "Watch demo" && "Product walkthrough"}
+                                  </p>
+                                </div>
+                              </Link>
+                            ))}
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -464,7 +517,7 @@ const Navbar = () => {
                 </div>
 
                 {isSolutionsOpen && (
-                  <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
+                  <div className={megaMenuPanelClass}>
                     <div className="w-full flex">
                       {/* Left Panel – By Team */}
                       <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
@@ -474,7 +527,7 @@ const Navbar = () => {
                             key={item.to}
                             to={item.to}
                             onClick={closeAllMenus}
-                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-purple-50 transition-all"
+                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
                           >
                             <item.icon size={18} strokeWidth={2} className={item.iconColor} />
                             <div>
@@ -513,7 +566,7 @@ const Navbar = () => {
                               key={item.to}
                               to={item.to}
                               onClick={closeAllMenus}
-                              className="group flex items-center gap-4 p-4 rounded-2xl border border-transparent hover:border-purple-100 hover:bg-purple-50/40 hover:shadow-md transition-all"
+                              className="group flex items-center gap-4 p-4 rounded-2xl border border-transparent hover:border-purple-100 hover:bg-white hover:shadow-md transition-all"
                             >
                               <div className="w-10 h-10 rounded-xl bg-slate-50 shadow-sm border border-slate-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                                 <item.icon size={20} strokeWidth={2} className={item.iconColor} />
@@ -554,55 +607,41 @@ const Navbar = () => {
                 </div>
 
                 {isResourcesOpen && (
-                  <div className="absolute left-0 top-full w-full bg-white border-b border-slate-200 shadow-xl animate-slide-down origin-top">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                      <div className="flex gap-16 md:gap-32 w-full max-w-5xl px-8">
-                        {/* Section 1 */}
-                        <div className="flex flex-col gap-6 flex-1">
-                          {resourcesMegaSections.slice(0, 2).map((item) => (
-                            <Link
-                              key={item.to}
-                              to={item.to}
-                              onClick={closeAllMenus}
-                              className="flex items-start gap-4 text-sm font-medium text-slate-800 hover:text-primary transition-colors group"
-                            >
-                              {item.icon && (
-                                <div className="flex items-center justify-center shrink-0 transition-all group-hover:scale-110 group-hover:-rotate-3">
-                                  <item.icon size={24} strokeWidth={2} className={item.iconColor || 'text-indigo-600'} />
-                                </div>
-                              )}
-                              <div className="flex flex-col">
-                                <span className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</span>
-                                <span className="text-xs text-slate-400">
-                                  {item.description}
-                                </span>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                        {/* Section 2 */}
-                        <div className="flex flex-col gap-6 flex-1">
-                          {resourcesMegaSections.slice(2).map((item) => (
-                            <Link
-                              key={item.to}
-                              to={item.to}
-                              onClick={closeAllMenus}
-                              className="flex items-start gap-4 text-sm font-medium text-slate-800 hover:text-primary transition-colors group"
-                            >
-                              {item.icon && (
-                                <div className="flex items-center justify-center shrink-0 transition-all group-hover:scale-110 group-hover:-rotate-3">
-                                  <item.icon size={24} strokeWidth={2} className={item.iconColor || 'text-indigo-600'} />
-                                </div>
-                              )}
-                              <div className="flex flex-col">
-                                <span className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</span>
-                                <span className="text-xs text-slate-400">
-                                  {item.description}
-                                </span>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
+                  <div className={megaMenuPanelClass}>
+                    <div className="w-full flex">
+                      <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
+                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Read & Learn</p>
+                        {resourcesMegaSections.slice(0, 2).map((item) => (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={closeAllMenus}
+                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                          >
+                            <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-indigo-600"} />
+                            <div>
+                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                              <p className="text-xs text-slate-400">{item.description}</p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                      <div className="flex-1 bg-slate-50 px-8 py-3 flex flex-col border-r border-slate-200">
+                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Watch & Connect</p>
+                        {resourcesMegaSections.slice(2).map((item) => (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={closeAllMenus}
+                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                          >
+                            <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-indigo-600"} />
+                            <div>
+                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                              <p className="text-xs text-slate-400">{item.description}</p>
+                            </div>
+                          </Link>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -637,8 +676,8 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 shadow-2xl">
-          <div className="px-4 py-5 space-y-1">
+        <div className="md:hidden fixed inset-x-0 top-[73px] bottom-0 z-40 bg-white shadow-2xl overflow-y-auto">
+          <div className="px-4 py-5 space-y-2 bg-white">
             {navItems.map((item) => (
               item.to ? (
                 <NavLink
@@ -657,12 +696,12 @@ const Navbar = () => {
               ) : (
                 <div
                   key={item.label}
-                  className="rounded-xl border border-gray-100 bg-white overflow-hidden"
+                  className="overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-[0_8px_24px_-18px_rgba(15,23,42,0.18)]"
                 >
                   <button
                     type="button"
                     onClick={() => setMobileOpenSection((prev) => prev === item.label ? null : item.label)}
-                    className="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-slate-700"
+                    className="w-full flex items-center justify-between px-5 py-4 text-[1.05rem] font-semibold text-slate-700"
                   >
                     <span>{item.label}</span>
                     <ChevronDown
@@ -670,8 +709,14 @@ const Navbar = () => {
                     />
                   </button>
                   {mobileOpenSection === item.label && (
-                    <div className="px-2 pb-2">
-                      <div className="rounded-xl bg-slate-50 border border-slate-100 overflow-hidden">
+                    <div className="px-3 pb-3">
+                      <div
+                        className={`rounded-xl bg-slate-50 border border-slate-100 overflow-hidden ${
+                          item.label === "Features" || item.label === "Solutions"
+                            ? "max-h-[320px] overflow-y-auto overscroll-contain"
+                            : ""
+                        }`}
+                      >
                         {(mobileMenuSections[item.label] || []).map((subItem) => (
                           <Link
                             key={subItem.to}
@@ -701,7 +746,7 @@ const Navbar = () => {
               )
             ))}
 
-            <div className="pt-6 pb-4 border-t border-gray-100 flex flex-col gap-3">
+            <div className="pt-6 pb-4 mt-2 border-t border-gray-100 flex flex-col gap-3">
               <a
                 href={authUrl}
                 onClick={() => setIsOpen(false)}

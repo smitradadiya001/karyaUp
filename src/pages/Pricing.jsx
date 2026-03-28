@@ -386,7 +386,7 @@ export default function Pricing() {
                       }}
                     >
                       <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
-                      <div className="absolute left-0 top-0 -z-10 h-full w-0 rounded-[30em] bg-white transition-all duration-500 ease-in-out group-hover:w-full group-active:w-full" />
+                      <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
                       <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
                         {plan.buttonText}
                         <ArrowRight size={16} className="transition-transform group-hover:translate-x-1 group-active:translate-x-1" />
@@ -447,7 +447,7 @@ export default function Pricing() {
                                   boxShadow: "0 12px 28px rgba(126, 34, 206, 0.18)"
                                 }}
                               >
-                                <div className="absolute left-0 top-0 z-0 h-full w-0 rounded-[30em] bg-white transition-all duration-500 ease-in-out group-hover:w-full group-active:w-full" />
+                                <div className="absolute -inset-[3px] z-0 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
                                 <span className="relative z-10 flex items-center justify-center gap-1.5 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
                                   {plan.name === 'Enterprise' ? 'Contact Sales' : 'Get Started'}
                                   <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5 group-active:translate-x-0.5" />
@@ -625,7 +625,7 @@ export default function Pricing() {
                   }}
                 >
                   <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
-                  <div className="absolute left-0 top-0 -z-10 h-full w-0 rounded-[30em] bg-white transition-all duration-500 ease-in-out group-hover:w-full group-active:w-full" />
+                  <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
                   <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
                     Start Saving Today
                     <ArrowRight size={16} className="transition-transform group-hover:translate-x-1 group-active:translate-x-1" />
@@ -786,7 +786,7 @@ export default function Pricing() {
                   }}
                 >
                   <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
-                  <div className="absolute left-0 top-0 -z-10 h-full w-0 rounded-[30em] bg-white transition-all duration-500 ease-in-out group-hover:w-full group-active:w-full" />
+                  <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
                   <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
                     Get Started for Free
                     <ArrowRight size={16} className="transition-transform group-hover:translate-x-1 group-active:translate-x-1" />

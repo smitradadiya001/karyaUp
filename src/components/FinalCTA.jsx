@@ -34,7 +34,7 @@ const FinalCTA = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-8 sm:mt-12 lg:mt-16 bg-[linear-gradient(180deg,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.65)_100%)] backdrop-blur-3xl border border-slate-200/60 rounded-[3rem] px-6 py-7 sm:px-10 sm:py-9 shadow-[0_32px_120px_-20px_rgba(30,41,59,0.08)] relative overflow-hidden"
+          className="mt-6 sm:mt-10 lg:mt-12 bg-[linear-gradient(180deg,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.65)_100%)] backdrop-blur-3xl border border-slate-200/60 rounded-[3rem] px-6 py-6 sm:px-9 sm:py-8 shadow-[0_32px_120px_-20px_rgba(30,41,59,0.08)] relative overflow-hidden"
         >
           <div className="absolute inset-0 pointer-events-none opacity-30">
             <svg className="h-full w-full" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,14 +63,14 @@ const FinalCTA = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-slate-50 border border-slate-200 text-slate-500 text-[11px] font-black uppercase tracking-[0.2em] mb-4 shadow-sm"
+              className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-slate-50 border border-slate-200 text-slate-500 text-[11px] font-black uppercase tracking-[0.2em] mb-3 shadow-sm"
             >
               <ShieldCheck size={14} className="text-[#7e22ce]" />
               The execution standard for elite teams
             </motion.div>
 
             {/* Testimonial Marquee (Infinite Scroll) - Seamless Loop */}
-            <div className="mb-6 overflow-hidden relative w-full h-12 sm:h-12 flex items-center">
+            <div className="mb-4 overflow-hidden relative w-full h-10 sm:h-12 flex items-center">
               <motion.div
                 animate={{ x: ["0%", "-50%"] }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
@@ -93,7 +93,7 @@ const FinalCTA = () => {
             </div>
 
             {/* Main Value Prop */}
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95] mb-4">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95] mb-3">
               Run your entire <br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:400%_auto]"
@@ -104,7 +104,7 @@ const FinalCTA = () => {
               </motion.span>
             </h2>
 
-            <p className="text-lg sm:text-xl text-slate-500 font-medium max-w-2xl mx-auto mb-6 leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-500 font-medium max-w-2xl mx-auto mb-5 leading-relaxed">
               Stop switching tools. Start moving work forward. <br />
               <span className="text-slate-900 font-black">
                 Execution speed increased by up to <span className="text-[#7e22ce]">{speed.toFixed(1)}x</span>.
@@ -112,7 +112,7 @@ const FinalCTA = () => {
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
               <Link
                 to="https://www.karyaup.com/auth"
                 onMouseEnter={() => setIsHoveringCTA(true)}
@@ -123,7 +123,7 @@ const FinalCTA = () => {
                 }}
               >
                 <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
-                <div className="absolute left-0 top-0 -z-10 h-full w-0 rounded-[30em] bg-white transition-all duration-500 ease-in-out group-hover:w-full" />
+                <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
                 <span className="relative z-10 flex items-center justify-center gap-4 text-white transition-colors duration-300 group-hover:text-slate-800">
                   Start Free Workspace
                   <ArrowRight size={22} className="group-hover:translate-x-1.5 transition-transform" />
@@ -144,7 +144,7 @@ const FinalCTA = () => {
             </div>
 
             {/* Bottom Proof - Enhanced Visibility */}
-            <div className="mt-8 flex flex-wrap justify-center items-center gap-x-12 gap-y-6 opacity-80">
+            <div className="mt-6 flex flex-wrap justify-center items-center gap-x-10 gap-y-4 opacity-80">
               <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
                 <Globe size={18} className="text-purple-600" /> 10,000+ Global Teams
               </div>

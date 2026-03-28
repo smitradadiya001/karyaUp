@@ -7,7 +7,7 @@ const Loader = () => {
       <img
         src={loaderLogo}
         alt="KaryaUp Logo"
-        className="w-full max-w-[140px] sm:max-w-[180px] h-auto object-contain animate-pulse"
+        className="h-auto w-full max-w-[54px] sm:max-w-[64px] object-contain animate-[loader-bounce_0.9s_ease-in-out_infinite]"
       />
     </div>
   );
