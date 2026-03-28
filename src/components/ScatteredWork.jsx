@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
-import { 
-  CheckCircle2, AlertCircle, TrendingUp, ShieldCheck, 
-  ArrowRight, Zap, Target, Rocket
+import {
+  CheckCircle2, AlertCircle, TrendingUp, ShieldCheck,
+  ArrowRight, Zap, Target, Rocket, X
 } from "lucide-react";
 
 export default function ScatteredWork() {
@@ -26,18 +26,18 @@ export default function ScatteredWork() {
     <section className="w-full pt-16 px-6 bg-white relative font-sans">
 
       <div className="max-w-[1440px] mx-auto relative z-10">
-        <div className="text-center mb-10 px-4">
+        <div className="text-center mb-8 px-4">
           <motion.span 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="inline-block text-[11px] font-black uppercase tracking-[0.25em] text-[#7e22ce] bg-purple-50 px-5 py-2 rounded-full border border-purple-100 mb-6"
+            className="inline-block text-[11px] font-black uppercase tracking-[0.25em] text-[#7e22ce] bg-purple-50 px-5 py-2 rounded-full border border-purple-100 mb-4"
           >
             Efficiency Audit
           </motion.span>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-[0.9]"
+            className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95]"
           >
             Consolidate your <br className="hidden md:block" />tools 
             for<br className="hidden md:block" /> <motion.span
@@ -65,26 +65,28 @@ export default function ScatteredWork() {
               <span className="text-xs font-black uppercase tracking-widest text-slate-400">The Problem</span>
             </div>
 
-            <h3 className="text-3xl font-black text-slate-800 tracking-tight leading-none mb-4">
+            <h3 className="text-3xl md:text-5xl font-black text-slate-800 tracking-tighter leading-[0.9] mb-6">
               Work is scattered across <br />
               <span className="text-purple-500">too many tools.</span>
             </h3>
 
-            <p className="text-slate-500 font-bold text-sm mb-6">
+            <p className="text-slate-500 font-medium text-lg leading-relaxed mb-6 max-w-xl">
               The average team struggles with 8–12 tools daily.
             </p>
 
-            <div className="space-y-3 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               {problems.map((item, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm text-slate-700 font-bold text-sm"
+                  className="p-5 rounded-2xl border border-slate-100 bg-white shadow-sm transition-all flex items-center min-h-[102px]"
                 >
-                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                  {item}
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-purple-400 flex-shrink-0" />
+                    <span className="font-black text-slate-800 text-lg">{item}</span>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -100,7 +102,7 @@ export default function ScatteredWork() {
                 ].map((text, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm font-black text-purple-700">
                     <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-purple-500 shadow-sm border border-purple-100">
-                      <span className="text-[10px] scale-150">×</span>
+                      <X size={11} strokeWidth={3.5} className="shrink-0" />
                     </div>
                     {text}
                   </li>
@@ -134,12 +136,12 @@ export default function ScatteredWork() {
             </p>
 
             {/* Solution Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 mt-9">
               {solutions.map((item, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ y: -5, borderColor: "#7e22ce" }}
-                  className="p-5 rounded-2xl border border-slate-100 bg-white shadow-sm transition-all group"
+                  className="min-h-[102px] p-5 rounded-2xl border border-slate-100 bg-white shadow-sm transition-all group flex flex-col justify-center"
                 >
                   <h4 className="font-black text-slate-800 text-lg mb-1 group-hover:text-[#7e22ce] transition-colors">{item.text}</h4>
                   <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">{item.desc}</p>
@@ -148,9 +150,9 @@ export default function ScatteredWork() {
             </div>
 
             {/* List and Outcome Section */}
-            <div className="mt-8 flex flex-col items-center gap-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+            <div className="mt-10 lg:mt-8 flex flex-col items-center gap-6 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
               {/* Transformation Steps */}
-              <div className="space-y-4">
+              <div className="space-y-4 sm:pb-2">
                 {[
                   { text: "Plan the Karya.", icon: Target },
                   { text: "Move the Karya.", icon: Zap },
@@ -167,22 +169,22 @@ export default function ScatteredWork() {
               <motion.div 
                 initial={{ scale: 0.95, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
-                className="relative min-w-[200px] overflow-hidden rounded-[2rem] bg-slate-900 p-5 text-white flex flex-col gap-4 shadow-xl shadow-purple-900/20"
+                className="relative w-full max-w-[320px] overflow-hidden rounded-[2rem] bg-slate-900 p-6 text-white flex flex-col gap-5 shadow-xl shadow-purple-900/20"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#7e22ce]/10 to-transparent pointer-events-none" />
                 <div className="relative z-10 flex items-center gap-4">
-                  <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400 border border-emerald-500/20">
-                    <TrendingUp size={20} />
+                  <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400 border border-emerald-500/20">
+                    <TrendingUp size={22} />
                   </div>
                   <div>
-                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mb-0.5">Net Gain</p>
-                    <p className="font-black text-base tracking-tight">40% Boost</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-1">Net Gain</p>
+                    <p className="font-black text-lg tracking-tight">40% Boost</p>
                   </div>
                 </div>
                 <div className="h-[1px] w-full bg-slate-800" />
                 <div className="relative z-10 flex items-center gap-2 px-1">
-                  <ShieldCheck size={14} className="text-purple-400" />
-                  <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest whitespace-nowrap">Enterprise Class</span>
+                  <ShieldCheck size={16} className="text-purple-400" />
+                  <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest whitespace-nowrap">Enterprise Class</span>
                 </div>
               </motion.div>
             </div>

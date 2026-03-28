@@ -2,7 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Play, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import HeroBg from "../assets/Hero_BG.png";
+//import HeroBg from "../assets/Hero_BG.png";
+
 
 const Hero = () => {
   return (
@@ -12,7 +13,7 @@ const Hero = () => {
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src={HeroBg}
+          src="/Hero_BG.png"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 h-full w-full scale-105 object-cover blur-[6px]"

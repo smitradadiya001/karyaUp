@@ -63,18 +63,18 @@ const FinalCTA = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-slate-50 border border-slate-200 text-slate-500 text-[11px] font-black uppercase tracking-[0.2em] mb-8 shadow-sm"
+              className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-slate-50 border border-slate-200 text-slate-500 text-[11px] font-black uppercase tracking-[0.2em] mb-4 shadow-sm"
             >
               <ShieldCheck size={14} className="text-[#7e22ce]" />
               The execution standard for elite teams
             </motion.div>
 
             {/* Testimonial Marquee (Infinite Scroll) - Seamless Loop */}
-            <div className="mb-8 overflow-hidden relative w-full h-12 flex items-center">
+            <div className="mb-6 overflow-hidden relative w-full h-12 sm:h-12 flex items-center">
               <motion.div
-                animate={{ x: ["-50%", "0%"] }}
+                animate={{ x: ["0%", "-50%"] }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                className="flex items-center gap-20 whitespace-nowrap"
+                className="flex items-center gap-12 sm:gap-20 whitespace-nowrap"
               >
                 {[...testimonials, ...testimonials].map((t, i) => (
                   <div key={i} className="flex items-center gap-4">
@@ -88,12 +88,12 @@ const FinalCTA = () => {
                 ))}
               </motion.div>
               {/* Fade overlays */}
-              <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
-              <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
+              <div className="absolute inset-y-0 left-0 w-12 sm:w-40 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+              <div className="absolute inset-y-0 right-0 w-12 sm:w-40 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
             </div>
 
             {/* Main Value Prop */}
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-6">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95] mb-4">
               Run your entire <br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:400%_auto]"
@@ -104,7 +104,7 @@ const FinalCTA = () => {
               </motion.span>
             </h2>
 
-            <p className="text-lg sm:text-2xl text-slate-500 font-medium max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-500 font-medium max-w-2xl mx-auto mb-6 leading-relaxed">
               Stop switching tools. Start moving work forward. <br />
               <span className="text-slate-900 font-black">
                 Execution speed increased by up to <span className="text-[#7e22ce]">{speed.toFixed(1)}x</span>.

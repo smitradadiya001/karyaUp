@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Rocket, Users, Cpu, TrendingUp, UserCircle2 } from 'lucide-react';
+import { Rocket, Users, Cpu, TrendingUp, UserCircle2, CheckCircle2 } from 'lucide-react';
 
 const teams = [
   {
@@ -8,6 +8,8 @@ const teams = [
     label: 'Startups',
     headline: 'Launch faster with structured execution.',
     result: 'Move from idea to release in days, not weeks.',
+    summary: 'Keep planning, ownership, and execution in one place so small teams can ship without tool sprawl.',
+    bullets: ['Clear sprint priorities', 'Fast release coordination', 'Founder-level visibility'],
     gradient: 'from-violet-500 to-purple-600',
     textGrad: 'from-violet-500 to-purple-600',
     bg: 'bg-violet-50',
@@ -19,6 +21,8 @@ const teams = [
     label: 'Agencies',
     headline: 'Manage multiple clients without chaos.',
     result: 'Handle 2x more projects with the same team.',
+    summary: 'Bring client work, approvals, and delivery timelines into one workflow your team can actually follow.',
+    bullets: ['Multi-client tracking', 'Approval-ready delivery', 'Less context switching'],
     gradient: 'from-fuchsia-500 to-pink-500',
     textGrad: 'from-fuchsia-500 to-pink-500',
     bg: 'bg-fuchsia-50',
@@ -30,6 +34,8 @@ const teams = [
     label: 'Product Teams',
     headline: 'Plan, build, and ship with clarity.',
     result: 'Reduce delays across sprints.',
+    summary: 'Align product, design, and engineering around one shared source of truth from planning to launch.',
+    bullets: ['Sprint-ready planning', 'Cross-team sync', 'Better release control'],
     gradient: 'from-purple-600 to-indigo-600',
     textGrad: 'from-purple-600 to-indigo-600',
     bg: 'bg-purple-50',
@@ -41,6 +47,8 @@ const teams = [
     label: 'Sales Teams',
     headline: 'Track deals and stay aligned with delivery.',
     result: 'Close faster with full visibility.',
+    summary: 'Connect pipeline activity with execution so handoffs stay smooth and revenue work keeps moving.',
+    bullets: ['Lead-to-delivery flow', 'Shared client context', 'Faster follow-ups'],
     gradient: 'from-pink-500 to-rose-500',
     textGrad: 'from-pink-500 to-rose-500',
     bg: 'bg-pink-50',
@@ -52,6 +60,8 @@ const teams = [
     label: 'Freelancers',
     headline: 'Stay organized across clients.',
     result: 'Never miss a deadline again.',
+    summary: 'Run every client, task, and due date from one clean workspace that feels built for solo operators.',
+    bullets: ['Client-by-client clarity', 'Reliable reminders', 'One-person control'],
     gradient: 'from-indigo-500 to-violet-600',
     textGrad: 'from-indigo-500 to-violet-600',
     bg: 'bg-indigo-50',
@@ -249,12 +259,12 @@ const TeamsSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Heading */}
-        <div className="mb-10 text-center flex flex-col items-center">
+        <div className="mb-8 text-center flex flex-col items-center">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-bold mb-4 uppercase tracking-widest">
             <Users size={13} /> Who it's for
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-tight tracking-tight max-w-3xl mx-auto">
-            Built for teams that{' '}
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[0.95] tracking-tight max-w-3xl mx-auto">
+            Built for teams that{' '}<br/>
             <motion.span
               className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
               animate={{ backgroundPosition: ['0% center', '-200% center'] }}
@@ -367,22 +377,42 @@ const TeamsSection = () => {
                   <h3 className="mt-2 mb-4 text-xl font-black leading-snug text-slate-900 sm:text-3xl">
                     {team.headline}
                   </h3>
-                  <p className="mb-7 text-sm font-medium italic text-slate-500 sm:mb-10 sm:text-base">
+                  <p className="mb-5 text-sm font-medium italic text-slate-500 sm:text-base">
                     "{team.result}"
                   </p>
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-baseline gap-2">
-                      <span className={`text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r sm:text-4xl ${team.textGrad}`}>
-                        {team.stat.split(',')[0]}
-                      </span>
-                      <span className="text-slate-400 text-sm font-bold uppercase tracking-wider">
-                        {team.stat.includes(',') ? team.stat.split(',')[1] : ''}
-                      </span>
+                  <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-start">
+                    <div>
+                      <p className="max-w-xl text-sm font-medium leading-relaxed text-slate-500 sm:text-base">
+                        {team.summary}
+                      </p>
+
+                      <div className="mt-5 flex flex-col gap-1 rounded-2xl border border-white/70 bg-white/70 p-4 shadow-sm backdrop-blur-sm sm:max-w-[240px]">
+                        <div className="flex items-baseline gap-2">
+                          <span className={`text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r sm:text-4xl ${team.textGrad}`}>
+                            {team.stat.split(',')[0]}
+                          </span>
+                          <span className="text-slate-400 text-sm font-bold uppercase tracking-wider">
+                            {team.stat.includes(',') ? team.stat.split(',')[1] : ''}
+                          </span>
+                        </div>
+                        <div className="h-1 w-12 rounded-full bg-gradient-to-r from-slate-200 to-transparent" />
+                        <p className="mt-2 text-sm font-medium text-slate-400">
+                          {team.statSub}
+                        </p>
+                      </div>
                     </div>
-                    <div className="h-1 w-12 rounded-full bg-gradient-to-r from-slate-200 to-transparent" />
-                    <p className="text-slate-400 text-sm font-medium mt-2 max-w-[200px]">
-                      {team.statSub}
-                    </p>
+
+                    <div className="space-y-3">
+                      {team.bullets.map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-start gap-3 rounded-2xl border border-white/70 bg-white/75 px-4 py-3 text-sm font-bold text-slate-600 shadow-sm backdrop-blur-sm"
+                        >
+                          <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-[#7e22ce]" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 

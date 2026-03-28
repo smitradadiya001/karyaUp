@@ -1,137 +1,169 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Zap, FileText, Database } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Zap, FileText, Database } from "lucide-react";
 import ClickUpLogo from "../assets/ClickUp.webp";
 import JiraLogo from "../assets/Jira.webp";
 import KaryaUpLogo from "../assets/logo.png";
 
 const DataImport = () => {
-    const fileVariants = {
-        animate: (i) => ({
-            offsetDistance: ["0%", "100%"],
-            opacity: [0, 1, 1, 0],
-            scale: [0.5, 1, 1, 0.5],
-            transition: {
-                duration: 6,
-                repeat: Infinity,
-                delay: i * 1.5,
-                ease: "easeInOut"
-            }
-        })
-    };
+  const fileVariants = {
+    animate: (i) => ({
+      offsetDistance: ["0%", "100%"],
+      opacity: [0, 1, 1, 0],
+      scale: [0.5, 1, 1, 0.5],
+      transition: {
+        duration: 6,
+        repeat: Infinity,
+        delay: i * 1.5,
+        ease: "easeInOut",
+      },
+    }),
+  };
 
-    return (
-        <section className="py-4 sm:py-6 lg:py-8 bg-white overflow-x-hidden overflow-y-hidden relative">
-            <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                <div className="flex flex-col lg:flex-row items-center gap-10 sm:gap-12 lg:gap-20">
+  return (
+    <section className="py-4 sm:py-6 lg:py-8 bg-white overflow-x-hidden overflow-y-hidden relative">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
+          {/* Left: Content */}
+          <div className="w-full flex-[0.45] text-center lg:text-left">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100 mb-4 sm:mb-6 shadow-sm">
+                <Zap className="w-3.5 h-3.5 text-[#7e22ce]" />
+                <span className="text-[10px] font-bold text-[#7e22ce] uppercase tracking-wider">
+                  Zero Friction Sync
+                </span>
+              </div>
+              <h2 className="mx-auto max-w-[12ch] text-3xl sm:max-w-[12ch] sm:text-4xl md:max-w-none md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1] mb-4 sm:mb-8 lg:mx-0">
+                Seamless Import
+                <br />
+                from Your
+                <br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{
+                    backgroundPosition: ["0% center", "-200% center"],
+                  }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  Existing Tools
+                </motion.span>
+              </h2>
+              <p className="text-base sm:text-xl font-medium text-slate-500 mb-4 sm:mb-8 leading-relaxed max-w-[30rem] mx-auto lg:mx-0">
+                Move your entire workflow from ClickUp and Jira into Karyaup in
+                one click. No data loss, just pure productivity.
+              </p>
+            </motion.div>
+          </div>
 
-                    {/* Left: Content */}
-                    <div className="flex-[0.45] text-center lg:text-left">
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                        >
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100 mb-4 sm:mb-6 shadow-sm">
-                                <Zap className="w-3.5 h-3.5 text-[#7e22ce]" />
-                                <span className="text-[10px] font-bold text-[#7e22ce] uppercase tracking-wider">Zero Friction Sync</span>
-                            </div>
-                            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95] mb-5 sm:mb-8">
-                                Seamless Import from Your<br />
-                                <motion.span
-                                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
-                                    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                >
-                                    Existing Tools
-                                </motion.span>
-                            </h2>
-                            <p className="text-lg sm:text-xl font-medium text-slate-500 mb-4 sm:mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                                Move your entire workflow from ClickUp and Jira into Karyaup in one click. No data loss, just pure productivity.
-                            </p>
-                        </motion.div>
-                    </div>
-
-                    {/* Right: Visual Area */}
-                    <div className="flex-[0.55] relative w-full max-w-full overflow-hidden flex items-center justify-center lg:justify-end pr-0 sm:pr-4 lg:pr-12">
-
-                        {/* ══════════════════════════════════
+          {/* Right: Visual Area */}
+          <div className="flex-[0.55] relative w-full max-w-full overflow-hidden flex items-center justify-center lg:justify-end pr-0 sm:pr-4 lg:pr-12">
+            {/* ══════════════════════════════════
                             DESKTOP  sm and above — UNCHANGED
                         ══════════════════════════════════ */}
-                        <div className="hidden sm:block relative w-full h-[420px] sm:h-[500px]">
+            <div className="hidden sm:block relative w-full h-[420px] sm:h-[500px]">
+              {/* KaryaUp hub */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 z-30">
+                <motion.div
+                  animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.25, 0.1] }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-slate-100 rounded-full blur-[100px] -z-10"
+                />
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-36 h-36 lg:w-48 lg:h-48 flex items-center justify-center p-4 -translate-y-[12px]"
+                >
+                  <img
+                    src={KaryaUpLogo}
+                    alt="Karyaup"
+                    className="w-full h-full object-contain"
+                  />
+                </motion.div>
+              </div>
 
-                            {/* KaryaUp hub */}
-                            <div className="absolute right-0 top-1/2 -translate-y-1/2 z-30">
-                                <motion.div
-                                    animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.25, 0.1] }}
-                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-slate-100 rounded-full blur-[100px] -z-10"
-                                />
-                                <motion.div
-                                    initial={{ scale: 0.8, opacity: 0 }}
-                                    whileInView={{ scale: 1, opacity: 1 }}
-                                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                                    className="w-36 h-36 lg:w-48 lg:h-48 flex items-center justify-center p-4 -translate-y-[12px]"
-                                >
-                                    <img src={KaryaUpLogo} alt="Karyaup" className="w-full h-full object-contain" />
-                                </motion.div>
-                            </div>
+              {/* Source tools left column */}
+              <div className="absolute inset-x-0 h-full flex flex-col justify-between py-12 lg:py-20 pointer-events-none">
+                <motion.div
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="self-start pl-4 lg:pl-0 pointer-events-auto -translate-y-8"
+                >
+                  <img
+                    src={ClickUpLogo}
+                    alt="ClickUp"
+                    className="w-20 h-20 lg:w-28 lg:h-28 object-contain drop-shadow-2xl"
+                  />
+                </motion.div>
+                <motion.div
+                  animate={{ y: [0, 15, 0] }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
+                  className="self-start pl-4 lg:pl-0 pointer-events-auto"
+                >
+                  <img
+                    src={JiraLogo}
+                    alt="Jira"
+                    className="w-20 h-20 lg:w-28 lg:h-28 object-contain drop-shadow-2xl"
+                  />
+                </motion.div>
+              </div>
 
-                            {/* Source tools left column */}
-                            <div className="absolute inset-x-0 h-full flex flex-col justify-between py-12 lg:py-20 pointer-events-none">
-                                <motion.div
-                                    animate={{ y: [0, -15, 0] }}
-                                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                                    className="self-start pl-4 lg:pl-0 pointer-events-auto -translate-y-8"
-                                >
-                                    <img src={ClickUpLogo} alt="ClickUp" className="w-20 h-20 lg:w-28 lg:h-28 object-contain drop-shadow-2xl" />
-                                </motion.div>
-                                <motion.div
-                                    animate={{ y: [0, 15, 0] }}
-                                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                    className="self-start pl-4 lg:pl-0 pointer-events-auto"
-                                >
-                                    <img src={JiraLogo} alt="Jira" className="w-20 h-20 lg:w-28 lg:h-28 object-contain drop-shadow-2xl" />
-                                </motion.div>
-                            </div>
+              {/* Desktop animated file icons — original paths */}
+              <div className="absolute inset-0 z-40 pointer-events-none overflow-hidden">
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={`f-cu-${i}`}
+                    className="absolute top-0 left-0 w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-md border border-slate-100 text-[#7e22ce] -translate-x-1/2 -translate-y-1/2"
+                    style={{
+                      offsetPath:
+                        "path('M70 120 L210 120 C270 120, 270 250, 310 250 L440 250')",
+                      offsetRotate: "0deg",
+                    }}
+                    custom={i}
+                    variants={fileVariants}
+                    animate="animate"
+                  >
+                    <FileText className="w-4 h-4" />
+                  </motion.div>
+                ))}
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={`f-ji-${i}`}
+                    className="absolute top-0 left-0 w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-md border border-slate-100 text-[#ec4899] -translate-x-1/2 -translate-y-1/2"
+                    style={{
+                      offsetPath:
+                        "path('M70 380 L210 380 C270 380, 270 250, 310 250 L440 250')",
+                      offsetRotate: "0deg",
+                    }}
+                    custom={i + 0.6}
+                    variants={fileVariants}
+                    animate="animate"
+                  >
+                    <Database className="w-4 h-4" />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
 
-                            {/* Desktop animated file icons — original paths */}
-                            <div className="absolute inset-0 z-40 pointer-events-none overflow-hidden">
-                                {[0, 1, 2].map((i) => (
-                                    <motion.div
-                                        key={`f-cu-${i}`}
-                                        className="absolute top-0 left-0 w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-md border border-slate-100 text-[#7e22ce] -translate-x-1/2 -translate-y-1/2"
-                                        style={{
-                                            offsetPath: "path('M70 120 L210 120 C270 120, 270 250, 310 250 L440 250')",
-                                            offsetRotate: "0deg"
-                                        }}
-                                        custom={i}
-                                        variants={fileVariants}
-                                        animate="animate"
-                                    >
-                                        <FileText className="w-4 h-4" />
-                                    </motion.div>
-                                ))}
-                                {[0, 1, 2].map((i) => (
-                                    <motion.div
-                                        key={`f-ji-${i}`}
-                                        className="absolute top-0 left-0 w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-md border border-slate-100 text-[#ec4899] -translate-x-1/2 -translate-y-1/2"
-                                        style={{
-                                            offsetPath: "path('M70 380 L210 380 C270 380, 270 250, 310 250 L440 250')",
-                                            offsetRotate: "0deg"
-                                        }}
-                                        custom={i + 0.6}
-                                        variants={fileVariants}
-                                        animate="animate"
-                                    >
-                                        <Database className="w-4 h-4" />
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* ══════════════════════════════════
+            {/* ══════════════════════════════════
                             MOBILE  below sm
                             Layout mirrors big screen:
                               ClickUp  top-left    (~x=56,  y=60)
@@ -139,48 +171,72 @@ const DataImport = () => {
                               KaryaUp  right-center (~x=255, y=150)
                             Paths curve from each logo → hub center
                         ══════════════════════════════════ */}
-                        <div className="block sm:hidden relative w-full h-[300px]">
+            <div className="block sm:hidden relative w-full max-w-[320px] mx-auto h-[280px]">
+              {/* Glow behind KaryaUp */}
+              <motion.div
+                animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.18, 0.08] }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute rounded-full bg-slate-100 blur-[50px] -z-10"
+                style={{ width: 120, height: 120, top: 82, right: 12 }}
+              />
 
-                            {/* Glow behind KaryaUp */}
-                            <motion.div
-                                animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.18, 0.08] }}
-                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute rounded-full bg-slate-100 blur-[50px] -z-10"
-                                style={{ width: 130, height: 130, top: 85, right: 12 }}
-                            />
+              {/* KaryaUp logo — right center */}
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute flex items-center justify-center"
+                style={{ width: 96, height: 96, top: 96, right: 12 }}
+              >
+                <img
+                  src={KaryaUpLogo}
+                  alt="Karyaup"
+                  className="w-full h-full object-contain"
+                />
+              </motion.div>
 
-                            {/* KaryaUp logo — right center */}
-                            <motion.div
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                whileInView={{ scale: 1, opacity: 1 }}
-                                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                                className="absolute flex items-center justify-center"
-                                style={{ width: 105, height: 105, top: 98, right: 10 }}
-                            >
-                                <img src={KaryaUpLogo} alt="Karyaup" className="w-full h-full object-contain" />
-                            </motion.div>
+              {/* ClickUp — top left */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute"
+                style={{ left: 10, top: 28 }}
+              >
+                <img
+                  src={ClickUpLogo}
+                  alt="ClickUp"
+                  className="w-16 h-16 object-contain drop-shadow-xl"
+                />
+              </motion.div>
 
-                            {/* ClickUp — top left */}
-                            <motion.div
-                                animate={{ y: [0, -8, 0] }}
-                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute"
-                                style={{ left: 8, top: 24 }}
-                            >
-                                <img src={ClickUpLogo} alt="ClickUp" className="w-16 h-16 object-contain drop-shadow-xl" />
-                            </motion.div>
+              {/* Jira — bottom left */}
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1,
+                }}
+                className="absolute"
+                style={{ left: 10, bottom: 28 }}
+              >
+                <img
+                  src={JiraLogo}
+                  alt="Jira"
+                  className="w-16 h-16 object-contain drop-shadow-xl"
+                />
+              </motion.div>
 
-                            {/* Jira — bottom left */}
-                            <motion.div
-                                animate={{ y: [0, 8, 0] }}
-                                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                className="absolute"
-                                style={{ left: 8, bottom: 24 }}
-                            >
-                                <img src={JiraLogo} alt="Jira" className="w-16 h-16 object-contain drop-shadow-xl" />
-                            </motion.div>
-
-                            {/* Mobile animated file icons
+              {/* Mobile animated file icons
                                 offsetPath coordinates are relative to the element's
                                 containing block (the 300px-tall div).
                                 ClickUp logo center  ≈ left:8 + 32 = x40,  top:24 + 32 = y56
@@ -191,49 +247,49 @@ const DataImport = () => {
                                   KaryaUp center x  ≈ 350 - 52 = 298 → use 260 (safe center estimate)
                                   KaryaUp center y  ≈ 98 + 52 = 150
                             */}
-                            <div className="absolute inset-0 z-40 pointer-events-none overflow-hidden">
+              <div className="absolute inset-0 z-40 pointer-events-none overflow-hidden">
+                {/* ClickUp → KaryaUp */}
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={`m-cu-${i}`}
+                    className="absolute top-0 left-0 w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-md border border-slate-100 text-[#7e22ce] -translate-x-1/2 -translate-y-1/2"
+                    style={{
+                      offsetPath:
+                        "path('M42 60 C112 60, 148 144, 204 144 L232 144')",
+                      offsetRotate: "0deg",
+                    }}
+                    custom={i}
+                    variants={fileVariants}
+                    animate="animate"
+                  >
+                    <FileText className="w-3 h-3" />
+                  </motion.div>
+                ))}
 
-                                {/* ClickUp → KaryaUp */}
-                                {[0, 1, 2].map((i) => (
-                                    <motion.div
-                                        key={`m-cu-${i}`}
-                                        className="absolute top-0 left-0 w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-md border border-slate-100 text-[#7e22ce] -translate-x-1/2 -translate-y-1/2"
-                                        style={{
-                                            offsetPath: "path('M40 56 C120 56, 160 150, 230 150 L260 150')",
-                                            offsetRotate: "0deg"
-                                        }}
-                                        custom={i}
-                                        variants={fileVariants}
-                                        animate="animate"
-                                    >
-                                        <FileText className="w-3 h-3" />
-                                    </motion.div>
-                                ))}
-
-                                {/* Jira → KaryaUp */}
-                                {[0, 1, 2].map((i) => (
-                                    <motion.div
-                                        key={`m-ji-${i}`}
-                                        className="absolute top-0 left-0 w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-md border border-slate-100 text-[#ec4899] -translate-x-1/2 -translate-y-1/2"
-                                        style={{
-                                            offsetPath: "path('M40 244 C120 244, 160 150, 230 150 L260 150')",
-                                            offsetRotate: "0deg"
-                                        }}
-                                        custom={i + 0.6}
-                                        variants={fileVariants}
-                                        animate="animate"
-                                    >
-                                        <Database className="w-3 h-3" />
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                {/* Jira → KaryaUp */}
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={`m-ji-${i}`}
+                    className="absolute top-0 left-0 w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-md border border-slate-100 text-[#ec4899] -translate-x-1/2 -translate-y-1/2"
+                    style={{
+                      offsetPath:
+                        "path('M42 220 C112 220, 148 144, 204 144 L232 144')",
+                      offsetRotate: "0deg",
+                    }}
+                    custom={i + 0.6}
+                    variants={fileVariants}
+                    animate="animate"
+                  >
+                    <Database className="w-3 h-3" />
+                  </motion.div>
+                ))}
+              </div>
             </div>
-        </section>
-    );
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default DataImport;

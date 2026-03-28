@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, Calendar, BarChart, Briefcase } from 'lucide-react';
+import { CreditCard, Calendar, BarChart, Briefcase, Sparkles } from 'lucide-react';
 import TeamImg from "../assets/Team.png";
 
 const Management = () => {
@@ -16,8 +16,12 @@ const Management = () => {
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
                     {/* Text and Features Side (40% Width) - Condensed */}
-                    <div className="lg:flex-[0.4] w-full">
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-6">
+                    <div className="lg:flex-[0.4] w-full text-center lg:text-left flex flex-col items-center lg:items-start">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-xs font-bold mb-4 uppercase tracking-widest shadow-sm">
+                            <Sparkles size={13} />
+                            Operations Layer
+                        </div>
+                        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95] mb-4">
                             More than <br />
                             <motion.span
                                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
@@ -27,12 +31,12 @@ const Management = () => {
                                 just tasks.
                             </motion.span>
                         </h2>
-                        <p className="text-lg sm:text-xl font-medium text-slate-500 mb-8 sm:mb-10 leading-relaxed">
+                        <p className="text-lg sm:text-xl font-medium text-slate-500 mb-6 sm:mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
                             KaryaUp handles the essentials of your business operations. From salary to attendance, everything is seamlessly integrated into your elite workflow.
                         </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7 w-full">
                             {items.map((item, idx) => (
-                                <div key={idx} className="flex items-start gap-5 group">
+                                <div key={idx} className="flex items-start justify-center lg:justify-start gap-5 group text-left">
                                     <div className="p-3.5 bg-purple-50 rounded-2xl text-[#7e22ce] border border-purple-100 group-hover:scale-110 transition-transform">
                                         {React.cloneElement(item.icon, { className: "w-5 h-5" })}
                                     </div>

@@ -39,12 +39,12 @@ const Integrations = () => {
     return (
         <section className="pt-10 pb-0 sm:pt-16 sm:pb-0 bg-white relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+                <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-xs font-bold mb-6 uppercase tracking-widest"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-xs font-bold mb-4 uppercase tracking-widest"
                     >
                         <Link2 size={14} />
                         Connected Ecosystem
@@ -55,7 +55,7 @@ const Integrations = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-6 tracking-tight"
+                        className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[0.95] mb-4 tracking-tight"
                     >
                         Works with your <br/><motion.span 
                             className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-fuchsia-500 to-purple-600 bg-[length:200%_auto]"

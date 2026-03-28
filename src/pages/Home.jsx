@@ -50,7 +50,7 @@ export default function Home() {
         <WorkIntelligence />
         <FeatureOverview />
         <TeamsSection />
-        <Integrations />
+        {/* <Integrations /> */}
         <DataImport />
         <Management />
         <FinalCTA />

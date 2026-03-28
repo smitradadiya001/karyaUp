@@ -146,7 +146,7 @@ const TeamSolutions = () => {
                     viewport={{ once: true }}
                     className="text-center mb-8"
                 >
-                    <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-gray-900 leading-tight tracking-tight mb-4">
+                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-[0.95] tracking-tight mb-4">
                         Built for teams that<br/> 
                         <motion.span
                             className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
@@ -156,7 +156,7 @@ const TeamSolutions = () => {
                             move fast
                         </motion.span>
                     </h2>
-                    <p className="text-gray-500 text-base sm:text-lg font-medium">
+                    <p className="text-gray-500 text-lg sm:text-xl font-medium">
                         Your key workflows, powered by KaryaUp Agents.
                     </p>
                 </motion.div>

@@ -1,148 +1,153 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import Loader from "./components/Loader";
+
+// Lazy imports (same as your file)
 
 // Main pages
-import Home from "./pages/Home";
-import Platform from "./pages/Platform";
-import Features from "./pages/Features";
-import Solutions from "./pages/Solutions";
-import Resources from "./pages/Resources";
-import Pricing from "./pages/Pricing";
-import Privacy from "./pages/Privacy";
-import TermsOfService from "./pages/TermsOfService";
-import Disclaimer from "./pages/Disclaimer";
-import Login from "./pages/Login";
-import StartWorkspace from "./pages/StartWorkspace";
-import BookDemo from "./pages/BookDemo";
-import ContactUs from "./pages/ContactUs";
-import NotFound from "./pages/NotFound";
+const Home = lazy(() => import("./pages/Home"));
+const Platform = lazy(() => import("./pages/Platform"));
+const Features = lazy(() => import("./pages/Features"));
+const Solutions = lazy(() => import("./pages/Solutions"));
+const Resources = lazy(() => import("./pages/Resources"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
+const Disclaimer = lazy(() => import("./pages/Disclaimer"));
+const Login = lazy(() => import("./pages/Login"));
+const StartWorkspace = lazy(() => import("./pages/StartWorkspace"));
+const BookDemo = lazy(() => import("./pages/BookDemo"));
+const ContactUs = lazy(() => import("./pages/ContactUs"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Platform sub-pages
-import ProjectManagement from "./pages/platform/ProjectManagement";
-import TimeTracking from "./pages/platform/TimeTracking";
-import TeamCollaboration from "./pages/platform/TeamCollaboration";
-import BossDashboard from "./pages/platform/BossDashboard";
-import ProfitTracking from "./pages/platform/ProfitTracking";
+// Platform
+const ProjectManagement = lazy(() => import("./pages/platform/ProjectManagement"));
+const TimeTracking = lazy(() => import("./pages/platform/TimeTracking"));
+const TeamCollaboration = lazy(() => import("./pages/platform/TeamCollaboration"));
+const BossDashboard = lazy(() => import("./pages/platform/BossDashboard"));
+const ProfitTracking = lazy(() => import("./pages/platform/ProfitTracking"));
 
-// Features sub-pages
-import Tasks from "./pages/features/Tasks";
-import Dashboards from "./pages/features/Dashboards";
-import Gantt from "./pages/features/Gantt";
-import Chat from "./pages/features/Chat";
-import Notifications from "./pages/features/Notifications";
-import Team from "./pages/features/Team";
-import Attendance from "./pages/features/Attendance";
-import Leave from "./pages/features/Leave";
-import Salary from "./pages/features/Salary";
-import CalendarPage from "./pages/features/Calendar";
-import Scheduling from "./pages/features/Scheduling";
-import Automations from "./pages/features/Automations";
-import FeaturesTimeTracking from "./pages/features/FeaturesTimeTracking";
-import Integrations from "./pages/features/Integrations";
-import WatchDemo from "./pages/features/Watch_Demo";
+// Features
+const Tasks = lazy(() => import("./pages/features/Tasks"));
+const Dashboards = lazy(() => import("./pages/features/Dashboards"));
+const Gantt = lazy(() => import("./pages/features/Gantt"));
+const Chat = lazy(() => import("./pages/features/Chat"));
+const Notifications = lazy(() => import("./pages/features/Notifications"));
+const Team = lazy(() => import("./pages/features/Team"));
+const Attendance = lazy(() => import("./pages/features/Attendance"));
+const Leave = lazy(() => import("./pages/features/Leave"));
+const Salary = lazy(() => import("./pages/features/Salary"));
+const CalendarPage = lazy(() => import("./pages/features/Calendar"));
+const Scheduling = lazy(() => import("./pages/features/Scheduling"));
+const Automations = lazy(() => import("./pages/features/Automations"));
+const FeaturesTimeTracking = lazy(() => import("./pages/features/FeaturesTimeTracking"));
+const Integrations = lazy(() => import("./pages/features/Integrations"));
+const WatchDemo = lazy(() => import("./pages/features/Watch_Demo"));
 
-// Solutions sub-pages
-import SolProjectManagement from "./pages/solutions/SolProjectManagement";
-import ProductDevelopment from "./pages/solutions/ProductDevelopment";
-import Operations from "./pages/solutions/Operations";
-import IT from "./pages/solutions/IT";
-import Marketing from "./pages/solutions/Marketing";
-import HR from "./pages/solutions/HR";
-import Enterprise from "./pages/solutions/Enterprise";
-import Startup from "./pages/solutions/Startup";
-import NonProfit from "./pages/solutions/NonProfit";
-import Education from "./pages/solutions/Education";
-import Agency from "./pages/solutions/Agency";
-import TemplateProjectManagement from "./pages/solutions/TemplateProjectManagement";
-import TemplateCRM from "./pages/solutions/TemplateCRM";
-import TemplateMarketing from "./pages/solutions/TemplateMarketing";
+// Solutions
+const ProductDevelopment = lazy(() => import("./pages/solutions/ProductDevelopment"));
+const Operations = lazy(() => import("./pages/solutions/Operations"));
+const IT = lazy(() => import("./pages/solutions/IT"));
+const Marketing = lazy(() => import("./pages/solutions/Marketing"));
+const HR = lazy(() => import("./pages/solutions/HR"));
+const Enterprise = lazy(() => import("./pages/solutions/Enterprise"));
+const Startup = lazy(() => import("./pages/solutions/Startup"));
+const NonProfit = lazy(() => import("./pages/solutions/NonProfit"));
+const Education = lazy(() => import("./pages/solutions/Education"));
+const Agency = lazy(() => import("./pages/solutions/Agency"));
+const TemplateProjectManagement = lazy(() => import("./pages/solutions/TemplateProjectManagement"));
+const TemplateCRM = lazy(() => import("./pages/solutions/TemplateCRM"));
+const TemplateMarketing = lazy(() => import("./pages/solutions/TemplateMarketing"));
 
-
-// Resources sub-pages
-import Blog from "./pages/resources/Blog";
-import Documentation from "./pages/resources/Documentation";
-import Demo from "./pages/resources/Demo";
-import VideoTutorials from "./pages/resources/VideoTutorials";
+// Resources
+const Blog = lazy(() => import("./pages/resources/Blog"));
+const Documentation = lazy(() => import("./pages/resources/Documentation"));
+const Demo = lazy(() => import("./pages/resources/Demo"));
+const VideoTutorials = lazy(() => import("./pages/resources/VideoTutorials"));
 
 function App() {
   return (
     <div className="min-h-screen font-sans w-full max-w-full overflow-x-hidden">
       <ScrollToTop />
       <Navbar />
+
       <main className="w-full max-w-full overflow-x-hidden">
-        <Routes>
-          {/* Main pages */}
-          <Route path="/" element={<Home />} />
-          <Route path="/platform" element={<Platform />} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/solutions" element={<Solutions />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/privacy-policy" element={<Privacy />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/disclaimer" element={<Disclaimer />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/start" element={<StartWorkspace />} />
-          <Route path="/book-demo" element={<BookDemo />} />
-          <Route path="/contact-us" element={<ContactUs />} />
+        <Suspense
+       fallback={<Loader />}
+        >
+          <Routes>
+            {/* Main pages */}
+            <Route path="/" element={<Home />} />
+            <Route path="/platform" element={<Platform />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/solutions" element={<Solutions />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/privacy-policy" element={<Privacy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/start" element={<StartWorkspace />} />
+            <Route path="/book-demo" element={<BookDemo />} />
+            <Route path="/contact-us" element={<ContactUs />} />
 
-          {/* Platform sub-pages */}
-          <Route path="/platform/project-management" element={<ProjectManagement />} />
-          <Route path="/platform/time-tracking" element={<TimeTracking />} />
-          <Route path="/platform/team-collaboration" element={<TeamCollaboration />} />
-          <Route path="/platform/boss-dashboard" element={<BossDashboard />} />
-          <Route path="/platform/profit-tracking" element={<ProfitTracking />} />
+            {/* Platform */}
+            <Route path="/platform/project-management" element={<ProjectManagement />} />
+            <Route path="/platform/time-tracking" element={<TimeTracking />} />
+            <Route path="/platform/team-collaboration" element={<TeamCollaboration />} />
+            <Route path="/platform/boss-dashboard" element={<BossDashboard />} />
+            <Route path="/platform/profit-tracking" element={<ProfitTracking />} />
 
-          {/* Features sub-pages */}
-          <Route path="/features/tasks" element={<Tasks />} />
-          <Route path="/features/dashboards" element={<Dashboards />} />
-          <Route path="/features/gantt" element={<Gantt />} />
-          <Route path="/features/chat" element={<Chat />} />
-          <Route path="/features/notifications" element={<Notifications />} />
-          <Route path="/features/team" element={<Team />} />
-          <Route path="/features/attendance" element={<Attendance />} />
-          <Route path="/features/leave" element={<Leave />} />
-          <Route path="/features/salary" element={<Salary />} />
-          <Route path="/features/calendar" element={<CalendarPage />} />
-          <Route path="/features/scheduling" element={<Scheduling />} />
-          <Route path="/features/automations" element={<Automations />} />
-          <Route path="/features/time-tracking" element={<FeaturesTimeTracking />} />
-          <Route path="/features/integrations" element={<Integrations />} />
-          <Route path="/features/demo" element={<WatchDemo />} />
+            {/* Features */}
+            <Route path="/features/tasks" element={<Tasks />} />
+            <Route path="/features/dashboards" element={<Dashboards />} />
+            <Route path="/features/gantt" element={<Gantt />} />
+            <Route path="/features/chat" element={<Chat />} />
+            <Route path="/features/notifications" element={<Notifications />} />
+            <Route path="/features/team" element={<Team />} />
+            <Route path="/features/attendance" element={<Attendance />} />
+            <Route path="/features/leave" element={<Leave />} />
+            <Route path="/features/salary" element={<Salary />} />
+            <Route path="/features/calendar" element={<CalendarPage />} />
+            <Route path="/features/scheduling" element={<Scheduling />} />
+            <Route path="/features/automations" element={<Automations />} />
+            <Route path="/features/time-tracking" element={<FeaturesTimeTracking />} />
+            <Route path="/features/integrations" element={<Integrations />} />
+            <Route path="/features/demo" element={<WatchDemo />} />
 
-          {/* Solutions sub-pages — Teams */}
-          
-          <Route path="/solutions/product-development" element={<ProductDevelopment />} />
-          <Route path="/solutions/operations" element={<Operations />} />
-          <Route path="/solutions/it" element={<IT />} />
-          <Route path="/solutions/marketing" element={<Marketing />} />
-          <Route path="/solutions/hr" element={<HR />} />
+            {/* Solutions */}
+            <Route path="/solutions/product-development" element={<ProductDevelopment />} />
+            <Route path="/solutions/operations" element={<Operations />} />
+            <Route path="/solutions/it" element={<IT />} />
+            <Route path="/solutions/marketing" element={<Marketing />} />
+            <Route path="/solutions/hr" element={<HR />} />
 
-          {/* Solutions sub-pages — Companies */}
-          <Route path="/solutions/enterprise" element={<Enterprise />} />
-          <Route path="/solutions/startup" element={<Startup />} />
-          <Route path="/solutions/non-profit" element={<NonProfit />} />
-          <Route path="/solutions/education" element={<Education />} />
-          <Route path="/solutions/agency" element={<Agency />} />
+            <Route path="/solutions/enterprise" element={<Enterprise />} />
+            <Route path="/solutions/startup" element={<Startup />} />
+            <Route path="/solutions/non-profit" element={<NonProfit />} />
+            <Route path="/solutions/education" element={<Education />} />
+            <Route path="/solutions/agency" element={<Agency />} />
 
-          {/* Solutions sub-pages — Templates */}
-          <Route path="/solutions/project-management" element={<TemplateProjectManagement />} />
-          <Route path="/solutions/crm" element={<TemplateCRM />} />
-          <Route path="/solutions/marketing" element={<TemplateMarketing />} />
+            <Route path="/solutions/project-management" element={<TemplateProjectManagement />} />
+            <Route path="/solutions/crm" element={<TemplateCRM />} />
+            <Route path="/solutions/marketing" element={<TemplateMarketing />} />
 
-          {/* Resources sub-pages */}
-          <Route path="/resources/blog" element={<Blog />} />
-          <Route path="/resources/docs" element={<Documentation />} />
-          <Route path="/resources/demo" element={<Demo />} />
-          <Route path="/resources/tutorials" element={<VideoTutorials />} />
+            {/* Resources */}
+            <Route path="/resources/blog" element={<Blog />} />
+            <Route path="/resources/docs" element={<Documentation />} />
+            <Route path="/resources/demo" element={<Demo />} />
+            <Route path="/resources/tutorials" element={<VideoTutorials />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
+
       <Footer />
     </div>
   );

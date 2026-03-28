@@ -4,6 +4,7 @@ import { Check, Sparkles, Activity } from "lucide-react";
 import Task2 from "../../assets/Task2.png";
 import AgentAssign from "../../assets/Agent-Assign.png";
 import FeatureCTA from "../../components/FeatureCTA";
+import { Helmet } from "react-helmet-async";
 
 export default function Tasks() {
   const sectionSpacing = "py-12 sm:py-16 lg:py-20";

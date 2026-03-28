@@ -157,7 +157,7 @@ const FeatureOverview = () => (
           <TrendingUp size={13} /> Product Features
         </span>
 
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-4">
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[0.95] tracking-tight mb-4">
           See everything.{' '}
           <motion.span 
             className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"

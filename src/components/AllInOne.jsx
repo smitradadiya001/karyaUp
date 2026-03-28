@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-    Search, CheckSquare, Map, BookOpen, Mic, BarChart3, Target, Zap, 
-    Video, Eye, LayoutDashboard, Clock, KanbanSquare, Plug, Headphones, ListChecks,
-    Calendar, Table, Pencil, GanttChart, Inbox, Star, Timer, FormInput,
+     CheckSquare,  BarChart3,  Zap, 
+    LayoutDashboard, Clock, 
+    Calendar,  Pencil, GanttChart, 
     FolderKanban, FileText, CalendarDays, MessageSquare, Users,
     Bell, Mail, IndianRupee, LayoutGrid, UserPlus, Briefcase, Activity, Tag
 } from 'lucide-react';
@@ -136,7 +136,7 @@ const AllInOne = () => {
         [
             { icon: Clock, label: "Reminders" },
             { icon: IndianRupee, label: "Profit" },
-            { icon: Zap, label: "Task Automation" },
+            { icon: Zap, label: "Automation" },
             { icon: BarChart3, label: "Analytics" },
             { icon: LayoutGrid, label: "Applications" },
             { icon: UserPlus, label: "Leads" },
@@ -177,7 +177,7 @@ const AllInOne = () => {
 
     return (
         <section 
-            className="w-full max-w-full bg-white relative flex flex-col items-center justify-center min-h-[680px] sm:min-h-[720px] lg:min-h-[760px] xl:min-h-[780px] select-none overflow-x-hidden overflow-y-hidden"
+            className="w-full max-w-full bg-white relative flex flex-col items-center justify-start min-h-[520px] sm:min-h-[560px] lg:min-h-[620px] xl:min-h-[660px] pt-8 sm:pt-10 lg:pt-12 select-none overflow-x-hidden overflow-y-hidden"
             onClick={(e) => {
                 // If clicking outside marquee rows, resume all
                 if (!e.target.closest('.group\\/row')) resumeAll();
@@ -189,20 +189,20 @@ const AllInOne = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="flex flex-col items-center mb-4 sm:mb-4 lg:mb-5"
+                    className="flex flex-col items-center mb-1 sm:mb-2 lg:mb-3"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100 mb-6 shadow-sm">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100 mb-3 shadow-sm">
                         <Zap className="w-3.5 h-3.5 text-[#7e22ce]" />
                         <span className="text-[10px] font-bold text-[#7e22ce] uppercase tracking-wider">Zero Friction Sync</span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95]">
-                        Replace all your tools with <br />
+                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95]">
+                        Replace all your tools <br /> with one<br/>
                         <motion.span
                             className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
                             animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                             transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                         >
-                            one beautiful platform.
+                             beautiful platform.
                         </motion.span>
                     </h2>
                 </motion.div>

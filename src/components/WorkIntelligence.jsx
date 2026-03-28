@@ -75,12 +75,12 @@ const WorkIntelligence = () => {
           <div className="absolute bottom-0 left-0 w-72 h-72 bg-fuchsia-600/15 rounded-full blur-[80px] pointer-events-none" />
 
           {/* Heading */}
-          <div className="text-center max-w-2xl mx-auto mb-10 relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-bold mb-6 uppercase tracking-widest"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-bold mb-4 uppercase tracking-widest"
             >
               <BrainCircuit size={13} />
               Work Intelligence
@@ -91,7 +91,7 @@ const WorkIntelligence = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[0.95] mb-4 tracking-tight"
             >
               <motion.span 
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
@@ -147,7 +147,7 @@ const WorkIntelligence = () => {
           >
             {/* The flow path line */}
             <div className="hidden sm:block absolute top-1/2 left-[5%] right-[5%] h-px bg-white/10 -translate-y-1/2 pointer-events-none z-0" />
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-0 text-sm font-bold text-white relative z-10 max-w-5xl mx-auto px-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-0 text-sm font-bold text-white relative z-10 max-w-5xl mx-auto px-6">
               
               {/* Box 1: Raw Activity */}
               <div className="flex items-center gap-2 bg-slate-900 px-8 py-4 rounded-full border border-slate-700 hover:border-purple-500/50 transition-all duration-300">
@@ -156,6 +156,16 @@ const WorkIntelligence = () => {
               </div>
 
               {/* Gap 1: Arrow 1 */}
+              <div className="flex sm:hidden items-center justify-center h-10 -my-1 relative">
+                <div className="absolute top-[-6px] bottom-[-6px] left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-purple-400/70 to-fuchsia-400/20" />
+                <motion.div
+                  animate={{ y: [0, 8, 0], opacity: [0.45, 1, 0.45] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="relative text-white"
+                >
+                  <ArrowRight size={20} strokeWidth={3} className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                </motion.div>
+              </div>
               <div className="hidden sm:flex flex-1 items-center justify-center h-10 relative overflow-visible">
                 <motion.div
                   initial={{ left: "-12px", opacity: 0 }}
@@ -182,6 +192,16 @@ const WorkIntelligence = () => {
               </div>
 
               {/* Gap 2: Arrow 2 */}
+              <div className="flex sm:hidden items-center justify-center h-10 -my-1 relative">
+                <div className="absolute top-[-6px] bottom-[-6px] left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-fuchsia-400/70 to-white/20" />
+                <motion.div
+                  animate={{ y: [0, 8, 0], opacity: [0.45, 1, 0.45] }}
+                  transition={{ duration: 1.5, delay: 0.35, repeat: Infinity, ease: "easeInOut" }}
+                  className="relative text-white"
+                >
+                  <ArrowRight size={20} strokeWidth={3} className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                </motion.div>
+              </div>
               <div className="hidden sm:flex flex-1 items-center justify-center h-10 relative overflow-visible">
                 <motion.div
                   initial={{ left: "-12px", opacity: 0 }}
