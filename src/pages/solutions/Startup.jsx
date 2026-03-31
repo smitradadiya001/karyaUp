@@ -1,9 +1,10 @@
-import { motion } from "framer-motion";
+                                                                                                import { motion } from "framer-motion";
 import dashboardImage from "../../assets/dashboard1.jpeg";
 import planImage from "../../assets/Gantt.png";
-import FinalCTA from "../../components/FinalCTA";
+import FeatureCTA from "../../components/FeatureCTA";
+import { Link } from "react-router-dom";
 
-export default function ProductDevelopment() {
+export default function Startup() {
   return (
     <div className="bg-white font-sans">
 
@@ -14,25 +15,47 @@ export default function ProductDevelopment() {
           {/* LEFT */}
           <div>
 
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-slate-900 mb-6">
-              The everything app <br />
-              <span className="text-6xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">for Startup work</span>
-            </h1>
-
+            <div className="text-center lg:text-left">
+              <motion.h1
+                initial={{ opacity: 0, y: 40, x: -10 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 100,
+                  delay: 0.1
+                }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
+              >
+                The Everything App <br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  for Startup Work
+                </motion.span>
+              </motion.h1>
+            </div>
             <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
-                Build your business for long-term success by organizing all of your ideas, workflows, and teamwork in a single, shared place.
+              Brainstorm, plan, and execute your team's marketing programs—from multi-channel campaigns to global events and more with KaryaUp, the all-in-one productivity platform.
             </p>
 
             <div className="flex items-center gap-4 mb-6">
-              <button className="relative px-8 py-4 text-lg font-semibold text-white rounded-full bg-gradient-to-r from-purple-600 to-pink-500 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-pink-500/40
-            bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 
-            bg-[length:200%_200%] animate-gradient 
-            shadow-lg hover:scale-105 transition">
-                Get started. It's FREE →
-              </button>
-              <p className="text-sm text-slate-500">
-                Free forever. <br /> No credit card.
-              </p>
+              <Link
+                to="/start"
+                className="group relative z-10 flex h-[3.5em] w-[14em] shrink-0 items-center justify-center overflow-hidden rounded-[30em] font-bold text-[15px] transition-all duration-300"
+                style={{
+                  boxShadow: "6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff"
+                }}
+              >
+                <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                <div className="absolute left-0 top-0 -z-10 h-full w-0 rounded-[30em] bg-white transition-all duration-500 ease-in-out group-hover:w-full" />
+                <span className="relative z-10 text-white transition-colors duration-300 group-hover:text-slate-800">
+                  Get Started
+                </span>
+              </Link>
+
             </div>
           </div>
 
@@ -62,31 +85,37 @@ export default function ProductDevelopment() {
 
           {/* Left: Text Container */}
           <div className="w-full lg:w-[45%] p-10 md:p-16 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-slate-200">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <p className="text-[0.85rem] tracking-[0.2em] font-bold text-[#7B61FF] uppercase mb-6">
-                ROADMAP
-              </p>
-              <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-slate-900 mb-6">
-              Connect Your <br />
-              <span className="text-6xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">Roadmap for daily work</span>
-              </h1>
-              <p className="text-[1.10rem] text-slate-600 leading-[1.6] mb-10 max-w-lg">
-                Manage everything from product roadmaps to sales pipelines in a single place with 10+ customizable views. Schedule releases on a Calendar, create bug tracking systems on a List, or adjust timelines on a Gantt chart.
-              </p>
-              <div>
-              <button className="relative px-6 py-4 text-lg font-semibold text-white rounded-full bg-gradient-to-r from-purple-600 to-pink-500 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-pink-500/40
-                bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 
-                bg-[length:200%_200%] animate-gradient 
-                shadow-lg hover:scale-105 transition">
-                  Get started
-              </button>
-              </div>
-            </motion.div>
+            <div>
+
+
+              <motion.h1
+                initial={{ opacity: 0, y: 40, x: -10 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 100,
+                  delay: 0.1
+                }}
+                className="text-4xl sm:text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
+              >
+                Connect Your  <br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  Roadmap for daily work
+                </motion.span>
+              </motion.h1>
+            </div>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+              Manage everything from product roadmaps to sales pipelines in a single place with 10+ customizable views. Schedule releases on a Calendar, create bug tracking systems on a List, or adjust timelines on a Gantt chart.
+            </p>
+            <div>
+
+            </div>
+
           </div>
 
           {/* Right: Image Container */}
@@ -150,37 +179,126 @@ export default function ProductDevelopment() {
 
           {/* Right: Text Container */}
           <div className="w-full lg:w-[67%] p-10 md:p-16 lg:p-24 flex flex-col justify-center">
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <p className="text-[0.85rem] tracking-[0.2em] font-bold text-[#7B61FF] uppercase mb-6">
-                SCALE
-              </p>
-              <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-6">
-              Scale from <br />
-              <span className="text-6xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">startup to unicorn</span>
-              </h1>
-              <p className="text-[1.10rem] text-slate-600 leading-[1.6] mb-10 max-w-lg">
-                Build the perfect organization that grows with your startup. KaryaUp's Hierarchy makes it easy to expand your team and manage more complex projects as you bring on more resources.
-              </p>
-              <div>
-              <button className="relative px-6 py-4 text-lg font-semibold text-white rounded-full bg-gradient-to-r from-purple-600 to-pink-500 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-pink-500/40
-                bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 
-                bg-[length:200%_200%] animate-gradient 
-                shadow-lg hover:scale-105 transition">
-                  Get started
-              </button>
-              </div>
-            </motion.div>
+
+            <div>
+
+
+              <motion.h1
+                initial={{ opacity: 0, y: 40, x: -10 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 100,
+                  delay: 0.1
+                }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
+              >
+                Scale from Startup<br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  to Unicorn
+                </motion.span>
+              </motion.h1>
+            </div>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+              Build the perfect organization that grows with your startup. KaryaUp's Hierarchy makes it easy to expand your team and manage more complex projects as you bring on more resources.
+            </p>
+            <div>
+
+            </div>
+
           </div>
 
         </div>
       </section>
 
-      <FinalCTA />
+      {/* ================= STARTUP GROWTH JOURNEY SECTION ================= */}
+      <section className="w-full py-10 lg:px-5 bg-white">
+        <div className="max-w-7xl mx-auto text-center mb-16">
+
+          <motion.h1
+            initial={{ opacity: 0, y: 40, x: -10 }}
+            animate={{ opacity: 1, y: 0, x: 0 }}
+            transition={{
+              type: "spring",
+              damping: 25,
+              stiffness: 100,
+              delay: 0.1
+            }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
+          >
+            Your Startup Journey <br />
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
+              Powered by KaryaUp
+            </motion.span>
+          </motion.h1>
+
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            From idea to unicorn, KaryaUp gives startups the tools to brainstorm, plan, execute, and scale — all in one platform.
+          </p>
+        </div>
+
+        {/* Journey Steps */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="grid md:grid-cols-4 gap-8"
+        >
+          {[
+            { step: "1", title: "Ideation", desc: "Capture ideas, collaborate with co-founders, and align vision.", icon: "💡", color: "from-pink-500 to-purple-600" },
+            { step: "2", title: "Launch", desc: "Plan sprints, track tasks, and deliver your MVP faster.", icon: "🚀", color: "from-indigo-500 to-blue-600" },
+            { step: "3", title: "Growth", desc: "Automate workflows, manage sales pipelines, and expand your reach.", icon: "📈", color: "from-green-400 to-emerald-600" },
+            { step: "4", title: "Scale", desc: "Build hierarchies, manage complex projects, and grow into a unicorn.", icon: "🦄", color: "from-orange-400 to-red-500" },
+          ].map((card, i) => (
+            <motion.div
+              key={i}
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.2 }}
+              whileHover={{ scale: 1.16 }}
+              className="relative rounded-2xl p-6 shadow-lg border border-gray-200 
+                   hover:border-transparent hover:bg-gradient-to-r hover:opacity-90 transition duration-500 group"
+            >
+              <div className={`text-3xl mb-4 bg-gradient-to-r ${card.color} bg-clip-text text-transparent`}>
+                {card.icon}
+              </div>
+              <h3 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-black">
+                {card.title}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed group-hover:text-black">
+                {card.desc}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      <FeatureCTA
+        title={
+          <>
+            Tasks that connect to everything you do
+
+          </>
+        }
+        description="Work Smater with tasks that can live in your whiteboaards,chat,calendar - anywhere you work"
+        image={dashboardImage}
+        imageAlt="KaryaUp dashboard"
+        containerClassName="mt-10 mb-5"
+        paddingClassName="p-3 lg:p-4 lg:py-6"
+        imageClassName="w-full max-w-[940px]"
+        imageOuterClassName="relative w-[108%] lg:w-full translate-x-2 lg:translate-x-8"
+      />
     </div>
   );
-}                                                                                                                       
+}

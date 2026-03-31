@@ -2,19 +2,15 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ArrowRight, Clock, Sparkles, TrendingUp, BookOpen, Users, Send, ChevronLeft, Calendar, Share2, Twitter, Linkedin, Copy, Check, CheckCircle2 } from "lucide-react";
 import { FocusIllust, TeamIllust, OpsIllust, LeadIllust, MeetingIllust } from "./BlogIllustrations";
-import article1 from "../../assets/work_analysis.jpeg";
-import article2 from "../../assets/projects.jpeg";
-import article3 from "../../assets/dashboard1.jpeg";
-import article4 from "../../assets/calender.jpeg";
-import article5 from "../../assets/attendance.jpeg";
-import article6 from "../../assets/salary.jpeg";
-import Blog2 from "../../assets/Blog2.png";
-import Blog3 from "../../assets/Blog3.png";
-import Blog4 from "../../assets/Blog4.png";
-import Blog5 from "../../assets/Blog5.png";
-import Blog6 from "../../assets/Blog6.png";
+import article1 from "../../assets/work_analysis.webp";
 
-import BlogHero from "../../assets/Blog_Hero.png";
+import Blog2 from "../../assets/Blog2.webp";
+import Blog3 from "../../assets/Blog3.webp";
+import Blog4 from "../../assets/Blog4.webp";
+import Blog5 from "../../assets/Blog5.webp";
+import Blog6 from "../../assets/Blog6.webp";
+
+import BlogHero from "../../assets/Blog_Hero.webp";
 import { Helmet } from "react-helmet-async";
 
 const EASING = [0.2, 0.8, 0.2, 1];
@@ -177,19 +173,19 @@ const PostRow = ({ article, onClick }) => {
           <div className="w-1.5 h-4 bg-[#7e22ce] rounded-full" />
           <span className="text-[#7e22ce] text-[13px] font-black uppercase tracking-[0.2em]">{article.category}</span>
         </div>
-        
-        <h3 
+
+        <h3
           onClick={() => onClick(article)}
           className="text-[28px] sm:text-[32px] md:text-[42px] font-black text-[#0A2540] mb-5 md:mb-8 leading-[1.05] tracking-tight cursor-pointer transition-colors"
         >
           {article.title}
         </h3>
-        
+
         <p className="text-[#425466] text-lg md:text-xl leading-relaxed mb-6 md:mb-10 font-medium">
           {article.excerpt}
         </p>
 
-        <button 
+        <button
           onClick={() => onClick(article)}
           className="text-[#7e22ce] font-black text-[15px] flex items-center gap-2 hover:gap-4 transition-all"
         >
@@ -204,10 +200,10 @@ const PostRow = ({ article, onClick }) => {
           <div className="text-[#425466] text-[15px] font-bold">
             {article.date}
           </div>
-          
+
           <div className="flex items-center gap-5">
             <div className="w-12 h-12 rounded-full bg-[#F6F9FC] border border-slate-100 flex items-center justify-center font-black text-[#0A2540] text-sm overflow-hidden">
-               {article.author.charAt(0)}
+              {article.author.charAt(0)}
             </div>
             <div>
               <div className="text-[#0A2540] font-black text-[15px] leading-tight mb-1">{article.author}</div>
@@ -217,16 +213,16 @@ const PostRow = ({ article, onClick }) => {
         </div>
 
         {/* Bottom: Post Image */}
-        <div 
+        <div
           onClick={() => onClick(article)}
           className="relative aspect-video rounded-[40px] overflow-hidden cursor-pointer shadow-[0_40px_100px_-30px_rgba(0,0,0,0.1)] group-hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] transition-all bg-[#F6F9FC]"
         >
           {article.illustration ? (
             article.illustration
           ) : (
-            <img 
-              src={article.image} 
-              alt={article.title} 
+            <img
+              src={article.image}
+              alt={article.title}
               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
             />
           )}
@@ -251,7 +247,7 @@ const ArticleDetail = ({ article, onBack }) => {
     >
       {/* Minimalist Header */}
       <div className="border-b border-slate-100 sticky top-0 bg-white/90 backdrop-blur-xl z-50">
-        <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-start">
           <button
             onClick={onBack}
             className="flex items-center gap-2 text-[#0A2540] hover:text-[#7e22ce] transition-colors font-bold text-sm"
@@ -259,14 +255,6 @@ const ArticleDetail = ({ article, onBack }) => {
             <ChevronLeft size={18} strokeWidth={3} />
             Back to Blog
           </button>
-          <div className="flex items-center gap-6">
-            <button className="text-slate-400 hover:text-[#0A2540] transition-colors"><Twitter size={18} /></button>
-            <button className="text-slate-400 hover:text-[#0A2540] transition-colors"><Linkedin size={18} /></button>
-            <div className="h-4 w-px bg-slate-200" />
-            <button className="bg-[#0A2540] text-white px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-[#7e22ce] transition-all">
-              Share
-            </button>
-          </div>
         </div>
       </div>
 
@@ -432,254 +420,253 @@ export default function Blog() {
   return (
     <>
       <Helmet>
-  <title>Blog & Insights | Karyaup</title>
+        <title>Blog & Insights | Karyaup</title>
 
-  <meta
-    name="description"
-    content="Explore the Karyaup blog for insights on productivity, project management, team collaboration, and workflow optimization. Learn how to work smarter."
-  />
+        <meta
+          name="description"
+          content="Explore the Karyaup blog for insights on productivity, project management, team collaboration, and workflow optimization. Learn how to work smarter."
+        />
 
-  <meta
-    name="keywords"
-    content="project management blog, productivity tips, team collaboration insights, workflow optimization, SaaS blog, Karyaup blog"
-  />
+        <meta
+          name="keywords"
+          content="project management blog, productivity tips, team collaboration insights, workflow optimization, SaaS blog, Karyaup blog"
+        />
 
-  <meta name="author" content="Karyaup" />
+        <meta name="author" content="Karyaup" />
 
-  <meta
-    property="og:title"
-    content="Blog & Insights | Karyaup"
-  />
-  <meta
-    property="og:description"
-    content="Read articles on productivity, team management, and smarter workflows."
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="https://karyaup.com/resources/blog"
-  />
-  <meta property="og:site_name" content="Karyaup" />
+        <meta
+          property="og:title"
+          content="Blog & Insights | Karyaup"
+        />
+        <meta
+          property="og:description"
+          content="Read articles on productivity, team management, and smarter workflows."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://karyaup.com/resources/blog"
+        />
+        <meta property="og:site_name" content="Karyaup" />
 
-  <link
-    rel="canonical"
-    href="https://karyaup.com/resources/blog"
-  />
-</Helmet>
-    <div className="min-h-screen bg-white font-sans selection:bg-[#7e22ce] selection:text-white overflow-hidden">
-      <section className="relative min-h-screen pt-24 sm:pt-28 lg:pt-2 pb-2 lg:pb-2 overflow-hidden flex items-center">
-        <div className="absolute top-0 right-0 -z-10 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
+        <link
+          rel="canonical"
+          href="https://karyaup.com/resources/blog"
+        />
+      </Helmet>
+      <div className="min-h-screen bg-white font-sans selection:bg-[#7e22ce] selection:text-white overflow-hidden">
+        <section className="relative min-h-screen pt-12 sm:pt-16 lg:pt-32 pb-2 lg:pb-2 overflow-hidden flex items-center">
+          <div className="absolute top-0 right-0 -z-10 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
+          <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            <div className="w-full max-w-4xl text-center lg:text-left">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+              <div className="w-full max-w-4xl text-center lg:text-left">
                 <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest"
-              >
-                Blog — Ideas Worth Running With
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                className="mt-5 text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.06]"
-              >
-                Not another <br />
-                <motion.span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest"
                 >
-                  productivity blog.
-                </motion.span>
-              </motion.h1>
+                  Blog — Ideas Worth Running With
+                </motion.div>
+
+                <motion.h1
+                  initial={{ opacity: 0, y: 22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                  className="mt-5 text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.06]"
+                >
+                  Not Another <br />
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  >
+                    Productivity Blog.
+                  </motion.span>
+                </motion.h1>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                  className="mt-6 space-y-4 max-w-2xl mx-auto lg:mx-0"
+                >
+                  <div className="flex items-start gap-3.5 text-left">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <CheckCircle2 className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
+                      Real talk on how modern teams work, lead, and grow — written by people who've actually felt the pressure of a missed deadline.
+                    </p>
+                  </div>
+                </motion.div>
+
+              </div>
 
               <motion.div
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                className="mt-6 space-y-4 max-w-2xl mx-auto lg:mx-0"
+                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                className="relative mt-8 lg:mt-2 w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] mx-auto lg:mx-0 lg:ml-auto"
               >
-                <div className="flex items-start gap-3.5 text-left">
-                  <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
-                  </div>
-                  <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
-                    Real talk on how modern teams work, lead, and grow — written by people who've actually felt the pressure of a missed deadline.
-                  </p>
-                </div>
-              </motion.div>
-
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-              className="relative mt-8 lg:mt-2 w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] mx-auto lg:mx-0 lg:ml-auto"
-            >
-              <div className="absolute -inset-8 bg-gradient-to-tr from-[#7e22ce]/14 via-fuchsia-500/8 to-transparent blur-3xl opacity-50" />
-              <img
-                src={BlogHero}
-                alt="KaryaUp blog hero visual"
-                className="relative w-full h-auto object-contain drop-shadow-[0_28px_70px_rgba(15,23,42,0.14)]"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-      {/* Articles Feed - Stripe List Style */}
-      <section className="relative pt-10 pb-12 sm:pb-12 lg:pb-14 min-h-[600px]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col">
-            <AnimatePresence mode="popLayout" initial={false}>
-              {filteredArticles
-                .filter(a => activeCategory !== "All" || appliedSearch || a.id !== "featured")
-                .map((article) => (
-                <PostRow
-                  key={article.id}
-                  article={article}
-                  onClick={openArticle}
+                <div className="absolute -inset-8 bg-gradient-to-tr from-[#7e22ce]/14 via-fuchsia-500/8 to-transparent blur-3xl opacity-50" />
+                <img
+                  src={BlogHero}
+                  alt="KaryaUp blog hero visual"
+                  className="relative w-full h-auto object-contain drop-shadow-[0_28px_70px_rgba(15,23,42,0.14)]"
                 />
-              ))}
-            </AnimatePresence>
-          </div>
-
-          {filteredArticles.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="py-32 text-center"
-            >
-              <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Search size={32} className="text-slate-300" />
-              </div>
-              <h3 className="text-2xl font-black text-[#0A2540] mb-2">No matches found</h3>
-              <p className="text-slate-400 font-medium">Try adjusting your search or category filters.</p>
-              <button
-                onClick={() => { setSearchQuery(""); setAppliedSearch(""); setActiveCategory("All"); }}
-                className="mt-8 text-[#7e22ce] font-black uppercase tracking-widest text-sm hover:underline"
-              >
-                Clear all filters
-              </button>
-            </motion.div>
-          )}
-        </div>
-      </section>
-
-      {/* Premium Dark Newsletter Section - FeatureCTA Style */}
-      <section className="pt-2 pb-8 sm:pt-4 sm:pb-10 lg:pt-4 lg:pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 group">
-        <div className="relative rounded-[2rem] sm:rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch border border-white/5 p-5 sm:p-6 lg:p-10">
-          {/* Ambient Background Gradients */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(126,34,206,0.25),transparent_50%)] pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(99,91,255,0.15),transparent_40%)] pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(168,85,247,0.1),transparent_40%)] pointer-events-none" />
-
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 sm:gap-10 lg:gap-24 w-full">
-            {/* Left Content */}
-            <div className="max-w-2xl text-center lg:text-left flex-[1.2] mx-auto lg:mx-0">
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="text-[#635BFF] text-[11px] sm:text-[13px] font-black uppercase tracking-[0.24em] sm:tracking-[0.3em] mb-4 sm:mb-6 flex items-center justify-center lg:justify-start gap-2"
-              >
-                <div className="w-8 h-[1px] bg-[#635BFF]/30" />
-                Weekly Drop
               </motion.div>
-              
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-[30px] sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 leading-[1.08] sm:leading-[1.05] tracking-tight drop-shadow-2xl"
-              >
-                One idea. Every Tuesday. <br />
-                <motion.span 
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                >
-                  Straight to your inbox.
-                </motion.span>
-              </motion.h2>
-              
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-slate-400 text-base sm:text-lg md:text-xl font-medium leading-relaxed max-w-xl mx-auto lg:mx-0 mb-0"
-              >
-                No roundups. No recycled tips. Just one sharp, useful idea your team can act on before the week is out. Joined by 8,000+ managers already.
-              </motion.p>
-            </div>
-
-            {/* Right Form */}
-            <div className="w-full max-w-md lg:max-w-none lg:w-[460px] flex-1 mx-auto">
-              <motion.form 
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                onSubmit={handleSubscribe} 
-                className="flex flex-col gap-4 sm:gap-5 p-1.5 sm:p-2 rounded-[2rem] sm:rounded-[2.5rem]"
-              >
-                <div className="relative group/input">
-                  <input
-                    type="email"
-                    placeholder="Your work email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-5 sm:px-8 py-3.5 sm:py-5 rounded-[1.15rem] sm:rounded-[1.5rem] bg-white/5 border border-white/10 outline-none focus:border-[#635BFF]/50 focus:ring-4 focus:ring-[#635BFF]/10 transition-all font-bold text-base sm:text-lg text-white shadow-inner backdrop-blur-sm placeholder:text-slate-500"
-                  />
-                  <div className="absolute inset-0 rounded-[1.15rem] sm:rounded-[1.5rem] bg-gradient-to-r from-[#635BFF]/20 to-purple-500/20 opacity-0 group-focus-within/input:opacity-100 transition-opacity pointer-events-none -z-10 blur-xl" />
-                </div>
-                
-                <motion.button 
-                  whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(99,91,255,0.3)" }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-white text-black py-3.5 sm:py-5 rounded-[1.15rem] sm:rounded-[1.5rem] font-black text-[13px] sm:text-base uppercase tracking-[0.12em] sm:tracking-widest hover:bg-slate-50 transition-all shadow-2xl relative overflow-hidden"
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    Get the Tuesday Drop <ArrowRight size={18} strokeWidth={3} />
-                  </span>
-                </motion.button>
-
-                <div className="flex flex-col items-center gap-2.5 sm:gap-3 mt-1 sm:mt-2 text-center">
-                  <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">
-                    No spam. Unsubscribe in one click. Always free.
-                  </p>
-                  
-                  <AnimatePresence>
-                    {subscribeStatus && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className={`text-[12px] font-black uppercase tracking-widest ${
-                          subscribeStatus === "success" ? "text-emerald-400" : "text-red-400"
-                        }`}
-                      >
-                        {message}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.form>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+        {/* Articles Feed - Stripe List Style */}
+        <section className="relative pt-10 pb-12 sm:pb-12 lg:pb-14 min-h-[600px]">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="flex flex-col">
+              <AnimatePresence mode="popLayout" initial={false}>
+                {filteredArticles
+                  .filter(a => activeCategory !== "All" || appliedSearch || a.id !== "featured")
+                  .map((article) => (
+                    <PostRow
+                      key={article.id}
+                      article={article}
+                      onClick={openArticle}
+                    />
+                  ))}
+              </AnimatePresence>
+            </div>
 
-    
+            {filteredArticles.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="py-32 text-center"
+              >
+                <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Search size={32} className="text-slate-300" />
+                </div>
+                <h3 className="text-2xl font-black text-[#0A2540] mb-2">No matches found</h3>
+                <p className="text-slate-400 font-medium">Try adjusting your search or category filters.</p>
+                <button
+                  onClick={() => { setSearchQuery(""); setAppliedSearch(""); setActiveCategory("All"); }}
+                  className="mt-8 text-[#7e22ce] font-black uppercase tracking-widest text-sm hover:underline"
+                >
+                  Clear all filters
+                </button>
+              </motion.div>
+            )}
+          </div>
+        </section>
+
+        {/* Premium Dark Newsletter Section - FeatureCTA Style */}
+        <section className="pt-2 pb-8 sm:pt-4 sm:pb-10 lg:pt-4 lg:pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 group">
+          <div className="relative rounded-[2rem] sm:rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch border border-white/5 p-5 sm:p-6 lg:p-10">
+            {/* Ambient Background Gradients */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(126,34,206,0.25),transparent_50%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(99,91,255,0.15),transparent_40%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(168,85,247,0.1),transparent_40%)] pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 sm:gap-10 lg:gap-24 w-full">
+              {/* Left Content */}
+              <div className="max-w-2xl text-center lg:text-left flex-[1.2] mx-auto lg:mx-0">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="text-[#635BFF] text-[11px] sm:text-[13px] font-black uppercase tracking-[0.24em] sm:tracking-[0.3em] mb-4 sm:mb-6 flex items-center justify-center lg:justify-start gap-2"
+                >
+                  <div className="w-8 h-[1px] bg-[#635BFF]/30" />
+                  Weekly Drop
+                </motion.div>
+
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-[30px] sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 leading-[1.08] sm:leading-[1.05] tracking-tight drop-shadow-2xl"
+                >
+                  One Idea. Every Tuesday. <br />
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  >
+                    Straight To your Inbox.
+                  </motion.span>
+                </motion.h2>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="text-slate-400 text-base sm:text-lg md:text-xl font-medium leading-relaxed max-w-xl mx-auto lg:mx-0 mb-0"
+                >
+                  No roundups. No recycled tips. Just one sharp, useful idea your team can act on before the week is out. Joined by 8,000+ managers already.
+                </motion.p>
+              </div>
+
+              {/* Right Form */}
+              <div className="w-full max-w-md lg:max-w-none lg:w-[460px] flex-1 mx-auto">
+                <motion.form
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  onSubmit={handleSubscribe}
+                  className="flex flex-col gap-4 sm:gap-5 p-1.5 sm:p-2 rounded-[2rem] sm:rounded-[2.5rem]"
+                >
+                  <div className="relative group/input">
+                    <input
+                      type="email"
+                      placeholder="Your work email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full px-5 sm:px-8 py-3.5 sm:py-5 rounded-[1.15rem] sm:rounded-[1.5rem] bg-white/5 border border-white/10 outline-none focus:border-[#635BFF]/50 focus:ring-4 focus:ring-[#635BFF]/10 transition-all font-bold text-base sm:text-lg text-white shadow-inner backdrop-blur-sm placeholder:text-slate-500"
+                    />
+                    <div className="absolute inset-0 rounded-[1.15rem] sm:rounded-[1.5rem] bg-gradient-to-r from-[#635BFF]/20 to-purple-500/20 opacity-0 group-focus-within/input:opacity-100 transition-opacity pointer-events-none -z-10 blur-xl" />
+                  </div>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(99,91,255,0.3)" }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full bg-white text-black py-3.5 sm:py-5 rounded-[1.15rem] sm:rounded-[1.5rem] font-black text-[13px] sm:text-base uppercase tracking-[0.12em] sm:tracking-widest hover:bg-slate-50 transition-all shadow-2xl relative overflow-hidden"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      Get the Tuesday Drop <ArrowRight size={18} strokeWidth={3} />
+                    </span>
+                  </motion.button>
+
+                  <div className="flex flex-col items-center gap-2.5 sm:gap-3 mt-1 sm:mt-2 text-center">
+                    <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">
+                      No spam. Unsubscribe in one click. Always free.
+                    </p>
+
+                    <AnimatePresence>
+                      {subscribeStatus && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          className={`text-[12px] font-black uppercase tracking-widest ${subscribeStatus === "success" ? "text-emerald-400" : "text-red-400"
+                            }`}
+                        >
+                          {message}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
       </div>
-      </>
+    </>
   );
 }

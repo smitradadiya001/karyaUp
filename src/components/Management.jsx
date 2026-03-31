@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, Calendar, BarChart, Briefcase, Sparkles } from 'lucide-react';
-import TeamImg from "../assets/Team.png";
+import TeamImg from "../assets/Team.webp";
 
 const Management = () => {
     const items = [
@@ -22,13 +22,13 @@ const Management = () => {
                             Operations Layer
                         </div>
                         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95] mb-4">
-                            More than <br />
+                            More Than <br />
                             <motion.span
                                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
                                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                             >
-                                just tasks.
+                                Just Tasks.
                             </motion.span>
                         </h2>
                         <p className="text-lg sm:text-xl font-medium text-slate-500 mb-6 sm:mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
@@ -57,7 +57,7 @@ const Management = () => {
                         className="lg:flex-[0.6] relative w-full max-w-xl mx-auto lg:max-w-none lg:mx-0 lg:-mr-24 xl:-mr-40"
                     >
                         {/* Vanishing Card Container */}
-                        <div className="relative overflow-hidden border border-slate-200/80 rounded-[2.5rem] bg-white shadow-2xl shadow-purple-900/5">
+                        <div className="relative overflow-hidden border border-slate-200/80  bg-white shadow-2xl shadow-purple-900/5">
                             <img
                                 src={TeamImg}
                                 alt="KaryaUp Management Dashboard"

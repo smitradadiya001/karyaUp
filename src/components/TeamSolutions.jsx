@@ -147,13 +147,13 @@ const TeamSolutions = () => {
                     className="text-center mb-8"
                 >
                     <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-[0.95] tracking-tight mb-4">
-                        Built for teams that<br/> 
+                        Built For Teams That<br/> 
                         <motion.span
                             className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                             animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
                         >
-                            move fast
+                            Move Fast
                         </motion.span>
                     </h2>
                     <p className="text-gray-500 text-lg sm:text-xl font-medium">

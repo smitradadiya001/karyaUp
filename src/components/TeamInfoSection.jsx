@@ -1,125 +1,156 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Users, ShieldCheck, UserPlus, Search } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+
+/* 3D tilt card — light theme */
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;   // -1 … 1
+    const y = ((e.clientY - rect.top)  / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={className}
+    >
+      <div style={{ transform: 'translateZ(30px)' }} className="h-full flex flex-col">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
 
 export default function TeamInfoSection() {
+  const features = [
+    {
+      title: "Centralized Team",
+      desc: "Keep all members organized in one place with complete visibility.",
+      icon: Users,
+      color: "purple"
+    },
+    {
+      title: "Role-Based Access",
+      desc: "Assign Admin, Manager, or Member roles with full control.",
+      icon: ShieldCheck,
+      color: "emerald"
+    },
+    {
+      title: "Add Members Instantly",
+      desc: "Invite and onboard members in seconds without friction.",
+      icon: UserPlus,
+      color: "blue"
+    },
+    {
+      title: "Quick Search & Filters",
+      desc: "Find any team member instantly with smart filtering.",
+      icon: Search,
+      color: "fuchsia"
+    }
+  ];
+
+  const getColorClasses = (color) => {
+    switch(color) {
+      case 'purple': return 'bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white shadow-purple-200/50';
+      case 'emerald': return 'bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white shadow-emerald-200/50';
+      case 'blue': return 'bg-blue-100 text-blue-600 group-hover:bg-blue-500 group-hover:text-white shadow-blue-200/50';
+      case 'fuchsia': return 'bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-500 group-hover:text-white shadow-fuchsia-200/50';
+      default: return 'bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white shadow-purple-200/50';
+    }
+  };
+
   return (
-    <section className="w-full py-8 sm:py-10 lg:py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-16 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-10 items-center">
+        {/* Heading */}
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-bold mb-4 uppercase tracking-widest"
+          >
+            <Users size={13} />
+            Team Management
+          </motion.div>
 
-        {/* LEFT CONTENT */}
-        <div className="text-center md:text-left flex flex-col items-center md:items-start">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]">
-            Your Team.{" "}Organized.<br />
-            <span className="text-gradient">
-              Scalable.
-            </span>
-          </h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.06] mb-6 tracking-tight"
+          >
+            Your Team.{" "}Organized.<br className="hidden sm:block" />
+            <motion.span 
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            >
+              {" "}Scalable.
+            </motion.span>
+          </motion.h2>
 
-          <p className="mt-5 text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="text-base sm:text-lg lg:text-xl text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto"
+          >
             Manage roles, control access, and keep everyone aligned — all from one
             unified workspace designed for growing teams.
-          </p>
-
-          {/* FEATURES */}
-          <div className="mt-10 space-y-6 w-full max-w-sm sm:max-w-md mx-auto md:mx-0 text-left">
-
-            <div className="flex items-start gap-4">
-              <Users className="text-[#7e22ce]" size={26} />
-              <div>
-                <h4 className="font-black text-slate-800 text-lg">Centralized Team Management</h4>
-                <p className="text-slate-500 text-sm font-medium">
-                  Keep all members organized in one place with complete visibility.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <ShieldCheck className="text-[#7e22ce]" size={26} />
-              <div>
-                <h4 className="font-black text-slate-800 text-lg">Role-Based Access</h4>
-                <p className="text-slate-500 text-sm font-medium">
-                  Assign Admin, Manager, or Member roles with full control.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <UserPlus className="text-[#7e22ce]" size={26} />
-              <div>
-                <h4 className="font-black text-slate-800 text-lg">Add Members Instantly</h4>
-                <p className="text-slate-500 text-sm font-medium">
-                  Invite and onboard team members in seconds without friction.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <Search className="text-[#7e22ce]" size={26} />
-              <div>
-                <h4 className="font-black text-slate-800 text-lg">Quick Search & Filters</h4>
-                <p className="text-slate-500 text-sm font-medium">
-                  Find any team member instantly with smart filters.
-                </p>
-              </div>
-            </div>
-
-          </div>
-
-
+          </motion.p>
         </div>
 
-        {/* RIGHT SIDE (UI MOCK / CARD STYLE) */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative"
+        {/* 4 tilt cards - Light Theme */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-6xl mx-auto"
+          style={{ perspective: '1200px' }}
         >
-          {/* Decorative glow behind card */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 rounded-[3rem] blur-2xl -z-10" />
-
-          <div className="bg-white/80 backdrop-blur-2xl border border-slate-200/60 rounded-[2.5rem] p-8 shadow-2xl shadow-indigo-900/10">
-
-            <h4 className="font-black text-slate-900 text-xl mb-6 flex items-center gap-3">
-              <div className="w-2 h-6 bg-purple-600 rounded-full" />
-              Team Overview
-            </h4>
-
-            <div className="space-y-4">
-
-              {["Priya Mehta", "Arjun Shah", "Sara Nair"].map((name, i) => {
-                const roles = ["Admin", "Manager", "Member"];
-                const role = roles[i];
-                return (
-                  <div
-                    key={i}
-                    className="flex items-center justify-between bg-white border border-slate-100 rounded-2xl px-5 py-4 transition-all hover:shadow-md hover:border-purple-100 group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 text-white flex items-center justify-center font-black text-lg shadow-lg shadow-purple-200">
-                        {name.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="font-black text-slate-900 text-sm group-hover:text-[#7e22ce] transition-colors">{name}</p>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                          {role}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Active</span>
-                    </div>
+          {features.map((feature, i) => {
+            const Icon = feature.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 + i * 0.1 }}
+                className="h-full"
+              >
+                <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 ${getColorClasses(feature.color)}`}>
+                    <Icon size={20} strokeWidth={2.5} />
                   </div>
-                );
-              })}
-
-            </div>
-          </div>
-        </motion.div>
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">{feature.title}</h3>
+                  <p className="text-slate-600 text-sm font-medium leading-relaxed">{feature.desc}</p>
+                </TiltCard>
+              </motion.div>
+            )
+          })}
+        </div>
 
       </div>
     </section>

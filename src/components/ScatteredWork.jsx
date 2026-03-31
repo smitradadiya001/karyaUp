@@ -39,13 +39,13 @@ export default function ScatteredWork() {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95]"
           >
-            Consolidate your <br className="hidden md:block" />tools 
-            for<br className="hidden md:block" /> <motion.span
+            Consolidate Your <br className="hidden md:block" />Tools 
+            For<br className="hidden md:block" /> <motion.span
               className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
               animate={{ backgroundPosition: ["0% center", "-200% center"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
-              maximum output.
+              Maximum Output.
             </motion.span>
           </motion.h2>
         </div>
@@ -66,8 +66,8 @@ export default function ScatteredWork() {
             </div>
 
             <h3 className="text-3xl md:text-5xl font-black text-slate-800 tracking-tighter leading-[0.9] mb-6">
-              Work is scattered across <br />
-              <span className="text-purple-500">too many tools.</span>
+              Work is Scattered Across <br />
+              <span className="text-purple-500">Too Many Tools.</span>
             </h3>
 
             <p className="text-slate-500 font-medium text-lg leading-relaxed mb-6 max-w-xl">
@@ -121,13 +121,13 @@ export default function ScatteredWork() {
             </div>
 
             <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-6">
-              One central hub. <br />
+              One Central Hub. <br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               >
-                Absolute clarity.
+                Absolute Clarity.
               </motion.span>
             </h3>
 

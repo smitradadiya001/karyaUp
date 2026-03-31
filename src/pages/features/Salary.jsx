@@ -12,9 +12,15 @@ import {
   ReceiptText,
   TrendingUp,
   WalletCards,
+  Pencil,
+  Trash2,
+  Plus,
+  Settings,
+  Calculator,
+  User,
 } from "lucide-react";
 import FeatureCTA from "../../components/FeatureCTA";
-import featureSalary from "../../assets/salary.jpeg";
+import featureSalary from "../../assets/salary.webp";
 import { Helmet } from "react-helmet-async";
 
 const salaryTags = [
@@ -67,41 +73,49 @@ const profitInsights = [
 export default function Salary() {
   return (
     <>
-      <Helmet>
-  <title>Leave Management System | Karyaup</title>
+     <Helmet>
+      {/* Primary Meta */}
+      <title>Salary Management Software | Payroll & Employee Salary – KaryaUp</title>
+      <meta
+        name="description"
+        content="Manage employee salaries, payroll, and payments easily with KaryaUp. Track salary details, automate calculations, and stay organized."
+      />
+      <meta
+        name="keywords"
+        content="salary management software, payroll system, employee salary tracking, payroll software India, KaryaUp salary"
+      />
 
-  <meta
-    name="description"
-    content="Manage employee leave requests بسهولة with Karyaup. Track approvals, leave balances, and holidays with an efficient leave management system."
-  />
+      {/* Author */}
+      <meta name="author" content="KaryaUp" />
 
-  <meta
-    name="keywords"
-    content="leave management system, employee leave tracking, leave approval workflow, HR management, Karyaup"
-  />
+      {/* Viewport */}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta name="author" content="Karyaup" />
+      {/* Open Graph (Facebook / LinkedIn) */}
+      <meta property="og:title" content="Salary Management Software – KaryaUp" />
+      <meta
+        property="og:description"
+        content="Simplify payroll and salary management with KaryaUp. Track, manage, and organize employee salaries efficiently."
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://www.karyaup.com/salary" />
+      <meta property="og:image" content="https://www.karyaup.com/og-salary.png" />
 
-  <meta
-    property="og:title"
-    content="Leave Management System | Karyaup"
-  />
-  <meta
-    property="og:description"
-    content="Simplify leave requests, approvals, and tracking for your team."
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="https://karyaup.com/features/leave"
-  />
-  <meta property="og:site_name" content="Karyaup" />
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Salary Management Software – KaryaUp" />
+      <meta
+        name="twitter:description"
+        content="Track employee salaries and manage payroll with ease using KaryaUp."
+      />
+      <meta name="twitter:image" content="https://www.karyaup.com/og-salary.png" />
 
-  <link
-    rel="canonical"
-    href="https://karyaup.com/features/leave"
-  />
-</Helmet>
+      {/* Canonical */}
+      <link rel="canonical" href="https://www.karyaup.com/salary" />
+
+      {/* Favicon (optional) */}
+      <link rel="icon" href="/favicon.ico" />
+    </Helmet>
     <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
       <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="absolute top-0 right-0 -z-10 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
@@ -125,15 +139,15 @@ export default function Salary() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
               >
-                Salary
+                Salary That
                 <span className="block mt-2">
-                  that{" "}
+                  Removes <br/> {" "}
                   <motion.span
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                     animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   >
-                    removes ambiguity
+                    Ambiguity
                   </motion.span>
                 </span>
               </motion.h1>
@@ -182,198 +196,90 @@ export default function Salary() {
               initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-              className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
+              className="relative w-full max-w-[580px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-8 xl:-mr-16 pointer-events-none select-none"
             >
-              <div className="relative overflow-hidden border border-slate-200/80 rounded-3xl bg-white">
-                <div className="border-b border-slate-100 bg-slate-50/80 px-6 py-4 flex items-center justify-between">
-                  <div>
-                    <div className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-400">
-                      Payroll engine
+              <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.06)] overflow-hidden">
+                
+                {/* ── Integrated Header ── */}
+                <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/40 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
+                      <Settings className="w-4 h-4 text-purple-600" />
                     </div>
-                    <div className="mt-1 text-2xl font-black text-slate-900">
-                      Salary run summary
-                    </div>
+                    <h3 className="text-base font-black text-slate-900 tracking-tight">Salary Management</h3>
                   </div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-purple-700">
-                    <Landmark className="h-3.5 w-3.5" />
-                    Auto processed
-                  </div>
-                </div>
-
-                <div className="relative px-6 py-5 sm:px-7">
-                  <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr] items-start">
-                    <div className="relative h-[240px] overflow-hidden rounded-[2rem] bg-[#c8e5e2] flex items-center justify-center">
-                      <div className="absolute inset-x-4 top-5 h-[195px] rounded-[50%] bg-white" />
-                      <motion.svg
-                        viewBox="0 0 320 280"
-                        className="absolute inset-0 h-full w-full"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      >
-                        <defs>
-                          <linearGradient id="salaryPhoneBody" x1="86" y1="94" x2="150" y2="212" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#4f5cff" />
-                            <stop offset="1" stopColor="#2434c7" />
-                          </linearGradient>
-                          <linearGradient id="salaryPhoneScreen" x1="103" y1="108" x2="148" y2="186" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#ffffff" />
-                            <stop offset="1" stopColor="#f6f8ff" />
-                          </linearGradient>
-                          <linearGradient id="salaryCard" x1="183" y1="56" x2="278" y2="116" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#4a58ff" />
-                            <stop offset="1" stopColor="#3647ea" />
-                          </linearGradient>
-                        </defs>
-
-                        <g opacity="0.9">
-                          <circle cx="70" cy="94" r="3" fill="#4f7f48" />
-                          <circle cx="82" cy="103" r="4" fill="none" stroke="#a7aab5" strokeWidth="1.2" />
-                          <circle cx="55" cy="126" r="6" fill="none" stroke="#c3c6d1" strokeWidth="1.2" />
-                          <circle cx="260" cy="170" r="4" fill="none" stroke="#b6bac7" strokeWidth="1.2" />
-                          <circle cx="300" cy="174" r="2.5" fill="none" stroke="#b6bac7" strokeWidth="1.2" />
-                          <circle cx="284" cy="188" r="5.5" fill="#4050ef" />
-                        </g>
-
-                        <motion.g
-                          animate={{ y: [-3, 3, -3], rotate: [-1.5, 1.5, -1.5] }}
-                          transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }}
-                          style={{ transformOrigin: "126px 173px" }}
-                        >
-                          <rect x="86" y="103" width="55" height="122" rx="9" transform="rotate(-12 86 103)" fill="url(#salaryPhoneBody)" />
-                          <rect x="93" y="109" width="42" height="103" rx="6" transform="rotate(-12 93 109)" fill="url(#salaryPhoneScreen)" />
-                          <rect x="106" y="110" width="13" height="4" rx="2" transform="rotate(-12 106 110)" fill="#4b57dd" opacity="0.9" />
-                          <circle cx="116" cy="154" r="12.5" fill="#ffffff" stroke="#d7dcef" strokeWidth="1.4" />
-                          <path d="M115.8 146.5V161.2M111.4 150.4C111.4 148.2 113.2 146.8 115.7 146.8C118.1 146.8 119.8 148.1 119.8 150M111.8 157.6C112.2 159.6 113.9 160.9 116.2 160.9C118.6 160.9 120.3 159.7 120.3 157.7C120.3 155.8 118.9 154.9 116.1 154.4C113.4 153.9 112 153.1 112 151.2" fill="none" stroke="#5a8745" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          <path d="M101 179L126 173" stroke="#d5d9e6" strokeWidth="1.2" strokeLinecap="round" />
-                          <path d="M103 185L128 179" stroke="#d5d9e6" strokeWidth="1.2" strokeLinecap="round" />
-                        </motion.g>
-
-                        <motion.g
-                          animate={{ y: [3, -3, 3], rotate: [1.5, -1.5, 1.5] }}
-                          transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut" }}
-                          style={{ transformOrigin: "228px 92px" }}
-                        >
-                          <rect x="182" y="51" width="105" height="64" rx="8" transform="rotate(24 182 51)" fill="url(#salaryCard)" />
-                          <rect x="199" y="65" width="18" height="12" rx="2" transform="rotate(24 199 65)" fill="#222c8e" opacity="0.95" />
-                          <path d="M209 94L221 99" stroke="#6774ff" strokeWidth="2" strokeLinecap="round" />
-                          <path d="M206 100L225 108" stroke="#6774ff" strokeWidth="2" strokeLinecap="round" />
-                          <circle cx="271" cy="100" r="7" fill="none" stroke="#6774ff" strokeWidth="1.2" />
-                          <path d="M266 100A7 7 0 0 1 278 96" fill="none" stroke="#6774ff" strokeWidth="1.2" strokeLinecap="round" />
-                          <path d="M286 72C288 71 290 72 291 74" fill="none" stroke="#aab3ff" strokeWidth="1.4" strokeLinecap="round" />
-                          <path d="M284 69C287 67.5 291 68.2 293.5 71" fill="none" stroke="#aab3ff" strokeWidth="1.4" strokeLinecap="round" />
-                        </motion.g>
-
-                        {[
-                          { cx: 122, cy: 86, r: 18, scale: 1, delay: 0 },
-                          { cx: 208, cy: 144, r: 21, scale: 1.1, delay: 0.35 },
-                          { cx: 168, cy: 214, r: 15, scale: 0.95, delay: 0.15 },
-                        ].map((coin, index) => (
-                          <motion.g
-                            key={index}
-                            animate={{ y: [-4, 4, -4], scale: [coin.scale, coin.scale + 0.04, coin.scale] }}
-                            transition={{ duration: 3 + index * 0.45, repeat: Infinity, ease: "easeInOut", delay: coin.delay }}
-                            style={{ transformOrigin: `${coin.cx}px ${coin.cy}px` }}
-                          >
-                            <circle cx={coin.cx} cy={coin.cy} r={coin.r} fill="#ffffff" stroke="#4f7f48" strokeWidth="4" />
-                            <circle cx={coin.cx} cy={coin.cy} r={coin.r + 8} fill="none" stroke="#7ca46b" strokeWidth="6" opacity="0.18" />
-                            <path
-                              d={`M${coin.cx} ${coin.cy - 9}V${coin.cy + 9}M${coin.cx - 5} ${coin.cy - 4}C${coin.cx - 5} ${coin.cy - 7} ${coin.cx - 2} ${coin.cy - 8.5} ${coin.cx + 0.5} ${coin.cy - 8.5}C${coin.cx + 4} ${coin.cy - 8.5} ${coin.cx + 6.5} ${coin.cy - 6.7} ${coin.cx + 6.5} ${coin.cy - 3.8}C${coin.cx + 6.5} ${coin.cy - 1.1} ${coin.cx + 4.6} ${coin.cy} ${coin.cx + 0.4} ${coin.cy + 0.7}C${coin.cx - 4.2} ${coin.cy + 1.4} ${coin.cx - 6} ${coin.cy + 2.5} ${coin.cx - 6} ${coin.cy + 5.3}C${coin.cx - 6} ${coin.cy + 8.2} ${coin.cx - 3.1} ${coin.cy + 10} ${coin.cx + 0.5} ${coin.cy + 10}C${coin.cx + 4.1} ${coin.cy + 10} ${coin.cx + 6.5} ${coin.cy + 8.2} ${coin.cx + 6.5} ${coin.cy + 5.4}`}
-                              fill="none"
-                              stroke="#4f7f48"
-                              strokeWidth="2.6"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </motion.g>
-                        ))}
-
-                        <motion.g
-                          animate={{ x: [-2, 2, -2], y: [2, -2, 2] }}
-                          transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
-                        >
-                          <rect x="126" y="161" width="42" height="46" rx="10" fill="#ffffff" stroke="#4b57dd" strokeWidth="2.6" />
-                          <path d="M139 166H153C156 166 158 168 158 171V188C158 191 156 193 153 193H139C136 193 134 191 134 188V171C134 168 136 166 139 166Z" fill="#4b57dd" opacity="0.08" />
-                          <circle cx="147" cy="184" r="12" fill="#4b57dd" />
-                          <path d="M147 177V191M142 181C142 178.6 144 177 146.8 177C149.7 177 151.7 178.6 151.7 180.9M142.4 187.1C142.9 189.7 145 191.1 147.8 191.1C150.7 191.1 152.7 189.6 152.7 187C152.7 184.6 151 183.6 147.7 183.1C144.3 182.5 142.6 181.4 142.6 179" fill="none" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                          <path d="M168 173L176 179V197L168 204Z" fill="#4b57dd" />
-                        </motion.g>
-
-                        <motion.path
-                          d="M179 183C188 176 199 175 209 179L225 191C229 194 232 197 235 201L261 227M177 184L191 199M191 199L178 208C176 210 173 210 171 208L155 192C152 189 147 188 144 190L132 196"
-                          fill="none"
-                          stroke="#8f93a3"
-                          strokeWidth="1.35"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          animate={{ pathLength: [0.96, 1, 0.96] }}
-                          transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                      </motion.svg>
-
-                      <div className="absolute bottom-4 rounded-2xl border border-purple-100 bg-purple-50 px-4 py-3 shadow-sm">
-                        <div className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] text-purple-700">
-                          <WalletCards className="h-3.5 w-3.5" />
-                          Payslip ready
-                        </div>
-                        <div className="mt-1 text-sm font-black text-slate-900">April 2026 batch generated</div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50/70 p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-400">
-                              Employee payroll
-                            </div>
-                            <div className="mt-1 text-xl font-black text-slate-900">
-                              Priya Nair
-                            </div>
-                          </div>
-                          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-purple-100 text-[#7e22ce]">
-                            <CircleDollarSign className="h-5 w-5" />
-                          </div>
-                        </div>
-
-                        <div className="mt-4 space-y-2.5">
-                          {payrollRows.map((row, index) => (
-                            <motion.div
-                              key={row.label}
-                              initial={{ opacity: 0, y: 8 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.45, delay: 0.15 * index }}
-                              className="flex items-center justify-between rounded-xl border border-white bg-white px-4 py-2.5"
-                            >
-                              <span className="text-sm font-bold text-slate-500">{row.label}</span>
-                              <span className={`text-sm font-black ${row.tone}`}>{row.value}</span>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="grid sm:grid-cols-2 gap-3">
-                        <div className="rounded-2xl border border-purple-100 bg-purple-50 p-3.5">
-                          <div className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] text-purple-700">
-                            <ReceiptText className="h-3.5 w-3.5" />
-                            Deductions
-                          </div>
-                          <div className="mt-2 text-sm font-black text-slate-900">
-                            PF, tax, insurance all itemized automatically.
-                          </div>
-                        </div>
-                        <div className="rounded-2xl border border-slate-200 bg-white p-3.5">
-                          <div className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">
-                            <FileText className="h-3.5 w-3.5 text-[#7e22ce]" />
-                            History
-                          </div>
-                          <div className="mt-2 text-sm font-black text-slate-900">
-                            Full salary records always available by month.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="rounded-full bg-emerald-50 border border-emerald-100 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-emerald-600">
+                    System Active
                   </div>
                 </div>
+
+                <div className="p-5 sm:p-6 space-y-6">
+                  {/* ── Mini Policy Config ── */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                      <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-1.5">Paid Leave</label>
+                      <div className="text-sm font-black text-slate-800">0 Days / Month</div>
+                    </div>
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                      <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-1.5">Weekly Off</label>
+                      <div className="flex gap-1.5">
+                        <span className="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-md">Sun</span>
+                        <span className="text-[10px] font-bold bg-white text-slate-400 border border-slate-200 px-2 py-0.5 rounded-md">Sat</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ── Compact Salary Setup Table ── */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-400">Recent Assignments</h4>
+                      <div className="h-0.5 flex-1 mx-3 bg-slate-100 rounded-full" />
+                      <div className="flex gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-purple-400" />
+                        <div className="w-2 h-2 rounded-full bg-slate-200" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      {[
+                        { name: "testabc", salary: "₹ 25,000", badge: "Primary" },
+                        { name: "Siddharth", salary: "₹ 45,000", badge: "Senior" }
+                      ].map((row, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-3 rounded-2xl border border-slate-100 bg-white hover:bg-slate-50 transition-colors">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500">
+                              <User className="w-4 h-4" />
+                            </div>
+                            <div className="flex flex-col leading-tight">
+                              <span className="font-black text-slate-900 text-xs">{row.name}</span>
+                              <span className="text-[10px] font-medium text-slate-400">{row.badge} Role</span>
+                            </div>
+                          </div>
+                          <div className="text-right leading-tight">
+                            <div className="text-xs font-black text-slate-900">{row.salary}</div>
+                            <div className="text-[9px] font-bold text-emerald-600">Verified</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* ── Action Buttons (Compressed) ── */}
+                  <div className="flex items-center gap-3 pt-1">
+                    <div className="h-10 px-5 rounded-xl bg-purple-600 text-white font-black text-[11px] flex items-center justify-center gap-2 shadow-lg shadow-purple-600/10">
+                      <Plus className="w-3.5 h-3.5" />
+                      Add Policy
+                    </div>
+                    <div className="h-10 px-4 rounded-xl border border-slate-200 text-slate-500 font-bold text-[11px] flex items-center justify-center gap-2">
+                      <Calculator className="w-3.5 h-3.5" />
+                      Settings
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Glassy Overlay for "Unclickable" feel visually */}
+                <div className="absolute inset-0 bg-white/5 pointer-events-none" />
               </div>
             </motion.div>
           </div>
@@ -391,18 +297,18 @@ export default function Salary() {
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-700">
               <TrendingUp className="h-3.5 w-3.5" />
-              Boss dashboard
+              Boss Dashboard
             </div>
             <h2 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]">
-              A boss dashboard
+             Boss Dashboard
               <span className="block">
-                that{" "}
+                For {" "}
                 <motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                   animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 >
-                  shows project profit
+             Project Profit
                 </motion.span>
               </span>
             </h2>
@@ -425,8 +331,8 @@ export default function Salary() {
                 Leadership view
               </div>
               <h3 className="mt-5 text-3xl font-black tracking-tight">
-                Understand which
-                <span className="block text-purple-300">projects actually make money</span>
+                Understand Which
+                <span className="block text-purple-300">Projects Actually Make Money</span>
               </h3>
               <p className="mt-4 max-w-md text-sm font-medium leading-relaxed text-slate-300">
                 Instead of checking salary and project costing in separate places, KaryaUp brings billing,
@@ -442,143 +348,100 @@ export default function Salary() {
                 ))}
               </div>
 
-              <div className="mt-8 rounded-[1.6rem] border border-emerald-400/20 bg-emerald-500/10 p-5">
-                <div className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-300">
-                  Margin snapshot
-                </div>
-                <div className="mt-3 flex items-end gap-3">
-                  <div className="text-4xl font-black text-white">17.7%</div>
-                  <div className="pb-1 text-sm font-bold text-emerald-300">healthy profit margin</div>
-                </div>
-                <div className="mt-4 h-2 rounded-full bg-white/10">
-                  <div className="h-2 w-[18%] rounded-full bg-gradient-to-r from-emerald-300 to-emerald-500" />
-                </div>
-              </div>
+            
             </div>
 
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_24px_70px_-42px_rgba(15,23,42,0.3)] sm:p-6">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-purple-50 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-purple-700">
-                    <BriefcaseBusiness className="h-3.5 w-3.5" />
-                    Project profit control
-                  </div>
-                  <div className="mt-4 text-2xl font-black text-slate-900">Boss-only profit dashboard</div>
-                  <p className="mt-2 max-w-2xl text-sm font-medium leading-relaxed text-slate-500">
-                    Track billing, actual costs, and salary allocation for a single project without exposing
-                    sensitive profitability data to the whole team.
-                  </p>
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_22px_60px_-15px_rgba(0,0,0,0.06)] relative overflow-hidden pointer-events-none select-none">
+              
+              {/* ── Integrated Header ── */}
+              <div className="flex items-center justify-between mb-8">
+                <h3 className="text-xl font-black text-slate-900 tracking-tight">Profit measure (Boss only)</h3>
+                <div className="h-9 px-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-[11px] font-black text-slate-600 gap-2">
+                  <Download className="w-3.5 h-3.5" />
+                  Download CSV
                 </div>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-2 self-start rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:border-slate-300"
-                >
-                  <Download className="h-4 w-4" />
-                  Export summary
-                </button>
               </div>
 
-              <div className="mt-6 grid gap-4 lg:grid-cols-3">
-                {profitFilters.map((item) => (
-                  <div key={item.label} className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
-                    <div className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
-                    <div className="mt-3 flex items-center justify-between text-sm font-black text-slate-800">
-                      <span>{item.value}</span>
-                      <ChevronDown className="h-4 w-4 text-slate-400" />
+              {/* ── Filters Grid ── */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {[
+                  { label: "Project", value: "KaryaUp" },
+                  { label: "Time range", value: "This month" },
+                  { label: "Filter by member", value: "All members" }
+                ].map((item) => (
+                  <div key={item.label} className="space-y-1.5">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">{item.label}</label>
+                    <div className="h-10 rounded-xl border border-slate-200 bg-slate-50/80 flex items-center justify-between px-3 text-xs font-bold text-slate-800">
+                      {item.value}
+                      <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-                <div className="rounded-[1.6rem] border border-slate-200 bg-slate-50/60 p-5">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-400">
-                        Cost distribution
-                      </div>
-                      <div className="mt-2 text-lg font-black text-slate-900">Where project money goes</div>
+              {/* ── Financial Inputs ── */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Project billing amount</label>
+                  <div className="h-12 rounded-xl border-2 border-[#7e22ce] bg-white flex items-center justify-between px-4 text-sm font-black text-slate-900 shadow-lg shadow-purple-600/5">
+                    0
+                    <div className="flex flex-col -space-y-1 ml-2">
+                      <ChevronDown className="w-3 h-3 rotate-180 text-slate-400" />
+                      <ChevronDown className="w-3 h-3 text-slate-400" />
                     </div>
-                    <div className="rounded-full bg-white px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-600">
-                      live margin
-                    </div>
-                  </div>
-
-                  <div className="mt-5 grid gap-3">
-                    {memberCostRows.map((row) => (
-                      <div key={row.name} className="rounded-2xl border border-white bg-white p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="text-sm font-black text-slate-900">{row.name}</div>
-                            <div className="mt-1 text-sm font-medium text-slate-500">{row.owner}</div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-sm font-black text-slate-900">{row.cost}</div>
-                            <div className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">
-                              {row.share} of project cost
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-3 h-2 rounded-full bg-slate-100">
-                          <div
-                            className={`h-2 rounded-full ${
-                              row.name === "Design"
-                                ? "w-[18%] bg-[#94a3b8]"
-                                : row.name === "Frontend"
-                                  ? "w-[24%] bg-[#8b5cf6]"
-                                  : "w-[27%] bg-emerald-500"
-                            }`}
-                          />
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 </div>
-
-                <div className="grid gap-3 sm:gap-4">
-                  {profitSummary.map((item) => (
-                    <div key={item.label} className="rounded-[1.35rem] border border-slate-200 bg-white p-4 sm:rounded-[1.6rem] sm:p-5">
-                      <div className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-400">
-                        {item.label}
-                      </div>
-                      <div className={`mt-2.5 text-[0.98rem] sm:mt-3 sm:text-[1.15rem] lg:text-[1.3rem] xl:text-[1.4rem] leading-none font-black tracking-tight text-slate-900 ${item.tone || ""}`}>
-                        <NumberFlow
-                          value={item.amount}
-                          prefix="₹"
-                          format={{
-                            notation: "standard",
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Other actual cost</label>
+                  <div className="h-12 rounded-xl border border-slate-200 bg-slate-50 flex items-center px-4 text-sm font-black text-slate-900">
+                    0
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-6 rounded-[1.6rem] border border-purple-100 bg-gradient-to-r from-purple-50 to-white p-5">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <div className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-700">
-                      Why this matters
-                    </div>
-                    <div className="mt-2 text-lg font-black text-slate-900">
-                      Salary becomes a profitability signal, not just a payroll record
-                    </div>
-                    
-                  </div>
-                  
-              
+              {/* ── Rates Section ── */}
+              <div className="mb-8">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-2.5">Member salaries</label>
+                <div className="p-5 rounded-[1.5rem] border border-dashed border-slate-200 bg-slate-50/30 text-[11px] font-medium text-slate-400 leading-relaxed text-center">
+                  No member rates configured yet. Use "Team" tab to see who is on the project, then add rates here.
                 </div>
               </div>
+
+              {/* ── Profitability Summary ── */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-slate-100">
+                {[
+                  { label: "Total salary cost", val: "0.00" },
+                  { label: "Other actual cost", val: "0.00" },
+                  { label: "Total cost", val: "0.00" },
+                  { label: "Profit", val: "—", primary: true }
+                ].map((item) => (
+                  <div key={item.label} className="space-y-1.5">
+                    <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 leading-none">{item.label}</div>
+                    <div className={`text-[1.1rem] font-black ${item.primary ? 'text-slate-400 tracking-tighter' : 'text-slate-900'}`}>{item.val}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* ── Dashboard Action ── */}
+              <div className="mt-8 flex items-center justify-between">
+                <div className="h-11 px-8 rounded-2xl bg-purple-600 text-white font-black text-xs flex items-center justify-center shadow-xl shadow-purple-600/20">
+                  Save configuration
+                </div>
+                <div className="text-[10px] font-bold text-slate-400 flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                  Live Preview
+                </div>
+              </div>
+
+              {/* Polish Overlay */}
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/20 to-transparent pointer-events-none" />
             </div>
           </motion.div>
         </div>
       </section>
 
       <FeatureCTA
-        title={<>Salary that stays <br /> clear every month</>}
+        title={<>Salary That Stays <br /> Clear Every Month</>}
         description="Automate payroll and track profit without spreadsheet confusion."
         buttonText="Get started. It's FREE"
         image={featureSalary}

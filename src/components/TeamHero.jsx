@@ -1,101 +1,118 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, Users, AlertCircle } from 'lucide-react';
+import { Check, Mail, MoreVertical, ChevronDown, Search, UserPlus } from 'lucide-react';
 
-const TeamCapacityPreview = () => {
-  const members = [
-    { name: "Priya Mehta", role: "Design Lead", tasks: 6, color: "bg-purple-500", delay: 0.5 },
-    { name: "Arjun Shah", role: "Developer", tasks: 9, overloaded: true, color: "bg-blue-500", delay: 1.0 },
-    { name: "Sara Nair", role: "QA Engineer", tasks: 4, color: "bg-emerald-500", delay: 1.5 },
-  ];
-
+const DarkRoleManagementPreview = () => {
   return (
-    <div className="relative border border-white/10 rounded-[2.5rem] shadow-2xl bg-[#0f172a] overflow-hidden p-6 sm:p-8">
-      {/* Dark purple gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-900/60 to-indigo-900/20 pointer-events-none" />
+    <div className="relative w-full max-w-[480px] mx-auto z-10 pointer-events-none select-none">
+      {/* Container Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1e1b4b] to-[#0f172a] rounded-[2rem] transform -rotate-1 scale-[1.02] opacity-50 blur-sm -z-20 border border-white/5" />
 
-      {/* Decorative glow blobs */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-[80px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-600/5 rounded-full blur-[80px] pointer-events-none" />
+      {/* Main Dashboard Panel */}
+      <div className="bg-[#0f172a]/95 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-5 sm:p-6 shadow-2xl shadow-black/40 relative overflow-hidden">
 
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8 border-b border-white/5 pb-4 relative z-10">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-purple-600 shadow-lg shadow-purple-500/20 flex items-center justify-center text-white">
-            <Users size={20} />
+        {/* Top Navigation Bar */}
+        <div className="flex items-center gap-3 mb-5 relative z-20">
+          <div className="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 flex items-center gap-2.5 text-slate-400 shadow-inner">
+            <Search size={16} className="opacity-80" />
+            <span className="text-sm font-medium">Search team members...</span>
           </div>
-          <div>
-            <h4 className="font-black text-white leading-tight">Team capacity</h4>
-            <div className="flex items-center gap-1.5">
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider italic">78% utilized</span>
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            </div>
+          <div className="bg-gradient-to-tr from-[#7e22ce] to-[#a855f7] text-white px-4 py-2.5 rounded-xl flex items-center gap-2 text-sm font-bold shadow-lg">
+            <UserPlus size={16} /> Add 
           </div>
         </div>
-      </div>
 
-      {/* Member List */}
-      <div className="space-y-4 mb-8 relative z-10">
-        {members.map((m, i) => (
+        {/* Tabs */}
+        <div className="flex items-center gap-5 mb-5 border-b border-white/10 pb-3 overflow-x-auto scrollbar-hide relative z-20">
+          <div className="text-white text-xs sm:text-sm font-bold tracking-wide whitespace-nowrap relative">
+            All (2)
+            <div className="absolute -bottom-[13px] left-0 w-full h-[2px] bg-gradient-to-r from-fuchsia-500 to-purple-600" />
+          </div>
+          {["Managers (0)", "Employees (1)", "Sales (0)"].map(tab => (
+            <div key={tab} className="text-slate-400 text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap">
+              {tab}
+            </div>
+          ))}
+        </div>
+
+        {/* Cards Stack */}
+        <div className="space-y-3.5 relative z-20">
+          
+          {/* Card 1: Administrator */}
           <motion.div
-            key={m.name}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: m.delay }}
-            className="flex items-center justify-between p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10 transition-all duration-300 group"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col gap-3.5 relative shadow-xl shadow-black/20"
           >
-            <div className="flex items-center gap-3">
-              <div className={`w-11 h-11 rounded-full ${m.color} flex items-center justify-center text-white text-sm font-black ring-2 ring-white/10 shadow-lg`}>
-                {m.name.charAt(0)}
+            <div className="flex justify-between items-start">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-lg ring-1 ring-purple-500/30">
+                  t
+                </div>
+                <div>
+                  <h4 className="font-bold text-white text-sm sm:text-base leading-tight">testabc2</h4>
+                  <div className="flex items-center gap-1.5 text-slate-400 mt-1">
+                    <Mail size={12} />
+                    <span className="text-xs font-semibold tracking-wide">testabc2@gmail.com</span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-black text-white group-hover:text-purple-300 transition-colors uppercase tracking-tight">{m.name}</div>
-                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-80">{m.role}</div>
-              </div>
+              <button className="text-slate-500">
+                <MoreVertical size={18} />
+              </button>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <div className="text-xs font-black text-slate-300">{m.tasks} active tasks</div>
-                {m.overloaded && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: m.delay + 0.3 }}
-                    className="flex items-center gap-1 text-[9px] font-black text-rose-400 uppercase tracking-tighter"
-                  >
-                    <AlertCircle size={10} strokeWidth={3} /> Overloaded
-                  </motion.div>
-                )}
+            <div className="h-px w-full bg-white/5" />
+
+            <div className="flex justify-between items-center relative">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 border border-purple-500/40 rounded-lg text-xs font-bold text-purple-200 bg-purple-500/20 ring-1 ring-purple-400/20">
+                Administrator <ChevronDown size={14} className="ml-0.5 opacity-80" />
               </div>
+              <span className="text-[10px] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">Joined Feb 23, 2026</span>
             </div>
           </motion.div>
-        ))}
-      </div>
 
-      {/* Capacity Progress Bar Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.2 }}
-        className="pt-6 border-t border-white/5 relative z-10"
-      >
-        <div className="flex justify-between items-end mb-3">
-          <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest opacity-80">Overall Capacity</span>
-          <span className="text-2xl font-black text-purple-400">78%</span>
-        </div>
-        <div className="h-3 w-full bg-white/5 rounded-full overflow-hidden ring-1 ring-white/10">
+          {/* Card 2: Team Member */}
           <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "78%" }}
-            transition={{ duration: 1.5, delay: 2.5, ease: "easeOut" }}
-            className="h-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 rounded-full shadow-[0_0_20px_rgba(168,85,247,0.4)]"
-          />
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col gap-3.5 relative shadow-xl shadow-black/20"
+          >
+            <div className="flex justify-between items-start">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center font-bold text-lg ring-1 ring-blue-500/30">
+                  t
+                </div>
+                <div>
+                  <h4 className="font-bold text-white text-sm sm:text-base leading-tight">testabc</h4>
+                  <div className="flex items-center gap-1.5 text-slate-400 mt-1">
+                    <Mail size={12} />
+                    <span className="text-xs font-semibold tracking-wide">testabc@gmail.com</span>
+                  </div>
+                </div>
+              </div>
+              <button className="text-slate-500">
+                <MoreVertical size={18} />
+              </button>
+            </div>
+
+            <div className="h-px w-full bg-white/5" />
+
+            <div className="flex justify-between items-center relative">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 border border-white/10 rounded-lg text-xs font-bold text-slate-300 bg-white/5">
+                Team Member <ChevronDown size={14} className="ml-0.5 opacity-80" />
+              </div>
+              <span className="text-[10px] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">Joined Feb 23, 2026</span>
+            </div>
+          </motion.div>
+
         </div>
-      </motion.div>
+      </div>
     </div>
-  );
-};
+  )
+}
 
 export default function TeamHero() {
   return (
@@ -120,15 +137,15 @@ export default function TeamHero() {
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
               className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
             >
-              Structure that{" "}
+              Structure That{" "}
               <span className="block">
-                scales with{" "}
+                Scales With{" "}
                 <motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                   animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 >
-                  ambition.
+                  Ambition.
                 </motion.span>
               </span>
             </motion.h1>
@@ -182,7 +199,7 @@ export default function TeamHero() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
             className="relative"
           >
-            <TeamCapacityPreview />
+            <DarkRoleManagementPreview />
           </motion.div>
 
         </div>

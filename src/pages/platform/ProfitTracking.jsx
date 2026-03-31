@@ -1,246 +1,313 @@
-import React, { useMemo, useState } from "react";
-import SubPageLayout, { CTABanner } from "../../components/SubPageLayout";
+                                                                                                                                                         import { useRef, useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import dashboardImage from "../../assets/dashboard2.png";
+import planImage from "../../assets/Gantt.png";
+import karyaupLogo from "../../assets/Logo(2).png"; 
+import FeatureCTA from "../../components/FeatureCTA";
 
-export default function ProfitTracking() {
-  const profitImages = {
-    hero: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
-    projectCost: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
-    revenueDeal: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-    profitability: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?auto=format&fit=crop&w=1200&q=80",
-    timeRevenue: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80",
-    visibility: "https://images.unsplash.com/photo-1551281044-8b62f4463c1c?auto=format&fit=crop&w=1200&q=80",
-    marginControl: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80",
-    portfolioHealth: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=1200&q=80",
-    growthPlanning: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1200&q=80",
-  };
+/* ═══════════════════════════════════════════════
+   ICONS & HELPERS
+═══════════════════════════════════════════════ */
+const CheckIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="13" height="13"><polyline points="3,9 7,13 13,5" /></svg>
+);
+const XIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" width="13" height="13"><line x1="4" y1="4" x2="12" y2="12" /><line x1="12" y1="4" x2="4" y2="12" /></svg>
+);
+const ListIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" width="11" height="11">
+    <line x1="5" y1="4" x2="13" y2="4" /><line x1="5" y1="8" x2="13" y2="8" /><line x1="5" y1="12" x2="13" y2="12" />
+    <circle cx="2.5" cy="4" r="1" fill="currentColor" stroke="none" />
+    <circle cx="2.5" cy="8" r="1" fill="currentColor" stroke="none" />
+    <circle cx="2.5" cy="12" r="1" fill="currentColor" stroke="none" />
+  </svg>
+);
 
-  const capabilitySections = useMemo(
-    () => [
-      {
-        title: "Project-level cost tracking",
-        text: "Track labor, resources, and operational spend at project level in real time. Understand exactly where costs increase and where margins are protected.",
-        image: profitImages.projectCost,
-      },
-      {
-        title: "Revenue and deal mapping",
-        text: "Map project execution to signed deals, client revenue, and billing milestones. Link delivery activity directly with commercial outcomes.",
-        image: profitImages.revenueDeal,
-      },
-      {
-        title: "Profitability insights",
-        text: "Get instant profitability breakdowns by project, client, or team. Surface low-margin work early and adjust strategy before revenue leaks.",
-        image: profitImages.profitability,
-      },
-      {
-        title: "Time-to-revenue analysis",
-        text: "Measure how quickly work turns into realized revenue. Reduce delays in delivery-to-invoice cycles and improve cash flow predictability.",
-        image: profitImages.timeRevenue,
-      },
-      {
-        title: "Financial performance visibility",
-        text: "See financial performance across your full project portfolio from one dashboard. Leadership can make faster decisions using real execution data.",
-        image: profitImages.visibility,
-      },
-    ],
-    []
+/* ═══════════════════════════════════════════════
+   COMPONENTS
+═══════════════════════════════════════════════ */
+function Card({ data, type }) {
+  const isRed = type === "red";
+  return (
+    <div className="relative group overflow-hidden rounded-xl w-full">
+      <div className="backdrop-blur-md bg-white/40 border border-white/30 rounded-xl p-3 flex items-start gap-3 shadow-[0_8px_32px_0_rgba(0,0,0,0.05)]">
+        <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 border ${
+          isRed ? "bg-red-500/20 border-red-500/50 text-red-600" : "bg-green-500/20 border-green-500/50 text-green-600"
+        }`}>
+          {isRed ? <XIcon /> : <CheckIcon />}
+        </div>
+        <div className="flex-1 min-w-0 text-left">
+          <div className="text-[13px] font-bold text-slate-900 truncate">{data.title}</div>
+          <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5 font-medium">
+            <span>{data.time}</span>
+            <span className="w-1 h-1 rounded-full bg-slate-300" />
+            <span className="flex items-center gap-1"><ListIcon /> {data.tag}</span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
+}
 
-  const [activeCapability, setActiveCapability] = useState(capabilitySections[0].title);
-  const selectedSection = capabilitySections.find((item) => item.title === activeCapability) || capabilitySections[0];
+function ScrollTrack({ cards, direction }) {
+  const trackRef = useRef(null);
+  const posRef = useRef(direction === "up" ? -50 : 0);
+  const doubled = useMemo(() => [...cards, ...cards], [cards]);
 
-  const profitHighlights = [
-    {
-      title: "Margin control dashboard",
-      text: "Protect margins with live variance tracking between estimated and actual project costs.",
-      image: profitImages.marginControl,
-    },
-    {
-      title: "Portfolio profitability health",
-      text: "See profitable vs at-risk projects in one view and prioritize action where impact is highest.",
-      image: profitImages.portfolioHealth,
-    },
-    {
-      title: "Growth-focused planning",
-      text: "Use historical profit trends to plan stronger pricing, delivery models, and growth strategy.",
-      image: profitImages.growthPlanning,
-    },
+  useEffect(() => {
+    const speed = 0.035;
+    const animate = () => {
+      if (direction === "down") {
+        posRef.current -= speed;
+        if (posRef.current <= -25) posRef.current = 0;
+      } else {
+        posRef.current += speed;
+        if (posRef.current >= 0) posRef.current = -50;
+      }
+      if (trackRef.current) trackRef.current.style.transform = `translateY(${posRef.current}%)`;
+      requestAnimationFrame(animate);
+    };
+    const raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [direction, cards]);
+
+  return (
+    <div className="h-[280px] overflow-hidden relative">
+      <div className="relative h-full" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)' }}>
+        <div ref={trackRef} className="flex flex-col gap-3 py-2 will-change-transform">
+          {doubled.map((card, i) => <Card key={i} data={card} type={direction === "down" ? "red" : "green"} />)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ScrollingDataBg({ isHovered }) {
+  const text = "1=2-LwuS0AkLC6Vvj|hq5tCReRo6%bcvnvjddjru4ndjenck4ndkvk4kdkvs57g57rh]fu8474ghfh44yfdjee3wwkxncfuregdy74hdncnrs3loxmen4jdjcfvmnvsdjfsw8sdjidw8didwd8cd0edjcdc9dv{fgH$#6(XiK^!8W3jLlZ2th%q2IYMb<5*P4AhV8oIMq7@Pw47Wf#40-zX@qj(2b5KgK840SXQfFTq6ce3R#k$8wujFFHU8t9%FUDBg>ej|ABYK6)3i^fzSh(0*X4BYRNOea)nsVUCYnV}MHe|+uCHdW&P$zL|+ssBNgZGMY<}]eYYV]T7j]B*4%&=GLmabFcv|]F9Z$/pRvN}O!3MY8k@FT";
+  const repeated = Array(15).fill(text).join(' ');
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none px-4">
+      <div 
+        className={`text-[10px] leading-relaxed break-all transition-all duration-700 
+        ${isHovered 
+            ? 'text-slate-900 font-semibold opacity-40 animate-[vScroll_10s_linear_infinite]' 
+            : 'text-slate-400 font-normal opacity-[0.07] animate-[vScroll_45s_linear_infinite]'}`}
+      >
+        <p>{repeated}</p>
+        <p>{repeated}</p>
+      </div>
+    </div>
+  );
+}
+
+const LightShield3D = () => (
+  <svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-56 h-64 md:w-64 md:h-72 drop-shadow-[0_25px_50px_rgba(0,0,0,0.12)]">
+    <defs>
+      <linearGradient id="glassBorderGradient" x1="100" y1="10" x2="100" y2="208" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#F472B6" stopOpacity="0.4" />
+        <stop offset="0.5" stopColor="white" stopOpacity="0.6" />
+        <stop offset="1" stopColor="#A855F7" stopOpacity="0.4" />
+      </linearGradient>
+      <radialGradient id="glassShine" cx="100" cy="100" r="100" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white" stopOpacity="0.5" />
+        <stop offset="1" stopColor="white" stopOpacity="0" />
+      </radialGradient>
+    </defs>
+    <path d="M100 10 L182 42 L182 108 C182 154 146 190 100 208 C54 190 18 154 18 108 L18 42 Z" fill="white" fillOpacity="0.03" stroke="url(#glassBorderGradient)" strokeOpacity="0.6" strokeWidth="2" />
+    <path d="M100 20 L174 48 L174 108 C174 150 140 183 100 200 C60 183 26 150 26 108 L26 48 Z" fill="url(#glassShine)" fillOpacity="0.1" stroke="white" strokeOpacity="0.15" />
+  </svg>
+);
+
+const FAQItem = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="border-b border-slate-100 last:border-0">
+      <button onClick={() => setIsOpen(!isOpen)} className="w-full py-6 flex items-center justify-between text-left group">
+        <span className="text-lg font-bold text-slate-800 group-hover:text-fuchsia-600 transition-colors">{question}</span>
+        <motion.span animate={{ rotate: isOpen ? 45 : 0 }} className="text-2xl text-slate-400">+</motion.span>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+            <p className="pb-6 text-slate-600 leading-relaxed">{answer}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════════════
+   MAIN PAGE EXPORT
+═══════════════════════════════════════════════ */
+export default function BossDashboard() {
+  const [isShieldHovered, setIsShieldHovered] = useState(false);
+
+  const redCards = [
+    { title: "Projects scattered across multiple tools", time: "8:06:41 PM", tag: "Bug Fixes" },
+    { title: "Critical info hidden in siloed systems", time: "8:12:45 PM", tag: "New task" },
+    { title: "Manual updates strain capacity", time: "7:55:10 PM", tag: "Data Sync" },
+    { title: "Missed deadlines cause bottlenecks", time: "7:40:03 PM", tag: "Security" },
+    { title: "Rate limit exceeded", time: "7:20:50 PM", tag: "API" },
   ];
-  const financialCommandSection = [
-    {
-      title: "Client profitability view",
-      text: "Compare profit contribution across clients and identify which accounts drive the healthiest margins.",
-      image: "https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      title: "Invoice-to-delivery alignment",
-      text: "Connect invoicing milestones with delivery progress to improve billing speed and reduce revenue delays.",
-      image: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      title: "Forecast-driven decision desk",
-      text: "Use forecasted margin and cost trends to make faster pricing, staffing, and growth decisions.",
-      image: "https://images.unsplash.com/photo-1604594849809-dfedbc827105?auto=format&fit=crop&w=1200&q=80",
-    },
+
+  const greenCards = [
+    { title: "All projects, docs, and chat in one platform", time: "8:05:28 PM", tag: "Data Sync" },
+    { title: "Instantly find anything across all tools", time: "8:04:15 PM", tag: "Weekly Stats" },
+    { title: "Automated reporting & resource management", time: "7:58:00 PM", tag: "Production" },
+    { title: "Backup finished", time: "7:45:22 PM", tag: "Storage" },
+    { title: "AI-powered workflows for tasks & timelines", time: "7:30:11 PM", tag: "Users" },
+    { title: "Cache cleared successfully", time: "7:18:40 PM", tag: "Performance" },
   ];
 
   return (
-    <SubPageLayout
-      
-    >
-      <section className="relative left-1/2 right-1/2 mb-12 w-screen -translate-x-1/2 overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 sm:p-8">
-        <div className="mb-6 grid gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-2 sm:p-5">
-          <div className="space-y-4">
-            <p className="inline-flex rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-pink-700">
-              Understand what drives real growth
-            </p>
-            <h2 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
-              Work becomes measurable in business terms.
-            </h2>
-            <p className="max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
-              KaryaUp connects execution with financial outcomes. Track costs, time, and revenue across projects in
-              real time with no spreadsheets and no manual calculations.
-            </p>
-            <span className="inline-flex rounded-xl bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-700">
-              Increase profit visibility across 100% of projects
-            </span>
-          </div>
-          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-            <img
-              src={profitImages.hero}
-              alt="KaryaUp profit dashboard overview"
-              className="h-full min-h-[220px] w-full object-cover transition-transform duration-500 hover:scale-105"
-              loading="lazy"
-            />
-          </div>
-        </div>
+    <div className="bg-white font-sans overflow-x-hidden">
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes vScroll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+        @keyframes shine { from { left: -100%; } to { left: 100%; } }
+      `}} />
 
-        <p className="mb-3 text-sm font-semibold text-slate-800">Key capabilities</p>
-        <div className="mb-5 grid gap-3 sm:grid-cols-2">
-          {capabilitySections.map((item, index) => (
-            <button
-              type="button"
-              key={item.title}
-              onClick={() => setActiveCapability(item.title)}
-              className={`rounded-xl border px-3 py-3 text-left text-sm font-semibold shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
-                activeCapability === item.title
-                  ? "border-transparent bg-gradient-to-r from-pink-500 to-purple-600 text-white"
-                  : "border-slate-200 bg-white text-slate-700 hover:border-pink-300"
-              }`}
-              style={{ animation: `fadeInUp 600ms ease ${index * 90}ms both` }}
-            >
-              <div className="flex items-center gap-3">
-                <img
-                  src={item.image}
-                  alt={`${item.title} preview`}
-                  className="h-10 w-14 rounded-md border border-white/40 object-cover"
-                  loading="lazy"
-                />
-                <span>{item.title}</span>
-              </div>
-            </button>
-          ))}
-        </div>
-
-        <div
-          key={selectedSection.title}
-          className="grid gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-2 sm:p-5"
-          style={{ animation: "fadeInUp 350ms ease both" }}
-        >
-          <div className="space-y-3">
-            <p className="text-sm font-bold text-slate-900 sm:text-base">{selectedSection.title}</p>
-            <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{selectedSection.text}</p>
-            <button type="button" className="btn-primary px-5 py-2.5 text-sm font-bold">
-              Track profit with clarity
-            </button>
-          </div>
-          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-            <img
-              src={selectedSection.image}
-              alt={`KaryaUp ${selectedSection.title}`}
-              className="h-full min-h-[220px] w-full object-cover transition-transform duration-500 hover:scale-105"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="mb-12">
-        <div className="grid gap-5 md:grid-cols-3">
-          {profitHighlights.map((item, index) => (
-            <article
-              key={item.title}
-              className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-              style={{ animation: `fadeInUp 650ms ease ${index * 90}ms both` }}
-            >
-              <div className="p-4">
-                <h3 className="mb-2 text-lg font-bold text-slate-900">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-slate-600">{item.text}</p>
-              </div>
-              <div className="h-40 overflow-hidden border-t border-slate-200 bg-slate-50">
-                <img
-                  src={item.image}
-                  alt={`KaryaUp ${item.title}`}
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mb-12">
-        <div className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-pink-600">Financial Command Center</p>
-          <h3 className="mt-2 text-2xl font-extrabold text-slate-900 sm:text-3xl">Make growth decisions with real profit signals</h3>
-          <p className="mt-2 max-w-3xl text-sm text-slate-600 sm:text-base">
-            Go beyond tracking and turn financial visibility into daily action with client, invoice, and forecast-led intelligence.
-          </p>
-
-          <div className="mt-5 grid gap-5 md:grid-cols-3">
-            {financialCommandSection.map((item, index) => (
-              <article
-                key={item.title}
-                className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-                style={{ animation: `fadeInUp 650ms ease ${index * 100}ms both` }}
+      {/* Hero Section stays unchanged... */}
+      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-20 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="text-center lg:text-left">
+              <motion.h1
+                initial={{ opacity: 0, y: 40, x: -10 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
               >
-                <div className="p-4">
-                  <h4 className="mb-2 text-lg font-bold text-slate-900">{item.title}</h4>
-                  <p className="text-sm leading-relaxed text-slate-600">{item.text}</p>
+                Total Control. Complete visibility.
+                <br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  Smarter Decisions.
+                </motion.span>
+              </motion.h1>
+            </div>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+              KaryaUp's Boss Dashboard gives you a real-time overview of your entire business—from team performance and project progress to time tracking and productivity insights.
+            </p>
+          </div>
+
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="relative">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
+              <img src={dashboardImage} alt="Boss Dashboard" className="w-full h-full object-cover" />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* COMPARISON SECTION */}
+      <section className="py-10 bg-white px-2 md:px-4">
+        <div className="max-w-7xl mx-auto">
+          <motion.h1
+                initial={{ opacity: 0, y: 40, x: -10 }}
+                whileInView={{ opacity: 1, y: 0, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", damping: 25, stiffness: 100 }}
+                className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-12 drop-shadow-sm"
+              >
+                 Project Management<br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                   is broken, we fixed it
+                </motion.span>
+              </motion.h1>
+
+          <div className="p-[2px] rounded-[2.5rem] bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-500 shadow-2xl">
+            <div className="bg-slate-50 rounded-[2.4rem] overflow-hidden grid grid-cols-1 md:grid-cols-3 min-h-[450px]">
+              
+              {/* LEFT: OLD WAY */}
+              <div className="p-10 pt-14 border-r border-slate-200 flex flex-col justify-start bg-white/50 relative z-10">
+                <h3 className="text-center text-3xl font-black mb-2 text-slate-900">Old Way</h3>
+                <p className="text-sm text-center text-slate-500 mb-8">Manual updates and scattered tools cause friction.</p>
+                <ScrollTrack cards={redCards} direction="down" />
+              </div>
+
+              {/* MIDDLE: PERFECT INTERACTIVE 3D ROTATION */}
+              <div 
+                className="relative flex flex-col items-center justify-start py-16 px-8 group overflow-hidden bg-white/50"
+                onMouseEnter={() => setIsShieldHovered(true)}
+                onMouseLeave={() => setIsShieldHovered(false)}
+              >
+                <div className="relative z-40 text-center mb-6">
+                  <h3 className="text-2xl font-black text-slate-900">Security you can Trust</h3>
+                  <p className="text-sm text-slate-500 mt-2">More secure than AI alone.</p>
                 </div>
-                <div className="h-40 overflow-hidden border-t border-slate-200 bg-white">
-                  <img
-                    src={item.image}
-                    alt={`KaryaUp ${item.title}`}
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                    loading="lazy"
-                  />
+
+                {/* Animated BG text logic remains, but with semi-bold effect on hover */}
+                <ScrollingDataBg isHovered={isShieldHovered} />
+
+                {/* --- Shield & Rotating Logo Container --- */}
+                <div className="relative z-20 flex items-center justify-center mt-2 w-full h-72" style={{ perspective: "1200px" }}>
+                  
+                  {/* Floating Shield Layer */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-80">
+                    <LightShield3D />
+                  </div>
+                  
+                  {/* 3D ROTATING LOGO - perfectamente centered in shield */}
+                  <div className="absolute inset-0 flex items-center justify-center pb-6 z-30 pointer-events-none" style={{ perspective: "1000px" }}>
+                    <motion.img 
+                      src={karyaupLogo} 
+                      alt="Logo" 
+                      animate={{ rotateY: 360, scale: isShieldHovered ? 1.1 : 1 }} 
+                      transition={{ 
+                        rotateY: { duration: 8, ease: "linear", repeat: Infinity },
+                        scale: { duration: 0.4 }
+                      }} 
+                      className="w-32 h-32 md:w-40 md:h-40 object-contain drop-shadow-[0_15px_35px_rgba(168,85,247,0.6)]" 
+                      style={{ transformStyle: "preserve-3d" }} 
+                    />
+                  </div>
+
+                  {/* Inner Glow Anchor */}
+                  <div className="absolute w-32 h-32 bg-fuchsia-500/10 rounded-full blur-3xl animate-pulse" />
                 </div>
-              </article>
-            ))}
+                
+                <div className="absolute -bottom-10 w-48 h-48 bg-purple-200/40 rounded-full blur-3xl pointer-events-none" />
+              </div>
+
+              {/* RIGHT: KARYAUP WAY */}
+              <div className="p-10 pt-14 border-l border-slate-200 flex flex-col justify-start bg-white/50 relative z-10">
+                <h3 className="text-center text-3xl font-black mb-2 text-slate-900">The KaryaUp Way</h3>
+                <p className="text-sm text-center text-slate-500 mb-8">Advanced execution loops for smarter growth.</p>
+                <ScrollTrack cards={greenCards} direction="up" />
+              </div>
+
+            </div>
           </div>
         </div>
       </section>
 
-      <CTABanner
-        bg="bg-white border border-slate-200 shadow-sm"
-        titleColor="text-slate-900"
-        btnColor="bg-gradient-to-r from-pink-500 to-purple-600"
-        title="Know your numbers. Grow with confidence."
-        desc="Turn delivery data into financial intelligence with one connected profit tracking workflow."
+      {/* FAQ Section code remains same... */}
+      <section className="py-24 bg-slate-50/50">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-3xl font-black text-slate-900 mb-12 text-center">Frequently Asked Questions</h2>
+          <div className="space-y-2">
+            <FAQItem question="How secure is my data?" answer="We use enterprise-grade AES-256 encryption. Your data is isolated and never used to train public AI models." />
+            <FAQItem question="Can I integrate my existing tools?" answer="Yes! KaryaUp integrates with 50+ tools like Slack, Google Drive, and Jira out of the box." />
+            <FAQItem question="Is there a mobile app?" answer="Absolutely. Our dashboard is fully responsive and available as a native app for iOS and Android." />
+          </div>
+        </div>
+      </section>
+
+      {/* Feature CTA code remains same... */}
+      <FeatureCTA 
+        title="Tasks that connect to everything you do" 
+        description="Work smarter with tasks that can live in your whiteboards, chat, calendar — anywhere you work" 
+        image={dashboardImage} 
+        containerClassName="mt-10 mb-20" 
       />
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(14px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-    </SubPageLayout>
+    </div>
   );
 }

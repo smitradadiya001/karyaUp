@@ -336,7 +336,7 @@ const Navbar = () => {
       className={`fixed w-full z-50 transition-all duration-300 py-3 ${isPlatformOpen || isFeaturesOpen || isSolutionsOpen || isResourcesOpen
         ? "bg-white md:shadow-md border-b border-gray-100"
         : isOpen
-          ? "bg-transparent border-b border-transparent shadow-none backdrop-blur-0"
+          ? "bg-white border-b border-slate-100"
         : isScrolled
           ? "bg-white md:bg-white/70 md:backdrop-blur-md md:shadow-sm md:border-b md:border-slate-200/70"
           : "bg-transparent border-b border-transparent shadow-none backdrop-blur-0"
@@ -371,7 +371,7 @@ const Navbar = () => {
                       <div className="absolute -top-1 w-2 h-2 bg-slate-900 border-t border-l border-slate-800 rotate-45 left-6" />
                       <p className="text-[13px] font-medium text-white leading-snug">
                         <span className="text-purple-400 font-bold tracking-tight block mb-0.5">KaryaUp</span>
-                        From Sanskrit <span className="italic opacity-90">“Karya”</span> <br /> meaning action or work.
+                        From Sanskrit word<span className="italic opacity-90">“कार्य”</span> <br /> meaning action or work.
                       </p>
                     </div>
                   </motion.div>
@@ -676,7 +676,7 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[73px] bottom-0 z-40 bg-white shadow-2xl overflow-y-auto">
+        <div className="md:hidden fixed inset-x-0 top-[68px] bottom-0 z-40 bg-white shadow-2xl overflow-y-auto">
           <div className="px-4 py-5 space-y-2 bg-white">
             {navItems.map((item) => (
               item.to ? (

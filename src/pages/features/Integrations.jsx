@@ -3,45 +3,50 @@ import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import logo from "../../assets/logo.png";
 import microsoftTeamsLogo from "../../assets/MicrosoftTeam.png";
+import googleCalendarLogo from "../../assets/google-calendar.svg";
+import googleDriveLogo from "../../assets/google-drive.svg";
+import gmailLogo from "../../assets/gmail.svg";
+import googleMeetLogo from "../../assets/google-meet.svg";
+import slackLogo from "../../assets/slack.svg";
 import FeatureCTA from "../../components/FeatureCTA";
-import dashboardImage from "../../assets/dashboard.jpeg";
+import app from "../../assets/apps.webp";
 import { Helmet } from "react-helmet-async";
 
 const integrations = [
   {
-    name: "Google Calendar",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg",
+    name: "Calendar",
+    logo: googleCalendarLogo,
     short: "Calendar sync",
     position: "left-5 top-7 lg:left-7 lg:top-8",
   },
   {
     name: "Google Drive",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg",
+    logo: googleDriveLogo,
     short: "Drive files",
     position: "right-5 top-7 lg:right-7 lg:top-8",
   },
   {
     name: "Gmail",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg",
+    logo: gmailLogo,
     short: "Email inside KaryaUp",
     position: "left-3 top-[42%] lg:left-4 lg:top-[41%]",
   },
   {
     name: "Google Meet",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon_%282020%29.svg",
+    logo: googleMeetLogo,
     short: "Meet links",
     position: "right-3 top-[42%] lg:right-4 lg:top-[41%]",
   },
   {
     name: "Slack",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg",
+    logo: slackLogo,
     short: "Slack updates",
     position: "left-8 bottom-8 lg:left-10 lg:bottom-10",
   },
   {
-    name: "Microsoft Teams",
+    name: "Teams",
     logo: microsoftTeamsLogo,
-    short: "Teams notifications",
+    short: "Create Teams",
     position: "right-8 bottom-8 lg:right-10 lg:bottom-10",
   },
 ];
@@ -49,27 +54,27 @@ const integrations = [
 const integrationDetails = [
   {
     name: "Google Calendar",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg",
+    logo: googleCalendarLogo,
     desc: "Connect your calendar to sync meetings, deadlines, and create Google Meet links directly from KaryaUp.",
   },
   {
     name: "Google Drive",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg",
+    logo: googleDriveLogo,
     desc: "Access files, attach documents, and keep project resources linked without opening another workspace.",
   },
   {
     name: "Gmail",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg",
+    logo: gmailLogo,
     desc: "Read and send emails inside KaryaUp so client communication stays connected to project execution.",
   },
   {
     name: "Google Meet",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon_%282020%29.svg",
+    logo: googleMeetLogo,
     desc: "Schedule meetings with a Meet link and manage upcoming calls from the same connected workflow.",
   },
   {
     name: "Slack",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg",
+    logo: slackLogo,
     desc: "Receive task, project, and meeting notifications in Slack so updates reach the team instantly.",
   },
   {
@@ -140,7 +145,7 @@ export default function Integrations() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                 className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.06]"
               >
-                Integrations that work inside
+                Integrations That Work Inside
                 <span className="block">
                {" "}
                   <motion.span
@@ -148,7 +153,7 @@ export default function Integrations() {
                     animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   >
-                    where your team already works
+                    Where Your Team Already Works
                   </motion.span>
                 </span>
               </motion.h1>
@@ -342,13 +347,13 @@ export default function Integrations() {
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.06] mb-4 sm:mb-6 tracking-tight"
             >
-              Works with your <br />
+              Works With Your <br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-fuchsia-500 to-purple-600 bg-[length:200%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
               >
-                existing tools
+                Existing Tools
               </motion.span>
             </motion.h2>
 
@@ -363,31 +368,40 @@ export default function Integrations() {
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 lg:gap-x-12 gap-y-8 sm:gap-y-10 lg:gap-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
             {integrationDetails.map((item, index) => (
               <motion.div
                 key={item.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 * index }}
-                className="flex items-start gap-4 sm:gap-5 lg:gap-6 group cursor-default"
+                transition={{ delay: 0.1 * index, duration: 0.5 }}
+                className="h-full"
               >
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
-                  <motion.img
-                    src={item.logo}
-                    alt={item.name}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="w-full h-full object-contain transition-all duration-300 drop-shadow-sm group-hover:drop-shadow-md"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-base sm:text-lg font-black text-slate-900 mb-1 sm:mb-2 transition-colors duration-300 group-hover:text-purple-600">
-                    {item.name}
-                  </h3>
-                  <p className="text-slate-500 text-sm sm:text-base font-medium leading-relaxed">
-                    {item.desc}
-                  </p>
+                <div className="group h-full relative p-6 sm:p-8 rounded-[2rem] bg-white border border-slate-200/60 shadow-sm hover:shadow-xl hover:border-purple-200/50 hover:-translate-y-1 transition-all duration-300">
+                  <div className="flex flex-col h-full">
+                    {/* Icon Container */}
+                    <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-2xl bg-white shadow-sm border border-slate-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <img
+                        src={item.logo}
+                        alt={item.name}
+                        className="w-8 h-8 sm:w-10 sm:h-10 object-contain drop-shadow-sm"
+                      />
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-grow flex flex-col">
+                      <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-3 group-hover:text-purple-600 transition-colors">
+                        {item.name}
+                      </h3>
+                      <p className="text-slate-500 text-sm sm:text-base font-medium leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    {/* Bottom Indicator */}
+                   
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -396,10 +410,10 @@ export default function Integrations() {
       </section>
 
       <FeatureCTA
-        title={<>Integrations that keep <br /> your stack connected</>}
+        title={<>Integrations That Keep <br /> Your Stack Connected</>}
         description="Bring your tools into one workflow and let KaryaUp keep meetings, files, email, and notifications in sync."
         buttonText="Explore integrations"
-        image={dashboardImage}
+        image={app}
         imageAlt="KaryaUp integrations dashboard"
         containerClassName="mt-8 sm:mt-10 lg:mt-12 mb-0"
         imageClassName="w-full max-w-[760px]"

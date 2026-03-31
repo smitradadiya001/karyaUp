@@ -264,13 +264,13 @@ const TeamsSection = () => {
             <Users size={13} /> Who it's for
           </span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[0.95] tracking-tight max-w-3xl mx-auto">
-            Built for teams that{' '}<br/>
+            Built For Teams That{' '}<br/>
             <motion.span
               className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
               animate={{ backgroundPosition: ['0% center', '-200% center'] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
             >
-              move fast
+              Move Fast
             </motion.span>
           </h2>
         </div>

@@ -29,13 +29,13 @@ export default function AttendanceHero() {
             >
               Attendance{" "}
               <span className="mt-2 block">
-                tracked.<br />{" "}
+                Tracked.<br />{" "}
                 <motion.span
                   className="bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 >
-                  Records kept.
+                  Records Kept.
                 </motion.span>
               </span>
             </motion.h1>

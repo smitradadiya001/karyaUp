@@ -5,11 +5,11 @@ import { Helmet } from "react-helmet-async";
 
 // Assets
 import logo from "../../assets/logo.png";
-import dashboardImg1 from "../../assets/dashboard1.png";
-import dashboardImg2 from "../../assets/dashboard2.png";
-import featureProjects from '../../assets/projects.jpeg';
-import featureWork from '../../assets/work_analysis.jpeg';
-import featureChart from '../../assets/chart.png';
+import dashboardImg1 from "../../assets/dashboard2.webp";
+import dashboardImg2 from "../../assets/dashboard.webp";
+import featureProjects from '../../assets/projects.webp';
+import featureWork from '../../assets/work_analysis.webp';
+import featureChart from '../../assets/chart.webp';
 import FeatureCTA from "../../components/FeatureCTA";
 
 export default function Dashboards() {
@@ -72,15 +72,15 @@ export default function Dashboards() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                 className="mt-4 sm:mt-5 text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
               >
-                Custom metrics for <br />
+                Custom Metrics For <br />
                 <span className="block">
-                  every{" "}
+                  Every{" "}
                   <motion.span
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                     animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   >
-                    decision
+                    Decision
                   </motion.span>
                 </span>
               </motion.h1>
@@ -162,13 +162,13 @@ export default function Dashboards() {
               <span>Universal Dashboard Control</span>
             </div>
             <h2 className="mt-5 sm:mt-6 text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-tight">
-              Multiple dashboard for <br />
+              Multiple Dashboard For <br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               >
-                based on roles
+                Based On Roles
               </motion.span>
             </h2>
           </motion.div>
@@ -236,8 +236,8 @@ export default function Dashboards() {
                 </motion.div>
               </div>
 
-              {/* Image Side - Smaller and Centered */}
-              <div className={`p-6 sm:p-16 lg:p-24 bg-slate-50/40 flex items-center justify-center overflow-hidden h-[240px] sm:h-[450px] lg:h-auto ${item.align === "right" ? "lg:order-1" : ""}`}>
+              {/* Image Side - Larger and Centered */}
+              <div className={`p-4 sm:p-8 lg:p-12 bg-slate-50/40 flex items-center justify-center overflow-hidden h-[280px] sm:h-[420px] lg:h-[500px] ${item.align === "right" ? "lg:order-1" : ""}`}>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -248,7 +248,7 @@ export default function Dashboards() {
                   <img 
                     src={item.image} 
                     alt={item.title}
-                    className="max-h-[170px] sm:max-h-[350px] lg:max-h-[420px] w-auto h-auto object-contain rounded-xl shadow-2xl shadow-slate-900/10 grayscale-[15%] hover:grayscale-0 transition-all duration-700 ease-out"
+                    className="max-h-full w-full object-contain rounded-xl shadow-2xl shadow-slate-900/20 hover:scale-[1.02] transition-all duration-700 ease-out"
                   />
                 </motion.div>
               </div>
@@ -259,7 +259,7 @@ export default function Dashboards() {
 
       {/* Premium Dashboard CTA Section */}
       <FeatureCTA 
-        title={<>Dashboards that power <br /> every decision</>}
+        title={<>Dashboards That Power <br /> Every Decision</>}
         description="Monitor your entire business from a single source of truth—whether you're tracking sales, projects, or team performance."
         image={dashboardImg2}
         imageAlt="KaryaUp Dashboard Interface"

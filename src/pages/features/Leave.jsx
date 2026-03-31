@@ -116,15 +116,15 @@ export default function Leave() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                 className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.06] text-slate-900"
               >
-                Leave
+                Leave That
                 <span className="mt-2 block">
-                  that{" "}
+                 {" "}
                   <motion.span
                     className="bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent"
                     animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   >
-                    runs itself
+                    Runs Itself
                   </motion.span>
                 </span>
               </motion.h1>
@@ -279,7 +279,7 @@ export default function Leave() {
                         Leave inbox
                       </div>
                       <div className="mt-1 text-2xl font-black text-slate-900">
-                        Boss dashboard approvals
+                        Boss Dashboard Approvals
                       </div>
                     </div>
                     <div className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-purple-700">
@@ -377,13 +377,13 @@ export default function Leave() {
               </div>
 
               <h2 className="mt-5 text-4xl font-black tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-                Review every leave request
+                Review Every <br/>Leave Request
                 <motion.span
                   className="mt-2 block bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 >
-                  from one decision panel
+                  From One <br/>Decision Panel
                 </motion.span>
               </h2>
 
@@ -415,9 +415,9 @@ export default function Leave() {
       <FeatureCTA
         title={
           <>
-            Leave that stays
+            Leave That Stays
             <br />
-            simple for everyone
+            Simple For Everyone
           </>
         }
         description="Handle requests, approvals, and balances without extra follow-up."

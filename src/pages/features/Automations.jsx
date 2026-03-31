@@ -124,15 +124,15 @@ export default function Automations() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                 className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.06]"
               >
-                Put repetitive<br/>
-                tasks on<br className="hidden sm:block"/>
+                Put Repetitive<br/>
+                Tasks on<br className="hidden sm:block"/>
                 <span className="block sm:inline"> {" "}
                   <motion.span
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#c026d3] to-[#9333ea] bg-[length:200%_auto]"
                     animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   >
-                    autopilot
+                    Autopilot
                   </motion.span>
                 </span>
               </motion.h1>
@@ -203,8 +203,8 @@ export default function Automations() {
             What you can do
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#0f172a] tracking-tight leading-tight">
-            Automation, built<br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9333ea] to-[#c026d3]">around your workflow</span>
+            Automation, Built<br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9333ea] to-[#c026d3]">Around Your Workflow</span>
           </h2>
         </div>
 
@@ -324,15 +324,15 @@ export default function Automations() {
 
       {/* Automations CTA */}
       <FeatureCTA 
-        title={<>Put your workflow on <br/> autopilot.</>}
+        title={<>Put Your Workflow on  Autopilot.</>}
         description="Stop manually creating identical tasks every single month. Set up rule-based automations and let our system handle the boring stuff."
         buttonText="Set up automations"
         image={autoImg}
         imageAlt="Automated Task System"
         containerClassName="mt-12 mb-12 lg:mb-20"
         paddingClassName="p-3 lg:p-4"
-        imageClassName="w-[60%] mx-auto sm:translate-x-18 lg:translate-x-40"
-        imageOuterClassName="relative w-full max-w-[260px] sm:max-w-[400px] lg:max-w-none lg:w-full mx-auto lg:mx-0 translate-x-0 lg:translate-x-6"
+        imageClassName="w-[65%] lg:w-[58%] mx-auto lg:translate-x-12"
+        imageOuterClassName="relative w-full max-w-[280px] sm:max-w-[380px] lg:max-w-none lg:w-full mx-auto lg:mx-0 translate-x-0 lg:translate-x-4"
         titleClassName="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-3 tracking-tight drop-shadow-lg"
       />
       </div>

@@ -82,7 +82,7 @@ export default function Notifications() {
                 }}
                 className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06] mb-3"
               >
-                Stay connected with Smart
+            Connected With Smart
                 <span className="block mt-1">
                   {" "}
                   <span className="text-gradient inline-block">
@@ -151,11 +151,13 @@ export default function Notifications() {
             </motion.div>
           </div>
         </div>
-      </section>
+        </section>
+        
+        
 
       {/* Smart Filtering Feature CTA */}
       <FeatureCTA
-        title={<>Silence the noise. <br /> Focus on what matters.</>}
+        title={<>Silence The Noise. <br /> Focus On What Matters.</>}
         description="With our smart inbox, filter your feed to show only what requires your direct attention. "
         image={notificationImg}
         imageAlt="Smart Notification Filtering"

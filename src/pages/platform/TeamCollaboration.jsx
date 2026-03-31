@@ -1,207 +1,214 @@
-import React, { useMemo, useState } from "react";
-import SubPageLayout, { CTABanner } from "../../components/SubPageLayout";
+                                                                                          import { motion } from "framer-motion";
+import dashboardImage from "../../assets/dashboard2.png";
+import planImage from "../../assets/Gantt.png";
+import { Link } from "react-router-dom";
+import FeatureCTA from "../../components/FeatureCTA";
 
 export default function TeamCollaboration() {
-  const collaborationImages = {
-    hero: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
-    taskDiscussion: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
-    realtimeChat: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
-    fileSharing: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
-    screenRecording: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-    centralized: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-    channels: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
-    feedback: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=1200&q=80",
-    leadership: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80",
-  };
-
-  const capabilitySections = useMemo(
-    () => [
-      {
-        title: "Task-based discussions",
-        text: "Start discussions directly inside tasks so every message stays connected to real work, owners, and deadlines. Context never gets lost in separate chat threads.",
-        image: collaborationImages.taskDiscussion,
-      },
-      {
-        title: "Real-time chat and alerts",
-        text: "Keep teams aligned with instant chat updates and smart alerts. Everyone gets notified when priorities shift, blockers appear, or decisions are needed.",
-        image: collaborationImages.realtimeChat,
-      },
-      {
-        title: "File and media sharing",
-        text: "Share documents, screenshots, and media in the same place where work is executed. Teams review content faster and avoid duplicate uploads.",
-        image: collaborationImages.fileSharing,
-      },
-      {
-        title: "Screen recording and sharing",
-        text: "Record quick walkthroughs, bug explanations, and process demos to reduce back-and-forth. Visual communication speeds up clarity and execution.",
-        image: collaborationImages.screenRecording,
-      },
-      {
-        title: "Centralized communication",
-        text: "Unify project messages, task conversations, alerts, and files in one platform. Less noise, less tool switching, and stronger team alignment.",
-        image: collaborationImages.centralized,
-      },
-    ],
-    []
-  );
-  const [activeCapability, setActiveCapability] = useState(capabilitySections[0].title);
-  const selectedSection = capabilitySections.find((item) => item.title === activeCapability) || capabilitySections[0];
-
-  const collaborationHighlights = [
-    {
-      title: "Project channels with context",
-      text: "Create focused channels for squads and initiatives while keeping every update tied to projects and outcomes.",
-      image: collaborationImages.channels,
-    },
-    {
-      title: "Feedback that moves work",
-      text: "Convert feedback into tasks instantly so discussions do not stay pending and execution starts immediately.",
-      image: collaborationImages.feedback,
-    },
-    {
-      title: "Shared visibility for leadership",
-      text: "Managers and stakeholders can follow progress, decisions, and blockers without disrupting team flow.",
-      image: collaborationImages.leadership,
-    },
-  ];
-
   return (
-    <SubPageLayout
-           
-    >
-      
-      <section className="relative left-1/2 right-1/2 mb-12 w-screen -translate-x-1/2 overflow-hidden rounded-3xl border border-slate-200 bg-white p-0 sm:p-8">
-        <div className="mb-6 grid gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-2 sm:p-5 m-0 p-0">
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight mb-6">
-      <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">
-      Bring your team together, <br />
-      effortlessly
-      </span>
-    </h1>
-
-    {/* Subheading */}
-      <p className="mt-16 text-base md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
-          Break down silos, streamline communication, and ensure everyone stays on the same page from planning to execution.
-      </p>
-          <div className="space-y-4">
-            <p className="inline-flex rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-pink-700">
-              Where communication meets execution
+    <div className="bg-white font-sans overflow-x-hidden">
+      {/* ================= HERO SECTION ================= */}
+      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-20 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
+          {/* LEFT */}
+          <div>
+            <div className="text-center lg:text-left">
+              <motion.h1
+                initial={{ opacity: 0, y: 40, x: -10 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 100,
+                  delay: 0.1,
+                }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
+              >
+                Smarter Collaboration{" "}
+                <br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  Powered by AI
+                </motion.span>
+              </motion.h1>
+            </div>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+              From real‑time chat to intelligent task coordination, <br />KaryaUp AI helps your team collaborate efficiently and make faster, better decisions.
             </p>
-            <h2 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
-              Less noise. More clarity.
-            </h2>
-            <p className="max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
-              KaryaUp eliminates disconnected conversations by bringing communication directly into the workflow. Every
-              discussion stays tied to tasks, projects, and outcomes so teams move faster with full context.
-            </p>
-            <span className="inline-flex rounded-xl bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-700">
-              Reduce internal communication gaps by 50%+
-            </span>
-          </div>
-          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-            <img
-              src={collaborationImages.hero}
-              alt="KaryaUp team collaboration overview"
-              className="h-full min-h-[220px] w-full object-cover transition-transform duration-500 hover:scale-105"
-              loading="lazy"
-            />
-          </div>
-        </div>
 
-        <p className="mb-3 text-sm font-semibold text-slate-800">Key capabilities</p>
-        <div className="mb-5 grid gap-3 sm:grid-cols-2">
-          {capabilitySections.map((item, index) => (
-            <button
-              type="button"
-              key={item.title}
-              onClick={() => setActiveCapability(item.title)}
-              className={`rounded-xl border px-3 py-3 text-left text-sm font-semibold shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
-                activeCapability === item.title
-                  ? "border-transparent bg-gradient-to-r from-pink-500 to-purple-600 text-white"
-                  : "border-slate-200 bg-white text-slate-700 hover:border-pink-300"
-              }`}
-              style={{ animation: `fadeInUp 600ms ease ${index * 90}ms both` }}
-            >
-              <div className="flex items-center gap-3">
-                <img
-                  src={item.image}
-                  alt={`${item.title} preview`}
-                  className="h-10 w-14 rounded-md border border-white/40 object-cover"
-                  loading="lazy"
-                />
-                <span>{item.title}</span>
-              </div>
-            </button>
-          ))}
-        </div>
+          </div>
 
-        <div
-          key={selectedSection.title}
-          className="grid gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-2 sm:p-5"
-          style={{ animation: "fadeInUp 350ms ease both" }}
+          {/* RIGHT IMAGE */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="relative"
+          >
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
+              <img
+                src={dashboardImage}
+                alt="KaryaUp dashboard"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ================= TEAM COLLABORATION SECTION ================= */}
+      <section className="px-10 w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-10 bg-gradient-to-b from-white to-slate-50">
+  <div className="max-w-6xl mx-auto px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <motion.h1
+        initial={{ opacity: 0, y: 40, x: -10 }}
+        animate={{ opacity: 1, y: 0, x: 0 }}
+        transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
+        className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-2 pt-5 drop-shadow-sm"
+      >
+        Where Communication
+        <motion.span
+          className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+          animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
         >
-          <div className="space-y-3">
-            <p className="text-sm font-bold text-slate-900 sm:text-base">{selectedSection.title}</p>
-            <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{selectedSection.text}</p>
-            <button type="button" className="btn-primary px-5 py-2.5 text-sm font-bold">
-              Collaborate without switching tools
-            </button>
-          </div>
-          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-            <img
-              src={selectedSection.image}
-              alt={`KaryaUp ${selectedSection.title}`}
-              className="h-full min-h-[220px] w-full object-cover transition-transform duration-500 hover:scale-105"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
+          <br />Meets Execution
+        </motion.span>
+      </motion.h1>
+    </div>
 
-      <section className="mb-12">
-        <div className="grid gap-5 md:grid-cols-3">
-          {collaborationHighlights.map((item, index) => (
-            <article
-              key={item.title}
-              className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-              style={{ animation: `fadeInUp 650ms ease ${index * 90}ms both` }}
+    <div className="grid md:grid-cols-2 gap-12 items-center">
+      {/* LEFT IMAGE SLIDES IN FROM LEFT */}
+      <motion.div
+        initial={{ x: -190, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <img
+          src={planImage}
+          alt="Project planning view in KaryaUp"
+          className="rounded-xl shadow-xl border border-slate-200 w-full"
+        />
+      </motion.div>
+
+      {/* RIGHT LIST SLIDES IN FROM RIGHT */}
+      <motion.div
+        initial={{ x: 150, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+      >
+        <ul className="space-y-4 text-slate-700">
+          {[
+            "Task‑based discussions tied directly to work items.",
+            "Real‑time chat and alerts so no one is out of sync.",
+            "Seamless file and media sharing inside each project.",
+            "Screen recording and sharing for quick context.",
+            "Centralized communication so context is never lost.",
+          ].map((item, i) => (
+            <li
+              key={i}
+              className="flex items-start gap-3 transition-transform duration-300 hover:translate-x-1"
             >
-              <div className="p-4">
-                <h3 className="mb-2 text-lg font-bold text-slate-900">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-slate-600">{item.text}</p>
-              </div>
-              <div className="h-40 overflow-hidden border-t border-slate-200 bg-slate-50">
-                <img
-                  src={item.image}
-                  alt={`KaryaUp ${item.title}`}
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-            </article>
+              <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-fuchsia-100 text-fuchsia-600 font-bold text-sm">
+                {i + 1}
+              </span>
+              <span className="leading-relaxed">{item}</span>
+            </li>
           ))}
+        </ul>
+      </motion.div>
+    </div>
+  </div>
+</section>
+
+
+      {/* ================= ROADMAP / PLANNING SECTION ================= */}
+      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-10">
+
+            <motion.h1
+              initial={{ opacity: 0, y: 40, x: -10 }}
+              animate={{ opacity: 1, y: 0, x: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-2 pt-5 drop-shadow-sm"
+            >
+              Plan, Track, &
+              <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                <br />Ship better
+              </motion.span>
+          </motion.h1>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+      {/* LEFT IMAGE SLIDES IN FROM LEFT */}
+      <motion.div
+        initial={{ x: -190, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <img
+          src={planImage}
+          alt="Project planning view in KaryaUp"
+          className="rounded-xl shadow-xl border border-slate-200 w-full"
+        />
+      </motion.div>
+
+      {/* RIGHT LIST SLIDES IN FROM RIGHT */}
+      <motion.div
+        initial={{ x: 150, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+      >
+        <ul className="space-y-4 text-slate-700">
+          {[
+            "Task‑based discussions tied directly to work items.",
+            "Real‑time chat and alerts so no one is out of sync.",
+            "Seamless file and media sharing inside each project.",
+            "Screen recording and sharing for quick context.",
+            "Centralized communication so context is never lost.",
+          ].map((item, i) => (
+            <li
+              key={i}
+              className="flex items-start gap-3 transition-transform duration-300 hover:translate-x-1"
+            >
+              <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-fuchsia-100 text-fuchsia-600 font-bold text-sm">
+                {i + 1}
+              </span>
+              <span className="leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
+    </div>
+    </div>
+          
         </div>
       </section>
-
-      <CTABanner
-        bg="bg-white border border-slate-200 shadow-sm"
-        titleColor="text-slate-900"
-        btnColor="bg-gradient-to-r from-pink-500 to-purple-600"
-        title="Your whole team, one connected workspace."
-        desc="Chat, files, updates, and task decisions stay together so execution becomes faster and clearer."
-      />
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(14px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+      {/* ================= FEATURE CTA SECTION ================= */}
+      <FeatureCTA
+        title={
+          <>
+            Tasks that connect to everything you do
+          </>
         }
-      `}</style>
-    </SubPageLayout>
+        description="Work smarter with tasks that can live in your whiteboards, chat, calendar — anywhere you work"
+        image={dashboardImage}
+        imageAlt="KaryaUp dashboard"
+        containerClassName="mt-10 mb-20"
+        paddingClassName="p-3 lg:p-4 lg:py-6"
+        imageClassName="w-full max-w-[940px]"
+        imageOuterClassName="relative w-[108%] lg:w-full translate-x-4 lg:translate-x-8"
+      />
+    </div>
   );
 }

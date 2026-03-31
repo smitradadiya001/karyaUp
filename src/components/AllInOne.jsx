@@ -9,10 +9,10 @@ import {
 } from 'lucide-react';
 
 // Import available assets from ../assets/
-import featureProjects from '../assets/projects.jpeg';
-import featureTasks from '../assets/Task.jpeg';
-import featureCalendar from '../assets/calender.jpeg';
-import featureTeam from '../assets/Team.jpeg';
+import featureProjects from '../assets/projects.webp';
+import featureTasks from '../assets/Task.webp';
+import featureCalendar from '../assets/calender.webp';
+import featureTeam from '../assets/Team.webp';
 
 const MarqueeTile = ({ icon: Icon, label, isPaused }) => (
     <div 
@@ -196,13 +196,13 @@ const AllInOne = () => {
                         <span className="text-[10px] font-bold text-[#7e22ce] uppercase tracking-wider">Zero Friction Sync</span>
                     </div>
                     <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95]">
-                        Replace all your tools <br /> with one<br/>
+                        Replace All Your Tools <br /> With One<br/>
                         <motion.span
                             className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
                             animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                             transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                         >
-                             beautiful platform.
+                             Beautiful Platform.
                         </motion.span>
                     </h2>
                 </motion.div>

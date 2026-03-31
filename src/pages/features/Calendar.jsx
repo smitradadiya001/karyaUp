@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, Globe, ArrowRight, CheckCircle2, Video, CheckSquare, Sparkles } from "lucide-react";
 import { CTABanner } from "../../components/SubPageLayout";
 import FeatureCTA from "../../components/FeatureCTA";
-import calenderImg from "../../assets/Calender.png";
+import calenderImg from "../../assets/Calender.webp";
 import scheduleMeetingImg from "../../assets/Schedule_meeting (1).png";
 import createTaskImg from "../../assets/New_Task.png";
 import schedulePostImg from "../../assets/Schedule_Story.png";
@@ -105,7 +105,7 @@ export default function CalendarPage() {
                 transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
                 className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06] mb-3"
               >
-                Master your  <br/>Time with a
+                Master Your  <br/>Time With A
                 <span className="block mt-1">
                   {" "}
                   <span className="text-gradient inline-block">
@@ -189,9 +189,9 @@ export default function CalendarPage() {
             className="text-center mb-8 sm:mb-10"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.06] tracking-tight mb-4">
-              Everything happens in<br />
+              Everything Happens in<br />
               <span className="text-gradient inline-block">
-                one calendar
+                One Calendar
               </span>
             </h2>
             <p className="text-slate-500 text-base sm:text-lg font-medium max-w-2xl mx-auto">
@@ -279,7 +279,7 @@ export default function CalendarPage() {
 
       {/* Calendar Feature CTA */}
       <FeatureCTA 
-        title={<>Stay synced with your <br/> schedule.</>}
+        title={<>Stay Synced With Your <br/> Schedule.</>}
         description="Connect your favorite tools and never miss a deadline. Automatically sync your scheduled tasks, meetings, and content publishing."
         buttonText="Start Scheduling"
         image={calenderImg}

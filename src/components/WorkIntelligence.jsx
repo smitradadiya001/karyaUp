@@ -98,7 +98,7 @@ const WorkIntelligence = () => {
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
               >
-                Your company's work intelligence
+                Your Company's Work Intelligence
               </motion.span>
             </motion.h2>
 

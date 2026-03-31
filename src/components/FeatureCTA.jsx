@@ -105,11 +105,11 @@ export default function FeatureCTA({
              <div className="absolute -top-20 -right-20 w-80 h-80 bg-fuchsia-500/30 blur-[100px] rounded-full opacity-60 pointer-events-none" />
              
              {/* Image Wrapper with Gradient Border */}
-             <div className={`relative p-[1.5px] rounded-[2.1rem] bg-gradient-to-br from-purple-500 via-fuchsia-500 to-[#7e22ce] ${imageClassName}`}>
+             <div className={`relative p-[1.5px] rounded-[1.1rem] bg-gradient-to-br from-purple-500 via-fuchsia-500 to-[#7e22ce] ${imageClassName}`}>
                <img 
                  src={image} 
                  alt={imageAlt} 
-                 className="relative w-full h-auto object-contain rounded-[2rem] border border-white/10 hover:border-white/20 transition-all duration-500 z-10"
+                 className="relative w-full h-auto object-contain rounded-[1.1rem] border border-white/10 hover:border-white/20 transition-all duration-500 z-10"
                />
              </div>
            </motion.div>

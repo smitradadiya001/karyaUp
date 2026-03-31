@@ -41,7 +41,7 @@ const DataImport = () => {
               <h2 className="mx-auto max-w-[12ch] text-3xl sm:max-w-[12ch] sm:text-4xl md:max-w-none md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1] mb-4 sm:mb-8 lg:mx-0">
                 Seamless Import
                 <br />
-                from Your
+                From Your
                 <br />
                 <motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"

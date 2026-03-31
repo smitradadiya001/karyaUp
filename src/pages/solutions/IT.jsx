@@ -1,305 +1,165 @@
-import { motion } from "framer-motion";
+                                                                                                                     import { motion } from "framer-motion";
 import dashboardImage from "../../assets/dashboard2.png";
-import karyaupImg from "../../assets/logo.png";
-import FinalCTA from "../../components/FinalCTA";
+import planImage from "../../assets/Gantt.png";
+import { Link } from "react-router-dom";
+import FeatureCTA from "../../components/FeatureCTA";
 
-export default function ProductDevelopment() {
+export default function IT() {
   return (
-    <div className="bg-white font-sans">
-
+    <div className="bg-white font-sans overflow-x-hidden">
       {/* ================= HERO SECTION ================= */}
-      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-30">
+      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-20 lg:py-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
-
-          {/* LEFT */}
-          <div>
-            <p className="text-sm tracking-[0.25em] text-purple-600 font-semibold mb-2">
-              AI-POWERED OPERATIONS IT MANAGEMENT
-            </p>
-
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-slate-900 mb-6">
-              The everything app <br />
-              <span className="text-5xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">for IT PMO teams</span>
+          
+          {/* LEFT CONTENT: Slides in from Left */}
+          <motion.div 
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", damping: 20, stiffness: 80, delay: 0.1 }}
+            className="text-center lg:text-left"
+          >
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6 drop-shadow-sm">
+              The Everything App<br />
+              <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                for IT PMO Teams
+              </motion.span>
             </h1>
-
-            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
-              Manage IT projects, service requests, and governance in one place—all connected by AI. KaryaUp makes it easy to streamline workflows and compliance so your IT operations run with speed and precision.
+            
+            <p className="text-lg lg:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+              Manage IT projects, service requests, and governance in one place—all connected by AI. 
+              KaryaUp streamlines workflows and compliance so IT operations run with speed and precision.
             </p>
 
-            <div className="flex items-center gap-4 mb-6">
-            <button className="relative px-8 py-4 text-lg font-semibold text-white rounded-full bg-gradient-to-r from-purple-600 to-pink-500 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-pink-500/40
-            bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 
-            bg-[length:200%_200%] animate-gradient 
-            shadow-lg hover:scale-105 transition">
-                Get started. It's FREE →
-              </button>
-              <p className="text-sm text-slate-500">
-                Free forever. <br /> No credit card.
-              </p>
+            <div className="flex justify-center lg:justify-start">
+              <Link
+                to="/start"
+                className="group relative z-10 flex h-[3.5em] w-[14em] items-center justify-center overflow-hidden rounded-[30em] font-bold text-[15px] transition-all duration-300"
+                style={{ boxShadow: "6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff" }}
+              >
+                <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                <div className="absolute left-0 top-0 -z-10 h-full w-0 rounded-[30em] bg-white transition-all duration-500 ease-in-out group-hover:w-full" />
+                <span className="relative z-10 text-white transition-colors duration-300 group-hover:text-slate-800">
+                  Get Started
+                </span>
+              </Link>
             </div>
+          </motion.div>
 
-          </div>
-
-          {/* RIGHT IMAGE */}
+          {/* RIGHT IMAGE: Slides in from Right */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
             className="relative"
           >
-            <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-white">
               <img
                 src={dashboardImage}
-                alt="Dashboard"
-                className="w-full h-full object-cover"
+                alt="IT PMO Dashboard"
+                className="w-full h-auto object-cover"
               />
             </div>
-
-            {/* Glow */}
-
           </motion.div>
-
         </div>
       </section>
 
-      {/* ================= BANNER SECTION (ANIMATED) ================= */}
-      <section className="py-10 px-4 md:px-6">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={{
-            hidden: { opacity: 0, y: 40 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.8, staggerChildren: 0.15 }
-            }
-          }}
-          className="max-w-6xl mx-auto rounded-[2rem] bg-[#0a0f1c] text-white overflow-hidden relative shadow-2xl flex flex-col md:flex-row"
-        >
-
-          {/* Background Glow */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1.5 }}
-            className="absolute top-0 right-0 w-[80%] md:w-[60%] h-full bg-gradient-to-l from-[#a832a8]/35 via-[#6a25a3]/20 to-transparent pointer-events-none"
-          />
-
-          {/* Left Content */}
-          <div className="relative z-10 w-full md:w-[55%] p-10 md:p-14 lg:p-20 flex flex-col justify-center">
-
-            {/* Logo */}
-            <motion.div
-              variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
-              className="flex items-center gap-2.5 mb-2"
-            >
-              <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 85L15 50L50 15V35L30 50L50 65V85Z" fill="#7B61FF" />
-                <path d="M50 85L85 50L50 15V35L70 50L50 65V85Z" fill="#FF007F" />
-                <path d="M25 50L50 25L75 50L50 75L25 50Z" fill="url(#karyaUp_gradient)" />
-                <defs>
-                  <linearGradient id="karyaUp_gradient" x1="25" y1="50" x2="75" y2="50" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#FF007F" />
-                    <stop offset="1" stopColor="#7B61FF" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span className="text-[1.5rem] font-bold tracking-tight">KaryaUp</span>
-            </motion.div>
-
-            {/* Heading */}
-            <motion.h2
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="text-[2.2rem] md:text-5xl lg:text-[3.25rem] font-extrabold leading-[1.05] mb-6 tracking-tight"
-            >
-              Join 3 million teams building the future with KaryaUp
-            </motion.h2>
-
-            {/* Paragraph */}
-            <motion.p
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="text-[1.05rem] text-slate-300 leading-relaxed mb-9 max-w-md"
-            >
-              Unify IT operations, automate processes, and keep projects on track—all in one platform.
-            </motion.p>
-
-            {/* Button */}
-            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-              <button className="bg-white text-black px-6 py-3.5 rounded-xl font-bold hover:bg-slate-200 transition-colors inline-flex items-center gap-2 group text-[1rem]">
-                Get started. It's FREE
-                <span className="group-hover:translate-x-1 transition-transform ml-0.5">→</span>
-              </button>
-            </motion.div>
-
-          </div>
-
-          {/* Right Image Container */}
-          <motion.div
-            variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.8, delay: 0.3 } } }}
-            className="relative w-full md:w-[45%] min-h-[350px] md:min-h-[500px] top:40 mt:90"
-            
-          >
-            <motion.img
-              animate={{ y: [0, -15, 0] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              src={karyaupImg}
-              alt="Workspace Interface"
-              className="absolute inset-0 md:inset-auto md:right-[-5%] md:top-[12%] w-[120%] md:w-[130%] h-auto max-w-none object-cover md:object-contain rounded-tl-xl md:rounded-l-2xl shadow-[-10px_-10px_30px_rgba(0,0,0,0.5)] z-10 translate-y-10 md:translate-y-0 translate-x-6 md:translate-x-0 border-t border-l border-white/10"
-            />
-          </motion.div>
-
-        </motion.div>
-      </section>
-
-      {/* ================= Comparison Section ================= */}
-      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 bg-white py-10 md:py-5">
-        <div className="max-w-7xl mx-auto px-2">
-          <div className="text-center">
-            <p className="text-xs tracking-[0.35em] uppercase text-purple-600 font-semibold mb-4">
-              The KaryaUp way
-            </p>
-            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-slate-900">
-              IT programs and service requests are scattered,
-              <br />
-              let's fix it
-            </h2>
-            <p className="mt-5 mx-auto max-w-2xl text-slate-600 leading-relaxed">
-              Legacy tools create bottlenecks, delays, and compliance risks. ClickUp centralizes your IT workflows, governance, and reporting so teams move from reactive to proactive.
-            </p>
-          </div>
-
-          <div className="mt-12 grid md:grid-cols-2 rounded-3xl border border-slate-200 overflow-hidden">
-            {/* Left */}
-            <div className="p-8 md:p-10 bg-white transition-colors duration-300 hover:bg-rose-50/60">
-              <h3 className="text-2xl font-extrabold text-slate-900 mb-6">The old way</h3>
-              <ul className="space-y-3 text-slate-600">
-                {[
-                  "Scattered project data across multiple tools",
-                  "Slow and manual approvals delay decisions",
-                  "Limited visibility into risks and compliance",
-                  "Siloed docs lead to outdated policies",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 transition-transform duration-300 hover:translate-x-1 group">
-                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-50 text-rose-600 font-bold text-sm">
-                      x
-                    </span>
-                    <span className="text-sm leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Right */}
-            <div className="p-8 md:p-10 bg-white border-t md:border-t-0 md:border-l border-slate-200 transition-colors duration-300 hover:bg-emerald-50/60">
-              <h3 className="text-2xl font-extrabold text-slate-900 mb-6">The KaryaUp way</h3>
-              <ul className="space-y-3 text-slate-700">
-                {[
-                  "IT projects, docs, and tasks in one place",
-                  "Automated approvals instantly route tasks to teams",
-                  "Live risk tracking detects bottlenecks and compliance gaps",
-                  "AI-powered Docs keep policies updated and easy to find",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 transition-transform duration-300 hover:translate-x-1 group">
-                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 font-bold text-sm">
-                      ✓
-                    </span>
-                    <span className="text-sm leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= HERO SECTION (UPDATED) ================= */}
-
-      {/* ================= TEMPLATES SECTION ================= */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          
-          <motion.div 
+      {/* ================= AI BANNER SECTION ================= */}
+      <section className="w-full bg-white py-16 px-6">
+        <div className="max-w-5xl mx-auto relative bg-white rounded-3xl p-10 lg:p-16 border border-slate-100 shadow-xl text-center overflow-hidden group">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-6"
           >
-            <p className="text-sm tracking-[0.2em] font-bold text-indigo-500 uppercase mb-4">
-              Templates
-            </p>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
-              There's a template for that
-            </h2>
-            <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Set up IT workflows in minutes with templates for project tracking, service requests, and compliance.
-            </p>
-            <a href="#" className="inline-block text-lg font-bold text-slate-800 underline decoration-2 decoration-slate-300 hover:decoration-slate-800 underline-offset-8 transition-colors">
-              Browse Templates
-            </a>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            
-            {/* Card 1 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-[#f8f9fc] rounded-[2rem] p-8 md:p-10 hover:-translate-y-2 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl group border border-slate-100/50"
-            >
-              <div className="bg-white rounded-2xl overflow-hidden shadow-sm mb-10 h-48 relative border border-slate-100 group-hover:scale-[1.02] group-hover:shadow-md transition-all duration-300">
-                <img src="https://images.unsplash.com/photo-1551281044-8d8f5f4c7a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="IT Requests" className="w-full h-full object-cover opacity-90" />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 mix-blend-overlay"></div>
-              </div>
-              <h3 className="text-[1.6rem] font-extrabold text-slate-900 mb-4 tracking-tight">IT Requests</h3>
-              <p className="text-slate-600 leading-relaxed text-[1.1rem]">
-                Collect, prioritize, and track employee IT requests in one place.
-              </p>
-            </motion.div>
-
-            {/* Card 2 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="bg-[#f8f9fc] rounded-[2rem] p-8 md:p-10 hover:-translate-y-2 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl group border border-slate-100/50"
-            >
-              <div className="bg-white rounded-2xl overflow-hidden shadow-sm mb-10 h-48 relative border border-slate-100 group-hover:scale-[1.02] group-hover:shadow-md transition-all duration-300">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Project Management" className="w-full h-full object-cover object-top opacity-90" />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 mix-blend-overlay"></div>
-              </div>
-              <h3 className="text-[1.6rem] font-extrabold text-slate-900 mb-4 tracking-tight">Project Management</h3>
-              <p className="text-slate-600 leading-relaxed text-[1.1rem]">
-                Plan, manage, and execute IT projects with clarity and precision.
-              </p>
-            </motion.div>
-
-            {/* Card 3 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-[#f8f9fc] rounded-[2rem] p-8 md:p-10 hover:-translate-y-2 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl group border border-slate-100/50"
-            >
-              <div className="bg-white rounded-2xl overflow-hidden shadow-sm mb-10 h-48 relative border border-slate-100 group-hover:scale-[1.02] group-hover:shadow-md transition-all duration-300">
-                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="OKRs Template" className="w-full h-full object-cover object-top opacity-90" />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 mix-blend-overlay"></div>
-              </div>
-              <h3 className="text-[1.6rem] font-extrabold text-slate-900 mb-4 tracking-tight">OKRs Template</h3>
-              <p className="text-slate-600 leading-relaxed text-[1.1rem]">
-                Set and measure IT goals aligned with overall company objectives.
-              </p>
-            </motion.div>
-
-          </div>
+            The World's most complete<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] to-fuchsia-500">
+              AI for Project Management
+            </span>
+          </motion.h2>
+          
+          <p className="mx-auto text-lg text-slate-600 leading-relaxed max-w-2xl">
+            Meet the first AI that works across your entire project lifecycle. 
+            From drafting plans to capturing meetings,{" "}
+            <span className="font-semibold text-slate-800">
+              KaryaUp AI frees your team to focus on impact.
+            </span>
+          </p>
         </div>
       </section>
 
-      <FinalCTA />
+      {/* ================= SERVICE DESK AUTOMATION SECTION ================= */}
+      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-24 bg-slate-50/50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* TEXT CONTENT: Slides in from Left */}
+          <motion.div
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight">
+              Service Desk<br />
+              <span className="text-[#7e22ce]">Automation</span>
+            </h2>
+            <p className="text-xl text-slate-600 leading-relaxed mb-8 max-w-lg">
+              AI-powered ticket routing, auto-resolutions, and SLA tracking. 
+              Reduce MTTR by <span className="text-slate-900 font-bold">60%</span>.
+            </p>
+            
+            <ul className="space-y-5">
+              {[
+                "Auto-categorize & prioritize tickets",
+                "AI-suggested resolutions & knowledge base lookup",
+                "Real-time SLA dashboards & alerts"
+              ].map((text, i) => (
+                <li key={i} className="flex items-center gap-4 text-lg font-medium text-slate-700">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-sm">
+                    ✓
+                  </span>
+                  {text}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* IMAGE CONTENT: Slides in from Right */}
+          <motion.div
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative"
+          >
+            <div className="rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-slate-200 bg-white p-4">
+              <img 
+                src={planImage} 
+                alt="Service Desk Interface" 
+                className="w-full h-auto rounded-2xl shadow-inner"
+              />
+            </div>
+            {/* Background decorative blob */}
+            <div className="absolute -z-10 -bottom-6 -right-6 w-64 h-64 bg-purple-100 rounded-full blur-3xl opacity-60" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ================= CTA SECTION ================= */}
+      <FeatureCTA
+        title="Tasks that connect to everything you do"
+        description="Work Smarter with tasks that can live in your whiteboards, chat, calendar - anywhere you work"
+        image={dashboardImage}
+        imageAlt="KaryaUp dashboard"
+        containerClassName="mt-10 mb-10"
+        paddingClassName="p-4 lg:p-8 lg:py-12"
+        imageClassName="w-full max-w-[1000px] shadow-2xl rounded-xl"
+        imageOuterClassName="relative w-full flex justify-center mt-10"
+      />
     </div>
   );
-}                                                                                                                                                            
+}

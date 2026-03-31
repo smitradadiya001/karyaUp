@@ -1,12 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Check, Sparkles, Activity, BarChart3, Clock, Target, Calendar, Share2, LayoutDashboard, TrendingUp, Zap, Filter } from "lucide-react";
-import ganttImg from "../../assets/Gantt.png";
-import taskImg from "../../assets/Task2.png";
-import gantt1Img from "../../assets/Gantt1.png";
-import gantt2Img from "../../assets/Gantt2.png";
-import gantt3Img from "../../assets/Gantt3.png";
-import gantt4Img from "../../assets/Gantt4.png";
+import ganttImg from "../../assets/Gantt.webp";
+import taskImg from "../../assets/Task.webp";
+import gantt1Img from "../../assets/Gantt1.webp";
+import gantt2Img from "../../assets/Gantt2.webp";
+import gantt3Img from "../../assets/Gantt3.webp";
+import gantt4Img from "../../assets/Gantt4.webp";
 import FeatureCTA from "../../components/FeatureCTA";
 import { Helmet } from "react-helmet-async";
 
@@ -77,9 +77,9 @@ export default function Gantt() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                 className="mt-4 sm:mt-5 text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
               >
-                The ultimate{" "}
+                The ultimate  Visibility{" "}
                 <span className="block">
-                  visibility with{" "}
+                  With{" "}
                   <motion.span
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                     animate={{ backgroundPosition: ["0% center", "-200% center"] }}
@@ -110,7 +110,7 @@ export default function Gantt() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-                className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-x-4 sm:gap-y-3 max-w-xs sm:max-w-md w-full mx-auto lg:mx-0"
+                className="mt-6 sm:mt-8 grid grid-cols-2 gap-2.5 sm:gap-x-4 sm:gap-y-3 max-w-xs sm:max-w-md w-full mx-auto lg:mx-0"
               >
                 {[
                   { label: "Dependencies", icon: Activity },
@@ -163,13 +163,13 @@ export default function Gantt() {
               <span>Universal Planning Control</span>
             </div>
             <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-tight">
-              Powerful timeline for <br />
+              Powerful Timeline For <br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               >
-                how they work
+                How They Work
               </motion.span>
             </h2>
           </motion.div>
@@ -178,7 +178,7 @@ export default function Gantt() {
           {[
             {
               header: "Add Tasks",
-              title: "Set up your Task Automatically on Gantt",
+              title: "Set Up Your Task Automatically On Gantt",
               desc: "In one click, turn entire projects into timelines. It's a great way to grasp your project workflow and dependencies.",
               image: gantt1Img,
               tag: "Instant Board",
@@ -186,7 +186,7 @@ export default function Gantt() {
             },
             {
               header: "Smart Filters",
-              title: "Filter by Priority",
+              title: "Filter By Priority",
               desc: "Instantly organize your Gantt chart to highlight critical work. Quickly restructure your timeline visually using filters like Priority to keep focus exactly where it's needed.",
               image: gantt2Img,
               tag: "Filter & Sort",
@@ -216,7 +216,7 @@ export default function Gantt() {
                 {isReverse ? (
                   <>
                     {/* Image Side (Left) */}
-                    <div className="order-2 lg:order-1 p-4 sm:p-6 lg:p-8 bg-slate-50/40 flex items-center justify-center overflow-hidden h-[220px] sm:h-[350px] lg:h-[450px]">
+                    <div className="order-2 lg:order-1 p-4 sm:p-6 lg:p-8 bg-slate-50/40 flex items-center justify-center overflow-hidden h-[240px] sm:h-[320px] lg:h-[380px]">
                       <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
@@ -227,7 +227,7 @@ export default function Gantt() {
                         <img 
                           src={item.image} 
                           alt={item.title}
-                          className="w-full h-full max-w-[420px] object-contain rounded-xl shadow-2xl shadow-slate-900/10 grayscale-[15%] hover:grayscale-0 transition-all duration-700 ease-out"
+                          className="w-full h-full object-contain  grayscale-[15%] hover:grayscale-0 transition-all duration-700 ease-out"
                         />
                       </motion.div>
                     </div>
@@ -287,7 +287,7 @@ export default function Gantt() {
                     </div>
 
                     {/* Image Side (Right) */}
-                    <div className="order-2 lg:order-2 p-4 sm:p-6 lg:p-8 bg-slate-50/40 flex items-center justify-center overflow-hidden h-[220px] sm:h-[350px] lg:h-[450px]">
+                    <div className="order-2 lg:order-2 p-4 sm:p-6 lg:p-8 bg-slate-50/40 flex items-center justify-center overflow-hidden h-[240px] sm:h-[320px] lg:h-[380px]">
                       <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
@@ -298,7 +298,7 @@ export default function Gantt() {
                         <img 
                           src={item.image} 
                           alt={item.title}
-                          className="w-full h-full max-w-[420px] object-contain rounded-xl shadow-2xl shadow-slate-900/10 grayscale-[15%] hover:grayscale-0 transition-all duration-700 ease-out"
+                          className="w-full h-full object-contain  grayscale-[15%] hover:grayscale-0 transition-all duration-700 ease-out"
                         />
                       </motion.div>
                     </div>
@@ -311,7 +311,7 @@ export default function Gantt() {
       </section>
 
       <FeatureCTA 
-        title={<>Timelines that connect to <br /> everything you do</>}
+        title={<>Timelines That Connect To <br /> Everything You Do</>}
         description="Work smarter with visual timelines that can live in your whiteboards, chat, calendar—anywhere you work."
         image={ganttImg}
         imageAlt="KaryaUp Gantt Timeline"

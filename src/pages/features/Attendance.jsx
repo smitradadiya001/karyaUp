@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import AttendanceHero from "../../components/AttendanceHero";
 import FeatureCTA from "../../components/FeatureCTA";
-import attendanceImg from "../../assets/Attendance.png";
+import attendanceImg from "../../assets/Attendance.webp";
 import { Helmet } from "react-helmet-async";
 
 const scanSteps = [
@@ -95,7 +95,7 @@ export default function Attendance() {
                   <h2 className="mt-5 text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl">
                     Scan. Verify.
                     <span className="mt-2 block bg-gradient-to-r from-[#7e22ce] via-fuchsia-400 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent">
-                      Punch in instantly.
+                      Punch In Instantly.
                     </span>
                   </h2>
 
@@ -180,7 +180,7 @@ export default function Attendance() {
                   <div className="mt-5 flex flex-col gap-4 items-center text-center sm:flex-row sm:items-end sm:justify-between sm:text-left w-full">
                     <div>
                       <h3 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
-                        All employee attendance in one export-ready view.
+                        All Employee Attendance In One Export-Ready View.
                       </h3>
                       <p className="mt-3 max-w-2xl text-base font-medium leading-relaxed text-slate-400">
                         Managers can view daily attendance across the whole team,
@@ -277,9 +277,9 @@ export default function Attendance() {
       <FeatureCTA
         title={
           <>
-            Attendance that keeps every
+            Attendance That Keeps Every
             <br />
-            scan, punch, and report in sync
+            Scan, Punch, And Report In Sync
           </>
         }
         description="Register faces once, let employees punch in and punch out faster, and give managers one attendance screen for filters, logs, notifications, and CSV exports."
@@ -288,7 +288,7 @@ export default function Attendance() {
         containerClassName="mt-10 mb-8"
         paddingClassName="p-3 lg:p-4 lg:py-6"
         imageClassName="w-full max-w-[940px]"
-        imageOuterClassName="relative w-[108%] lg:w-full translate-x-2 lg:translate-x-8"
+        imageOuterClassName="relative w-[92%] lg:w-full mx-auto lg:mx-0 translate-x-0 lg:translate-x-8"
       />
       </div>
       </>

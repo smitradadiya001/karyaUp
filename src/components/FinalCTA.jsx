@@ -94,13 +94,13 @@ const FinalCTA = () => {
 
             {/* Main Value Prop */}
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.95] mb-3">
-              Run your entire <br />
+              Run Your Entire <br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:400%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-400% center"] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
               >
-                workspace
+                Workspace
               </motion.span>
             </h2>
 
@@ -117,14 +117,14 @@ const FinalCTA = () => {
                 to="https://www.karyaup.com/auth"
                 onMouseEnter={() => setIsHoveringCTA(true)}
                 onMouseLeave={() => setIsHoveringCTA(false)}
-                className="group relative z-10 flex h-[3.5em] w-[14em] shrink-0 items-center justify-center overflow-hidden rounded-[30em] font-bold text-[15px] transition-all duration-300"
+                className="group relative z-10 flex h-[3.5em] w-[16.5em] shrink-0 items-center justify-center overflow-hidden rounded-[30em] font-bold text-[15px] transition-all duration-300"
                 style={{
                   boxShadow: "6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff"
                 }}
               >
                 <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
                 <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
-                <span className="relative z-10 flex items-center justify-center gap-4 text-white transition-colors duration-300 group-hover:text-slate-800">
+                <span className="relative z-10 flex items-center justify-center gap-2.5 text-white transition-colors duration-300 group-hover:text-slate-800">
                   Start Free Workspace
                   <ArrowRight size={22} className="group-hover:translate-x-1.5 transition-transform" />
                 </span>
