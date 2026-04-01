@@ -1,10 +1,12 @@
 import { useRef, useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
+import FeatureStack from "../../components/FeatureStack";
 import dashboardImage from "../../assets/dashboard2.webp";
 import planImage from "../../assets/Gantt.webp";
 import karyaUpLogo from "../../assets/logo-svg.svg";
 import FeatureCTA from "../../components/FeatureCTA";
+import { Helmet } from "react-helmet-async";
 
 /* ═══════════════════════════════════════════════
    ICONS
@@ -117,6 +119,7 @@ function ScrollTrack({ cards, direction }) {
         </div>
       </div>
     </div>
+    
   );
 }
 
@@ -140,8 +143,10 @@ function ScrollingDataBg({ isShieldHovered }) {
         </motion.div>
       ))}
     </div>
+    
   );
 }
+
 
 /* ═══════════════════════════════════════════════
    MAIN PAGE COMPONENT
@@ -167,9 +172,16 @@ export default function ProjectManagement() {
   ];
 
   return (
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+    <>
+      <Helmet>
+        <title>Project Management | KaryaUp</title>
+        <meta name="description" content="Master your workflows with KaryaUp's advanced project management platform. Features interactive Gantt charts, AI-driven automation, and real-time dashboards." />
+        <meta name="keywords" content="project management software, gantt charts, team collaboration, task automation" />
+        <link rel="canonical" href="https://karyaup.com/platform/project-management" />
+      </Helmet>
+      <div className="min-h-screen bg-white font-sans overflow-x-hidden pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
       {/* Hero Section */}
-      <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 lg:pb-20 min-h-[calc(100vh-120px)] flex items-center">
+      <section className="relative pt-0 lg:pt-2 pb-12 sm:pb-16 lg:py-20 flex items-start">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
 
@@ -224,21 +236,7 @@ export default function ProjectManagement() {
                 ))}
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-                className="mt-6 sm:mt-8 grid grid-cols-2 gap-2 sm:gap-3 w-full max-w-xs sm:max-w-md"
-              >
-                {["Gantt Charts", "Dashboards", "AI Agents", "Automations"].map((tag) => (
-                  <div key={tag} className="group flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-slate-50/50 border border-slate-200/60 shadow-sm hover:border-emerald-200 hover:bg-emerald-50/50 transition-all duration-300">
-                    <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-emerald-100 border border-emerald-200 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <Check className="w-2.5 h-2.5 text-emerald-600 stroke-[4]" />
-                    </div>
-                    <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em] text-slate-600 truncate">{tag}</span>
-                  </div>
-                ))}
-              </motion.div>
+              <FeatureStack items={["Gantt Charts", "Dashboards", "AI Agents", "Automations"]} />
             </div>
 
             {/* Right – Image */}
@@ -400,5 +398,6 @@ export default function ProjectManagement() {
         containerClassName="mb-12 md:mb-24"
       />
     </div>
+    </>
   );
 }

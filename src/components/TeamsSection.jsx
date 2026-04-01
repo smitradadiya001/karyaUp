@@ -281,24 +281,26 @@ const TeamsSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
 
           {/* Mobile: icon row */}
-          <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-1.5 lg:hidden w-full scrollbar-hide">
-            {teams.map((t, i) => {
-              const TIcon = t.icon;
-              const isActive = active === i;
-              return (
-                <button
-                  key={t.label}
-                  onClick={() => { activeRef.current = i; setActive(i); }}
-                  className={`flex h-10 w-10 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl border transition-all ${isActive ? `${t.bg} border-purple-200 shadow-sm` : 'border-slate-200 bg-white'
-                    }`}
-                >
-                  <div className={`flex h-7 w-7 sm:h-10 sm:w-10 items-center justify-center rounded-full transition-all ${isActive ? `bg-gradient-to-br ${t.gradient}` : 'bg-slate-100'
-                    }`}>
-                    <TIcon size={14} className={isActive ? 'text-white' : 'text-slate-400'} />
-                  </div>
-                </button>
-              );
-            })}
+          <div className="lg:hidden w-full overflow-x-auto pb-1.5 scrollbar-hide">
+            <div className="mx-auto flex w-max items-center justify-center gap-2">
+              {teams.map((t, i) => {
+                const TIcon = t.icon;
+                const isActive = active === i;
+                return (
+                  <button
+                    key={t.label}
+                    onClick={() => { activeRef.current = i; setActive(i); }}
+                    className={`flex h-10 w-10 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl border transition-all ${isActive ? `${t.bg} border-purple-200 shadow-sm` : 'border-slate-200 bg-white'
+                      }`}
+                  >
+                    <div className={`flex h-7 w-7 sm:h-10 sm:w-10 items-center justify-center rounded-full transition-all ${isActive ? `bg-gradient-to-br ${t.gradient}` : 'bg-slate-100'
+                      }`}>
+                      <TIcon size={14} className={isActive ? 'text-white' : 'text-slate-400'} />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* LEFT: stacked rows — desktop */}

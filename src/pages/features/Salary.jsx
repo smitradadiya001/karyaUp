@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import NumberFlow from "@number-flow/react";
 import {
@@ -20,6 +20,7 @@ import {
   User,
 } from "lucide-react";
 import FeatureCTA from "../../components/FeatureCTA";
+import FeatureStack from "../../components/FeatureStack";
 import featureSalary from "../../assets/salary.webp";
 import { Helmet } from "react-helmet-async";
 
@@ -70,7 +71,17 @@ const profitInsights = [
     desc: "Leadership can catch margin pressure early and adjust staffing or pricing in time.",
   },
 ];
+
 export default function Salary() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <>
      <Helmet>
@@ -86,7 +97,7 @@ export default function Salary() {
       />
 
       {/* Author */}
-      <meta name="author" content="KaryaUp" />
+      <meta name="author" content="Karyaup" />
 
       {/* Viewport */}
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -116,7 +127,7 @@ export default function Salary() {
       {/* Favicon (optional) */}
       <link rel="icon" href="/favicon.ico" />
     </Helmet>
-    <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+    <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
       <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="absolute top-0 right-0 -z-10 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
         <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
@@ -125,7 +136,7 @@ export default function Salary() {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest"
@@ -134,7 +145,7 @@ export default function Salary() {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 22 }}
+                initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
@@ -153,7 +164,7 @@ export default function Salary() {
               </motion.h1>
 
               <motion.div
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
                 className="mt-5 sm:mt-6 space-y-4 max-w-2xl w-full mx-auto lg:mx-0"
@@ -170,30 +181,11 @@ export default function Salary() {
                 </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-                className="mt-6 sm:mt-8 grid grid-cols-2 gap-x-4 gap-y-3 max-w-md w-full mx-auto lg:mx-0"
-              >
-                {salaryTags.map((tag) => (
-                  <div
-                    key={tag}
-                    className="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-slate-50/50 border border-slate-200/60 shadow-sm hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300"
-                  >
-                    <div className="w-5 h-5 rounded-md bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <Check className="w-3 h-3 text-[#7e22ce] stroke-[4]" />
-                    </div>
-                    <span className="text-[10px] font-black uppercase tracking-[0.12em] text-slate-600 truncate">
-                      {tag}
-                    </span>
-                  </div>
-                ))}
-              </motion.div>
+              <FeatureStack items={["Auto calculations", "Deduction breakdowns", "Payslip generation", "Full salary history"]} />
             </div>
 
             <motion.div
-              initial={{ opacity: 0, x: 60 }}
+              initial={{ opacity: 0, x: isMobile ? 0 : 60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
               className="relative w-full max-w-[580px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-8 xl:-mr-16 pointer-events-none select-none"
@@ -452,6 +444,6 @@ export default function Salary() {
       />
 
       </div>
-      </>
+    </>
   );
 }

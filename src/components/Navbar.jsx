@@ -80,7 +80,7 @@ const featuresMegaSections = [
 
 const solutionsMegaSections = {
   byTeam: [
-    { label: "Product", sublabel: "Roadmaps & backlogs", to: "/solutions/product-development", icon: Kanban, iconColor: "text-violet-600" },
+    { label: "Product development", sublabel: "Roadmaps & backlogs", to: "/solutions/product-development", icon: Kanban, iconColor: "text-violet-600" },
     { label: "Operations", sublabel: "Workflows & SOPs", to: "/solutions/operations", icon: Zap, iconColor: "text-orange-500" },
     { label: "IT", sublabel: "Requests & incidents", to: "/solutions/it", icon: Blocks, iconColor: "text-blue-600" },
     { label: "Marketing", sublabel: "Campaigns & content", to: "/solutions/marketing", icon: Megaphone, iconColor: "text-pink-600" },
@@ -247,8 +247,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const shouldLockScroll =
-      isOpen || isPlatformOpen || isFeaturesOpen || isSolutionsOpen || isResourcesOpen;
+    const shouldLockScroll = isOpen;
 
     if (!shouldLockScroll) {
       document.body.style.overflow = "";

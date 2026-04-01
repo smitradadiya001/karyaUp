@@ -44,7 +44,7 @@ export default function WatchDemo() {
     href="https://karyaup.com/watch-demo"
   />
 </Helmet>
-    <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+    <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
       <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="absolute top-0 left-1/3 -z-10 h-[520px] w-[520px] rounded-full bg-purple-100/70 blur-[130px]" />
         <div className="absolute bottom-0 right-0 -z-10 h-[360px] w-[360px] rounded-full bg-fuchsia-100/60 blur-[110px]" />

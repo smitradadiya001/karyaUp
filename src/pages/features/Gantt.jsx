@@ -1,11 +1,12 @@
-import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Check, Sparkles, Activity, BarChart3, Clock, Target, Calendar, Share2, LayoutDashboard, TrendingUp, Zap, Filter } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ReactLenis } from "lenis/react";
 import { cn } from "../../lib/utils";
+import FeatureStack from "../../components/FeatureStack";
 
 import ganttImg from "../../assets/Gantt.webp";
 import taskImg from "../../assets/Task.webp";
@@ -21,6 +22,14 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Gantt() {
   const container = useRef(null);
   const sectionRefs = useRef([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const ganttSections = [
     {
@@ -89,8 +98,8 @@ export default function Gantt() {
         currentSection,
         {
           scale: 0.9,
-          opacity: 0.5,
-          y: "-10%",
+          opacity: 0,
+          y: "-20%",
           duration: 1.5,
           ease: "power2.inOut",
         },
@@ -118,7 +127,7 @@ export default function Gantt() {
     <ReactLenis root>
       <Helmet>
         {/* Title (Chrome Tab) */}
-        <title>Gantt Chart & Project Timeline | Karyaup Features</title>
+        <title>Gantt Chart | KaryaUp</title>
 
         {/* Meta Description */}
         <meta
@@ -158,7 +167,7 @@ export default function Gantt() {
         />
       </Helmet>
 
-      <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+      <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
         <section className="relative pt-4 sm:pt-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -166,7 +175,7 @@ export default function Gantt() {
               {/* Left Content */}
               <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
                 <motion.div
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest"
@@ -175,7 +184,7 @@ export default function Gantt() {
                 </motion.div>
 
                 <motion.h1
-                  initial={{ opacity: 0, y: 22 }}
+                  initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                   className="mt-4 sm:mt-5 text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
@@ -194,7 +203,7 @@ export default function Gantt() {
                 </motion.h1>
 
                 <motion.div
-                  initial={{ opacity: 0, y: 18 }}
+                  initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
                   className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 max-w-lg w-full mx-auto lg:mx-0"
@@ -209,31 +218,17 @@ export default function Gantt() {
                   </div>
                 </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-                  className="mt-6 sm:mt-8 grid grid-cols-2 gap-2.5 sm:gap-x-4 sm:gap-y-3 max-w-xs sm:max-w-md w-full mx-auto lg:mx-0"
-                >
-                  {[
-                    { label: "Dependencies", icon: Activity },
-                    { label: "Milestones", icon: Target },
-                    { label: "Critical path", icon: TrendingUp },
-                    { label: "Gantt", icon: Calendar }
-                  ].map((tag) => (
-                    <div key={tag.label} className="group flex items-center gap-2.5 sm:gap-3 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-slate-50/50 border border-slate-200/60 shadow-sm hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300">
-                      <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                        <tag.icon className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#7e22ce] stroke-[4]" />
-                      </div>
-                      <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em] sm:tracking-[0.12em] text-slate-600 truncate">{tag.label}</span>
-                    </div>
-                  ))}
-                </motion.div>
+                <FeatureStack items={[
+                  { label: "Dependencies", icon: Activity },
+                  { label: "Milestones", icon: Target },
+                  { label: "Critical path", icon: TrendingUp },
+                  { label: "Gantt", icon: Calendar }
+                ]} />
               </div>
 
               {/* Right Hero Image */}
               <motion.div
-                initial={{ opacity: 0, x: 60 }}
+                initial={{ opacity: 0, x: isMobile ? 0 : 60 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
                 className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"

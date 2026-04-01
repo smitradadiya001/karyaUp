@@ -1,140 +1,108 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import FeatureCTA from '../../components/FeatureCTA';
+import PageHero from "../../components/PageHero";
 import dashboardImage from "../../assets/dashboard2.webp";
-import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function Enterprise() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
-    <div className="bg-white font-sans overflow-hidden min-h-screen">
+    <>
+      <Helmet>
+        <title>Enterprise | KaryaUp</title>
+        <meta name="description" content="Scale your business with KaryaUp's enterprise-grade project management, security, and global visibility tools." />
+        <meta name="keywords" content="enterprise software, global scale, project management governance, corporate tools" />
+        <link rel="canonical" href="https://karyaup.com/solutions/enterprise" />
+      </Helmet>
+      <div className="bg-white font-sans overflow-x-hidden min-h-screen pt-20">
 
-      {/* ================= HERO SECTION ================= */}
-      <section className="relative w-screen left-1/2 right-1/2 -translate-x-1/2 pt-20 pb-20 px-7 text-center z-10 border-b border-slate-100">
-        {/* Pink/Purple Background Gradient Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-[100%] pointer-events-none -z-10 blur-3xl"></div>
+        {/* ================= HERO SECTION ================= */}
+        <PageHero
+          pillText="Solutions / Enterprise"
+          titleBlack="The Power of"
+          titleGradient="Enterprise Execution"
+          descriptionList={[
+            "Manage global programs, service requests, and governance in one place all connected by AI.",
+            "KaryaUp makes it easy to streamline complex workflows across massive organizations."
+          ]}
+          featureStackItems={["Global Scale", "Governance & Security", "Cross-functional Visibility", "AI Portfolio"]}
+          imageSrc={dashboardImage}
+          imageAlt="Enterprise Dashboard"
+        />
 
-        <div>
-          <div className="text-center lg:text-left">
-            <motion.h1
-              initial={{ opacity: 0, y: 40, x: -10 }}
-              animate={{ opacity: 1, y: 0, x: 0 }}
-              transition={{
-                type: "spring",
-                damping: 25,
-                stiffness: 100,
-                delay: 0.1
-              }}
-              className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
+        {/* ================= ENTERPRISE ADVANTAGES SECTION ================= */}
+        <section className="w-full py-24 px-6 lg:px-20 bg-white">
+          <div className="max-w-7xl mx-auto text-center mb-20">
+            <motion.h2
+              initial={{ opacity: 0, y: isMobile ? 0 : 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-6 tracking-tight leading-[1.1]"
             >
-              The World's most Powerful <br />
+              Enterprise-Ready <br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               >
-                Enterprise Software.
+                Reliability & Scale
               </motion.span>
-            </motion.h1>
+            </motion.h2>
+            <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed">
+              KaryaUp is trusted by global enterprises to deliver secure, scalable, and integrated solutions that empower teams worldwide.
+            </p>
           </div>
-          <p className="mx-auto text-center text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
-            Brainstorm, plan, and execute your team's marketing programs—from multi-channel campaigns to global events and more with KaryaUp, the all-in-one productivity platform.
-          </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <Link
-              to="/start"
-              className="group relative z-10 flex h-[3.5em] w-[14em] shrink-0 items-center justify-center overflow-hidden rounded-[30em] font-bold text-[15px] transition-all duration-300"
-              style={{
-                boxShadow: "6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff"
-              }}
-            >
-              <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
-              <div className="absolute left-0 top-0 -z-10 h-full w-0 rounded-[30em] bg-white transition-all duration-500 ease-in-out group-hover:w-full" />
-              <span className="relative z-10 text-white transition-colors duration-300 group-hover:text-slate-800">
-                Get Started
-              </span>
-            </Link>
-
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            {[
+              { title: "99.99% Uptime", desc: "Enterprise-grade reliability with continuous monitoring.", icon: "⚡", color: "from-pink-500 to-purple-600" },
+              { title: "Compliance Ready", desc: "GDPR, SOC2, HIPAA — built to meet global standards.", icon: "🔒", color: "from-indigo-500 to-blue-600" },
+              { title: "500+ Integrations", desc: "Connect seamlessly with your ERP, CRM, and collaboration tools.", icon: "🔗", color: "from-green-400 to-emerald-600" },
+              { title: "Global Support", desc: "24/7 multilingual support for teams across time zones.", icon: "🌍", color: "from-orange-400 to-red-500" },
+            ].map((card, i) => (
+              <motion.div
+                key={i}
+                initial={{ y: isMobile ? 0 : 40, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.15 }}
+                whileHover={{ y: -8 }}
+                className="group relative rounded-[2.5rem] p-8 bg-slate-50 border border-transparent hover:border-purple-200 hover:bg-white hover:shadow-xl transition-all duration-300"
+              >
+                <div className="text-4xl mb-6">{card.icon}</div>
+                <h3 className="text-xl font-black text-slate-900 mb-4 tracking-tight group-hover:text-purple-700 transition-colors">
+                  {card.title}
+                </h3>
+                <p className="text-slate-600 text-sm font-medium leading-relaxed">
+                  {card.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ================= ENTERPRISE ADVANTAGES SECTION ================= */}
-      <section className="w-full py-8 px-2 lg:px-5 bg-white">
-        <div className="max-w-9xl mx-auto text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-4"
-          >
-            Enterprise-Ready <br />
-            <motion.span
-              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            >
-              Reliability & Scale
-            </motion.span>
-          </motion.h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            KaryaUp is trusted by global enterprises to deliver secure, scalable, and integrated solutions that empower teams worldwide.
-          </p>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="grid md:grid-cols-4 gap-8"
-        >
-          {[
-            { title: "99.99% Uptime", desc: "Enterprise-grade reliability with continuous monitoring.", icon: "⚡", color: "from-pink-500 to-purple-600" },
-            { title: "Compliance Ready", desc: "GDPR, SOC2, HIPAA — built to meet global standards.", icon: "🔒", color: "from-indigo-500 to-blue-600" },
-            { title: "500+ Integrations", desc: "Connect seamlessly with your ERP, CRM, and collaboration tools.", icon: "🔗", color: "from-green-400 to-emerald-600" },
-            { title: "Global Support", desc: "24/7 multilingual support for teams across time zones.", icon: "🌍", color: "from-orange-400 to-red-500" },
-          ].map((card, i) => (
-            <motion.div
-              key={i}
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.2 }}
-              whileHover={{ scale: 1.05 }}
-              className="relative rounded-2xl p-6 shadow-lg border border-gray-200 
-                   hover:border-transparent hover:bg-gradient-to-r hover:opacity-90 transition duration-500 group"
-            >
-              <div className={`text-4xl mb-4 bg-gradient-to-r ${card.color} bg-clip-text text-black`}>
-                {card.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-black">
-                {card.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed group-hover:text-black">
-                {card.desc}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* ================= CTA ================= */}
-      <FeatureCTA
-        title={
-          <>
-            Tasks that connect to everything you do
-          </>
-        }
-        description="Work Smater with tasks that can live in your whiteboaards,chat,calendar - anywhere you work"
-        image={dashboardImage}
-        imageAlt="KaryaUp dashboard"
-        containerClassName="mt-10 mb-5"
-        paddingClassName="p-3 lg:p-4 lg:py-6"
-        imageClassName="w-full max-w-[940px]"
-        imageOuterClassName="relative w-[108%] lg:w-full translate-x-2 lg:translate-x-8"
-      />
-    </div>
+        {/* ================= CTA ================= */}
+        <FeatureCTA
+          title="Tasks that connect to everything you do"
+          description="Work Smarter with tasks that can live in your whiteboards, chat, calendar—anywhere you work."
+          image={dashboardImage}
+          imageAlt="KaryaUp Enterprise Dashboard"
+          containerClassName="mt-12 mb-24"
+          paddingClassName="p-3 lg:p-4 lg:py-6"
+          imageClassName="w-full max-w-[940px] translate-y-8"
+          imageOuterClassName="relative w-full flex justify-center"
+        />
+      </div>
+    </>
   );
 }

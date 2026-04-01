@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Mail, MoreVertical, ChevronDown, Search, UserPlus } from 'lucide-react';
+import FeatureStack from "./FeatureStack";
 
 const DarkRoleManagementPreview = () => {
   return (
@@ -132,7 +133,7 @@ export default function TeamHero() {
           {/* Left Content */}
           <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-[0.15em] mb-2"
@@ -141,7 +142,7 @@ export default function TeamHero() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 22 }}
+              initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
               className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
@@ -160,7 +161,7 @@ export default function TeamHero() {
             </motion.h1>
 
             <motion.div
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
               className="mt-4 sm:mt-6 space-y-3 w-full"
@@ -180,25 +181,7 @@ export default function TeamHero() {
               ))}
             </motion.div>
 
-            {/* Tags Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-              className="mt-6 sm:mt-8 grid grid-cols-2 gap-2 sm:gap-3 w-full max-w-xs sm:max-w-md"
-            >
-              {["Roles & permissions", "Workload visibility", "Department hierarchy", "Member profiles"].map((tag) => (
-                <div
-                  key={tag}
-                  className="group flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-slate-50/50 border border-slate-200/60 shadow-sm hover:border-emerald-200 hover:bg-emerald-50/50 transition-all duration-300"
-                >
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-emerald-100 border border-emerald-200 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <Check className="w-2.5 h-2.5 text-emerald-600 stroke-[4]" />
-                  </div>
-                  <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em] text-slate-600 truncate">{tag}</span>
-                </div>
-              ))}
-            </motion.div>
+            <FeatureStack items={["Roles & permissions", "Workload visibility", "Department hierarchy", "Member profiles"]} />
           </div>
 
           {/* Right Side Preview */}

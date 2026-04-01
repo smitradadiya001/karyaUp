@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Settings, Play, Pause, Edit3, CalendarDays, CheckCircle2, X } from "lucide-react";
 import FeatureCTA from "../../components/FeatureCTA";
+import FeatureStack from "../../components/FeatureStack";
 import autoImg from "../../assets/New_Task.png";
 import AutomationImg from "../../assets/Automation.png";
 import { Helmet } from "react-helmet-async";
@@ -38,6 +39,15 @@ const automationFeatures = [
 export default function Automations() {
   const [activeTabIdx, setActiveTabIdx] = useState(0);
   const activeTab = automationFeatures[activeTabIdx];
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Bento Card 1 — toggle states
   const [toggleStates, setToggleStates] = useState([true, false, false]);
@@ -96,13 +106,10 @@ export default function Automations() {
     href="https://karyaup.com/features/automation"
   />
 </Helmet>
-    <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+    <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
       
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-6 sm:pb-16 lg:pb-20 flex items-center">
-        {/* Ambient Web Glows */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-100/30 rounded-full blur-[120px] -z-10 animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-fuchsia-100/30 rounded-full blur-[100px] -z-10" />
+      <section className="relative overflow-hidden pt-2 lg:pt-4 py-12 sm:py-16 lg:py-20">
 
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-0">
           <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-12 items-center">
@@ -162,31 +169,24 @@ export default function Automations() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-                className="mt-6 sm:mt-8 grid grid-cols-2 gap-2 sm:gap-x-4 sm:gap-y-3 max-w-xs sm:max-w-md w-full mx-auto lg:mx-0"
+                className="mt-5 lg:mt-5 w-full"
               >
-                {["Triggers", "Actions", "Conditions", "Schedules"].map((tag) => (
-                  <div key={tag} className="flex items-center gap-2 sm:gap-3.5 px-3 py-2 sm:px-4 sm:py-[11px] border border-[#e2e8f0] rounded-xl bg-white shadow-sm">
-                    <div className="w-4 h-4 sm:w-[18px] sm:h-[18px] rounded-[5px] bg-[#dcfce7] flex flex-col items-center justify-center flex-shrink-0">
-                      <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#16a34a] stroke-[4]" />
-                    </div>
-                    <span className="text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.1em] sm:tracking-widest text-[#334155] truncate">{tag}</span>
-                  </div>
-                ))}
+                <FeatureStack items={["Triggers", "Actions", "Conditions", "Schedules", "Dynamic Rules", "Auto-Assign"]} />
               </motion.div>
             </div>
 
-            {/* Right Hero Image */}
+            {/* Right Hero Image — Clean Shadow Container */}
             <motion.div 
-              initial={{ opacity: 0, x: 60 }}
+              initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
               className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24 mt-10 lg:mt-0"
             >
-              <div className="relative overflow-hidden border border-slate-200/80 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white">
+              <div className="relative overflow-hidden shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white border border-slate-200/80 rounded-2xl sm:rounded-3xl">
                 <img
                   src={AutomationImg}
                   alt="KaryaUp automation rule builder"
-                  className="w-full h-[150px] sm:h-[300px] md:h-[380px] lg:h-[460px] xl:h-[500px] object-cover object-[44%_28%] sm:object-left"
+                  className="w-full h-[220px] sm:h-[320px] md:h-[400px] lg:h-[480px] xl:h-[520px] object-cover object-[44%_28%] sm:object-left transition-all duration-300"
                 />
               </div>
             </motion.div>
@@ -217,9 +217,9 @@ export default function Automations() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="relative bg-white border border-slate-200/80 rounded-[1.75rem] p-6 overflow-hidden flex flex-col gap-5 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-300"
+            className="relative bg-white/60 backdrop-blur-xl border border-slate-200/60 rounded-[1.75rem] p-6 overflow-hidden flex flex-col gap-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_15px_45px_rgb(0,0,0,0.08)] hover:border-purple-200/60 transition-all duration-500 group"
           >
-            <div className="absolute top-0 right-0 w-48 h-48 bg-red-50/60 rounded-full blur-3xl -z-10" />
+            <div className="absolute top-0 right-0 w-48 h-48 bg-red-50/40 rounded-full blur-3xl -z-10 group-hover:bg-red-100/40 transition-colors duration-500" />
             {/* Mini UI: Toggle list */}
             <div className="flex flex-col gap-2.5">
               {[
@@ -251,9 +251,9 @@ export default function Automations() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="relative bg-white border border-slate-200/80 rounded-[1.75rem] p-6 overflow-hidden flex flex-col gap-5 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-300"
+            className="relative bg-white/60 backdrop-blur-xl border border-slate-200/60 rounded-[1.75rem] p-6 overflow-hidden flex flex-col gap-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_15px_45px_rgb(0,0,0,0.08)] hover:border-purple-200/60 transition-all duration-500 group"
           >
-            <div className="absolute top-0 right-0 w-48 h-48 bg-purple-50/70 rounded-full blur-3xl -z-10" />
+            <div className="absolute top-0 right-0 w-48 h-48 bg-purple-50/50 rounded-full blur-3xl -z-10 group-hover:bg-purple-100/50 transition-colors duration-500" />
             {/* Mini UI: Month selector */}
             <div className="grid grid-cols-4 gap-2">
               {["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map((m, i) => (
@@ -282,9 +282,9 @@ export default function Automations() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            className="relative bg-white border border-slate-200/80 rounded-[1.75rem] p-6 overflow-hidden flex flex-col gap-5 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-300 md:col-span-2 lg:col-span-1"
+            className="relative bg-white/60 backdrop-blur-xl border border-slate-200/60 rounded-[1.75rem] p-6 overflow-hidden flex flex-col gap-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_15px_45px_rgb(0,0,0,0.08)] hover:border-purple-200/60 transition-all duration-500 md:col-span-2 lg:col-span-1 group"
           >
-            <div className="absolute top-0 right-0 w-48 h-48 bg-fuchsia-50/60 rounded-full blur-3xl -z-10" />
+            <div className="absolute top-0 right-0 w-48 h-48 bg-fuchsia-50/40 rounded-full blur-3xl -z-10 group-hover:bg-fuchsia-100/40 transition-colors duration-500" />
             {/* Mini UI: Team assignment pills */}
             <div className="flex flex-col gap-3">
               {[
@@ -324,16 +324,16 @@ export default function Automations() {
 
       {/* Automations CTA */}
       <FeatureCTA 
-        title={<>Put Your Workflow on  Autopilot.</>}
+        title={<>Put Your Workflow on Autopilot.</>}
         description="Stop manually creating identical tasks every single month. Set up rule-based automations and let our system handle the boring stuff."
         buttonText="Set up automations"
         image={autoImg}
         imageAlt="Automated Task System"
-        containerClassName="mt-12 mb-12 lg:mb-20"
-        paddingClassName="p-3 lg:p-4"
-        imageClassName="w-[65%] lg:w-[58%] mx-auto lg:translate-x-12"
-        imageOuterClassName="relative w-full max-w-[280px] sm:max-w-[380px] lg:max-w-none lg:w-full mx-auto lg:mx-0 translate-x-0 lg:translate-x-4"
-        titleClassName="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-3 tracking-tight drop-shadow-lg"
+        containerClassName="mt-10 mb-12 lg:mb-16"
+        paddingClassName="p-2 sm:p-3 lg:p-3.5"
+        imageClassName="w-[60%] lg:w-[54%] mx-auto lg:translate-x-10"
+        imageOuterClassName="relative w-full max-w-[260px] sm:max-w-[340px] lg:max-w-none lg:w-full mx-auto lg:mx-0 translate-x-0 lg:translate-x-2"
+        titleClassName="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.15] mb-3 tracking-tight drop-shadow-lg"
       />
       </div>
       </>

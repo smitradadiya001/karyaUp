@@ -381,6 +381,7 @@ export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState("monthly");
   const [activeFaq, setActiveFaq] = useState(null);
   const [showComparison, setShowComparison] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const [selectedApps, setSelectedApps] = useState([
     "slack",
     "drive",
@@ -394,9 +395,16 @@ export default function Pricing() {
   const realTheadRef = useRef(null);
   const comparisonSectionRef = useRef(null);
 
+  useEffect(() => {
+    const updateIsDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    updateIsDesktop();
+    window.addEventListener("resize", updateIsDesktop);
+    return () => window.removeEventListener("resize", updateIsDesktop);
+  }, []);
+
   // Track when the real thead scrolls above the navbar (top ~80px)
   useEffect(() => {
-    if (!showComparison) {
+    if (!showComparison || !isDesktop) {
       setStickyHeaderVisible(false);
       return;
     }
@@ -411,7 +419,7 @@ export default function Pricing() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [showComparison]);
+  }, [showComparison, isDesktop]);
 
   const apps = [
     {
@@ -711,7 +719,7 @@ export default function Pricing() {
 
           {/* Floating sticky header clone — shown when real thead scrolls above navbar */}
           <AnimatePresence>
-            {showComparison && stickyHeaderVisible && (
+            {showComparison && isDesktop && stickyHeaderVisible && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}

@@ -5,6 +5,7 @@ import { FeatureCard, CTABanner } from "../../components/SubPageLayout";
 import FeatureCTA from "../../components/FeatureCTA";
 import notificationImg from "../../assets/Notification.png";
 import { Helmet } from "react-helmet-async";
+import FeatureStack from "../../components/FeatureStack";
 
 export default function Notifications() {
   const [isMobile, setIsMobile] = useState(false);
@@ -60,7 +61,7 @@ export default function Notifications() {
         />
       </Helmet>
 
-    <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+    <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
       {/* Hero Section */}
       <section className="relative mb-12 overflow-hidden">
         {/* Ambient Background Glows */}
@@ -121,26 +122,12 @@ export default function Notifications() {
                 ))}
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-                className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5 max-w-md mx-auto lg:mx-0"
-              >
-                {[
+                <FeatureStack items={[
                   { label: "Real-time Alerts", icon: Bell },
                   { label: "Spam filtering", icon: Shield },
                   { label: "Active mentions", icon: BellOff },
                   { label: "Context-aware", icon: Zap }
-                ].map((tag) => (
-                  <div key={tag.label} className="group flex items-center gap-2.5 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 shadow-sm hover:border-purple-200 hover:bg-purple-50 transition-all duration-300">
-                    <div className="w-4.5 h-4.5 rounded-md bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <tag.icon className="w-2.8 h-2.8 text-purple-600 stroke-[3]" />
-                    </div>
-                    <span className="text-[9.5px] font-black uppercase tracking-[0.1em] text-slate-600 truncate group-hover:text-purple-700">{tag.label}</span>
-                  </div>
-                ))}
-              </motion.div>
+                ]} />
             </div>
 
             {/* Right Hero Image - Dashboard Style Showcasing */}

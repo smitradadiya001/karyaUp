@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 import dashboardImage from "../../assets/dashboard2.webp";
 import karyaupLogo from "../../assets/3D-Logo.webp";
 import FeatureCTA from "../../components/FeatureCTA";
+import FeatureStack from "../../components/FeatureStack";
 
 /* ═══════════════════════════════════════════════
     ICONS & HELPERS
@@ -150,6 +151,14 @@ const FAQItem = ({ question, answer }) => {
 ═══════════════════════════════════════════════ */
 export default function ProfitTracking() {
   const [isShieldHovered, setIsShieldHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const redCards = [
     { title: "Manual spreadsheet updates", tag: "Finance" },
@@ -169,16 +178,16 @@ export default function ProfitTracking() {
   ];
 
   return (
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+    <div className="min-h-screen bg-white font-sans overflow-x-hidden pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
       {/* Hero Section */}
-      <section className="relative pt-4 sm:pt-6 lg:pt-8 py-12 sm:py-16 lg:py-20">
+      <section className="relative pt-2 lg:pt-4 py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
 
             {/* Left */}
             <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] sm:text-xs font-black uppercase tracking-widest"
@@ -187,7 +196,7 @@ export default function ProfitTracking() {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 22 }}
+                initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                 className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
@@ -206,7 +215,7 @@ export default function ProfitTracking() {
               </motion.h1>
 
               <motion.div
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
                 className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 max-w-lg w-full"
@@ -226,26 +235,12 @@ export default function ProfitTracking() {
                 ))}
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-                className="mt-6 sm:mt-8 grid grid-cols-2 gap-2 sm:gap-3 w-full max-w-xs sm:max-w-md"
-              >
-                {["P&L Dashboard", "Expense Tracking", "Margin Alerts", "Revenue Reports"].map((tag) => (
-                  <div key={tag} className="group flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-slate-50/50 border border-slate-200/60 shadow-sm hover:border-emerald-200 hover:bg-emerald-50/50 transition-all duration-300">
-                    <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-emerald-100 border border-emerald-200 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <Check className="w-2.5 h-2.5 text-emerald-600 stroke-[4]" />
-                    </div>
-                    <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em] text-slate-600 truncate">{tag}</span>
-                  </div>
-                ))}
-              </motion.div>
+              <FeatureStack items={["P&L Dashboard", "Expense Tracking", "Margin Alerts", "Revenue Reports"]} />
             </div>
 
             {/* Right – Image */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
+              initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
               className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24 lg:-translate-y-8 xl:-translate-y-12"
@@ -266,7 +261,7 @@ export default function ProfitTracking() {
       <section className="py-8 bg-white px-4 md:px-3">
         <div className="max-w-7xl mx-auto">
           <motion.h1
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: isMobile ? 0 : 40 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4"
           >

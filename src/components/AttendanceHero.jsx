@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Check, Clock, Activity, FileText, Download } from "lucide-react";
+import FeatureStack from "./FeatureStack";
 
 export default function AttendanceHero() {
   const [isMobile, setIsMobile] = useState(false);
@@ -21,7 +22,7 @@ export default function AttendanceHero() {
         <div className="grid items-center gap-8 sm:gap-10 lg:gap-14 lg:grid-cols-2">
           <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-100 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-purple-700 shadow-sm"
@@ -31,7 +32,7 @@ export default function AttendanceHero() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 22 }}
+              initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
@@ -50,7 +51,7 @@ export default function AttendanceHero() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed max-w-xl mx-auto lg:mx-0"
@@ -60,24 +61,7 @@ export default function AttendanceHero() {
               and ready when you need it, not just at appraisal time.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-              className="mt-4 sm:mt-5 grid grid-cols-2 gap-2 sm:gap-3 w-full max-w-xs sm:max-w-md"
-            >
-              {["Auto check-in", "Real-time logs", "Timesheets", "Audit-ready exports"].map((tag) => (
-                <div
-                  key={tag}
-                  className="group flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-slate-50/50 border border-slate-200/60 shadow-sm hover:border-emerald-200 hover:bg-emerald-50/50 transition-all duration-300"
-                >
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-emerald-100 border border-emerald-200 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <Check className="w-2.5 h-2.5 text-emerald-600 stroke-[4]" />
-                  </div>
-                  <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em] text-slate-600 truncate">{tag}</span>
-                </div>
-              ))}
-            </motion.div>
+            <FeatureStack items={["Auto check-in", "Real-time logs", "Timesheets", "Audit-ready exports"]} />
           </div>
 
           <motion.div

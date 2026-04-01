@@ -4,6 +4,7 @@ import { Check, MessageSquare, Hash, FileText, Reply, Users, Bot, Sparkles, Send
 import { FeatureCard, CTABanner } from "../../components/SubPageLayout";
 
 import FeatureCTA from "../../components/FeatureCTA";
+import FeatureStack from "../../components/FeatureStack";
 import agentAssignImg from "../../assets/Agent-Assign.webp";
 import chatImg from "../../assets/chat.webp";
 
@@ -65,7 +66,7 @@ export default function Chat() {
         />
       </Helmet>
 
-      <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+      <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
         <section className={`relative pt-4 sm:pt-6 lg:pt-8 ${sectionSpacing}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -73,7 +74,7 @@ export default function Chat() {
               {/* Left Content */}
               <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
                 <motion.div
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest"
@@ -82,7 +83,7 @@ export default function Chat() {
                 </motion.div>
 
                 <motion.h1
-                  initial={{ opacity: 0, y: 22 }}
+                  initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                   className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
@@ -99,7 +100,7 @@ export default function Chat() {
                     </motion.span>
                   </span>
                 </motion.h1>
-
+ Broadway
                 <motion.div
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -116,26 +117,7 @@ export default function Chat() {
                   </div>
                 </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
-                  className="mt-8 grid grid-cols-2 gap-x-4 gap-y-3 max-w-md mx-auto lg:mx-0"
-                >
-                  {[
-                    { label: "Threaded replies", icon: Reply },
-                    { label: "Direct messages", icon: MessageSquare },
-                    { label: "Project channels", icon: Hash },
-                    { label: "File sharing", icon: FileText }
-                  ].map((tag) => (
-                    <div key={tag.label} className="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-slate-50/50 border border-slate-200/60 shadow-sm hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300">
-                      <div className="w-5 h-5 rounded-md bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                        <tag.icon className="w-3 h-3 text-[#7e22ce] stroke-[4]" />
-                      </div>
-                      <span className="text-[10px] font-black uppercase tracking-[0.12em] text-slate-600 truncate">{tag.label}</span>
-                    </div>
-                  ))}
-                </motion.div>
+                <FeatureStack items={["Threaded replies", "Direct messages", "Project channels", "File sharing"]} />
               </div>
 
               {/* Right Hero Preview */}
@@ -145,7 +127,7 @@ export default function Chat() {
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
                 className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
               >
-                {/* Chat Card */}
+ Broadway                {/* Chat Card */}
                 <div className="relative border border-purple-900/30 rounded-3xl shadow-2xl shadow-purple-900/20 bg-slate-950 overflow-hidden flex flex-col h-[400px] sm:h-[450px]">
                   {/* Glow blobs */}
                   <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/15 rounded-full blur-[60px] pointer-events-none" />
