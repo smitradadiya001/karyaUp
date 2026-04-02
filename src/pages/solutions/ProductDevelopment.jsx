@@ -65,7 +65,7 @@ export default function ProductDevelopment() {
         {/* ================= HERO SECTION ================= */}
         <PageHero
           pillText="Solutions / Product Development"
-          titleBlack="The Everything App for"
+          titleBlack="The Everythin App for"
           titleGradient="Software Teams"
           descriptionList={[
             "Get real-time visibility into your product roadmaps, sprint velocity, and resource capacity.",

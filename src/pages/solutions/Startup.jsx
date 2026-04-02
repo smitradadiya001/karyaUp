@@ -41,99 +41,147 @@ export default function Startup() {
       />
 
       {/* ================= ROADMAP SECTION ================= */}
-      <section className="w-full py-24 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
-          
-          <motion.div
-            initial={{ opacity: 0, x: isMobile ? 0 : -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8">
-              Connect Your <br />
-              <motion.span
-                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              >
-                Roadmap to Work
-              </motion.span>
-            </h2>
-            <p className="text-xl text-slate-600 font-medium leading-relaxed mb-10 max-w-xl">
-              Manage everything from product roadmaps to sales pipelines in a single place. KaryaUp's Hierarchy makes it easy to expand your team as you scale.
-            </p>
-          </motion.div>
+        <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 bg-white border-b border-slate-200">
+        <div className="max-w-[90rem] mx-auto flex flex-col-reverse lg:flex-row items-stretch">
 
-          <motion.div
-            initial={{ opacity: 0, x: isMobile ? 0 : 60, scale: 0.95 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative p-4 bg-slate-50 rounded-[3rem] border border-slate-100 shadow-xl"
-          >
-            <div className="rounded-[2.5rem] overflow-hidden shadow-2xl bg-white group hover:scale-[1.02] transition-transform duration-500">
-              <img src={planImage} alt="KaryaUp Project Roadmap" className="w-full h-auto object-cover" />
+          {/* Left: Text Container */}
+          <div className="w-full lg:w-[45%] p-10 md:p-16 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-slate-200">
+            <div>
+
+
+              <motion.h1
+                initial={{ opacity: 0, y: 40, x: -10 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 100,
+                  delay: 0.1
+                }}
+                className="text-4xl sm:text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
+              >
+                Connect Your  <br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  Roadmap for daily work
+                </motion.span>
+              </motion.h1>
             </div>
-          </motion.div>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+              Manage everything from product roadmaps to sales pipelines in a single place with 10+ customizable views. Schedule releases on a Calendar, create bug tracking systems on a List, or adjust timelines on a Gantt chart.
+            </p>
+            <div>
+
+            </div>
+
+          </div>
+
+          {/* Right: Image Container */}
+          <div className="w-full lg:w-[55%] p-8 md:p-14 border-b lg:border-b-0 border-slate-200 flex items-center justify-center bg-[#fafbfc]">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+              className="relative w-full shadow-[0_15px_40px_rgba(0,0,0,0.06)] rounded-2xl overflow-hidden border border-slate-100 bg-white group hover:scale-[1.02] transition-transform duration-500"
+            >
+              <img src={planImage} alt="KaryaUp Project Roadmap" className="w-full h-auto object-cover" />
+            </motion.div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= SCALE SECTION ================= */}
+      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 bg-white border-b border-slate-200">
+        <div className="max-w-[90rem] mx-auto flex flex-col lg:flex-row items-stretch">
+
+          {/* Left: Image Container */}
+          <div className="w-full lg:w-[55%] p-8 md:p-14 lg:p-20 border-b lg:border-b-0 lg:border-r border-slate-200 flex items-center justify-center bg-slate-50/30">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+              className="relative w-full rounded-2xl"
+            >
+              <div className="w-full shadow-2xl rounded-2xl overflow-hidden border border-slate-200 bg-white group hover:scale-[1.02] transition-transform duration-500">
+                <img src={dashboardImage} alt="KaryaUp Project Scale Layout" className="w-full h-auto object-cover opacity-90" />
+              </div>
+
+              {/* Floating Menu UI Overlay Mimicking Screenshot */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="absolute top-1/4 left-[8%] md:left-[15%] w-48 md:w-56 bg-white rounded-xl shadow-[0_25px_50px_rgba(0,0,0,0.15)] border border-indigo-100 overflow-hidden z-10"
+              >
+                <div className="w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                <div className="p-3 md:p-4 bg-white">
+                  <p className="text-[0.65rem] md:text-[0.7rem] font-bold text-slate-400 uppercase tracking-wider mb-3 px-2">Space Options</p>
+                  <ul className="space-y-1 text-[0.8rem] md:text-[0.85rem] text-slate-700 font-medium">
+                    <li className="flex items-center gap-3 px-2 py-2 md:py-1.5 hover:bg-slate-50 rounded cursor-default transition-colors"><span className="text-slate-400 text-base">📄</span> New list</li>
+                    <li className="flex items-center gap-3 px-2 py-2 md:py-1.5 hover:bg-slate-50 rounded cursor-default transition-colors"><span className="text-slate-400 text-base">📁</span> New folder</li>
+                    <li className="flex items-center gap-3 px-2 py-2 md:py-1.5 hover:bg-slate-50 rounded cursor-default transition-colors"><span className="text-slate-400 text-base">⚡</span> Automations</li>
+                    <li className="flex items-center justify-between px-2 py-2 md:py-1.5 hover:bg-slate-50 rounded cursor-default transition-colors">
+                      <div className="flex items-center gap-3"><span className="text-slate-400 text-base">↗️</span> Import</div>
+                      <span className="text-slate-400 text-[10px]">▶</span>
+                    </li>
+                    <li className="flex items-center gap-3 px-2 py-2 md:py-1.5 hover:bg-slate-50 rounded cursor-default transition-colors"><span className="text-slate-400 text-base">🎨</span> Templates</li>
+                  </ul>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Right: Text Container */}
+          <div className="w-full lg:w-[67%] p-10 md:p-16 lg:p-24 flex flex-col justify-center">
+
+            <div>
+
+
+              <motion.h1
+                initial={{ opacity: 0, y: 40, x: -10 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 100,
+                  delay: 0.1
+                }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
+              >
+                Scale from Startup<br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  to Unicorn
+                </motion.span>
+              </motion.h1>
+            </div>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+              Build the perfect organization that grows with your startup. KaryaUp's Hierarchy makes it easy to expand your team and manage more complex projects as you bring on more resources.
+            </p>
+            <div>
+
+            </div>
+
+          </div>
+
         </div>
       </section>
 
       {/* ================= STARTUP GROWTH JOURNEY SECTION ================= */}
-      <section className="w-full py-24 px-6 lg:px-20 bg-slate-50/30">
-        <div className="max-w-7xl mx-auto text-center mb-20">
-          <motion.h2
-            initial={{ opacity: 0, y: isMobile ? 0 : 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6"
-          >
-            Your Startup Journey <br />
-            <motion.span
-              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            >
-              Powered by KaryaUp
-            </motion.span>
-          </motion.h2>
-          <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed">
-            From idea to unicorn, KaryaUp gives startups the tools to brainstorm, plan, execute, and scale—all in one high-density platform.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-          {[
-            { title: "Ideation", desc: "Capture ideas, collaborate with co-founders, and align vision.", icon: "💡" },
-            { title: "Launch", desc: "Plan sprints, track tasks, and deliver your MVP faster.", icon: "🚀" },
-            { title: "Growth", desc: "Automate workflows, manage sales pipelines, and expand reach.", icon: "📈" },
-            { title: "Scale", desc: "Build hierarchies, manage complex projects, and grow.", icon: "🦄" },
-          ].map((card, i) => (
-            <motion.div
-              key={i}
-              initial={{ y: isMobile ? 0 : 40, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              whileHover={{ y: -8 }}
-              className="relative rounded-[2.5rem] p-8 bg-white border border-slate-100 shadow-sm hover:shadow-2xl hover:border-purple-200 transition-all duration-300 group"
-            >
-              <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">{card.icon}</div>
-              <h3 className="text-xl font-black text-slate-900 mb-4 tracking-tight group-hover:text-purple-700 transition-colors">
-                {card.title}
-              </h3>
-              <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                {card.desc}
-              </p>
-              <div className="absolute bottom-0 left-0 h-1.5 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 w-0 group-hover:w-full transition-all duration-500 rounded-b-[2.5rem]" />
-            </motion.div>
-          ))}
-        </div>
-      </section>
+   
 
         
-        <section className="w-full py-10 lg:px-5 bg-white">
+       <section className="w-full py-10 lg:px-5 bg-white">
         <div className="max-w-7xl mx-auto text-center mb-16">
 
           <motion.h1
@@ -210,7 +258,7 @@ export default function Startup() {
                 </p>
 
                 {/* Bottom Decorative Line */}
-                <div className="mt-auto pt-6 w-full">
+                <div className={`mt-auto pt-6 w-full`}>
                    <div className={`h-1 w-0 group-hover:w-full bg-gradient-to-r ${card.color} transition-all duration-500 rounded-full`}></div>
                 </div>
               </div>

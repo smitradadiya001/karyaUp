@@ -29,11 +29,11 @@ export default function PageHero({
       <div className="absolute top-0 right-0 -z-10 h-[600px] w-[600px] translate-x-1/4 -translate-y-1/2 rounded-full bg-purple-100/60 blur-[120px]" />
       <div className="absolute bottom-0 left-0 -z-10 h-[500px] w-[500px] -translate-x-1/4 translate-y-1/2 rounded-full bg-fuchsia-100/40 blur-[100px]" />
 
-      <div className="mx-auto flex max-w-7xl items-start px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pt-6 sm:pb-16 lg:pt-8 lg:pb-20">
-        <div className="grid w-full items-start gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-14">
+      <div className="mx-auto flex max-w-7xl items-center px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pt-6 sm:pb-16 lg:pt-8 lg:pb-20">
+        <div className="grid w-full items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-14">
 
           {/* Left Content */}
-          <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+          <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
             <motion.div
               initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -109,7 +109,7 @@ export default function PageHero({
             initial={{ opacity: 0, x: isMobile ? 0 : 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-            className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
+            className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24 mt-10 lg:mt-0"
           >
             <div className="relative rounded-[2.5rem] border border-slate-200 bg-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.06)] overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-tr from-purple-50/50 to-white/0 pointer-events-none" />
