@@ -1,41 +1,159 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link, useParams } from "react-router-dom";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [10, -10]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-10, 10]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1200 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={className}
+    >
+      <div style={{ transform: 'translateZ(20px)' }} className="h-full flex flex-col">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
 
 const SubPageLayout = ({ title, subtitle, badge, children }) => (
-  <div className="min-h-screen bg-white pt-28 pb-20">
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      {badge && (
-        <span className="inline-block mb-4 px-3 py-1 text-xs font-bold tracking-widest uppercase rounded-full bg-rose-100 text-rose-700">
-          {badge}
-        </span>
-      )}
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
-        {title}
-      </h1>
-      <p className="text-lg text-gray-500 mb-12 max-w-2xl">{subtitle}</p>
+  <div className="min-h-screen bg-white pt-28 md:pt-32 pb-20 relative overflow-hidden">
+    {/* Ambient Background Glows */}
+    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-100/40 rounded-full blur-[120px] -z-10 animate-pulse" />
+    <div className="absolute bottom-1/2 right-1/4 w-[400px] h-[400px] bg-cyan-100/30 rounded-full blur-[100px] -z-10" />
+
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl">
+        {badge && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 text-[11px] font-black tracking-widest uppercase rounded-full bg-purple-100 border border-purple-200 text-purple-700 shadow-sm"
+          >
+            {badge}
+          </motion.div>
+        )}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.06] mb-6"
+        >
+          {title.split(" ").map((word, i) => (
+            <React.Fragment key={i}>
+              {word === "KaryaUp" ? (
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  {word}
+                </motion.span>
+              ) : (
+                word
+              )}{" "}
+            </React.Fragment>
+          ))}
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+          className="text-lg sm:text-xl text-slate-500 font-medium mb-16 max-w-2xl leading-relaxed"
+        >
+          {subtitle}
+        </motion.p>
+      </div>
       {children}
     </div>
   </div>
 );
 
 const FeatureCard = ({ icon, title, desc }) => (
-  <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow">
-    <div className="text-3xl mb-3">{icon}</div>
-    <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
-    <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
-  </div>
+  <TiltCard className="group relative pt-10 pb-10 px-8 sm:px-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm transition-all duration-300">
+    <div className="flex flex-col h-full">
+      <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center rounded-2xl bg-purple-50 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white shadow-sm ring-1 ring-purple-100 group-hover:shadow-[0_10px_30px_-10px_rgba(126,34,206,0.5)] transition-all duration-300 group-hover:scale-110 mb-8">
+        <span className="text-3xl filter group-hover:brightness-105 transition-all">{icon}</span>
+      </div>
+      <h3 className="text-xl font-black text-slate-900 mb-3 group-hover:text-purple-600 transition-colors">
+        {title}
+      </h3>
+      <p className="text-slate-500 text-sm sm:text-base font-medium leading-relaxed">
+        {desc}
+      </p>
+    </div>
+  </TiltCard>
 );
 
-const CTA = ({ bg, textColor, btnColor, title, desc, btnLabel }) => (
-  <div className={`mt-12 ${bg} rounded-2xl p-8 flex flex-col sm:flex-row items-center gap-6`}>
-    <div className="flex-1">
-      <h3 className={`text-2xl font-bold ${textColor} mb-2`}>{title}</h3>
-      <p className={`${textColor} opacity-70 text-sm`}>{desc}</p>
-    </div>
-    <Link to="/start" className={`shrink-0 ${btnColor} text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-colors`}>
-      {btnLabel} →
-    </Link>
-  </div>
+const CTA = ({ title, desc, btnLabel }) => (
+  <section className="py-12 sm:py-16 lg:py-20 relative">
+    <motion.div className="max-w-6xl mx-auto rounded-[2.5rem] sm:rounded-[3rem] p-8 sm:p-10 md:p-12 relative overflow-hidden text-center shadow-[0_40px_100px_-24px_rgba(126,34,206,0.25)] border border-white/10">
+      {/* Mesh Gradient Background */}
+      <div className="absolute inset-0 bg-[#7e22ce]" />
+
+      {/* Animated Blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-60">
+        <motion.div
+          animate={{ x: [0, 80, -40], y: [0, -40, 60], scale: [1, 1.2, 0.9] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[-30%] left-[-20%] w-[100%] h-[100%] bg-indigo-600 rounded-full blur-[100px]"
+        />
+        <motion.div
+          animate={{ x: [0, -60, 100], y: [0, 80, -30], scale: [1, 1.3, 1] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[-40%] right-[-10%] w-[120%] h-[120%] bg-rose-500 rounded-full blur-[120px]"
+        />
+      </div>
+
+      {/* Glass Inner Glow */}
+      <div className="absolute inset-0 rounded-[2.5rem] sm:rounded-[3rem] border border-white/20 pointer-events-none shadow-[inset_0_2px_10px_rgba(255,255,255,0.1)]" />
+
+      <div className="relative z-10 py-6">
+        <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 tracking-tight leading-[1.1]">
+          {title}
+        </h2>
+        <p className="text-white/80 text-sm sm:text-base md:text-lg font-medium mb-10 max-w-2xl mx-auto leading-relaxed px-2">
+          {desc}
+        </p>
+        <div className="flex justify-center">
+          <Link
+            to="/start"
+            className="group relative z-10 flex h-[3.4em] w-full sm:w-auto min-w-[16em] items-center justify-center rounded-[30em] bg-white font-black text-[15px] sm:text-[16px] text-slate-900 shadow-[0_20px_50px_-12px_rgba(126,34,206,0.25)] border border-slate-100 transition-all duration-300 active:scale-95"
+          >
+            <span className="flex items-center justify-center gap-2">
+              {btnLabel}
+              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+        </div>
+      </div>
+    </motion.div>
+  </section>
 );
 
 const sections = {
@@ -353,13 +471,27 @@ export default function Solutions() {
   return (
     <SubPageLayout badge="Solutions" title="Solutions for Every Team" subtitle="KaryaUp adapts to how your team works. Find a workflow built for your use case.">
       {allSections.map((group) => (
-        <div key={group.group} className="mb-12">
-          <h2 className="text-xl font-bold text-gray-800 mb-5 pb-2 border-b border-gray-100">{group.group}</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div key={group.group} className="mb-20">
+          <div className="flex items-center gap-4 mb-10">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{group.group}</h2>
+            <div className="h-px flex-1 bg-slate-100" />
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {group.items.map((item) => (
-              <Link key={item.to} to={item.to} className="group flex items-center gap-4 bg-gray-50 rounded-2xl p-5 border border-gray-100 hover:shadow-md hover:border-rose-200 transition-all">
-                <span className="text-2xl">{item.icon}</span>
-                <span className="font-semibold text-gray-900 group-hover:text-rose-700">{item.label}</span>
+              <Link key={item.to} to={item.to} className="group relative">
+                <TiltCard className="rounded-[2rem] bg-white border border-slate-100 p-8 shadow-sm transition-all duration-300 hover:border-purple-200/50 hover:shadow-xl">
+                  <div className="flex items-center gap-6">
+                    <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-purple-50 text-2xl group-hover:scale-110 group-hover:bg-purple-100 transition-all duration-300 shadow-sm ring-1 ring-purple-100/50">
+                      {item.icon}
+                    </div>
+                    <div className="flex-1">
+                      <span className="block font-black text-slate-900 text-lg group-hover:text-purple-700 transition-colors">{item.label}</span>
+                      <span className="flex items-center gap-1.5 text-slate-400 text-xs font-bold uppercase tracking-wider mt-1 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0">
+                        Explore <ArrowRight size={12} />
+                      </span>
+                    </div>
+                  </div>
+                </TiltCard>
               </Link>
             ))}
           </div>

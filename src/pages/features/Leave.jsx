@@ -103,7 +103,7 @@ export default function Leave() {
   />
 </Helmet>
     <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
-      <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
+      <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
         <div className="absolute top-0 right-0 -z-10 h-[580px] w-[580px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
         <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
 
@@ -243,7 +243,7 @@ export default function Leave() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden py-20">
+      <section className="relative overflow-hidden pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[980px] -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-100/80 via-fuchsia-100/60 to-transparent blur-[130px]" />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -407,7 +407,7 @@ export default function Leave() {
         description="Handle requests, approvals, and balances without extra follow-up."
         image={leaveImg}
         imageAlt="KaryaUp leave management dashboard"
-        containerClassName="mt-8 mb-8"
+        containerClassName="mt-0"
         paddingClassName="p-3 lg:p-4 lg:py-6"
         imageClassName="w-full max-w-[640px]"
         imageOuterClassName="relative w-[92%] lg:w-[82%] translate-x-0 lg:translate-x-2"

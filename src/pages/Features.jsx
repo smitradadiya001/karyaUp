@@ -1,29 +1,113 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link, useParams } from "react-router-dom";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [10, -10]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-10, 10]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1200 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={className}
+    >
+      <div style={{ transform: 'translateZ(20px)' }} className="h-full flex flex-col">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
 
 const SubPageLayout = ({ title, subtitle, badge, children }) => (
-  <div className="min-h-screen bg-white pt-28 pb-20">
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      {badge && (
-        <span className="inline-block mb-4 px-3 py-1 text-xs font-bold tracking-widest uppercase rounded-full bg-emerald-100 text-emerald-700">
-          {badge}
-        </span>
-      )}
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
-        {title}
-      </h1>
-      <p className="text-lg text-gray-500 mb-12 max-w-2xl">{subtitle}</p>
+  <div className="min-h-screen bg-white pt-28 md:pt-32 pb-20 relative overflow-hidden text-slate-900">
+    {/* Ambient Background Glows */}
+    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-100/40 rounded-full blur-[120px] -z-10 animate-pulse" />
+    <div className="absolute bottom-1/2 right-1/4 w-[400px] h-[400px] bg-teal-100/30 rounded-full blur-[100px] -z-10" />
+
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl">
+        {badge && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 text-[11px] font-black tracking-widest uppercase rounded-full bg-emerald-100 border border-emerald-200 text-emerald-700 shadow-sm"
+          >
+            {badge}
+          </motion.div>
+        )}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.06] mb-6"
+        >
+          {title.split(" ").map((word, i) => (
+            <React.Fragment key={i}>
+              {word === "KaryaUp" ? (
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  {word}
+                </motion.span>
+              ) : (
+                word
+              )}{" "}
+            </React.Fragment>
+          ))}
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+          className="text-lg sm:text-xl text-slate-500 font-medium mb-16 max-w-2xl leading-relaxed"
+        >
+          {subtitle}
+        </motion.p>
+      </div>
       {children}
     </div>
   </div>
 );
 
 const FeatureCard = ({ icon, title, desc }) => (
-  <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow">
-    <div className="text-3xl mb-3">{icon}</div>
-    <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
-    <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
-  </div>
+  <TiltCard className="group relative pt-10 pb-10 px-8 sm:px-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm transition-all duration-300">
+    <div className="flex flex-col h-full">
+      <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white shadow-sm ring-1 ring-emerald-100 group-hover:shadow-[0_10px_30px_-10px_rgba(16,185,129,0.5)] transition-all duration-300 group-hover:scale-110 mb-8">
+        <span className="text-3xl filter group-hover:brightness-105 transition-all">{icon}</span>
+      </div>
+      <h3 className="text-xl font-black text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
+        {title}
+      </h3>
+      <p className="text-slate-500 text-sm sm:text-base font-medium leading-relaxed">
+        {desc}
+      </p>
+    </div>
+  </TiltCard>
 );
 
 const sections = {
@@ -279,12 +363,16 @@ export default function Features() {
     return (
       <SubPageLayout badge={section.badge} title={section.title} subtitle={section.subtitle}>
         {section.content}
-        <div className="mt-12 pt-10 border-t border-gray-100">
-          <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-6">Explore more features</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+        <div className="mt-20 pt-10 border-t border-slate-100">
+          <div className="flex items-center gap-4 mb-10">
+            <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Explore more features</h3>
+            <div className="h-px flex-1 bg-slate-100" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             {allFeatures.filter(f => !f.to.endsWith(`/${page}`)).map((f) => (
-              <Link key={f.to} to={f.to} className="flex items-center gap-2 text-sm text-slate-700 hover:text-primary font-medium bg-gray-50 px-3 py-2 rounded-lg hover:bg-gray-100">
-                <span>{f.icon}</span> {f.label}
+              <Link key={f.to} to={f.to} className="group flex items-center gap-3 text-sm text-slate-600 hover:text-emerald-700 font-black bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/50 hover:shadow-sm transition-all">
+                <span className="text-xl group-hover:scale-110 transition-transform">{f.icon}</span> 
+                {f.label}
               </Link>
             ))}
           </div>
@@ -295,11 +383,22 @@ export default function Features() {
 
   return (
     <SubPageLayout badge="Features" title="All Features" subtitle="Everything you need to plan, manage, and optimize work in one unified platform.">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {allFeatures.map((f) => (
-          <Link key={f.to} to={f.to} className="group flex items-center gap-4 bg-gray-50 rounded-2xl p-5 border border-gray-100 hover:shadow-md hover:border-emerald-200 transition-all">
-            <span className="text-2xl">{f.icon}</span>
-            <span className="font-semibold text-gray-900 group-hover:text-emerald-700">{f.label}</span>
+          <Link key={f.to} to={f.to} className="group relative">
+            <TiltCard className="rounded-[2.5rem] bg-white border border-slate-100 p-8 shadow-sm transition-all duration-300 hover:border-emerald-200/50 hover:shadow-xl">
+              <div className="flex items-center gap-6">
+                <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-emerald-50 text-2xl group-hover:scale-110 group-hover:bg-emerald-100 transition-all duration-300 shadow-sm ring-1 ring-emerald-100/50">
+                  {f.icon}
+                </div>
+                <div className="flex-1">
+                  <span className="block font-black text-slate-900 text-lg group-hover:text-emerald-700 transition-colors">{f.label}</span>
+                  <span className="flex items-center gap-1.5 text-slate-400 text-xs font-bold uppercase tracking-wider mt-1 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0">
+                    See details <ArrowRight size={12} />
+                  </span>
+                </div>
+              </div>
+            </TiltCard>
           </Link>
         ))}
       </div>

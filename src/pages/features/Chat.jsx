@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Check, MessageSquare, Hash, FileText, Reply, Users, Bot, Sparkles, Send } from "lucide-react";
 import { FeatureCard, CTABanner } from "../../components/SubPageLayout";
 
@@ -7,7 +7,6 @@ import FeatureCTA from "../../components/FeatureCTA";
 import FeatureStack from "../../components/FeatureStack";
 import agentAssignImg from "../../assets/Agent-Assign.webp";
 import chatImg from "../../assets/chat.webp";
-
 import { Helmet } from "react-helmet-async";
 
 export default function Chat() {
@@ -19,6 +18,44 @@ export default function Chat() {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  const TiltCard = ({ children, className }) => {
+    const ref = useRef(null);
+    const rawX = useMotionValue(0);
+    const rawY = useMotionValue(0);
+
+    const rotateX = useSpring(useTransform(rawY, [-1, 1], [10, -10]), { stiffness: 300, damping: 30 });
+    const rotateY = useSpring(useTransform(rawX, [-1, 1], [-10, 10]), { stiffness: 300, damping: 30 });
+
+    const handleMouseMove = (e) => {
+      const rect = ref.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+      rawX.set(x);
+      rawY.set(y);
+    };
+
+    const handleMouseLeave = () => {
+      rawX.set(0);
+      rawY.set(0);
+    };
+
+    return (
+      <motion.div
+        ref={ref}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className={className}
+      >
+        <div style={{ transform: 'translateZ(20px)' }} className="h-full flex flex-col">
+          {children}
+        </div>
+      </motion.div>
+    );
+  };
 
   const sectionSpacing = "py-12 sm:py-16 lg:py-20";
 
@@ -68,7 +105,7 @@ export default function Chat() {
 
       <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
-        <section className={`relative pt-4 sm:pt-6 lg:pt-8 ${sectionSpacing}`}>
+        <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
               {/* Left Content */}
@@ -220,86 +257,11 @@ export default function Chat() {
         </section>
 
         {/* Three Chat Modes Section */}
-        <section className="py-8 sm:py-10 lg:py-12 bg-white border-y border-slate-200/50 relative overflow-hidden z-0">
+        <section className="pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20 bg-white border-y border-slate-200/50 relative overflow-hidden z-0">
           {/* Subtle background glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-purple-500/5 to-transparent blur-3xl -z-10 pointer-events-none" />
 
-          {/* Precise 45-Degree Circuit Background mimicking reference image on White (No curves) */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-60 pointer-events-none select-none overflow-hidden -z-10">
-            <svg className="w-full h-full" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 800">
-              <defs>
-                <linearGradient id="traceGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#a855f7" stopOpacity="0" />
-                  <stop offset="25%" stopColor="#0f172a" stopOpacity="0.5" />
-                  <stop offset="50%" stopColor="#7e22ce" stopOpacity="0.8" />
-                  <stop offset="75%" stopColor="#0f172a" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
-                </linearGradient>
-              </defs>
 
-              {/* Left Side Traces */}
-              <motion.path
-                d="M -50 700 H 80 L 160 620 V 220 L 280 100 H 600"
-                stroke="url(#traceGradient)" strokeWidth="1.5" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 4.5, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M 40 900 V 780 L 180 640 V 300 L 320 160 H 600"
-                stroke="url(#traceGradient)" strokeWidth="1" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 5.5, ease: "easeInOut", delay: 0.5, repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M -50 400 H 50 L 100 350 V 250 L 200 150 H 400"
-                stroke="url(#traceGradient)" strokeWidth="0.8" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 4, ease: "easeInOut", delay: 1.2, repeat: Infinity, repeatType: "mirror" }}
-              />
-
-              {/* Right Side Traces */}
-              <motion.path
-                d="M 1490 700 H 1360 L 1280 620 V 220 L 1160 100 H 840"
-                stroke="url(#traceGradient)" strokeWidth="1.5" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 5, ease: "easeInOut", delay: 0.2, repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M 1400 900 V 750 L 1260 610 V 280 L 1120 140 H 840"
-                stroke="url(#traceGradient)" strokeWidth="1" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 6, ease: "easeInOut", delay: 0.8, repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M 1490 450 H 1380 L 1320 390 V 280 L 1220 180 H 1000"
-                stroke="url(#traceGradient)" strokeWidth="0.8" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 4.5, ease: "easeInOut", delay: 1.5, repeat: Infinity, repeatType: "mirror" }}
-              />
-              
-              {/* Center Background Trace Elements */}
-              <motion.path
-                d="M 450 800 V 750 L 520 680 H 650"
-                stroke="url(#traceGradient)" strokeWidth="1" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 3.5, ease: "easeInOut", delay: 2, repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M 990 800 V 750 L 920 680 H 790"
-                stroke="url(#traceGradient)" strokeWidth="1" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 3.5, ease: "easeInOut", delay: 2.5, repeat: Infinity, repeatType: "mirror" }}
-              />
-            </svg>
-          </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 lg:mb-12">
@@ -329,16 +291,19 @@ export default function Chat() {
               </motion.p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-5 sm:gap-6 relative z-10 max-w-6xl mx-auto">
+            <div
+              className="grid lg:grid-cols-3 gap-6 lg:gap-8 relative z-10 max-w-6xl mx-auto"
+              style={{ perspective: '1200px' }}
+            >
               {/* 1. Group Chat */}
-              <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-xl shadow-slate-200/40 relative overflow-hidden group hover:-translate-y-1 hover:border-purple-200 hover:shadow-purple-900/10 transition-all duration-300 cursor-default">
+              <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
                 <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
 
-                <div className="relative z-10 w-10 h-10 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center mb-4 text-emerald-600">
-                  <Users className="w-5 h-5" />
+                <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white text-emerald-600">
+                  <Users className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2">Group Chat</h3>
-                <p className="relative z-10 text-sm text-slate-600 font-medium mb-4 min-h-0 sm:min-h-[40px]">"Collaborate with your entire team in real time"</p>
+                <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">Group Chat</h3>
+                <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">"Collaborate with your entire team in real time"</p>
                 <div className="relative z-10 space-y-2.5">
                   {["Team discussions", "File sharing", "Mentions & threads", "Instant updates"].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
@@ -349,17 +314,17 @@ export default function Chat() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </TiltCard>
 
               {/* 2. Personal Chat */}
-              <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-xl shadow-slate-200/40 relative overflow-hidden group hover:-translate-y-1 hover:border-purple-200 hover:shadow-purple-900/10 transition-all duration-300 cursor-default">
+              <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
                 <div className="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
 
-                <div className="relative z-10 w-10 h-10 rounded-xl bg-blue-100 border border-blue-200 flex items-center justify-center mb-4 text-blue-600">
-                  <MessageSquare className="w-5 h-5" />
+                <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-100 border border-blue-200 flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white text-blue-600">
+                  <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2">Personal Chat</h3>
-                <p className="relative z-10 text-sm text-slate-600 font-medium mb-4 min-h-0 sm:min-h-[40px]">"Quick 1:1 conversations without noise"</p>
+                <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">Personal Chat</h3>
+                <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">"Quick 1:1 conversations without noise"</p>
                 <div className="relative z-10 space-y-2.5">
                   {["Direct messaging", "Fast decision-making", "Private discussions"].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
@@ -370,17 +335,17 @@ export default function Chat() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </TiltCard>
 
               {/* 3. Project-Based Chat */}
-              <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-xl shadow-slate-200/40 relative overflow-hidden group hover:-translate-y-1 hover:border-purple-200 hover:shadow-purple-900/10 transition-all duration-300 cursor-default">
+              <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
                 <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
 
-                <div className="relative z-10 w-10 h-10 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center mb-4 text-purple-600">
-                  <Hash className="w-5 h-5" />
+                <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white text-purple-600">
+                  <Hash className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2">Project-Based Chat</h3>
-                <p className="relative z-10 text-sm text-slate-600 font-medium mb-4 min-h-0 sm:min-h-[40px]">"Every project gets its own conversation space"</p>
+                <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">Project-Based Chat</h3>
+                <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">"Every project gets its own conversation space"</p>
                 <div className="relative z-10 space-y-2.5">
                   {["Chat inside projects", "Context never lost", "Link tasks, files, updates"].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
@@ -391,7 +356,7 @@ export default function Chat() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </TiltCard>
 
             </div>
           </div>
@@ -405,69 +370,7 @@ export default function Chat() {
 
         {/* AI Agent Section */}
         <section className={`${sectionSpacing} relative bg-slate-950 overflow-hidden w-full`}>
-          {/* Animated Cyber/Circuit Background mimicking reference image */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none select-none overflow-hidden">
-            <svg className="w-full h-full" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="circuitGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#a855f7" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#d946ef" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#d946ef" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              {/* Left side traces */}
-              <motion.path
-                d="M 100 -50 V 200 L 150 250 V 600 L 100 650 V 1000"
-                stroke="url(#circuitGlow)" strokeWidth="1" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 4, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M 180 -50 V 250 L 230 300 V 500 L 180 550 V 1000"
-                stroke="url(#circuitGlow)" strokeWidth="0.8" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 5.5, ease: "easeInOut", delay: 1.2, repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M 250 -50 V 150 L 200 200 V 450 L 300 550 V 1000"
-                stroke="url(#circuitGlow)" strokeWidth="1.5" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 5, ease: "easeInOut", delay: 0.5, repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M 400 -50 V 350 L 350 400 V 700 L 450 800 V 1000"
-                stroke="url(#circuitGlow)" strokeWidth="0.5" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 6, ease: "easeInOut", delay: 2, repeat: Infinity, repeatType: "mirror" }}
-              />
-              {/* Right side traces */}
-              <motion.path
-                d="M 950 -50 V 200 L 900 250 V 550 L 1000 650 V 1000"
-                stroke="url(#circuitGlow)" strokeWidth="0.7" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 4.8, ease: "easeInOut", delay: 0.8, repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M 1100 -50 V 300 L 1150 350 V 600 L 1050 700 V 1000"
-                stroke="url(#circuitGlow)" strokeWidth="1" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 4.5, ease: "easeInOut", delay: 1, repeat: Infinity, repeatType: "mirror" }}
-              />
-              <motion.path
-                d="M 1300 -50 V 100 L 1200 200 V 550 L 1350 700 V 1000"
-                stroke="url(#circuitGlow)" strokeWidth="1.5" fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 6, ease: "easeInOut", delay: 0.2, repeat: Infinity, repeatType: "mirror" }}
-              />
-            </svg>
-          </div>
+
 
           {/* Floating Violet Orbs */}
           <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-600/20 blur-[130px] rounded-full mix-blend-screen pointer-events-none" />
@@ -568,7 +471,7 @@ export default function Chat() {
           description="Communicate seamlessly within your tasks, documents, and workflows—so you never lose context."
           image={chatImg}
           imageAlt="KaryaUp Chat Interface"
-          containerClassName="mt-8 sm:mt-10 lg:mt-12"
+          containerClassName="mt-12 sm:mt-16 lg:mt-20"
           paddingClassName="p-3 pt-6 sm:p-4 lg:p-4 lg:py-6"
         />
       </div>

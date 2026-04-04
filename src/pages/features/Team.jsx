@@ -63,7 +63,7 @@ export default function Team() {
         description="Empower your people with the right tools, clear roles, and perfect workload balance."
         image={TeamImg}
         imageAlt="KaryaUp Team Management"
-        containerClassName="mt-10 mb-20"
+        containerClassName="mt-0"
         imageOuterClassName="relative w-full translate-x-0 ml-auto"
         imageClassName="w-[90%] lg:w-[100%] -translate-x-4 lg:translate-x-0 ml-auto"
       />

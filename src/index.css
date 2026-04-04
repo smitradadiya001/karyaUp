@@ -188,10 +188,15 @@ html {
   }
 
   .btn-glow-pill {
-    @apply relative border-[3px] border-[#0a0a0a] rounded-full shadow-[0_10px_40px_rgba(217, 70, 239, 0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_15px_50px_rgba(217, 70, 239, 0.7)] active:scale-95 flex-shrink-0 inline-flex items-center justify-center z-10;
+    @apply relative border-[3px] border-[#0a0a0a] rounded-full transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex-shrink-0 inline-flex items-center justify-center z-10;
     background: linear-gradient(90deg, #6d28d9 0%, #d946ef 50%, #c084fc 80%, #6d28d9 100%);
     background-size: 200% auto;
     animation: gradient-move 4s linear infinite;
+    box-shadow: 0 10px 40px rgba(217, 70, 239, 0.5);
+  }
+
+  .btn-glow-pill:hover {
+    box-shadow: 0 15px 50px rgba(217, 70, 239, 0.7);
   }
 
   .btn-glow-pill::after {
@@ -244,7 +249,12 @@ html {
   }
 
   .glass-card-premium {
-    @apply relative overflow-hidden backdrop-blur-2xl bg-white/40 border border-white/50 rounded-3xl shadow-[0_20px_50px_rgba(0, 0, 0, 0.05)] transition-all duration-500 hover:bg-white/60 hover:shadow-[0_30px_70px_rgba(0, 0, 0, 0.08)];
+    @apply relative overflow-hidden backdrop-blur-2xl bg-white/40 border border-white/50 rounded-3xl transition-all duration-500 hover:bg-white/60;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  }
+
+  .glass-card-premium:hover {
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.08);
   }
 
   .badge-glass-multicolor {

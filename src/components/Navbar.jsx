@@ -336,9 +336,9 @@ const Navbar = () => {
         ? "bg-white md:shadow-md border-b border-gray-100"
         : isOpen
           ? "bg-white border-b border-slate-100"
-        : isScrolled
-          ? "bg-white md:bg-white/70 md:backdrop-blur-md md:shadow-sm md:border-b md:border-slate-200/70"
-          : "bg-transparent border-b border-transparent shadow-none backdrop-blur-0"
+          : isScrolled
+            ? "bg-white md:bg-white/70 md:backdrop-blur-md md:shadow-sm md:border-b md:border-slate-200/70"
+            : "bg-transparent border-b border-transparent shadow-none backdrop-blur-0"
         }`}
     >
       <div className="max-w-full mx-auto px-4 lg:px-4">
@@ -370,7 +370,7 @@ const Navbar = () => {
                       <div className="absolute -top-1 w-2 h-2 bg-slate-900 border-t border-l border-slate-800 rotate-45 left-6" />
                       <p className="text-[13px] font-medium text-white leading-snug">
                         <span className="text-purple-400 font-bold tracking-tight block mb-0.5">KaryaUp</span>
-                        From Sanskrit word<br/> <span className="italic opacity-90">“कार्य   ”</span> meaning action <br /> or work.
+                        From Sanskrit word<br /> <span className="italic opacity-90">“कार्य   ”</span> meaning action <br /> or work.
                       </p>
                     </div>
                   </motion.div>
@@ -455,9 +455,8 @@ const Navbar = () => {
                       {featuresMegaSections.map((section, index) => (
                         <div
                           key={section.heading}
-                          className={`px-7 py-3 flex flex-col min-h-[240px] ${
-                            index % 2 === 0 ? "bg-white" : "bg-slate-50"
-                          } ${index !== featuresMegaSections.length - 1 ? "border-r border-slate-200/80" : ""}`}
+                          className={`px-7 py-3 flex flex-col min-h-[240px] ${index % 2 === 0 ? "bg-white" : "bg-slate-50"
+                            } ${index !== featuresMegaSections.length - 1 ? "border-r border-slate-200/80" : ""}`}
                         >
                           <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-3">
                             {section.heading}
@@ -468,9 +467,8 @@ const Navbar = () => {
                                 key={item.to}
                                 to={item.to}
                                 onClick={closeAllMenus}
-                                className={`group flex items-center gap-3 py-1.5 px-3 rounded-xl transition-all ${
-                                  "hover:bg-white hover:shadow-md"
-                                }`}
+                                className={`group flex items-center gap-3 py-1.5 px-3 rounded-xl transition-all ${"hover:bg-white hover:shadow-md"
+                                  }`}
                               >
                                 <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-slate-600"} />
                                 <div className="flex flex-col">
@@ -710,11 +708,10 @@ const Navbar = () => {
                   {mobileOpenSection === item.label && (
                     <div className="px-3 pb-3">
                       <div
-                        className={`rounded-xl bg-slate-50 border border-slate-100 overflow-hidden ${
-                          item.label === "Features" || item.label === "Solutions"
+                        className={`rounded-xl bg-slate-50 border border-slate-100 overflow-hidden ${item.label === "Features" || item.label === "Solutions"
                             ? "max-h-[320px] overflow-y-auto overscroll-contain"
                             : ""
-                        }`}
+                          }`}
                       >
                         {(mobileMenuSections[item.label] || []).map((subItem) => (
                           <Link

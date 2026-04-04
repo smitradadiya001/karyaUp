@@ -163,7 +163,7 @@ export default function Dashboards() {
       </Helmet>
     <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
       {/* Hero Section */}
-      <section className="relative pt-4 sm:pt-6">
+      <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
             {/* Left Content */}
@@ -244,7 +244,7 @@ export default function Dashboards() {
       </section>
 
       {/* Role-Based Dashboards Section */}
-      <section ref={container} className="bg-white mt-12 sm:mt-16 lg:mt-24 overflow-hidden">
+      <section ref={container} className="bg-white pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12 text-center">
           <motion.div
             initial={{ opacity: 0, x: isMobile ? 0 : -30 }}
@@ -321,7 +321,7 @@ export default function Dashboards() {
         description="Monitor your entire business from a single source of truth—whether you're tracking sales, projects, or team performance."
         image={dashboardImg2}
         imageAlt="KaryaUp Dashboard Interface"
-        containerClassName="mt-12 sm:mt-16 lg:mt-24"
+        containerClassName="mt-0"
       />
       </div>
       </ReactLenis>

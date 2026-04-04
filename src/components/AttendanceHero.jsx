@@ -14,7 +14,7 @@ export default function AttendanceHero() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-white pt-8 sm:pt-10 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
+    <section className="relative w-full overflow-hidden bg-white pt-8 sm:pt-10 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
       <div className="absolute top-0 right-0 -z-10 h-[600px] w-[600px] translate-x-1/4 -translate-y-1/2 rounded-full bg-purple-100/60 blur-[120px]" />
       <div className="absolute bottom-0 left-0 -z-10 h-[500px] w-[500px] -translate-x-1/4 translate-y-1/2 rounded-full bg-fuchsia-100/40 blur-[100px]" />
 

@@ -147,7 +147,7 @@ export default function CalendarPage() {
           buttonText="Start Scheduling"
           image={calenderImg}
           imageAlt="Calendar Workspace"
-          containerClassName="mt-10 sm:mt-16 mb-10 sm:mb-16"
+          containerClassName="mt-0"
           paddingClassName="p-3 pt-5 sm:p-4 lg:p-8"
           imageClassName="w-full max-w-[760px] mx-auto"
           imageOuterClassName="relative flex w-full max-w-[300px] items-center justify-center mx-auto -translate-x-2 sm:w-[102%] sm:max-w-none sm:translate-x-0 lg:w-[88%] lg:translate-x-3"

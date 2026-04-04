@@ -23,9 +23,7 @@ const scanSteps = [
 
 const attendanceRows = [
   { name: "Arjun Jetti", team: "Design", punchIn: "09:02 AM", status: "On Time" },
-  { name: "Sara Khan", team: "QA", punchIn: "09:11 AM", status: "Late" },
-  { name: "Rahul Mehta", team: "Engineering", punchIn: "08:56 AM", status: "On Time" },
-  { name: "Priya Nair", team: "Marketing", punchIn: "--", status: "Absent" },
+  { name: "Sara Khan", team: "QA", punchIn: "--", status: "Late" },
 ];
 
 export default function Attendance() {
@@ -69,14 +67,14 @@ export default function Attendance() {
     <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
       <AttendanceHero />
 
-      <section className="relative overflow-hidden pb-8">
+      <section className="relative overflow-hidden pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[2.5rem] border border-white/5 bg-black shadow-[0_30px_90px_-45px_rgba(15,23,42,0.45)]">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(168,85,247,0.38),transparent_48%)] pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(236,72,153,0.12),transparent_40%)] pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(126,34,206,0.14),transparent_35%)] pointer-events-none" />
             <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
-              <div className="relative border-b border-white/10 bg-transparent px-7 py-8 sm:px-10 lg:border-b-0 lg:border-r lg:border-white/10">
+              <div className="relative border-b border-white/10 bg-transparent px-6 py-6 sm:px-8 sm:py-8 lg:border-b-0 lg:border-r lg:border-white/10">
                 <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 rounded-full bg-purple-600/20 blur-[70px]" />
                 <div className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 rounded-full bg-fuchsia-600/20 blur-[70px]" />
 
@@ -92,20 +90,18 @@ export default function Attendance() {
                     Face Attendance
                   </div>
 
-                  <h2 className="mt-5 text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl">
+                  <h2 className="mt-4 text-3xl font-black leading-[1.08] tracking-tight text-white sm:text-4xl lg:text-5xl">
                     Scan. Verify.
-                    <span className="mt-2 block bg-gradient-to-r from-[#7e22ce] via-fuchsia-400 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent">
+                    <span className="mt-1 sm:mt-2 block bg-gradient-to-r from-[#7e22ce] via-fuchsia-400 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent">
                       Punch In Instantly.
                     </span>
                   </h2>
 
-                  <p className="mt-5 max-w-xl text-base font-medium leading-relaxed text-slate-400 sm:text-lg">
-                    Team members can scan their face before punch in or punch out,
-                    giving you faster attendance capture with verified identity and
-                    cleaner records for payroll.
+                  <p className="mt-3 max-w-md text-sm font-medium leading-relaxed text-slate-400">
+                    Fast attendance capture with verified identity and cleaner records for payroll.
                   </p>
 
-                  <div className="mt-8 space-y-3.5 w-full max-w-xl mx-auto">
+                  <div className="mt-5 space-y-2.5 w-full max-w-xl mx-auto">
                     {scanSteps.map((item, index) => (
                       <motion.div
                         key={item}
@@ -115,15 +111,15 @@ export default function Attendance() {
                         transition={{ duration: 0.45, delay: index * 0.08 }}
                         className="flex items-start justify-center gap-3 text-left lg:justify-start"
                       >
-                        <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-purple-500/15 text-purple-300">
-                          <Check className="h-3.5 w-3.5" />
+                        <div className="mt-[3px] flex h-5 w-5 items-center justify-center rounded-full bg-purple-500/15 text-purple-300">
+                          <Check className="h-3 w-3" />
                         </div>
-                        <span className="font-medium text-slate-400">{item}</span>
+                        <span className="text-sm font-medium text-slate-400">{item}</span>
                       </motion.div>
                     ))}
                   </div>
 
-                  <div className="mt-10 flex max-w-md flex-col items-center gap-4 rounded-[2rem] border border-purple-900/40 bg-slate-900/70 p-5 text-center shadow-lg shadow-purple-950/20 mx-auto sm:flex-row sm:text-left lg:mx-0">
+                  <div className="mt-6 flex max-w-md flex-col items-center gap-4 rounded-[1.5rem] border border-purple-900/40 bg-slate-900/70 p-4 text-center shadow-lg shadow-purple-950/20 mx-auto sm:flex-row sm:text-left lg:mx-0">
                     <div className="relative flex h-28 w-24 shrink-0 items-center justify-center rounded-[1.5rem] border border-purple-500/25 bg-black/50">
                       <motion.div
                         animate={{ scale: [0.96, 1.04, 0.96], opacity: [0.35, 0.75, 0.35] }}
@@ -164,7 +160,7 @@ export default function Attendance() {
                 </motion.div>
               </div>
 
-              <div className="relative bg-transparent px-7 py-8 sm:px-10">
+              <div className="relative bg-transparent px-6 py-6 sm:px-8 sm:py-8">
                 <motion.div
                   initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -177,15 +173,13 @@ export default function Attendance() {
                     Boss Dashboard
                   </div>
 
-                  <div className="mt-5 flex flex-col gap-4 items-center text-center sm:flex-row sm:items-end sm:justify-between sm:text-left w-full">
+                  <div className="mt-5 flex flex-col gap-3 items-center text-center sm:flex-row sm:items-end sm:justify-between sm:text-left w-full">
                     <div>
-                      <h3 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
+                      <h3 className="text-2xl font-black tracking-tight text-white sm:text-3xl lg:text-4xl">
                         All Employee Attendance In One Export-Ready View.
                       </h3>
-                      <p className="mt-3 max-w-2xl text-base font-medium leading-relaxed text-slate-400">
-                        Managers can view daily attendance across the whole team,
-                        filter who is on time, late, or absent, and download the
-                        full list as CSV whenever they need it.
+                      <p className="mt-2 max-w-md text-sm font-medium leading-relaxed text-slate-400">
+                        View daily attendance, filter who is on time or absent, and download the full CSV.
                       </p>
                     </div>
 
@@ -199,7 +193,7 @@ export default function Attendance() {
                     </motion.div>
                   </div>
 
-                  <div className="mt-8 overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/65 shadow-inner">
+                  <div className="mt-6 overflow-hidden rounded-[1.25rem] border border-white/10 bg-slate-950/65 shadow-inner">
                     <div className="flex items-center justify-between border-b border-white/10 bg-slate-900/80 px-5 py-4">
                       <div>
                         <div className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">
@@ -285,7 +279,7 @@ export default function Attendance() {
         description="Register faces once, let employees punch in and punch out faster, and give managers one attendance screen for filters, logs, notifications, and CSV exports."
         image={attendanceImg}
         imageAlt="KaryaUp attendance dashboard"
-        containerClassName="mt-10 mb-8"
+        containerClassName="mt-0"
         paddingClassName="p-3 lg:p-4 lg:py-6"
         imageClassName="w-full max-w-[940px]"
         imageOuterClassName="relative w-[92%] lg:w-full mx-auto lg:mx-0 translate-x-0 lg:translate-x-8"

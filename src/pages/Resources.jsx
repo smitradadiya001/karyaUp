@@ -1,31 +1,122 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link, useParams } from "react-router-dom";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { ArrowRight, Sparkles, CheckCircle2, PlayCircle, BookOpen, MessageSquare } from "lucide-react";
+
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [10, -10]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-10, 10]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1200 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={className}
+    >
+      <div style={{ transform: 'translateZ(20px)' }} className="h-full flex flex-col">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
 
 const SubPageLayout = ({ title, subtitle, badge, children }) => (
-  <div className="min-h-screen bg-white pt-28 pb-20">
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      {badge && (
-        <span className="inline-block mb-4 px-3 py-1 text-xs font-bold tracking-widest uppercase rounded-full bg-violet-100 text-violet-700">
-          {badge}
-        </span>
-      )}
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
-        {title}
-      </h1>
-      <p className="text-lg text-gray-500 mb-12 max-w-2xl">{subtitle}</p>
+  <div className="min-h-screen bg-white pt-28 md:pt-32 pb-20 relative overflow-hidden text-slate-900">
+    {/* Ambient Background Glows */}
+    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-violet-100/40 rounded-full blur-[120px] -z-10 animate-pulse" />
+    <div className="absolute bottom-1/2 right-1/4 w-[400px] h-[400px] bg-indigo-100/30 rounded-full blur-[100px] -z-10" />
+
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl">
+        {badge && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 text-[11px] font-black tracking-widest uppercase rounded-full bg-violet-100 border border-violet-200 text-violet-700 shadow-sm"
+          >
+            {badge}
+          </motion.div>
+        )}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.06] mb-6"
+        >
+          {title.split(" ").map((word, i) => (
+            <React.Fragment key={i}>
+              {word === "KaryaUp" ? (
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-indigo-500 to-violet-600 bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  {word}
+                </motion.span>
+              ) : (
+                word
+              )}{" "}
+            </React.Fragment>
+          ))}
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+          className="text-lg sm:text-xl text-slate-500 font-medium mb-16 max-w-2xl leading-relaxed"
+        >
+          {subtitle}
+        </motion.p>
+      </div>
       {children}
     </div>
   </div>
 );
 
 const ArticleCard = ({ icon, title, desc, to, tag }) => (
-  <Link to={to} className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow block">
-    <div className="flex items-center justify-between mb-3">
-      <span className="text-2xl">{icon}</span>
-      {tag && <span className="text-xs font-bold bg-violet-100 text-violet-700 px-2 py-0.5 rounded-full">{tag}</span>}
-    </div>
-    <h3 className="text-lg font-bold text-gray-900 group-hover:text-violet-700 mb-2">{title}</h3>
-    <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+  <Link key={title} to={to} className="group relative block h-full">
+    <TiltCard className="group relative pt-10 pb-10 px-8 sm:px-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm transition-all duration-300 hover:border-violet-200/50 hover:shadow-xl h-full flex flex-col">
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex-shrink-0 w-14 h-14 flex items-center justify-center rounded-2xl bg-violet-50 text-violet-600 group-hover:bg-violet-600 group-hover:text-white transition-all duration-300 group-hover:scale-110 shadow-sm ring-1 ring-violet-100/50">
+          <span className="text-2xl filter group-hover:brightness-105 transition-all">{icon}</span>
+        </div>
+        {tag && (
+          <span className="text-[10px] font-black uppercase tracking-widest bg-violet-50 text-violet-600 px-3 py-1.5 rounded-full border border-violet-100 group-hover:bg-violet-100 transition-colors">
+            {tag}
+          </span>
+        )}
+      </div>
+      <h3 className="text-xl font-black text-slate-900 group-hover:text-violet-700 mb-3 transition-colors leading-snug">
+        {title}
+      </h3>
+      <p className="text-slate-500 text-sm sm:text-base font-medium leading-relaxed mb-8 flex-grow">
+        {desc}
+      </p>
+      <div className="mt-auto flex items-center gap-1.5 text-slate-400 text-xs font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0">
+        Read Article <ArrowRight size={12} />
+      </div>
+    </TiltCard>
   </Link>
 );
 
@@ -66,19 +157,34 @@ const sections = {
     title: "Live Demo",
     subtitle: "See KaryaUp in action with an interactive demo tailored to your team's needs.",
     content: (
-      <div className="text-center py-16 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-2xl border border-violet-100">
-        <div className="text-6xl mb-6">🖥️</div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-3">Book a Live Demo</h3>
-        <p className="text-gray-500 mb-2 max-w-md mx-auto">Get a personalized walkthrough of KaryaUp with one of our product specialists. We'll tailor it to your team's specific workflow and answer all your questions.</p>
-        <p className="text-sm text-violet-600 font-medium mb-8">30-minute sessions available Monday–Friday, 9am–6pm IST</p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to="/book-demo" className="inline-block bg-violet-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-violet-700 transition-colors">
-            Book a Demo
-          </Link>
-          <Link to="/resources/tutorials" className="inline-block border border-gray-300 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-colors">
-            Watch Video Tutorials
-          </Link>
-        </div>
+      <div className="relative mt-8 sm:mt-12">
+        <motion.div className="max-w-6xl mx-auto rounded-[2.5rem] sm:rounded-[4rem] p-10 sm:p-20 relative overflow-hidden text-center shadow-[0_40px_100px_-24px_rgba(124,58,237,0.3)] border border-violet-100/20">
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-indigo-600 to-violet-700" />
+          <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
+            <motion.div
+              animate={{ x: [0, 100, -50], y: [0, -50, 100], scale: [1, 1.3, 0.9] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-fuchsia-500 rounded-full blur-[120px]"
+            />
+          </div>
+          <div className="relative z-10">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-[2rem] border border-white/20 backdrop-blur-xl mb-8 shadow-2xl">
+              <PlayCircle size={40} className="text-white" />
+            </div>
+            <h3 className="text-3xl sm:text-5xl font-black text-white mb-6 tracking-tight">Book a Live Demo</h3>
+            <p className="text-white/80 font-medium text-lg sm:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+              Get a personalized walkthrough of KaryaUp with one of our product specialists. We'll tailor it to your team's specific workflow.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Link to="/book-demo" className="group flex h-[3.4em] min-w-[14em] items-center justify-center rounded-[30em] bg-white font-black text-[15px] sm:text-[16px] text-violet-700 shadow-xl transition-all duration-300 active:scale-95">
+                <span className="flex items-center gap-2">Schedule Session <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" /></span>
+              </Link>
+              <Link to="/resources/tutorials" className="group flex h-[3.4em] min-w-[14em] items-center justify-center rounded-[30em] bg-violet-600/50 border border-white/30 font-black text-[15px] sm:text-[16px] text-white backdrop-blur-md shadow-xl transition-all duration-300 hover:bg-violet-600 active:scale-95">
+                <span className="flex items-center gap-2">Watch Tutorials <PlayCircle size={18} /></span>
+              </Link>
+            </div>
+          </div>
+        </motion.div>
       </div>
     ),
   },
@@ -96,17 +202,22 @@ const sections = {
           { emoji: "▶️", title: "Building Automations", duration: "14:02", level: "Advanced", desc: "Build no-code automations that run your team's repetitive workflows automatically." },
           { emoji: "▶️", title: "Admin & Permissions Guide", duration: "7:18", level: "Admin", desc: "How to configure workspace permissions, roles, SSO, and security settings." },
         ].map((v) => (
-          <div key={v.title} className="bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
-            <div className="bg-violet-100 flex items-center justify-center h-32 text-5xl">{v.emoji}</div>
-            <div className="p-5">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-bold bg-violet-100 text-violet-700 px-2 py-0.5 rounded-full">{v.level}</span>
-                <span className="text-xs text-gray-400">{v.duration}</span>
-              </div>
-              <h3 className="font-bold text-gray-900 mb-1">{v.title}</h3>
-              <p className="text-sm text-gray-500">{v.desc}</p>
+          <TiltCard key={v.title} className="group relative rounded-[2.5rem] bg-white border border-slate-100 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-violet-200">
+            <div className="bg-violet-100/50 flex items-center justify-center h-48 text-6xl group-hover:bg-violet-100 transition-colors relative h-[240px]">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5" />
+              <PlayCircle size={64} className="text-violet-600 group-hover:scale-110 transition-transform drop-shadow-xl" strokeWidth={1} />
             </div>
-          </div>
+            <div className="p-8 sm:p-10">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-[10px] font-black uppercase tracking-[0.15em] bg-violet-100 text-violet-700 px-3 py-1.5 rounded-full border border-violet-200">{v.level}</span>
+                <span className="text-xs font-bold text-slate-400 flex items-center gap-1">
+                  <Sparkles size={12} /> {v.duration}
+                </span>
+              </div>
+              <h3 className="text-xl font-black text-slate-900 group-hover:text-violet-700 transition-colors mb-3">{v.title}</h3>
+              <p className="text-sm text-slate-500 font-medium leading-relaxed">{v.desc}</p>
+            </div>
+          </TiltCard>
         ))}
       </div>
     ),
@@ -128,12 +239,16 @@ export default function Resources() {
     return (
       <SubPageLayout badge={section.badge} title={section.title} subtitle={section.subtitle}>
         {section.content}
-        <div className="mt-12 pt-10 border-t border-gray-100">
-          <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-6">More Resources</h3>
-          <div className="flex flex-wrap gap-3">
+        <div className="mt-20 pt-10 border-t border-slate-100">
+          <div className="flex items-center gap-4 mb-10">
+            <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">More Resources</h3>
+            <div className="h-px flex-1 bg-slate-100" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {allResources.filter(r => !r.to.endsWith(`/${page}`)).map((r) => (
-              <Link key={r.to} to={r.to} className="flex items-center gap-2 text-sm text-slate-700 hover:text-primary font-medium bg-gray-50 px-4 py-2 rounded-lg hover:bg-gray-100 border border-gray-100">
-                <span>{r.icon}</span> {r.label}
+              <Link key={r.to} to={r.to} className="group flex items-center gap-3 text-sm text-slate-600 hover:text-violet-700 font-black bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100 hover:border-violet-200 hover:bg-violet-50/50 hover:shadow-sm transition-all">
+                <span className="text-xl group-hover:scale-110 transition-transform">{r.icon}</span> 
+                {r.label}
               </Link>
             ))}
           </div>
@@ -144,11 +259,20 @@ export default function Resources() {
 
   return (
     <SubPageLayout badge="Resources" title="Resources" subtitle="Everything you need to learn, grow, and get the most out of KaryaUp.">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {allResources.map((r) => (
-          <Link key={r.to} to={r.to} className="group flex items-center gap-4 bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md hover:border-violet-200 transition-all">
-            <span className="text-3xl">{r.icon}</span>
-            <span className="font-semibold text-gray-900 group-hover:text-violet-700 text-lg">{r.label}</span>
+          <Link key={r.to} to={r.to} className="group relative">
+            <TiltCard className="rounded-[2.5rem] bg-white border border-slate-100 p-8 shadow-sm transition-all duration-300 hover:border-violet-200/50 hover:shadow-xl h-full">
+              <div className="flex flex-col h-full">
+                <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-violet-50 text-3xl group-hover:scale-110 group-hover:bg-violet-600 group-hover:text-white transition-all duration-300 shadow-sm ring-1 ring-violet-100/50 mb-8">
+                  {r.icon}
+                </div>
+                <h3 className="text-xl font-black text-slate-900 group-hover:text-violet-700 transition-colors mb-2">{r.label}</h3>
+                <span className="flex items-center gap-1.5 text-slate-400 text-[10px] font-black uppercase tracking-wider mt-auto opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0">
+                  Dive In <ArrowRight size={12} />
+                </span>
+              </div>
+            </TiltCard>
           </Link>
         ))}
       </div>

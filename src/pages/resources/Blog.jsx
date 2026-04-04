@@ -233,7 +233,9 @@ const PostRow = ({ article, onClick }) => {
 };
 
 
-const ArticleDetail = ({ article, onBack }) => {
+const ArticleDetail = ({ article, onBack, onOpenArticle }) => {
+  const currentIndex = articles.findIndex((a) => a.id === article.id);
+  const nextArticle = articles[(currentIndex + 1) % articles.length];
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [article]);
@@ -245,20 +247,9 @@ const ArticleDetail = ({ article, onBack }) => {
       exit={{ opacity: 0 }}
       className="bg-white min-h-screen pb-32 relative"
     >
-      {/* Minimalist Header */}
-      <div className="border-b border-slate-100 sticky top-0 bg-white/90 backdrop-blur-xl z-50">
-        <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-start">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-2 text-[#0A2540] hover:text-[#7e22ce] transition-colors font-bold text-sm"
-          >
-            <ChevronLeft size={18} strokeWidth={3} />
-            Back to Blog
-          </button>
-        </div>
-      </div>
 
-      <div className="max-w-3xl mx-auto px-6 pt-20 relative z-10">
+
+      <div className="max-w-3xl mx-auto px-6 pt-28 md:pt-20 relative z-10">
         <div className="flex items-center gap-3 mb-8">
           <div className="w-1 h-4 bg-[#7e22ce] rounded-full" />
           <span className="text-[#7e22ce] text-[12px] font-black uppercase tracking-[0.2em]">
@@ -305,6 +296,58 @@ const ArticleDetail = ({ article, onBack }) => {
             prose-img:rounded-[32px] prose-img:shadow-xl"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
+
+        {/* --- Next Article Section --- */}
+        <div className="mt-24 pt-16 border-t border-slate-200">
+          <div className="flex items-center gap-3 mb-6 lg:mb-10">
+            <div className="w-1.5 h-6 bg-[#7e22ce] rounded-full" />
+            <h3 className="text-2xl md:text-3xl font-black text-[#0A2540] tracking-tight">
+              Read Next
+            </h3>
+          </div>
+          
+          <div 
+            onClick={() => onOpenArticle(nextArticle)}
+            className="group flex flex-col md:flex-row items-center gap-8 md:gap-12 cursor-pointer p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] bg-slate-50/50 hover:bg-slate-50 transition-colors border border-slate-100/50 hover:border-slate-200"
+          >
+            <div className="flex-1 text-left flex flex-col items-start">
+              <div className="text-[#7e22ce] text-[12px] md:text-[13px] font-black uppercase tracking-[0.2em] mb-3 md:mb-5">
+                {nextArticle.category}
+              </div>
+              <h4 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0A2540] transition-colors leading-[1.1] tracking-tight mb-8">
+                {nextArticle.title}
+              </h4>
+
+              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-200 bg-white text-[#7e22ce] font-black text-[13px] uppercase tracking-widest shadow-sm group-hover:border-purple-200 group-hover:bg-purple-50 group-hover:shadow-md transition-all">
+                Read Next <ArrowRight size={16} strokeWidth={3} className="group-hover:translate-x-1.5 transition-transform" />
+              </div>
+            </div>
+            
+            <div className="w-full md:w-[280px] lg:w-[320px] shrink-0">
+              <div className="relative aspect-[16/9] md:aspect-[4/3] lg:aspect-video rounded-[24px] overflow-hidden bg-[#F6F9FC] shadow-sm group-hover:shadow-md transition-shadow">
+                {nextArticle.illustration ? (
+                  nextArticle.illustration
+                ) : (
+                  <img src={nextArticle.image} alt={nextArticle.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        {/* --- Back to Blog Footer --- */}
+        <div className="mt-12 mb-16 flex justify-center">
+          <button
+            onClick={onBack}
+            className="px-8 py-4 rounded-full bg-slate-50 border border-slate-200 text-[#0A2540] font-black tracking-widest text-[12px] uppercase hover:bg-slate-100 hover:border-slate-300 transition-all flex items-center gap-3 shadow-sm"
+          >
+            <ChevronLeft size={16} strokeWidth={3} />
+            Back to Blog
+          </button>
+        </div>
+
       </div>
     </motion.div>
   );
@@ -412,7 +455,7 @@ export default function Blog() {
   if (selectedArticle) {
     return (
       <AnimatePresence mode="wait">
-        <ArticleDetail article={selectedArticle} onBack={closeArticle} />
+        <ArticleDetail article={selectedArticle} onBack={closeArticle} onOpenArticle={openArticle} />
       </AnimatePresence>
     );
   }
@@ -455,7 +498,7 @@ export default function Blog() {
         />
       </Helmet>
       <div className="min-h-screen bg-white font-sans selection:bg-[#7e22ce] selection:text-white overflow-hidden">
-        <section className="relative min-h-screen pt-12 sm:pt-16 lg:pt-32 pb-2 lg:pb-2 overflow-hidden flex items-center">
+        <section className="relative min-h-screen pt-28 sm:pt-32 lg:pt-32 pb-2 lg:pb-2 overflow-hidden flex items-center">
           <div className="absolute top-0 right-0 -z-10 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
           <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
 

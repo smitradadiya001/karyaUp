@@ -45,7 +45,7 @@ export default function WatchDemo() {
   />
 </Helmet>
     <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
-      <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
+      <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
         <div className="absolute top-0 left-1/3 -z-10 h-[520px] w-[520px] rounded-full bg-purple-100/70 blur-[130px]" />
         <div className="absolute bottom-0 right-0 -z-10 h-[360px] w-[360px] rounded-full bg-fuchsia-100/60 blur-[110px]" />
 
@@ -156,7 +156,7 @@ export default function WatchDemo() {
         </div>
       </section>
 
-      <section className="py-8 sm:py-12 lg:py-16">
+      <section className="pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="rounded-[2rem] border border-slate-200 bg-slate-50/70 p-5 sm:p-8 lg:p-10">
             <div className="text-center max-w-3xl mx-auto">
@@ -199,7 +199,7 @@ export default function WatchDemo() {
         buttonText="Book full demo"
         image={demoPreview}
         imageAlt="KaryaUp demo walkthrough"
-        containerClassName="mt-6 mb-8"
+        containerClassName="mt-0"
         imageClassName="w-full max-w-[760px]"
         imageOuterClassName="relative w-full max-w-[320px] sm:max-w-[420px] lg:max-w-none lg:w-[86%] mx-auto lg:mx-0"
       />

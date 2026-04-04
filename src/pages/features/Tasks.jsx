@@ -1,16 +1,22 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Check, Sparkles, Activity } from "lucide-react";
 import Task2 from "../../assets/Task.webp";
 import AgentAssign from "../../assets/Agent-Assign.webp";
 import FeatureCTA from "../../components/FeatureCTA";
 import { Helmet } from "react-helmet-async";
 import FeatureStack from "../../components/FeatureStack";
-import { useState, useEffect } from "react";
 
 export default function Tasks() {
   const sectionSpacing = "py-12 sm:py-16 lg:py-20";
   const [isMobile, setIsMobile] = useState(false);
+
+  const agentSectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: agentSectionRef,
+    offset: ["start end", "end start"]
+  });
+  const listY = useTransform(scrollYProgress, [0, 1], ["5%", "-40%"]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -64,7 +70,7 @@ export default function Tasks() {
       <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
 
         {/* ── Hero ── */}
-        <section className={`relative pt-4 sm:pt-6 lg:pt-8 ${sectionSpacing}`}>
+        <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
 
@@ -142,116 +148,122 @@ export default function Tasks() {
         </section>
 
         {/* ── AI Agent ── */}
-        <section className={sectionSpacing}>
+        <section className="pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20" ref={agentSectionRef}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-5xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="border border-slate-200 rounded-2xl sm:rounded-3xl bg-white overflow-hidden"
-                style={{ boxShadow: "0 18px 50px -36px rgba(2,6,23,0.28)" }}
-              >
-                <div className="p-5 sm:p-8 lg:p-10 text-center lg:text-left">
-                  {/* Header */}
-                  <div className="flex items-center justify-center lg:justify-start gap-2 text-purple-700 font-black uppercase tracking-widest text-[10px] sm:text-xs">
-                    <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    AI Agent for Tasks
-                  </div>
-                  <h2 className="mt-4 sm:mt-5 text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 leading-tight tracking-tight">
-                    Prompt It. The Agent{" "}
-                    <br className="hidden sm:block" />
-                    <motion.span
-                      className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                      animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                    >
-                      Automates Everything.
-                    </motion.span>
-                  </h2>
-                  <p className="mt-2 text-sm sm:text-base text-slate-600 font-medium max-w-3xl mx-auto lg:mx-0 leading-relaxed">
-                    KaryaUp comes with an integrated agent that can take your prompt, break the work into tasks, assign owners,
-                    set priority + due dates, and keep progress updated — all inside your workspace.
-                  </p>
+              <div className="max-w-5xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  className="border border-slate-200 rounded-2xl sm:rounded-3xl bg-white overflow-hidden"
+                  style={{ boxShadow: "0 18px 50px -36px rgba(2,6,23,0.28)" }}
+                >
+                  <div className="p-5 sm:p-8 lg:p-10 text-center lg:text-left">
+                    {/* Header */}
+                    <div className="flex items-center justify-center lg:justify-start gap-2 text-purple-700 font-black uppercase tracking-widest text-[10px] sm:text-xs">
+                      <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      AI Agent for Tasks
+                    </div>
+                    <h2 className="mt-4 sm:mt-5 text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 leading-tight tracking-tight">
+                      Prompt It. The Agent{" "}
+                      <br className="hidden sm:block" />
+                      <motion.span
+                        className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                        animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                      >
+                        Automates Everything.
+                      </motion.span>
+                    </h2>
+                    <p className="mt-2 text-sm sm:text-base text-slate-600 font-medium max-w-3xl mx-auto lg:mx-0 leading-relaxed">
+                      KaryaUp comes with an integrated agent that can take your prompt, break the work into tasks, assign owners,
+                      set priority + due dates, and keep progress updated — all inside your workspace.
+                    </p>
 
-                  {/* Two-col layout */}
-                  <div className="mt-6 sm:mt-7 grid lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-stretch justify-items-center lg:justify-items-stretch">
+                    {/* Two-col layout */}
+                    <div className="mt-6 sm:mt-7 grid lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-stretch justify-items-center lg:justify-items-stretch">
 
-                    {/* Prompt panel / image */}
-                    <div className="lg:col-span-5 flex items-center justify-center w-full">
-                      <div className="relative h-[200px] sm:h-[300px] lg:h-[360px] w-fit max-w-full p-[2.5px] rounded-[1.25rem] sm:rounded-3xl overflow-hidden group mx-auto">
-                        <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--border-angle),#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#9400d3,#ff0000)] animate-[spin-border_4s_linear_infinite]" />
-                        <div className="relative h-full w-full rounded-[calc(1.25rem-2.5px)] sm:rounded-[calc(1.5rem-2.5px)] flex items-center justify-center p-0 z-10 overflow-hidden bg-white">
-                          <img
-                            src={AgentAssign}
-                            alt="AI Agent Workflow"
-                            className="w-full h-full object-cover mx-auto transform group-hover:scale-[1.03] transition-transform duration-500"
-                          />
+                      {/* Prompt panel / image */}
+                      <div className="lg:col-span-5 flex items-center justify-center w-full">
+                        <div className="relative h-[200px] sm:h-[300px] lg:h-[360px] w-fit max-w-full p-[2.5px] rounded-[1.25rem] sm:rounded-3xl overflow-hidden group mx-auto">
+                          <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--border-angle),#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#9400d3,#ff0000)] animate-[spin-border_4s_linear_infinite]" />
+                          <div className="relative h-full w-full rounded-[calc(1.25rem-2.5px)] sm:rounded-[calc(1.5rem-2.5px)] flex items-center justify-center p-0 z-10 overflow-hidden bg-white">
+                            <img
+                              src={AgentAssign}
+                              alt="AI Agent Workflow"
+                              className="w-full h-full object-cover mx-auto transform group-hover:scale-[1.03] transition-transform duration-500"
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Output panel */}
-                    <div className="lg:col-span-7 w-full">
-                      <div className="border border-slate-200 rounded-2xl sm:rounded-3xl bg-white overflow-hidden flex flex-col shadow-sm min-h-[300px] sm:min-h-[340px] lg:h-[360px] w-full max-w-[640px] mx-auto lg:max-w-none">
-                        <div className="px-4 py-3 sm:px-5 sm:py-4 border-b border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4 flex-shrink-0 bg-white text-center sm:text-left">
-                          <div className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-500">
-                            Generated tasks
+                      {/* Output panel */}
+                      <div className="lg:col-span-7 w-full">
+                        <div className="border border-slate-200 rounded-2xl sm:rounded-3xl bg-white overflow-hidden flex flex-col shadow-sm min-h-[300px] sm:min-h-[340px] lg:h-[360px] w-full max-w-[640px] mx-auto lg:max-w-none">
+                          <div className="px-4 py-3 sm:px-5 sm:py-4 border-b border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4 flex-shrink-0 bg-white/95 backdrop-blur-sm text-center sm:text-left relative z-10 shadow-[0_4px_15px_-5px_rgba(0,0,0,0.05)]">
+                            <div className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-500">
+                              Generated tasks
+                            </div>
+                            <div className="text-[10px] sm:text-xs font-semibold text-slate-400">Auto-assigned · Auto-dated</div>
                           </div>
-                          <div className="text-[10px] sm:text-xs font-semibold text-slate-400">Auto-assigned · Auto-dated</div>
-                        </div>
-                        <div className="p-3 sm:p-4 grid gap-2 sm:gap-3 overflow-y-auto overflow-x-hidden flex-1">
-                          {[
-                            { title: "Finalize landing page wireframe", owner: "Aisha", due: "Wed", pr: "High" },
-                            { title: "Implement landing page sections", owner: "Rahul", due: "Thu", pr: "High" },
-                            { title: "QA + cross-browser checks", owner: "Priya", due: "Fri", pr: "High" },
-                            { title: "Publish & verify analytics", owner: "Rahul", due: "Fri", pr: "Normal" },
-                          ].map((t, i) => (
-                            <motion.div
-                              key={t.title}
-                              initial={{ opacity: 0, y: 10 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: false, amount: 0.3 }}
-                              transition={{ duration: 0.5, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
-                              className="border border-slate-200 rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2 sm:gap-3"
-                            >
-                              <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                                <Check className="w-3 h-3 sm:w-4 sm:h-4 text-[#7e22ce]" />
-                              </span>
-                              <div className="min-w-0 flex-1 w-full sm:w-auto">
-                                <div className="font-black text-slate-900 text-xs sm:text-sm break-words leading-snug">{t.title}</div>
-                                <div className="mt-0.5 text-[10px] sm:text-xs font-semibold text-slate-500 flex flex-wrap gap-x-2 sm:gap-x-3 gap-y-0.5">
-                                  <span>Owner: <span className="text-slate-700">{t.owner}</span></span>
-                                  <span>Due: <span className="text-slate-700">{t.due}</span></span>
-                                </div>
-                              </div>
-                              <span
-                                className="ml-auto sm:ml-0 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.12em] px-2 py-1 rounded-full border flex-shrink-0"
-                                style={{
-                                  borderColor: t.pr === "High" ? "rgba(239,68,68,0.35)" : "rgba(148,163,184,0.45)",
-                                  background: t.pr === "High" ? "rgba(239,68,68,0.08)" : "rgba(148,163,184,0.10)",
-                                  color: t.pr === "High" ? "rgb(185,28,28)" : "rgb(71,85,105)",
-                                }}
-                              >
-                                {t.pr}
-                              </span>
+                          <div className="p-3 sm:p-4 overflow-hidden flex-1 relative bg-slate-50/30" style={{ maskImage: 'linear-gradient(to bottom, black 85%, transparent)' }}>
+                            <motion.div style={{ y: listY }} className="grid gap-2 sm:gap-3">
+                              {[
+                                { title: "Finalize landing page wireframe", owner: "Aisha", due: "Wed", pr: "High" },
+                                { title: "Implement landing page sections", owner: "Rahul", due: "Thu", pr: "High" },
+                                { title: "QA + cross-browser checks", owner: "Priya", due: "Fri", pr: "High" },
+                                { title: "Publish & verify analytics", owner: "Rahul", due: "Fri", pr: "Normal" },
+                                { title: "Update marketing copy", owner: "Sneha", due: "Mon", pr: "Normal" },
+                                { title: "Review SEO performance", owner: "Aisha", due: "Tue", pr: "High" },
+                                { title: "Prepare release notes", owner: "Rahul", due: "Wed", pr: "Low" },
+                                { title: "Schedule social media updates", owner: "Priya", due: "Thu", pr: "Normal" },
+                              ].map((t, i) => (
+                                <motion.div
+                                  key={t.title}
+                                  initial={{ opacity: 0, y: 10 }}
+                                  whileInView={{ opacity: 1, y: 0 }}
+                                  viewport={{ once: false, amount: 0.3 }}
+                                  transition={{ duration: 0.5, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
+                                  className="border border-slate-200 rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2 sm:gap-3"
+                                >
+                                  <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                                    <Check className="w-3 h-3 sm:w-4 sm:h-4 text-[#7e22ce]" />
+                                  </span>
+                                  <div className="min-w-0 flex-1 w-full sm:w-auto">
+                                    <div className="font-black text-slate-900 text-xs sm:text-sm break-words leading-snug">{t.title}</div>
+                                    <div className="mt-0.5 text-[10px] sm:text-xs font-semibold text-slate-500 flex flex-wrap gap-x-2 sm:gap-x-3 gap-y-0.5">
+                                      <span>Owner: <span className="text-slate-700">{t.owner}</span></span>
+                                      <span>Due: <span className="text-slate-700">{t.due}</span></span>
+                                    </div>
+                                  </div>
+                                  <span
+                                    className="ml-auto sm:ml-0 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.12em] px-2 py-1 rounded-full border flex-shrink-0"
+                                    style={{
+                                      borderColor: t.pr === "High" ? "rgba(239,68,68,0.35)" : "rgba(148,163,184,0.45)",
+                                      background: t.pr === "High" ? "rgba(239,68,68,0.08)" : "rgba(148,163,184,0.10)",
+                                      color: t.pr === "High" ? "rgb(185,28,28)" : "rgb(71,85,105)",
+                                    }}
+                                  >
+                                    {t.pr}
+                                  </span>
+                                </motion.div>
+                              ))}
                             </motion.div>
-                          ))}
-                        </div>
-                        <div className="px-4 pb-3 sm:pb-4">
-                          <div className="text-[10px] sm:text-xs font-semibold text-slate-500">
-                            The agent can also update statuses, reassign owners, and add subtasks from a single prompt.
+                          </div>
+                          <div className="px-4 py-3 sm:py-4 relative z-10 bg-white/95 backdrop-blur-sm border-t border-slate-100 shadow-[0_-4px_15px_-5px_rgba(0,0,0,0.05)]">
+                            <div className="text-[10px] sm:text-xs font-semibold text-slate-500">
+                              The agent can also update statuses, reassign owners, and add subtasks from a single prompt.
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
         {/* ── Task Analytics ── */}
         <section className={`${sectionSpacing} bg-white relative overflow-hidden`}>

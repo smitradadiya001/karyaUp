@@ -127,7 +127,7 @@ export default function CalendarStickySection() {
   return (
     <section
       ref={container}
-      className="relative overflow-hidden bg-white pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-12"
+      className="relative overflow-hidden bg-white pt-12 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-20"
     >
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -146,18 +146,18 @@ export default function CalendarStickySection() {
           </p>
         </motion.div>
 
-        <div className="sticky-sections-container mx-auto mb-12 relative h-[85vh] max-w-6xl rounded-xl sm:mb-24 sm:h-[80vh] sm:rounded-3xl lg:h-[75vh]">
+        <div className="sticky-sections-container relative h-[85vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto mb-12 sm:mb-24 rounded-xl sm:rounded-[2.5rem] overflow-hidden border border-slate-200/80 shadow-2xl bg-white">
           {calendarSections.map((item, i) => (
             <div
               key={item.id}
               ref={(el) => (sectionRefs.current[i] = el)}
-              className="absolute inset-0 flex h-full w-full flex-col items-center lg:flex-row"
+              className="absolute inset-0 flex h-full w-full flex-col lg:flex-row items-center bg-white"
             >
               <div className="flex-[0.45] lg:flex-1 flex h-full flex-col items-center justify-center p-4 text-center sm:p-8 lg:items-start lg:p-12 lg:text-left">
                 <h3 className="mb-6 text-3xl font-black leading-[1.1] text-slate-900 sm:text-4xl md:text-5xl">
                   {item.title}
                   <br />
-                  <span className="text-gradient italic">
+                  <span className="text-gradient">
                     {item.titleHighlight}
                   </span>
                 </h3>

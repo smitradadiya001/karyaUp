@@ -59,16 +59,16 @@ const memberCostRows = [
 
 const profitInsights = [
   {
-    title: "Margin is visible before payout",
-    desc: "Bosses can compare billing and actual cost before payroll is finalized.",
+    title: "See margin before payout",
+    desc: "Compare billing and real cost before payroll closes.",
   },
   {
-    title: "Project-wise salary allocation",
-    desc: "Each member's salary contribution is mapped against the project for true cost tracking.",
+    title: "Track salary by project",
+    desc: "Map team cost directly to each project for cleaner decisions.",
   },
   {
-    title: "Faster decisions on low-profit work",
-    desc: "Leadership can catch margin pressure early and adjust staffing or pricing in time.",
+    title: "Act before profit slips",
+    desc: "Spot low-margin work early and adjust pricing or staffing faster.",
   },
 ];
 
@@ -128,7 +128,7 @@ export default function Salary() {
       <link rel="icon" href="/favicon.ico" />
     </Helmet>
     <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
-      <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
+      <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
         <div className="absolute top-0 right-0 -z-10 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
         <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
 
@@ -278,14 +278,14 @@ export default function Salary() {
         </div>
       </section>
 
-      <section className="pt-20">
+      <section className="pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl"
+            className="max-w-3xl mx-auto flex flex-col items-center text-center"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-700">
               <TrendingUp className="h-3.5 w-3.5" />
@@ -315,27 +315,26 @@ export default function Salary() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-            className="mt-10 grid gap-6 xl:grid-cols-[0.9fr_1.25fr]"
+            className="mt-8 grid gap-4 sm:gap-5 xl:grid-cols-[0.84fr_1.16fr]"
           >
-            <div className="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 text-white shadow-[0_28px_70px_-40px_rgba(15,23,42,0.65)]">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-300">
+            <div className="rounded-[1.75rem] sm:rounded-[2rem] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 sm:p-6 text-white shadow-[0_28px_70px_-40px_rgba(15,23,42,0.65)]">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.16em] sm:tracking-[0.18em] text-emerald-300">
                 <TrendingUp className="h-3.5 w-3.5" />
                 Leadership view
               </div>
-              <h3 className="mt-5 text-3xl font-black tracking-tight">
+              <h3 className="mt-4 text-[1.75rem] sm:text-3xl font-black tracking-tight leading-[1.08]">
                 Understand Which
                 <span className="block text-purple-300">Projects Actually Make Money</span>
               </h3>
-              <p className="mt-4 max-w-md text-sm font-medium leading-relaxed text-slate-300">
-                Instead of checking salary and project costing in separate places, KaryaUp brings billing,
-                real spend, and employee salary allocation into one decision-ready dashboard.
+              <p className="mt-3 max-w-md text-sm font-medium leading-relaxed text-slate-300">
+                Bring billing, real spend, and salary allocation into one dashboard.
               </p>
 
-              <div className="mt-8 grid gap-4">
+              <div className="mt-5 grid gap-3">
                 {profitInsights.map((item) => (
-                  <div key={item.title} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                  <div key={item.title} className="rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
                     <div className="text-sm font-black text-white">{item.title}</div>
-                    <div className="mt-2 text-sm leading-relaxed text-slate-300">{item.desc}</div>
+                    <div className="mt-1.5 text-sm leading-relaxed text-slate-300">{item.desc}</div>
                   </div>
                 ))}
               </div>
@@ -343,19 +342,19 @@ export default function Salary() {
             
             </div>
 
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_22px_60px_-15px_rgba(0,0,0,0.06)] relative overflow-hidden pointer-events-none select-none">
+            <div className="rounded-[1.75rem] sm:rounded-[2rem] border border-slate-200 bg-white p-4 sm:p-6 shadow-[0_22px_60px_-15px_rgba(0,0,0,0.06)] relative overflow-hidden pointer-events-none select-none">
               
               {/* ── Integrated Header ── */}
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="text-xl font-black text-slate-900 tracking-tight">Profit measure (Boss only)</h3>
-                <div className="h-9 px-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-[11px] font-black text-slate-600 gap-2">
+              <div className="mb-5 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">Profit measure (Boss only)</h3>
+                <div className="h-9 w-full sm:w-auto px-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-[11px] font-black text-slate-600 gap-2">
                   <Download className="w-3.5 h-3.5" />
                   Download CSV
                 </div>
               </div>
 
               {/* ── Filters Grid ── */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-5 sm:mb-6">
                 {[
                   { label: "Project", value: "KaryaUp" },
                   { label: "Time range", value: "This month" },
@@ -372,7 +371,7 @@ export default function Salary() {
               </div>
 
               {/* ── Financial Inputs ── */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-6">
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Project billing amount</label>
                   <div className="h-12 rounded-xl border-2 border-[#7e22ce] bg-white flex items-center justify-between px-4 text-sm font-black text-slate-900 shadow-lg shadow-purple-600/5">
@@ -392,15 +391,15 @@ export default function Salary() {
               </div>
 
               {/* ── Rates Section ── */}
-              <div className="mb-8">
+              <div className="mb-5 sm:mb-6">
                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-2.5">Member salaries</label>
-                <div className="p-5 rounded-[1.5rem] border border-dashed border-slate-200 bg-slate-50/30 text-[11px] font-medium text-slate-400 leading-relaxed text-center">
-                  No member rates configured yet. Use "Team" tab to see who is on the project, then add rates here.
+                <div className="p-4 rounded-[1.25rem] sm:rounded-[1.5rem] border border-dashed border-slate-200 bg-slate-50/30 text-[11px] font-medium text-slate-400 leading-relaxed text-center">
+                  No member rates configured yet. Add rates from the Team tab.
                 </div>
               </div>
 
               {/* ── Profitability Summary ── */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-slate-100">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-5 sm:pt-6 border-t border-slate-100">
                 {[
                   { label: "Total salary cost", val: "0.00" },
                   { label: "Other actual cost", val: "0.00" },
@@ -415,11 +414,11 @@ export default function Salary() {
               </div>
 
               {/* ── Dashboard Action ── */}
-              <div className="mt-8 flex items-center justify-between">
-                <div className="h-11 px-8 rounded-2xl bg-purple-600 text-white font-black text-xs flex items-center justify-center shadow-xl shadow-purple-600/20">
+              <div className="mt-5 sm:mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="h-11 w-full sm:w-auto px-8 rounded-2xl bg-purple-600 text-white font-black text-xs flex items-center justify-center shadow-xl shadow-purple-600/20">
                   Save configuration
                 </div>
-                <div className="text-[10px] font-bold text-slate-400 flex items-center gap-2">
+                <div className="text-[10px] font-bold text-slate-400 flex items-center justify-center sm:justify-start gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
                   Live Preview
                 </div>
@@ -438,7 +437,7 @@ export default function Salary() {
         buttonText="Get started. It's FREE"
         image={featureSalary}
         imageAlt="KaryaUp salary dashboard"
-        containerClassName="mt-24 mb-0"
+        containerClassName="mt-0"
         imageClassName="w-full max-w-[620px]"
         imageOuterClassName="relative w-[92%] lg:w-[82%] translate-x-0 lg:translate-x-2"
       />

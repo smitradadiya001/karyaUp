@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import logo from "../../assets/logo.png";
 import microsoftTeamsLogo from "../../assets/MicrosoftTeam.png";
@@ -9,45 +9,95 @@ import gmailLogo from "../../assets/gmail.svg";
 import googleMeetLogo from "../../assets/google-meet.svg";
 import slackLogo from "../../assets/slack.svg";
 import FeatureCTA from "../../components/FeatureCTA";
+import FeatureStack from "../../components/FeatureStack";
 import app from "../../assets/apps.webp";
 import { Helmet } from "react-helmet-async";
 
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={className}
+    >
+      <div style={{ transform: 'translateZ(30px)' }} className="h-full flex flex-col">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
+
+const getColorClasses = (color) => {
+  switch (color) {
+    case 'purple': return 'bg-purple-100 text-[#7e22ce] shadow-purple-200/50';
+    case 'emerald': return 'bg-emerald-100 text-emerald-600 shadow-emerald-200/50';
+    case 'blue': return 'bg-blue-100 text-blue-600 shadow-blue-200/50';
+    case 'fuchsia': return 'bg-fuchsia-100 text-fuchsia-600 shadow-fuchsia-200/50';
+    case 'amber': return 'bg-amber-100 text-amber-600 shadow-amber-200/50';
+    default: return 'bg-purple-100 text-purple-600 shadow-purple-200/50';
+  }
+};
+
 const integrations = [
   {
-    name: "Calendar",
+    name: "Google Calendar",
     logo: googleCalendarLogo,
-    short: "Calendar sync",
-    position: "left-5 top-7 lg:left-7 lg:top-8",
+    short: "Sync meetings & deadlines",
+    position: "top-[12%] left-[13%] sm:top-[14%] sm:left-[10%]",
   },
   {
     name: "Google Drive",
     logo: googleDriveLogo,
-    short: "Drive files",
-    position: "right-5 top-7 lg:right-7 lg:top-8",
+    short: "Access & attach files",
+    position: "top-[12%] right-[13%] sm:top-[14%] sm:right-[10%]",
   },
   {
     name: "Gmail",
     logo: gmailLogo,
-    short: "Email inside KaryaUp",
-    position: "left-3 top-[42%] lg:left-4 lg:top-[41%]",
+    short: "Connected inbox",
+    position: "top-[44%] left-[2%] sm:top-[46%] sm:left-[0%]",
   },
   {
     name: "Google Meet",
     logo: googleMeetLogo,
-    short: "Meet links",
-    position: "right-3 top-[42%] lg:right-4 lg:top-[41%]",
+    short: "Schedule video calls",
+    position: "top-[44%] right-[2%] sm:top-[46%] sm:right-[0%]",
   },
   {
     name: "Slack",
     logo: slackLogo,
-    short: "Slack updates",
-    position: "left-8 bottom-8 lg:left-10 lg:bottom-10",
+    short: "Team notifications",
+    position: "bottom-[12%] left-[13%] sm:bottom-[14%] sm:left-[10%]",
   },
   {
-    name: "Teams",
+    name: "Microsoft Teams",
     logo: microsoftTeamsLogo,
-    short: "Create Teams",
-    position: "right-8 bottom-8 lg:right-10 lg:bottom-10",
+    short: "Channel updates",
+    position: "bottom-[12%] right-[13%] sm:bottom-[14%] sm:right-[10%]",
   },
 ];
 
@@ -56,31 +106,37 @@ const integrationDetails = [
     name: "Google Calendar",
     logo: googleCalendarLogo,
     desc: "Connect your calendar to sync meetings, deadlines, and create Google Meet links directly from KaryaUp.",
+    color: "blue"
   },
   {
     name: "Google Drive",
     logo: googleDriveLogo,
     desc: "Access files, attach documents, and keep project resources linked without opening another workspace.",
+    color: "emerald"
   },
   {
     name: "Gmail",
     logo: gmailLogo,
     desc: "Read and send emails inside KaryaUp so client communication stays connected to project execution.",
+    color: "fuchsia"
   },
   {
     name: "Google Meet",
     logo: googleMeetLogo,
     desc: "Schedule meetings with a Meet link and manage upcoming calls from the same connected workflow.",
+    color: "emerald"
   },
   {
     name: "Slack",
     logo: slackLogo,
     desc: "Receive task, project, and meeting notifications in Slack so updates reach the team instantly.",
+    color: "purple"
   },
   {
     name: "Microsoft Teams",
     logo: microsoftTeamsLogo,
     desc: "Send KaryaUp notifications into Teams channels and keep collaboration updates visible where teams talk.",
+    color: "blue"
   },
 ];
 
@@ -138,7 +194,7 @@ export default function Integrations() {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid items-center gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-6">
-              <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+              <div className="text-center lg:text-left flex flex-col items-center lg:items-start lg:translate-y-2 xl:translate-y-4">
                 <motion.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -188,10 +244,16 @@ export default function Integrations() {
                   ))}
                 </motion.div>
 
+                <FeatureStack items={[
+                  "Native Integrations",
+                  "Two-Way Sync",
+                  "API Access",
+                  "Webhooks"
+                ]} />
 
               </div>
 
-               <motion.div
+              <motion.div
                 initial={{ opacity: 0, x: isMobile ? 0 : 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
@@ -310,13 +372,11 @@ export default function Integrations() {
                       initial={{ opacity: 0, scale: 0.92, y: 18 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       transition={{ duration: 0.55, delay: 0.12 * index, ease: [0.22, 1, 0.36, 1] }}
-                      className={`absolute z-10 w-[72px] sm:w-[170px] lg:w-[190px] rounded-[1.1rem] sm:rounded-[1.45rem] border border-white/10 bg-white/5 p-[1.5px] backdrop-blur-xl shadow-[0_0_32px_rgba(76,29,149,0.16)] ${item.position}`}
+                      whileHover={{ y: 4, scale: 1.015 }}
+                      whileTap={{ scale: 1.01 }}
+                      className={`group absolute z-10 w-[72px] sm:w-[170px] lg:w-[190px] rounded-[1.1rem] sm:rounded-[1.45rem] border border-white/10 bg-white/5 p-[1.5px] backdrop-blur-xl shadow-[0_0_32px_rgba(76,29,149,0.16)] ${item.position}`}
                     >
-                      <motion.div
-                        animate={{ boxShadow: ["0 0 0 rgba(0,0,0,0)", "0 0 22px rgba(168,85,247,0.14)", "0 0 0 rgba(0,0,0,0)"] }}
-                        transition={{ duration: 3.2 + index * 0.2, repeat: Infinity, ease: "easeInOut" }}
-                        className="rounded-[calc(1.1rem-1.5px)] sm:rounded-[calc(1.45rem-1.5px)] border border-white/8 bg-[#131526]/95 px-2.5 py-2.5 sm:px-4 sm:py-4"
-                      >
+                      <div className="rounded-[calc(1.1rem-1.5px)] sm:rounded-[calc(1.45rem-1.5px)] border border-white/8 bg-[#131526]/95 px-2.5 py-2.5 sm:px-4 sm:py-4 shadow-[0_10px_28px_rgba(0,0,0,0.18)] transition-all duration-500 ease-out group-hover:border-white/20 group-hover:bg-[#17192c]/95 group-hover:shadow-[0_20px_42px_rgba(0,0,0,0.3)]">
                         <div className="flex items-center justify-center sm:justify-start gap-0 sm:gap-3">
                           <div className="flex h-11 w-11 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-white shadow-[0_10px_20px_-14px_rgba(255,255,255,0.4)]">
                             <img src={item.logo} alt={item.name} className="h-6 w-6 sm:h-7 sm:w-7 object-contain" />
@@ -328,7 +388,7 @@ export default function Integrations() {
                             </div>
                           </div>
                         </div>
-                      </motion.div>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
@@ -337,7 +397,7 @@ export default function Integrations() {
           </div>
         </section>
 
-        <section className="pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
+        <section className="pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-10">
               <motion.div
@@ -379,54 +439,30 @@ export default function Integrations() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
               {integrationDetails.map((item, index) => (
-                 <motion.div
+                <TiltCard
                   key={item.name}
-                  initial={{
-                    opacity: 0,
-                    y: 40,
-                    x: isMobile ? 0 : (index % 3 === 0 ? "80%" : index % 3 === 2 ? "-80%" : "0%"),
-                    scale: 0.95
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                    x: "0%",
-                    scale: 1
-                  }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{
-                    duration: 0.7,
-                    ease: [0.22, 1, 0.36, 1],
-                    delay: isMobile ? (0.05 * index) : ((index % 3 === 1) ? 0 : 0.15)
-                  }}
-                  className="h-full"
+                  className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group"
                 >
-                  <div className="group h-full relative p-6 sm:p-8 rounded-[2rem] bg-white border border-slate-200/60 shadow-sm hover:shadow-xl hover:border-purple-200/50 hover:-translate-y-1 transition-all duration-300">
-                    <div className="flex flex-col h-full">
-                      {/* Icon Container */}
-                      <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-2xl bg-white shadow-sm border border-slate-100 mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <img
-                          src={item.logo}
-                          alt={item.name}
-                          className="w-8 h-8 sm:w-10 sm:h-10 object-contain drop-shadow-sm"
-                        />
-                      </div>
+                  <div className="flex flex-col h-full">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md ${getColorClasses(item.color)}`}>
+                      <img
+                        src={item.logo}
+                        alt={item.name}
+                        className={`${item.name === "Microsoft Teams" ? "w-7 h-7 sm:w-8 sm:h-8 mix-blend-multiply" : "w-5 h-5 sm:w-6 sm:h-6"} object-contain`}
+                        style={{ filter: item.color === 'white' ? 'none' : '' }}
+                      />
+                    </div>
 
-                      {/* Content */}
-                      <div className="flex-grow flex flex-col">
-                        <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-3 group-hover:text-purple-600 transition-colors">
-                          {item.name}
-                        </h3>
-                        <p className="text-slate-500 text-sm sm:text-base font-medium leading-relaxed">
-                          {item.desc}
-                        </p>
-                      </div>
-
-                      {/* Bottom Indicator */}
-
+                    <div className="flex-grow flex flex-col">
+                      <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="text-slate-600 text-sm font-medium leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
                   </div>
-                </motion.div>
+                </TiltCard>
               ))}
             </div>
           </div>
@@ -438,7 +474,7 @@ export default function Integrations() {
           buttonText="Explore integrations"
           image={app}
           imageAlt="KaryaUp integrations dashboard"
-          containerClassName="mt-8 sm:mt-10 lg:mt-12 mb-0"
+          containerClassName="mt-0"
           imageClassName="w-full max-w-[760px]"
           imageOuterClassName="relative w-[108%] sm:w-[102%] lg:w-[88%] mx-auto translate-x-0 lg:translate-x-3"
         />

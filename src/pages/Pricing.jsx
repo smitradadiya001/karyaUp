@@ -402,9 +402,19 @@ export default function Pricing() {
     return () => window.removeEventListener("resize", updateIsDesktop);
   }, []);
 
+  const mainTableScrollRef = useRef(null);
+  const stickyTableScrollRef = useRef(null);
+
+  // Sync horizontal scroll between real table and sticky header
+  const handleMainScroll = (e) => {
+    if (stickyTableScrollRef.current) {
+      stickyTableScrollRef.current.scrollLeft = e.target.scrollLeft;
+    }
+  };
+
   // Track when the real thead scrolls above the navbar (top ~80px)
   useEffect(() => {
-    if (!showComparison || !isDesktop) {
+    if (!showComparison) {
       setStickyHeaderVisible(false);
       return;
     }
@@ -412,9 +422,9 @@ export default function Pricing() {
       if (!realTheadRef.current || !comparisonSectionRef.current) return;
       const theadRect = realTheadRef.current.getBoundingClientRect();
       const sectionRect = comparisonSectionRef.current.getBoundingClientRect();
-      // Show sticky when real thead top goes above navbar (68px) AND comparison section is still visible
-      const theadAboveNav = theadRect.bottom <= 68;
-      const sectionVisible = sectionRect.bottom > 68;
+      // Show sticky when real thead top goes above navbar (68px) AND comparison section bottom is still below the sticky header's estimated height
+      const theadAboveNav = theadRect.top <= 68;
+      const sectionVisible = sectionRect.bottom > 220; // 68px (navbar) + ~150px (sticky header height)
       setStickyHeaderVisible(theadAboveNav && sectionVisible);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -719,7 +729,7 @@ export default function Pricing() {
 
           {/* Floating sticky header clone — shown when real thead scrolls above navbar */}
           <AnimatePresence>
-            {showComparison && isDesktop && stickyHeaderVisible && (
+            {showComparison && stickyHeaderVisible && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -728,7 +738,11 @@ export default function Pricing() {
                 className="fixed top-[68px] left-0 right-0 z-[100] bg-white/80 backdrop-blur-md shadow-md border-b border-slate-200"
                 style={{ boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1), 0 4px 10px -5px rgba(0,0,0,0.04)" }}
               >
-                <div className="w-full overflow-x-auto">
+                <div 
+                  ref={stickyTableScrollRef}
+                  className="w-full overflow-x-auto scrollbar-hide"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
                   <table
                     className="w-full text-left border-collapse"
                     style={{ minWidth: "680px" }}
@@ -799,7 +813,11 @@ export default function Pricing() {
               >
                 <div className="w-full">
                   <div className="bg-white border-y border-slate-100 relative">
-                    <div className="relative overflow-x-auto">
+                    <div 
+                      ref={mainTableScrollRef}
+                      onScroll={handleMainScroll}
+                      className="relative overflow-x-auto"
+                    >
                       <table
                         className="w-full text-left border-collapse"
                         style={{ minWidth: "680px" }}

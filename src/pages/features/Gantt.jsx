@@ -169,7 +169,7 @@ export default function Gantt() {
 
       <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
-        <section className="relative pt-4 sm:pt-6">
+        <section className="relative pt-4 sm:pt-6 pb-8 sm:pb-10 lg:pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
               {/* Left Content */}
@@ -246,7 +246,7 @@ export default function Gantt() {
         </section>
 
         {/* "How They Work" Section */}
-        <section ref={container} className="bg-white mt-12 sm:mt-16 overflow-hidden">
+        <section ref={container} className="bg-white pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10 text-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -255,12 +255,12 @@ export default function Gantt() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="flex flex-col items-center"
             >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-widest shadow-sm">
-                <Sparkles className="w-3.5 h-3.5 text-[#7e22ce]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs sm:text-sm font-black uppercase tracking-widest shadow-sm">
+                <Sparkles className="w-3.5 h-4 sm:w-4 sm:h-4 text-[#7e22ce]" />
                 <span className="opacity-60">/</span>
                 <span>Universal Planning Control</span>
               </div>
-              <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-tight">
+              <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 tracking-tighter leading-tight">
                 Powerful Timeline For <br />
                 <motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
@@ -273,7 +273,7 @@ export default function Gantt() {
             </motion.div>
           </div>
 
-          <div className="sticky-sections-container relative h-[85vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl mb-12 sm:mb-24">
+          <div className="sticky-sections-container relative h-[85vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl">
             {ganttSections.map((item, i) => (
               <div
                 key={i}
@@ -284,7 +284,7 @@ export default function Gantt() {
                 <div className="flex-[0.45] lg:flex-1 flex flex-col justify-center items-center lg:items-start text-center lg:text-left p-4 sm:p-8 lg:p-12 w-full">
                   <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
                     <div className="w-1.5 h-6 bg-[#7e22ce] rounded-full" />
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#7e22ce]">
+                    <span className="text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-[#7e22ce]">
                       {item.header}
                     </span>
                   </div>
@@ -325,7 +325,7 @@ export default function Gantt() {
           description="Work smarter with visual timelines that can live in your whiteboards, chat, calendar—anywhere you work."
           image={ganttImg}
           imageAlt="KaryaUp Gantt Timeline"
-          containerClassName="mt-12 sm:mt-16 lg:mt-24"
+          containerClassName="mt-0"
         />
       </div>
     </ReactLenis>
