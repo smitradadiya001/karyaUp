@@ -10,21 +10,21 @@ const DarkRoleManagementPreview = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-[#1e1b4b] to-[#0f172a] rounded-[2rem] transform -rotate-1 scale-[1.02] opacity-50 blur-sm -z-20 border border-white/5" />
 
       {/* Main Dashboard Panel */}
-      <div className="bg-[#0f172a]/95 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-5 sm:p-6 shadow-2xl shadow-black/40 relative overflow-hidden">
+      <div className="bg-[#0f172a]/95 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-4 sm:p-6 shadow-2xl shadow-black/40 relative overflow-hidden">
 
         {/* Top Navigation Bar */}
         <div className="flex items-center gap-3 mb-5 relative z-20">
-          <div className="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 flex items-center gap-2.5 text-slate-400 shadow-inner">
-            <Search size={16} className="opacity-80" />
-            <span className="text-sm font-medium">Search team members...</span>
+          <div className="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 flex items-center gap-2 md:gap-2.5 text-slate-400 shadow-inner min-w-0">
+            <Search size={16} className="opacity-80 shrink-0" />
+            <span className="text-xs sm:text-sm font-medium truncate">Search team members...</span>
           </div>
-          <div className="bg-gradient-to-tr from-[#7e22ce] to-[#a855f7] text-white px-4 py-2.5 rounded-xl flex items-center gap-2 text-sm font-bold shadow-lg">
-            <UserPlus size={16} /> Add 
+          <div className="bg-gradient-to-tr from-[#7e22ce] to-[#a855f7] text-white px-4 py-2.5 rounded-xl flex items-center gap-2 text-sm font-bold shadow-lg shrink-0">
+            <UserPlus size={16} className="shrink-0" /> Add 
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex items-center gap-5 mb-5 border-b border-white/10 pb-3 overflow-x-auto scrollbar-hide relative z-20">
+        <div className="flex items-center gap-4 sm:gap-5 mb-5 border-b border-white/10 pb-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative z-20">
           <div className="text-white text-xs sm:text-sm font-bold tracking-wide whitespace-nowrap relative">
             All (2)
             <div className="absolute -bottom-[13px] left-0 w-full h-[2px] bg-gradient-to-r from-fuchsia-500 to-purple-600" />
@@ -47,30 +47,30 @@ const DarkRoleManagementPreview = () => {
             className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col gap-3.5 relative shadow-xl shadow-black/20"
           >
             <div className="flex justify-between items-start">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-lg ring-1 ring-purple-500/30">
+              <div className="flex items-center gap-3 min-w-0 pr-3">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-lg ring-1 ring-purple-500/30 shrink-0">
                   t
                 </div>
-                <div>
-                  <h4 className="font-bold text-white text-sm sm:text-base leading-tight">testabc2</h4>
-                  <div className="flex items-center gap-1.5 text-slate-400 mt-1">
-                    <Mail size={12} />
-                    <span className="text-xs font-semibold tracking-wide">testabc2@gmail.com</span>
+                <div className="min-w-0">
+                  <h4 className="font-bold text-white text-sm sm:text-base leading-tight truncate">testabc2</h4>
+                  <div className="flex items-center gap-1.5 text-slate-400 mt-1 min-w-0">
+                    <Mail size={12} className="shrink-0" />
+                    <span className="text-[11px] sm:text-xs font-semibold tracking-wide truncate">testabc2@gmail.com</span>
                   </div>
                 </div>
               </div>
-              <button className="text-slate-500">
+              <button className="text-slate-500 shrink-0">
                 <MoreVertical size={18} />
               </button>
             </div>
 
             <div className="h-px w-full bg-white/5" />
 
-            <div className="flex justify-between items-center relative">
+            <div className="flex flex-wrap gap-2 justify-between items-center relative">
               <div className="flex items-center gap-1.5 px-3 py-1.5 border border-purple-500/40 rounded-lg text-xs font-bold text-purple-200 bg-purple-500/20 ring-1 ring-purple-400/20">
-                Administrator <ChevronDown size={14} className="ml-0.5 opacity-80" />
+                Administrator <ChevronDown size={14} className="ml-0.5 opacity-80 shrink-0" />
               </div>
-              <span className="text-[10px] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">Joined Feb 23, 2026</span>
+              <span className="text-[9px] sm:text-[10px] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">Joined Feb 23, 2026</span>
             </div>
           </motion.div>
 
@@ -82,30 +82,30 @@ const DarkRoleManagementPreview = () => {
             className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col gap-3.5 relative shadow-xl shadow-black/20"
           >
             <div className="flex justify-between items-start">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center font-bold text-lg ring-1 ring-blue-500/30">
+              <div className="flex items-center gap-3 min-w-0 pr-3">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center font-bold text-lg ring-1 ring-blue-500/30 shrink-0">
                   t
                 </div>
-                <div>
-                  <h4 className="font-bold text-white text-sm sm:text-base leading-tight">testabc</h4>
-                  <div className="flex items-center gap-1.5 text-slate-400 mt-1">
-                    <Mail size={12} />
-                    <span className="text-xs font-semibold tracking-wide">testabc@gmail.com</span>
+                <div className="min-w-0">
+                  <h4 className="font-bold text-white text-sm sm:text-base leading-tight truncate">testabc</h4>
+                  <div className="flex items-center gap-1.5 text-slate-400 mt-1 min-w-0">
+                    <Mail size={12} className="shrink-0" />
+                    <span className="text-[11px] sm:text-xs font-semibold tracking-wide truncate">testabc@gmail.com</span>
                   </div>
                 </div>
               </div>
-              <button className="text-slate-500">
+              <button className="text-slate-500 shrink-0">
                 <MoreVertical size={18} />
               </button>
             </div>
 
             <div className="h-px w-full bg-white/5" />
 
-            <div className="flex justify-between items-center relative">
+            <div className="flex flex-wrap gap-2 justify-between items-center relative">
               <div className="flex items-center gap-1.5 px-3 py-1.5 border border-white/10 rounded-lg text-xs font-bold text-slate-300 bg-white/5">
-                Team Member <ChevronDown size={14} className="ml-0.5 opacity-80" />
+                Team Member <ChevronDown size={14} className="ml-0.5 opacity-80 shrink-0" />
               </div>
-              <span className="text-[10px] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">Joined Feb 23, 2026</span>
+              <span className="text-[9px] sm:text-[10px] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">Joined Feb 23, 2026</span>
             </div>
           </motion.div>
 
@@ -136,11 +136,10 @@ export default function TeamHero() {
               initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-[0.15em] mb-2"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
             >
-              Features <span className="opacity-60">/</span> Team
+              TEAM — MANAGE YOUR PEOPLE
             </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
               animate={{ opacity: 1, y: 0 }}

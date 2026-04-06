@@ -148,12 +148,12 @@ export default function Notifications() {
               {/* Left Content - Compact High Density */}
               <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
                 <motion.div
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.2 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[11px] font-black uppercase tracking-widest shadow-sm"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
                 >
-                  Features <span className="opacity-60 text-purple-400">/</span> Notifications
+                  NOTIFICATIONS — NEVER MISS A BEAT
                 </motion.div>
 
                 <motion.h1

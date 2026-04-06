@@ -178,9 +178,9 @@ export default function Gantt() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-4"
                 >
-                  Features / Gantt
+                  GANTT — MAP YOUR MILESTONES
                 </motion.div>
 
                 <motion.h1
@@ -246,7 +246,7 @@ export default function Gantt() {
         </section>
 
         {/* "How They Work" Section */}
-        <section ref={container} className="bg-white pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
+        <section ref={container} className="bg-white pt-4 lg:pt-8 pb-4 sm:pb-16 lg:pb-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10 text-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -273,7 +273,7 @@ export default function Gantt() {
             </motion.div>
           </div>
 
-          <div className="sticky-sections-container relative h-[85vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl">
+          <div className="sticky-sections-container relative h-[65vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl">
             {ganttSections.map((item, i) => (
               <div
                 key={i}
@@ -281,27 +281,27 @@ export default function Gantt() {
                 className="absolute inset-0 w-full h-full bg-white flex flex-col lg:flex-row items-center border-b border-black/5"
               >
                 {/* Content Side */}
-                <div className="flex-[0.45] lg:flex-1 flex flex-col justify-center items-center lg:items-start text-center lg:text-left p-4 sm:p-8 lg:p-12 w-full">
-                  <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
-                    <div className="w-1.5 h-6 bg-[#7e22ce] rounded-full" />
-                    <span className="text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-[#7e22ce]">
+                <div className="flex-[0.48] lg:flex-1 flex flex-col justify-end lg:justify-center items-center lg:items-start text-center lg:text-left p-4 pb-2 sm:p-8 lg:p-12 w-full">
+                  <div className="flex items-center justify-center lg:justify-start gap-3 mb-2 sm:mb-4">
+                    <div className="w-1.5 h-4 sm:h-6 bg-[#7e22ce] rounded-full" />
+                    <span className="text-[10px] sm:text-sm font-black uppercase tracking-[0.2em] text-[#7e22ce]">
                       {item.header}
                     </span>
                   </div>
-                  <h3 className="text-xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-tight mb-4 sm:mb-6">
+                  <h3 className="text-xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-tight mb-2 sm:mb-6">
                     {item.title}
                   </h3>
-                  <p className="text-[12px] sm:text-lg text-slate-600 font-medium leading-relaxed max-w-lg mb-4 sm:mb-8 line-clamp-3 lg:line-clamp-none">
+                  <p className="text-[12px] sm:text-lg text-slate-600 font-medium leading-relaxed max-w-lg mb-3 sm:mb-8 line-clamp-3 lg:line-clamp-none">
                     {item.desc}
                   </p>
-                  <div className="inline-flex px-4 py-2 rounded-full bg-purple-50 border border-purple-200 text-[11px] font-black text-purple-700 uppercase tracking-widest">
+                  <div className="inline-flex px-4 py-2 rounded-full bg-purple-50 border border-purple-200 text-[10px] sm:text-[11px] font-black text-purple-700 uppercase tracking-widest mb-2 lg:mb-0">
                     {item.tag}
                   </div>
                 </div>
 
                 {/* Image Side */}
-                <div className="flex-[0.55] lg:flex-1 p-4 sm:p-6 lg:p-10 bg-slate-50/40 flex items-center justify-center w-full overflow-hidden">
-                  <div className="w-full h-full flex items-center justify-center relative">
+                <div className="flex-[0.52] lg:flex-1 p-4 pt-2 sm:p-6 lg:p-10 bg-slate-50/40 flex items-start lg:items-center justify-center w-full overflow-hidden">
+                  <div className="w-full h-full flex items-start lg:items-center justify-center relative">
                     {/* Decorative background element */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-purple-100/50 to-transparent blur-3xl rounded-full" />
 

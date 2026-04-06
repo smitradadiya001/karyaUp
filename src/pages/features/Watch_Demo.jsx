@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Check, PlayCircle, Sparkles, MonitorPlay, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import FeatureCTA from "../../components/FeatureCTA";
-import demoPreview from "../../assets/dashboard.jpeg";
+import demoPreview from "../../assets/dashboard2.webp";
 import { Helmet } from "react-helmet-async";
 
 export default function WatchDemo() {
@@ -56,9 +56,9 @@ export default function WatchDemo() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-100 px-3.5 py-1.5 text-xs font-black uppercase tracking-widest text-purple-700"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
               >
-                Features <span className="opacity-60">/</span> Watch Demo
+                WATCH DEMO — SEE KARYAUP IN ACTION
               </motion.div>
 
               <motion.h1

@@ -13,14 +13,14 @@ const FeatureStack = ({ items = [] }) => {
     if (items.length === 0) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % items.length);
-    }, 1500); // Snappy 1.5s interval
+    }, 2500); // Slower, smoother 2.5s interval
     return () => clearInterval(timer);
   }, [items.length]);
 
   if (items.length === 0) return null;
 
   return (
-    <div className="relative h-[80px] sm:h-[100px] w-full max-w-[280px] sm:max-w-[320px] mt-6 lg:mt-8 group overflow-visible">
+    <div className="relative h-[80px] sm:h-[100px] w-full max-w-[280px] sm:max-w-[320px] mt-6 lg:mt-8 group overflow-visible mx-auto lg:mx-0">
       <AnimatePresence mode="popLayout">
         {[2, 1, 0].map((offset) => {
           const itemIndex = (index + offset) % items.length;
@@ -40,12 +40,12 @@ const FeatureStack = ({ items = [] }) => {
               }}
               exit={{
                 opacity: 0,
-                y: -20,
-                scale: 1.05,
-                transition: { duration: 0.4, ease: "easeIn" }
+                y: 0,
+                scale: 0.95,
+                transition: { duration: 0.6, ease: "easeOut" }
               }}
               transition={{
-                duration: 0.5,
+                duration: 0.7,
                 ease: [0.22, 1, 0.36, 1],
                 delay: offset * 0.02
               }}

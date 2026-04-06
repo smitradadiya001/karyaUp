@@ -1,219 +1,263 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import dashboardImage from "../../assets/dashboard2.webp";
 import FeatureCTA from "../../components/FeatureCTA";
-import PageHero from "../../components/PageHero";
-import { Helmet } from "react-helmet-async";
-import { 
-  Heart, 
-  Search, 
-  Zap, 
-  Users, 
-  ArrowRight, 
-  Star, 
-  UserPlus, 
-  ClipboardCheck, 
-  TrendingUp, 
-  BarChart3, 
+import {
+  Zap,
+  UserPlus,
+  ClipboardCheck,
+  TrendingUp,
+  BarChart3,
   Calendar,
-  UserCheck
-} from "lucide-react";    
+  UserCheck,
+  Check
+} from "lucide-react";
 
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
 
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), { stiffness: 300, damping: 30 });
 
-export default function HR() {
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;   // -1 … 1
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
 
-  const workflowCards = [
-    { title: "Dashboard", desc: "Centralize job postings, candidate tracking, and interview scheduling.", icon: <UserPlus className="text-purple-600" />, glow: "hover:shadow-purple-100" },
-    { title: "Projects", desc: "KaryaUp automates status updates and resource allocation across every phase.", icon: <ClipboardCheck className="text-fuchsia-600" />, glow: "hover:shadow-fuchsia-100" },
-    { title: "Tasks", desc: "Track goals, exchange feedback, and monitor individual contributions with clarity.", icon: <TrendingUp className="text-emerald-600" />, glow: "hover:shadow-emerald-100" },
-    { title: "Gantt Chart", desc: "Visualize the future. Interactive timelines that recalibrate as your team pushes code.", icon: <BarChart3 className="text-orange-600" />, glow: "hover:shadow-orange-100" },
-  ];
-
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
 
   return (
-    <>
-      <Helmet>
-        <title>HR | KaryaUp</title>
-        <meta name="description" content="Streamline HR operations with KaryaUp. Automate onboarding, payroll, performance reviews, and compliance tracking in one platform." />
-        <meta name="keywords" content="HR software, employee onboarding, payroll automation, performance management" />
-        <link rel="canonical" href="https://karyaup.com/solutions/hr" />
-      </Helmet>
-      <div className="bg-white font-sans overflow-x-hidden pt-20">
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={className}
+    >
+      <div style={{ transform: 'translateZ(30px)' }} className="h-full flex flex-col group">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
 
-        {/* ================= HERO SECTION ================= */}
-        <PageHero
-          pillText="Solutions / HR"
-          titleBlack="Smarter HR for"
-          titleGradient="Modern Teams"
-          descriptionList={[
-            "Unify hiring, onboarding, performance, and analytics in one secure platform.",
-            "KaryaUp eliminates the chaos of spreadsheets and fragmented emails for people operations."
-          ]}
-          featureStackItems={["Onboarding Flows", "Payroll Automation", "Performance Reviews", "Compliance Tracking"]}
-          imageSrc={dashboardImage}
-          imageAlt="HR Dashboard"
-        />
+const getColorClasses = (color) => {
+  const colorMap = {
+    purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
+    fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
+    emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
+    orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
+    blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
+    pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white"
+  };
+  return colorMap[color] || "bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
+};
 
-        {/* ================= HR WORKFLOWS SECTION ================= */}
-        <section className="w-full py-16 px-6 bg-white">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight mb-4">
-                HR Workflows<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] to-fuchsia-500">
-                  Simplified with KaryaUp
-                </span>
-              </h2>
-            </div>
+const FeatureStack = ({ items = [] }) => {
+  const [index, setIndex] = useState(0);
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {workflowCards.map((card, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  whileHover={{ y: -10 }}
-                  className={`group relative bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 pb-14 border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-2xl overflow-hidden ${card.glow}`}
-                >
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl mb-6 bg-slate-50 flex items-center justify-center p-2 group-hover:scale-110 group-hover:bg-white transition-all">
-                    {card.icon}
-                  </div>
-                  <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-3 group-hover:text-[#7e22ce] transition-colors">
-                    {card.title}
-                  </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    {card.desc}
-                  </p>
-                  {/* DECORATIVE LINE */}
-                  <div className="absolute bottom-6 left-0 right-0 h-1 w-[70%] mx-auto rounded-full bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+  useEffect(() => {
+    if (items.length === 0) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % items.length);
+    }, 1500); // Snappy 1.5s interval
+    return () => clearInterval(timer);
+  }, [items.length]);
 
-        {/* ================= RECRUITMENT SUITE ================= */}
-        <section className="py-16 px-6 bg-slate-50/50">
-          <div className="max-w-7xl mx-auto text-center">
-            <div className="inline-block px-4 py-1.5 bg-purple-100 text-[#7e22ce] rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
-              Recruitment Suite
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-12">
-              Find. Hire. <span className="text-[#7e22ce]">Onboard.</span>
-            </h2>
+  if (items.length === 0) return null;
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 text-left">
-              {[
-                { title: "AI Talent Match", icon: <Zap className="text-amber-500" />, desc: "Our AI automatically ranks candidates based on skill-match and culture-fit scores." },
-                { title: "One-Click Scheduling", icon: <Calendar className="text-blue-500" />, desc: "End the email back-and-forth. Candidates pick time slots that work with your team." },
-                { title: "Collaborative Hiring", icon: <UserCheck className="text-emerald-500" />, desc: "Centralize interview notes and feedback so every hire is a team-approved win." }
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ y: -5 }}
-                  className="p-8 md:p-10 rounded-[2rem] md:rounded-[3rem] bg-white border border-slate-100 hover:shadow-xl transition-all group"
-                >
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-50 transition-colors">
-                    {item.icon}
-                  </div>
-                  <h4 className="text-lg md:text-xl font-black text-slate-900 mb-4">{item.title}</h4>
-                  <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+  return (
+    <div className="relative h-[80px] sm:h-[100px] w-full max-w-[280px] sm:max-w-[320px] mt-6 lg:mt-8 group overflow-visible">
+      <AnimatePresence mode="popLayout">
+        {[2, 1, 0].map((offset) => {
+          const itemIndex = (index + offset) % items.length;
+          const item = items[itemIndex];
+          const label = typeof item === "string" ? item : item.label;
+          const Icon = (typeof item === "object" && item.icon) ? item.icon : Check;
 
-        {/* ================= RECRUITMENT SUITE ================= */}
-        <section className="py-10 bg-slate-50/50">
-          <div className="max-w-7xl mx-auto px-6 text-center">
-            <div className="inline-block px-4 py-1.5 bg-purple-100 text-[#7e22ce] rounded-full text-xs font-black uppercase tracking-widest mb-6">
-              Recruitment Suite
-            </div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 40, x: -10 }}
-              animate={{ opacity: 1, y: 0, x: 0 }}
-              transition={{
-                type: "spring",
-                damping: 25,
-                stiffness: 100,
-                delay: 0.1
+          return (
+            <motion.div
+              key={label}
+              initial={{ opacity: 0, y: 15, scale: 0.9 }}
+              animate={{
+                opacity: offset === 0 ? 1 : offset === 1 ? 0.4 : 0.15,
+                scale: 1 - offset * 0.04,
+                y: offset * 12, // Compact vertical stacking for better hero-screen visibility
+                zIndex: 10 - offset,
               }}
-              className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
+              exit={{
+                opacity: 0,
+                y: -20,
+                scale: 1.05,
+                transition: { duration: 0.4, ease: "easeIn" }
+              }}
+              transition={{
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1],
+                delay: offset * 0.02
+              }}
+              className="absolute top-0 left-0 w-full px-5 py-3 rounded-xl bg-slate-400/10 backdrop-blur-xl border border-black/30 shadow-sm flex items-center gap-3 transition-colors duration-300 hover:bg-slate-400/20"
             >
-              Find. Hire.
+              <div className="w-5 h-5 rounded bg-black/5 border border-black/10 flex items-center justify-center flex-shrink-0">
+                <Icon className="w-3 h-3 text-black stroke-[3]" />
+              </div>
+              <span className="text-[11px] sm:text-[13px] font-black uppercase tracking-widest text-black">
+                {label}
+              </span>
+            </motion.div>
+          );
+        })}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default function HR() {
+  
+  useEffect(() => {
+    
+    const savedPos = localStorage.getItem("hrPageScroll");
+    if (savedPos) {
+      window.scrollTo(0, parseInt(savedPos));
+    }
+
+    
+    const handleScroll = () => {
+      localStorage.setItem("hrPageScroll", window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const workflowCards = [
+    { title: "Dashboard", desc: "Centralize job postings, candidate tracking, and interview scheduling.", icon: UserPlus, color: "purple" },
+    { title: "Projects", desc: "KaryaUp automates status updates and resource allocation across every phase.", icon: ClipboardCheck, color: "fuchsia" },
+    { title: "Tasks", desc: "Track goals, exchange feedback, and monitor individual contributions with clarity.", icon: TrendingUp, color: "emerald" },
+    { title: "Gantt Chart", desc: "Visualize the future. Interactive timelines that recalibrate as your team pushes code.", icon: BarChart3, color: "orange" },
+  ];
+
+  return (
+    <div className="bg-white font-sans overflow-x-hidden w-full">
+
+      {/* ================= HERO SECTION ================= */}
+      <section className="relative w-full py-20 md:py-20 lg:py-32 px-6">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center lg:text-left"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50/80 backdrop-blur-sm border border-purple-100 text-purple-600 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] shadow-sm mb-10"
+            >
+              HR — PEOPLE FIRST OPERATIONS
+            </motion.div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
+              Smarter HR for<br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               >
-                Onboard.
+                Modern Teams
+              </motion.span>
+            </h1>
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+              HR is chaotic—spreadsheets and endless meetings. KaryaUp unifies hiring, onboarding, and performance in one platform.
+            </p>
+            <FeatureStack 
+              items={[
+                {label: "Candidate Tracking", icon: UserPlus},
+                {label: "Resource Allocation", icon: ClipboardCheck},
+                {label: "Performance Goals", icon: TrendingUp}
+              ]} 
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative w-full"
+          >
+            <div className="rounded-xl md:rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-white">
+              <img src={dashboardImage} alt="HR Dashboard" className="w-full h-auto object-cover" />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ================= HR WORKFLOWS ================= */}
+      <section className="pb-16 w-full py-4 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 md:mb-16">
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4"
+            >
+              HR Workflows
+              <br />
+              <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                Simplified with KaryaUp
               </motion.span>
             </motion.h1>
-         
-
-            <div className="grid md:grid-cols-3 gap-8 text-left">
-              {[
-                {
-                  title: "AI Talent Match",
-                  icon: <Zap className="text-amber-500" />,
-                  desc: "Our AI automatically ranks candidates based on skill-match and culture-fit scores."
-                },
-                {
-                  title: "One-Click Scheduling",
-                  icon: <Calendar className="text-blue-500" />,
-                  desc: "End the email back-and-forth. Candidates pick time slots that work with your team."
-                },
-                {
-                  title: "Collaborative Hiring",
-                  icon: <UserCheck className="text-emerald-500" />,
-                  desc: "Centralize interview notes and feedback so every hire is a team-approved win."
-                }
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ y: -8 }}
-                  className="p-10 rounded-[3rem] bg-white border border-slate-100 hover:shadow-2xl transition-all duration-300 group"
-                >
-                  <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-purple-50 transition-colors">
-                    {item.icon}
-                  </div>
-                
-                  <h4 className="text-xl font-black text-slate-900 mb-4">{item.title}</h4>
-                  <p className="text-slate-500 font-medium leading-relaxed mb-6">{item.desc}</p>
-                  <div className="flex items-center gap-2 text-[#7e22ce] font-bold text-sm cursor-pointer hover:gap-3 transition-all">
-                    Learn more <ArrowRight size={16} />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </div>
-        </section>
 
-        {/* ================= CTA ================= */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {workflowCards.map((feature, idx) => {
+              const Icon = feature.icon;
+              return (
+                <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-all duration-300">
+                  <div className="flex items-center gap-4 mb-5 sm:mb-6">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:shadow-md group-hover:scale-110 ${getColorClasses(feature.color)}`}>
+                      <Icon size={20} strokeWidth={2.5} />
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-black text-slate-900 leading-tight">
+                      {feature.title}
+                    </h3>
+                  </div>
+                  <p className="text-slate-600 text-sm font-medium leading-relaxed">
+                    {feature.desc}
+                  </p>
+                </TiltCard>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      
+      {/* ================= CTA ================= */}
+      <div className="px-3 md:px-3">
         <FeatureCTA
-          title="Transform HR operations today"
-          description="Join leading teams using KaryaUp to scale people operations without the chaos."
+          title="Tasks that connect to everything you do"
+          description="Work smarter with tasks that can live in your whiteboards, chat, and calendar — anywhere you work."
           image={dashboardImage}
-          imageAlt="KaryaUp HR Dashboard"
-          containerClassName="mt-12 mb-24"
-          paddingClassName="p-3 lg:p-4 lg:py-6"
-          imageClassName="w-full max-w-[940px] translate-y-8"
-          imageOuterClassName="relative w-full flex justify-center"
+          containerClassName="mb-12 md:mb-10"
         />
       </div>
-    </>
+    </div>
   );
 }

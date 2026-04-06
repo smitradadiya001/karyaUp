@@ -113,13 +113,13 @@ const Footer = () => {
   };
 
   return (
-    <footer className="border-t border-gray-200 bg-white pt-8 pb-6 text-gray-900">
+    <footer className="border-t border-gray-100 bg-white pt-10 pb-8 text-gray-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Top section: Logo + Nav columns */}
-        <div className="mb-8 flex flex-col gap-8 lg:flex-row lg:gap-16">
-          {/* Logo block */}
-          <div className="flex justify-center sm:justify-start lg:flex-shrink-0 lg:w-48">
-            <div className="flex flex-col items-center gap-3 text-center sm:items-start sm:text-left">
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
+          
+          {/* LEFT: Branding & Socials */}
+          <div className="flex flex-col items-center sm:items-start lg:w-1/3">
+            <div className="mb-6 space-y-4 text-center sm:text-left">
               <a href="/#hero-section" className="inline-flex items-center">
                 <img
                   src={logo}
@@ -127,130 +127,112 @@ const Footer = () => {
                   className="h-12 w-auto sm:h-14"
                 />
               </a>
-              <p className="text-[13px] font-medium leading-snug text-slate-600">
-                <span className="mb-0.5 block font-bold tracking-tight text-purple-600">
-                  KaryaUp
-                </span>
-                From Sanskrit <span className="italic opacity-90">"Karya"</span>
-                <br />
-                meaning action or work.
+              <p className="text-[13px] font-medium leading-relaxed text-slate-500 max-w-xs">
+                
+                From Sanskrit <span className="italic opacity-90">"Karya"</span> meaning action or work. Empowering teams to ship faster.
               </p>
+            </div>
+
+            {/* Social icons - Moved here */}
+            <div className="flex flex-wrap gap-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-50 text-slate-400 transition-all duration-200 hover:bg-purple-100 hover:text-purple-600"
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Desktop nav columns — hidden on mobile */}
-          <div className="hidden flex-1 sm:grid sm:grid-cols-3 sm:gap-x-8 lg:gap-x-12">
-            {footerColumns.map((column) => (
-              <div key={column.title}>
-                <h5 className="mb-3 text-base font-bold text-gray-900">
-                  {column.title}
-                </h5>
-                <ul className="space-y-2">
-                  {column.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        to={link.to}
-                        className="text-sm text-gray-500 transition-colors duration-200 hover:text-purple-600"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          {/* RIGHT: Combined Nav Columns */}
+          <div className="flex-1">
+            {/* Desktop Nav */}
+            <div className="hidden sm:grid sm:grid-cols-3 sm:gap-x-8 lg:gap-x-12">
+              {footerColumns.map((column) => (
+                <div key={column.title}>
+                  <h5 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-900">
+                    {column.title}
+                  </h5>
+                  <ul className="space-y-2.5">
+                    {column.links.map((link) => (
+                      <li key={link.label}>
+                        <Link
+                          to={link.to}
+                          className="text-sm font-medium text-slate-500 transition-colors duration-200 hover:text-purple-600"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
 
-          {/* Mobile accordion — all 3 columns, shown only on mobile */}
-          <div className="sm:hidden w-full">
-            {footerColumns.map((column) => {
-              const isOpen = openSection === column.title;
-              return (
-                <div key={column.title} className="border-b border-gray-200">
-                  <button
-                    type="button"
-                    onClick={() => toggleSection(column.title)}
-                    className="flex w-full items-center justify-between py-4 text-left"
-                    aria-expanded={isOpen}
-                  >
-                    <span className="text-base font-bold text-gray-900">
-                      {column.title}
-                    </span>
-                    <span
-                      className="text-xl leading-none text-gray-400 transition-transform duration-300"
+            {/* Mobile Accordion */}
+            <div className="sm:hidden w-full divide-y divide-slate-100 border-y border-slate-100">
+              {footerColumns.map((column) => {
+                const isOpen = openSection === column.title;
+                return (
+                  <div key={column.title}>
+                    <button
+                      type="button"
+                      onClick={() => toggleSection(column.title)}
+                      className="flex w-full items-center justify-between py-4 text-left"
+                      aria-expanded={isOpen}
+                    >
+                      <span className="text-sm font-bold text-slate-900 uppercase tracking-widest">
+                        {column.title}
+                      </span>
+                      <span
+                        className="text-lg text-slate-400 transition-transform duration-300"
+                        style={{
+                          transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                        }}
+                      >
+                        +
+                      </span>
+                    </button>
+                    <div
                       style={{
-                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                        display: "inline-block",
+                        maxHeight: isOpen ? "400px" : "0",
+                        overflow: "hidden",
+                        transition: "max-height 0.3s ease",
                       }}
                     >
-                      +
-                    </span>
-                  </button>
-
-                  <div
-                    style={{
-                      maxHeight: isOpen ? "500px" : "0",
-                      overflow: "hidden",
-                      transition: "max-height 0.3s ease",
-                    }}
-                  >
-                    <ul className="pb-4 space-y-3">
-                      {column.links.map((link) => (
-                        <li key={link.label}>
-                          <Link
-                            to={link.to}
-                            className="text-sm text-gray-500 transition-colors duration-200 hover:text-purple-600"
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                      <ul className="pb-4 space-y-3">
+                        {column.links.map((link) => (
+                          <li key={link.label}>
+                            <Link
+                              to={link.to}
+                              className="text-sm font-medium text-slate-500"
+                            >
+                              {link.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Social icons */}
-        <div className="mb-6 flex flex-wrap justify-center gap-3 sm:justify-start">
-          {socialLinks.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              aria-label={social.label}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-all duration-200 hover:bg-purple-100 hover:text-purple-600"
-            >
-              {social.icon}
-            </a>
-          ))}
-        </div>
-
-        {/* Bottom bar */}
-        <div className="flex flex-col items-center gap-3 border-t border-gray-200 pt-5 text-center sm:flex-row sm:justify-between sm:text-left">
-          <p className="text-sm text-gray-400">
+        {/* BOTTOM: Minimal Bar with Top Border */}
+        <div className="mt-6 border-t border-slate-100 pt-8 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
+          <p className="text-xs font-medium text-slate-400">
             &copy; 2026 KaryaUp. All rights reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-400 sm:gap-6">
-            <Link
-              to="/disclaimer"
-              className="transition-colors duration-200 hover:text-purple-600"
-            >
-              Disclaimer
-            </Link>
-            <Link
-              to="/privacy-policy"
-              className="transition-colors duration-200 hover:text-purple-600"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              to="/terms-of-service"
-              className="transition-colors duration-200 hover:text-purple-600"
-            >
-              Terms of Service
-            </Link>
+          <div className="flex flex-wrap justify-center gap-5 text-xs font-semibold text-slate-400">
+            <Link to="/disclaimer" className="hover:text-purple-600 transition-colors">Disclaimer</Link>
+            <Link to="/privacy-policy" className="hover:text-purple-600 transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-purple-600 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

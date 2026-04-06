@@ -40,7 +40,7 @@ export default function Documentation() {
     href="https://karyaup.com/resources/docs"
   />
 </Helmet>
-    <SubPageLayout badge="Resources" badgeColor="bg-blue-100 text-blue-700" title="Documentation" subtitle="Detailed documentation on every feature, API, and configuration option in KaryaUp.">
+    <SubPageLayout badge="DOCS — LEARN THE WORKFLOW" badgeColor="bg-blue-100 text-blue-700" title="Documentation" subtitle="Detailed documentation on every feature, API, and configuration option in KaryaUp.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <FeatureCard icon="🚀" title="Quick Start Guide" desc="Set up your workspace, invite your team, and create your first project in under 10 minutes." />
         <FeatureCard icon="📋" title="Tasks & Subtasks" desc="Full documentation on creating, assigning, organizing, and automating tasks." />

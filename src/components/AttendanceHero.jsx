@@ -25,10 +25,9 @@ export default function AttendanceHero() {
               initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-100 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-purple-700 shadow-sm"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
             >
-              <Activity size={14} className="animate-pulse" />
-              Management <span className="opacity-40">/</span> Attendance
+              ATTENDANCE — TRACK TIME PRECISELY
             </motion.div>
 
             <motion.h1
@@ -74,8 +73,8 @@ export default function AttendanceHero() {
               <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 rounded-full bg-purple-600/15 blur-[60px]" />
               <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-fuchsia-600/15 blur-[60px]" />
 
-              <div className="relative rounded-[2.5rem] border border-purple-900/35 bg-slate-900/60 p-8 backdrop-blur-xl">
-                <div className="mb-8 flex items-center justify-between">
+              <div className="relative rounded-[2.5rem] border border-purple-900/35 bg-slate-900/60 p-5 sm:p-8 backdrop-blur-xl">
+                <div className="mb-5 sm:mb-8 flex items-center justify-between">
                   <div>
                     <h4 className="flex items-center gap-2 text-xl font-black text-white">
                       Real-time Tracking
@@ -90,7 +89,7 @@ export default function AttendanceHero() {
                   </div>
                 </div>
 
-                <div className="mb-8 space-y-4">
+                <div className="mb-5 sm:mb-8 space-y-3 sm:space-y-4">
                   <div className="group flex items-center justify-between rounded-3xl border border-purple-900/20 bg-black/50 p-4 transition-all hover:border-purple-500/35">
                     <div className="flex items-center gap-4">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full border border-purple-900/40 bg-slate-900 text-xs font-black text-purple-300">

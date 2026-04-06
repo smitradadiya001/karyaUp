@@ -165,7 +165,7 @@ const PostRow = ({ article, onClick }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -10 }}
-      className="group py-10 md:py-16 border-b border-slate-100 flex flex-col md:flex-row gap-7 md:gap-12 lg:gap-24 items-start"
+      className="group py-10 md:py-14 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-start"
     >
       {/* Left Column (Content) */}
       <div className="flex-1 text-left">
@@ -176,12 +176,12 @@ const PostRow = ({ article, onClick }) => {
 
         <h3
           onClick={() => onClick(article)}
-          className="text-[28px] sm:text-[32px] md:text-[42px] font-black text-[#0A2540] mb-5 md:mb-8 leading-[1.05] tracking-tight cursor-pointer transition-colors"
+          className="text-[28px] sm:text-[32px] md:text-[40px] font-black text-[#0A2540] mb-5 md:mb-8 leading-[1.05] tracking-tight cursor-pointer transition-colors"
         >
           {article.title}
         </h3>
 
-        <p className="text-[#425466] text-lg md:text-xl leading-relaxed mb-6 md:mb-10 font-medium">
+        <p className="text-[#425466] text-lg md:text-xl leading-relaxed mb-6 md:mb-10 font-medium line-clamp-3">
           {article.excerpt}
         </p>
 
@@ -194,9 +194,9 @@ const PostRow = ({ article, onClick }) => {
       </div>
 
       {/* Right Column (Metadata + Image) */}
-      <div className="w-full md:w-[480px] lg:w-[540px] shrink-0">
+      <div className="w-full md:w-[400px] lg:w-[460px] shrink-0 md:-mt-6 lg:-mt-10">
         {/* Top: Metadata */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-6 mb-6 md:mb-12">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-6 mb-6 md:mb-10">
           <div className="text-[#425466] text-[15px] font-bold">
             {article.date}
           </div>
@@ -234,8 +234,7 @@ const PostRow = ({ article, onClick }) => {
 
 
 const ArticleDetail = ({ article, onBack, onOpenArticle }) => {
-  const currentIndex = articles.findIndex((a) => a.id === article.id);
-  const nextArticle = articles[(currentIndex + 1) % articles.length];
+  const otherArticles = articles.filter(a => a.id !== article.id);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [article]);
@@ -247,9 +246,15 @@ const ArticleDetail = ({ article, onBack, onOpenArticle }) => {
       exit={{ opacity: 0 }}
       className="bg-white min-h-screen pb-32 relative"
     >
+      <style>
+        {`
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+        `}
+      </style>
 
-
-      <div className="max-w-3xl mx-auto px-6 pt-28 md:pt-20 relative z-10">
+      <div className="max-w-4xl mx-auto px-6 pt-28 md:pt-20 relative z-10">
         <div className="flex items-center gap-3 mb-8">
           <div className="w-1 h-4 bg-[#7e22ce] rounded-full" />
           <span className="text-[#7e22ce] text-[12px] font-black uppercase tracking-[0.2em]">
@@ -265,7 +270,7 @@ const ArticleDetail = ({ article, onBack, onOpenArticle }) => {
           </span>
         </div>
 
-        <h1 className="text-[40px] md:text-[64px] font-black text-[#0A2540] leading-[1.05] tracking-tight mb-12">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-black text-[#0A2540] leading-[1.1] tracking-tight mb-8 md:mb-10 lg:mb-12">
           {article.title}
         </h1>
 
@@ -279,7 +284,7 @@ const ArticleDetail = ({ article, onBack, onOpenArticle }) => {
           </div>
         </div>
 
-        <div className="relative aspect-[16/9] rounded-[40px] overflow-hidden mb-20 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.1)] bg-[#F6F9FC]">
+        <div className="relative aspect-[21/9] sm:aspect-[16/9] rounded-[32px] sm:rounded-[40px] overflow-hidden mb-12 sm:mb-16 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.1)] bg-[#F6F9FC] md:-mt-8">
           {article.illustration ? (
             article.illustration
           ) : (
@@ -293,45 +298,48 @@ const ArticleDetail = ({ article, onBack, onOpenArticle }) => {
             prose-p:text-[#425466] prose-p:leading-relaxed prose-p:font-medium
             prose-blockquote:border-l-4 prose-blockquote:border-[#635BFF] prose-blockquote:bg-[#F6F9FC] prose-blockquote:p-10 prose-blockquote:rounded-2xl prose-blockquote:italic
             prose-strong:text-[#0A2540] prose-strong:font-black
-            prose-img:rounded-[32px] prose-img:shadow-xl"
+            prose-img:rounded-[24px] prose-img:shadow-xl"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
 
-        {/* --- Next Article Section --- */}
-        <div className="mt-24 pt-16 border-t border-slate-200">
+        {/* --- Next Article Section (Horizontally Scrolling) --- */}
+        <div className="mt-20 pt-12 border-t border-slate-200">
           <div className="flex items-center gap-3 mb-6 lg:mb-10">
             <div className="w-1.5 h-6 bg-[#7e22ce] rounded-full" />
             <h3 className="text-2xl md:text-3xl font-black text-[#0A2540] tracking-tight">
               Read Next
             </h3>
           </div>
-          
-          <div 
-            onClick={() => onOpenArticle(nextArticle)}
-            className="group flex flex-col md:flex-row items-center gap-8 md:gap-12 cursor-pointer p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] bg-slate-50/50 hover:bg-slate-50 transition-colors border border-slate-100/50 hover:border-slate-200"
-          >
-            <div className="flex-1 text-left flex flex-col items-start">
-              <div className="text-[#7e22ce] text-[12px] md:text-[13px] font-black uppercase tracking-[0.2em] mb-3 md:mb-5">
-                {nextArticle.category}
-              </div>
-              <h4 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0A2540] transition-colors leading-[1.1] tracking-tight mb-8">
-                {nextArticle.title}
-              </h4>
 
-              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-200 bg-white text-[#7e22ce] font-black text-[13px] uppercase tracking-widest shadow-sm group-hover:border-purple-200 group-hover:bg-purple-50 group-hover:shadow-md transition-all">
-                Read Next <ArrowRight size={16} strokeWidth={3} className="group-hover:translate-x-1.5 transition-transform" />
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 hide-scrollbar -mx-6 px-6 sm:mx-0 sm:px-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            {otherArticles.map((nextArt) => (
+              <div
+                key={nextArt.id}
+                onClick={() => onOpenArticle(nextArt)}
+                className="group flex flex-col cursor-pointer p-4 sm:p-5 rounded-[2rem] bg-slate-50/50 hover:bg-slate-50 transition-colors border border-slate-100/50 hover:border-slate-200 shrink-0 w-[80vw] sm:w-[340px] md:w-[380px] snap-center"
+              >
+                <div className="w-full aspect-video rounded-[20px] overflow-hidden bg-[#F6F9FC] shadow-sm group-hover:shadow-md transition-shadow mb-4 sm:mb-5 md:-mt-4">
+                  {nextArt.illustration ? (
+                    nextArt.illustration
+                  ) : (
+                    <img src={nextArt.image} alt={nextArt.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                  )}
+                </div>
+
+                <div className="flex-1 flex flex-col items-start w-full">
+                  <div className="text-[#7e22ce] text-[11px] sm:text-[12px] font-black uppercase tracking-[0.2em] mb-2 sm:mb-3">
+                    {nextArt.category}
+                  </div>
+                  <h4 className="text-xl sm:text-2xl font-black text-[#0A2540] transition-colors leading-[1.15] tracking-tight mb-5 line-clamp-2">
+                    {nextArt.title}
+                  </h4>
+
+                  <div className="mt-auto inline-flex items-center gap-2 text-[#7e22ce] font-black text-[12px] uppercase tracking-widest transition-all">
+                    Read Article <ArrowRight size={16} strokeWidth={3} className="group-hover:translate-x-1.5 transition-transform" />
+                  </div>
+                </div>
               </div>
-            </div>
-            
-            <div className="w-full md:w-[280px] lg:w-[320px] shrink-0">
-              <div className="relative aspect-[16/9] md:aspect-[4/3] lg:aspect-video rounded-[24px] overflow-hidden bg-[#F6F9FC] shadow-sm group-hover:shadow-md transition-shadow">
-                {nextArticle.illustration ? (
-                  nextArticle.illustration
-                ) : (
-                  <img src={nextArticle.image} alt={nextArticle.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-                )}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -506,12 +514,12 @@ export default function Blog() {
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
               <div className="w-full max-w-4xl text-center lg:text-left">
                 <motion.div
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
                 >
-                  Blog — Ideas Worth Running With
+                  BLOG — INSIGHTS & IDEAS
                 </motion.div>
 
                 <motion.h1
@@ -552,13 +560,12 @@ export default function Blog() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                className="relative mt-8 lg:mt-2 w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] mx-auto lg:mx-0 lg:ml-auto"
+                className="relative mt-8 lg:-mt-6 w-full max-w-[380px] sm:max-w-[440px] lg:max-w-[480px] mx-auto lg:mx-0 lg:ml-auto"
               >
-                <div className="absolute -inset-8 bg-gradient-to-tr from-[#7e22ce]/14 via-fuchsia-500/8 to-transparent blur-3xl opacity-50" />
                 <img
                   src={BlogHero}
                   alt="KaryaUp blog hero visual"
-                  className="relative w-full h-auto object-contain drop-shadow-[0_28px_70px_rgba(15,23,42,0.14)]"
+                  className="relative w-full h-auto object-contain"
                 />
               </motion.div>
             </div>

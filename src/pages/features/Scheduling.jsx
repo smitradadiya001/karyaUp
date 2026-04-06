@@ -3,7 +3,7 @@ import SubPageLayout, { FeatureCard, CTABanner } from "../../components/SubPageL
 
 export default function Scheduling() {
   return (
-    <SubPageLayout badge="Features" badgeColor="bg-orange-100 text-orange-700" title="Scheduling" subtitle="Intelligent scheduling that respects availability, balances workloads, and avoids conflicts.">
+    <SubPageLayout badge="SCHEDULING — MANAGE YOUR TIME" badgeColor="bg-orange-100 text-orange-700" title="Scheduling" subtitle="Intelligent scheduling that respects availability, balances workloads, and avoids conflicts.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-4">
         <FeatureCard icon="⚖️" title="Workload Balancing" desc="Distribute tasks evenly across your team. Instantly see who is overloaded and who has capacity." />
         <FeatureCard icon="🕐" title="Availability Settings" desc="Team members set their work hours so scheduling respects time zones and preferences." />

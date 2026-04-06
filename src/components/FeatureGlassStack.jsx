@@ -11,7 +11,7 @@ const FeatureGlassStack = ({ items = [] }) => {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % displayItems.length);
-    }, 2000); // Reduced interval for faster switching
+    }, 3000); // Slower interval for smoother switching
     return () => clearInterval(timer);
   }, [displayItems.length]);
 
@@ -42,13 +42,13 @@ const FeatureGlassStack = ({ items = [] }) => {
             }}
             exit={{ 
               opacity: 0, 
-              y: -50, 
-              scale: 1.1, 
-              filter: "blur(8px)",
-              transition: { duration: 0.4 }
+              y: 0, 
+              scale: 0.95, 
+              filter: "blur(4px)",
+              transition: { duration: 0.7, ease: "easeOut" }
             }}
             transition={{
-              duration: 0.7,
+              duration: 1.0,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="absolute w-full px-5 py-3 rounded-full bg-[#1a1c1e]/80 backdrop-blur-xl border border-white/5 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.4)] flex items-center gap-4 group transition-colors duration-500"

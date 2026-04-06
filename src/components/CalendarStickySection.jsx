@@ -146,15 +146,15 @@ export default function CalendarStickySection() {
           </p>
         </motion.div>
 
-        <div className="sticky-sections-container relative h-[85vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto mb-12 sm:mb-24 rounded-xl sm:rounded-[2.5rem] overflow-hidden border border-slate-200/80 shadow-2xl bg-white">
+        <div className="sticky-sections-container relative h-[65vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto mb-12 sm:mb-24 rounded-xl sm:rounded-[2.5rem] overflow-hidden border border-slate-200/80 shadow-2xl bg-white">
           {calendarSections.map((item, i) => (
             <div
               key={item.id}
               ref={(el) => (sectionRefs.current[i] = el)}
               className="absolute inset-0 flex h-full w-full flex-col lg:flex-row items-center bg-white"
             >
-              <div className="flex-[0.45] lg:flex-1 flex h-full flex-col items-center justify-center p-4 text-center sm:p-8 lg:items-start lg:p-12 lg:text-left">
-                <h3 className="mb-6 text-3xl font-black leading-[1.1] text-slate-900 sm:text-4xl md:text-5xl">
+              <div className="flex-none lg:flex-1 flex flex-col items-center justify-center px-4 pt-5 pb-2 text-center sm:h-full sm:p-8 lg:items-start lg:p-12 lg:text-left z-20 relative">
+                <h3 className="mb-2.5 sm:mb-6 text-[26px] sm:text-3xl font-black leading-[1.1] text-slate-900 md:text-5xl">
                   {item.title}
                   <br />
                   <span className="text-gradient">
@@ -162,7 +162,7 @@ export default function CalendarStickySection() {
                   </span>
                 </h3>
 
-                <p className="mb-6 max-w-md line-clamp-3 text-sm font-medium leading-relaxed text-slate-500 sm:text-lg lg:line-clamp-none">
+                <p className="mb-3 sm:mb-6 max-w-md line-clamp-3 text-xs sm:text-sm font-medium leading-relaxed text-slate-500 sm:text-lg lg:line-clamp-none">
                   {item.description}
                 </p>
 
@@ -181,22 +181,22 @@ export default function CalendarStickySection() {
                   ))}
                 </ul>
 
-                <div className="inline-flex rounded-full border border-purple-200 bg-purple-50 px-4 py-2 text-[11px] font-black uppercase tracking-widest text-purple-700 sm:hidden">
+                <div className="inline-flex rounded-full border border-purple-200 bg-purple-50 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-purple-700 sm:hidden">
                   {item.tag}
                 </div>
               </div>
 
-              <div className="flex-[0.55] lg:flex-1 flex h-full w-full items-center justify-center p-0">
+              <div className="flex-1 lg:flex-1 flex w-full items-center justify-center p-4 sm:p-0 min-h-0 relative z-10">
                 <div className="relative flex h-full w-full items-center justify-center">
                   <img
                     src={item.image}
                     alt={item.header}
                     loading="lazy"
                     className={cn(
-                      "relative z-10 h-auto max-h-[85%] object-contain transition-all duration-500 lg:max-h-[90%]",
+                      "relative z-10 h-full max-h-[90%] w-auto max-w-[90%] object-contain transition-all duration-500 lg:h-auto lg:w-[85%]",
                       item.id === "create-task"
-                        ? "w-[85%] lg:w-[75%]"
-                        : "w-[95%] lg:w-[100%]"
+                        ? "lg:max-w-[75%]"
+                        : "lg:max-w-[95%]"
                     )}
                   />
                 </div>

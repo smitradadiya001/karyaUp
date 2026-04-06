@@ -1,198 +1,433 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle2, XCircle, GraduationCap, BookOpen, School, Target,ArrowRight} from "lucide-react";
+                                        import { useRef, useEffect, useMemo, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { CheckCircle2, XCircle, GraduationCap, BookOpen, School, Target, ArrowRight, Check } from "lucide-react";
 import dashboardImage from "../../assets/dashboard2.webp";
 import FeatureCTA from "../../components/FeatureCTA";
-import PageHero from "../../components/PageHero";
-import karyaupLogo from "../../assets/logo-svg.svg";
-import { Helmet } from "react-helmet-async";
+import karyaUpLogo from "../../assets/karyaup-logo.mp4";
 
-const LightShield3D = () => (
-  <svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-56 h-64 md:w-64 md:h-72 drop-shadow-[0_25px_50px_rgba(0,0,0,0.12)]">
-    <defs>
-      <linearGradient id="shieldGrad" x1="100" y1="10" x2="100" y2="208" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#F472B6" stopOpacity="0.4" />
-        <stop offset="1" stopColor="#A855F7" stopOpacity="0.4" />
-      </linearGradient>
-    </defs>
-    <path d="M100 10 L182 42 L182 108 C182 154 146 190 100 208 C54 190 18 154 18 108 L18 42 Z" fill="white" fillOpacity="0.05" stroke="url(#shieldGrad)" strokeOpacity="0.8" strokeWidth="2" />
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;   // -1 … 1
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={className}
+    >
+      <div style={{ transform: 'translateZ(30px)' }} className="h-full flex flex-col">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
+
+const getColorClasses = (color) => {
+  const colorMap = {
+    purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
+    fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
+    blue: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
+    pink: "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white",
+    emerald: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
+    orange: "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
+  };
+  return colorMap[color] || "bg-slate-50 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
+};
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="13" height="13">
+    <polyline points="3,9 7,13 13,5" />
+  </svg>
+);
+const XIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" width="13" height="13">
+    <line x1="4" y1="4" x2="12" y2="12" /><line x1="12" y1="4" x2="4" y2="12" />
+  </svg>
+);
+const ListIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" width="11" height="11">
+    <line x1="5" y1="4" x2="13" y2="4" /><line x1="5" y1="8" x2="13" y2="8" /><line x1="5" y1="12" x2="13" y2="12" />
+    <circle cx="2.5" cy="4" r="1" fill="currentColor" stroke="none" />
+    <circle cx="2.5" cy="8" r="1" fill="currentColor" stroke="none" />
+    <circle cx="2.5" cy="12" r="1" fill="currentColor" stroke="none" />
   </svg>
 );
 
-export default function Education() {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+/* ═══════════════════════════════════════════════
+   LIGHT 3D GLASS SHIELD
+═══════════════════════════════════════════════ */
+const LightShield3D = () => (
+  <svg viewBox="0 0 200 220" fill="none" className="w-full h-full drop-shadow-[0_25px_50px_rgba(0,0,0,0.12)]">
+    <defs>
+      <linearGradient id="glassBorderGradient" x1="100" y1="10" x2="100" y2="208" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#F472B6" stopOpacity="0.4" />
+        <stop offset="0.5" stopColor="white" stopOpacity="0.6" />
+        <stop offset="1" stopColor="#A855F7" stopOpacity="0.4" />
+      </linearGradient>
+    </defs>
+    <path
+      d="M100 10 L182 42 L182 108 C182 154 146 190 100 208 C54 190 18 154 18 108 L18 42 Z"
+      fill="white"
+      fillOpacity="0.03"
+      stroke="url(#glassBorderGradient)"
+      strokeOpacity="0.6"
+      strokeWidth="2"
+    />
+  </svg>
+);
+
+/* ═══════════════════════════════════════════════
+   SUB-COMPONENTS
+═══════════════════════════════════════════════ */
+function Card({ data, type, index }) {
+  const isRed = type === "red";
+  return (
+    <motion.div
+      initial={{ y: 0 }}
+      animate={{ y: [0, -8, 0] }}
+      transition={{ duration: 4, repeat: Infinity, delay: index * 0.4, ease: "easeInOut" }}
+      className="relative group rounded-xl w-full"
+    >
+      <div className="backdrop-blur-md bg-white/40 border border-white/30 rounded-xl p-3 flex items-start gap-3 w-full shadow-[0_8px_32px_0_rgba(0,0,0,0.05)] transition-all duration-300 group-hover:border-purple-400/50">
+        <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 border ${isRed ? "bg-red-500/20 border-red-500/50 text-red-600" : "bg-green-500/20 border-green-500/50 text-green-600"
+          }`}>
+          {isRed ? <XIcon /> : <CheckIcon />}
+        </div>
+        <div className="flex-1 min-w-0 text-left">
+          <div className="text-[13px] font-bold text-slate-900 truncate">{data.title}</div>
+          <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5 font-medium">
+            <span>{data.tag}</span>
+            <span className="w-1 h-1 rounded-full bg-slate-300" />
+            <span className="flex items-center gap-1"><ListIcon /> Active</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function ScrollTrack({ cards, direction }) {
+  const trackRef = useRef(null);
+  const posRef = useRef(direction === "up" ? -25 : 0);
+  const doubled = useMemo(() => [...cards, ...cards], [cards]);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+    const speed = 0.045;
+    const animate = () => {
+      if (direction === "down") {
+        posRef.current -= speed;
+        if (posRef.current <= -25) posRef.current = 0;
+      } else {
+        posRef.current += speed;
+        if (posRef.current >= 0) posRef.current = -25;
+      }
+      if (trackRef.current) trackRef.current.style.transform = `translateY(${posRef.current}%)`;
+      requestAnimationFrame(animate);
+    };
+    const raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [direction]);
 
-  // Background pattern rows
-  const infiniteText = "KaryaUp ".repeat(20);
-  const rows = Array(12).fill(infiniteText);
+  return (
+    <div className="h-[220px] overflow-hidden relative">
+      <div className="relative h-full" style={{
+        maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)'
+      }}>
+        <div ref={trackRef} className="flex flex-col gap-4 py-4 will-change-transform">
+          {doubled.map((card, i) => (
+            <Card key={i} data={card} type={direction === "down" ? "red" : "green"} index={i % cards.length} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
-  const oldWayItems = [
-    'Scattered physical notebooks', 'Fragmented lesson planning', 'Manual grading & slow feedback',
-    'Lost assignments in emails', 'Rigid, one-size-fits-all teaching', 'Difficulty tracking progress', 'Siloed administrative data'
+function ScrollingDataBg({ isShieldHovered }) {
+  const infinitePatternRow = "KaryaUp ".repeat(25);
+  const patternRows = Array(14).fill(infinitePatternRow);
+
+  return (
+    <div className={`absolute inset-0 pointer-events-none transition-all duration-1000 flex flex-col justify-center gap-3 overflow-hidden ${isShieldHovered ? "opacity-40" : "opacity-[0.08]"
+      }`}>
+      {patternRows.map((pattern, i) => (
+        <motion.div
+          key={i}
+          initial={{ x: i % 2 === 0 ? 0 : -100 }}
+          animate={{ x: i % 2 === 0 ? -100 : 0 }}
+          transition={{ duration: isShieldHovered ? 8 : 25, repeat: Infinity, ease: "linear" }}
+          className="whitespace-nowrap text-purple-700 font-normal text-sm md:text-base select-none"
+        >
+          {pattern} {pattern}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+const FeatureStack = ({ items = [] }) => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (items.length === 0) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % items.length);
+    }, 1500); // Snappy 1.5s interval
+    return () => clearInterval(timer);
+  }, [items.length]);
+
+  if (items.length === 0) return null;
+
+  return (
+    <div className="relative h-[80px] sm:h-[100px] w-full max-w-[280px] sm:max-w-[320px] mt-6 lg:mt-8 group overflow-visible">
+      <AnimatePresence mode="popLayout">
+        {[2, 1, 0].map((offset) => {
+          const itemIndex = (index + offset) % items.length;
+          const item = items[itemIndex];
+          const label = typeof item === "string" ? item : item.label;
+          const Icon = (typeof item === "object" && item.icon) ? item.icon : Check;
+
+          return (
+            <motion.div
+              key={label}
+              initial={{ opacity: 0, y: 15, scale: 0.9 }}
+              animate={{
+                opacity: offset === 0 ? 1 : offset === 1 ? 0.4 : 0.15,
+                scale: 1 - offset * 0.04,
+                y: offset * 12, // Compact vertical stacking for better hero-screen visibility
+                zIndex: 10 - offset,
+              }}
+              exit={{
+                opacity: 0,
+                y: -20,
+                scale: 1.05,
+                transition: { duration: 0.4, ease: "easeIn" }
+              }}
+              transition={{
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1],
+                delay: offset * 0.02
+              }}
+              className="absolute top-0 left-0 w-full px-5 py-3 rounded-xl bg-slate-400/10 backdrop-blur-xl border border-black/30 shadow-sm flex items-center gap-3 transition-colors duration-300 hover:bg-slate-400/20"
+            >
+              <div className="w-5 h-5 rounded bg-black/5 border border-black/10 flex items-center justify-center flex-shrink-0">
+                <Icon className="w-3 h-3 text-black stroke-[3]" />
+              </div>
+              <span className="text-[11px] sm:text-[13px] font-black uppercase tracking-widest text-black">
+                {label}
+              </span>
+            </motion.div>
+          );
+        })}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default function Education() {
+  const [isShieldHovered, setIsShieldHovered] = useState(false);
+  const [activeFeature, setActiveFeature] = useState(0); // For Task Workspace
+
+  const redCards = [
+    { title: "Projects scattered across tools", tag: "Inefficiency" },
+    { title: "Critical info hidden in silos", tag: "Visibility" },
+    { title: "Manual updates strain capacity", tag: "Labor" },
+    { title: "Missed deadlines & bottlenecks", tag: "Risk" },
+    { title: "Unclear resource allocation", tag: "Planning" },
   ];
 
-  const newWayItems = [
-    'One digital hub for all courses', 'AI-powered lesson templates', 'Instant feedback loops',
-    'Interactive digital whiteboards', 'Personalized learning paths', 'Real-time student analytics', 'Automated admin workflows'
+  const greenCards = [
+    { title: "Unified platform hub", tag: "Efficiency" },
+    { title: "Instant global search", tag: "Visibility" },
+    { title: "Automated report generation", tag: "Labor" },
+    { title: "AI-powered timeline tracking", tag: "Growth" },
+    { title: "Real-time resource analytics", tag: "Scale" },
   ];
 
   return (
-    <>
-      <Helmet>
-        <title>Education | KaryaUp</title>
-        <meta name="description" content="Transform your educational institution with KaryaUp. Centralize curriculum planning, student tracking, and administrative workflows." />
-        <meta name="keywords" content="education management, curriculum planning, student tracking, academic coordination" />
-        <link rel="canonical" href="https://karyaup.com/solutions/education" />
-      </Helmet>
-      <div className="bg-white font-sans overflow-x-hidden pt-20">
+    <div className="bg-white font-sans overflow-x-hidden">
 
-        {/* ================= HERO SECTION ================= */}
-        <PageHero
-          pillText="Solutions / Education"
-          titleBlack="Simplify"
-          titleGradient="Education Management"
-          descriptionList={[
-            "Manage academic and administrative resources in one place with KaryaUp's time-saving work tools.",
-            "From admissions to graduation, keep every step connected and efficient."
-          ]}
-          featureStackItems={["Curriculum Planning", "Student Tracking", "Resource Allocation", "Auto Grading"]}
-          imageSrc={dashboardImage}
-          imageAlt="Education Dashboard"
-        />
-
-        {/* ================= REIMAGINED COMPARISON SECTION ================= */}
-        <section className="py-12 sm:py-24 px-4 bg-white overflow-hidden">
-          <div className="max-w-7xl mx-auto">
-
+      {/* ================= HERO SECTION ================= */}
+      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 py-10 lg:py-23">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center lg:text-left"
+          >
             <motion.div
-              initial={{ opacity: 0, y: isMobile ? 0 : 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-12 sm:mb-16"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50/80 backdrop-blur-sm border border-purple-100 text-purple-600 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] shadow-sm mb-10"
             >
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4">
-                Education Management<br />
-                <motion.span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                >
-                  is broken, we fixed it
-                </motion.span>
-              </h2>
+              EDUCATION — EMPOWERING LEARNING
             </motion.div>
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
+              Simplify <br />
+              <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                Education <br /> Management
+              </motion.span>
+            </h1>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+              Manage academic and administrative resources in one place with KaryaUp's time-saving work tools. From admissions to graduation, keep every step connected.
+            </p>
+            <FeatureStack items={[ {label: "Admissions", icon: BookOpen}, {label: "Learning", icon: GraduationCap}, {label: "Administration", icon: School} ]} />
+          </motion.div>
 
-            <div className="p-[2px] rounded-[2rem] sm:rounded-[3rem] bg-gradient-to-br from-purple-400 via-fuchsia-400 to-indigo-500 shadow-2xl">
-              <div className="bg-slate-50 rounded-[1.9rem] sm:rounded-[2.9rem] overflow-hidden flex flex-col md:flex-row items-start justify-between min-h-[400px] relative">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
+              <img src={dashboardImage} alt="Dashboard" className="w-full h-full object-cover" />
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-                {/* 1. LEFT SIDE: Old Way */}
-                <div className="w-full md:w-[35%] p-6 sm:p-10 z-10 bg-white/40 border-b md:border-b-0 md:border-r border-slate-200">
-                  <h3 className="text-2xl font-black text-slate-900 mb-1 text-center">The Old Way</h3>
-                  <p className="text-[10px] text-slate-500 mb-6 text-center uppercase tracking-widest font-bold">Manual updates cause friction.</p>
-                  <div className="h-64 overflow-hidden relative font-sans">
-                    <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-slate-50 via-transparent to-slate-50 opacity-80" />
-                    <motion.div
-                      animate={{ y: ["0%", "-50%"] }}
-                      transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
-                      className="flex flex-col gap-3"
-                    >
-                      {[...oldWayItems, ...oldWayItems].map((item, i) => (
-                        <div key={i} className="p-3 bg-white/60 backdrop-blur-md rounded-xl border border-red-100 flex items-center gap-3 shadow-sm">
-                          <XCircle className="text-red-500 shrink-0" size={16} />
-                          <span className="text-slate-700 font-bold text-[12px]">{item}</span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </div>
+      {/* ================= REIMAGINED COMPARISON SECTION ================= */}
+      {/* Comparison Section */}
+      <section className="py-5 bg-white px-4 md:px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-12"
+          >
+            Project Management <br />
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
+              is broken, we fixed it
+            </motion.span>
+          </motion.h2>
+
+          <div className="p-[2px] rounded-[1.5rem] md:rounded-[2.5rem] bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-500 shadow-2xl overflow-hidden">
+            <div className="bg-slate-50 rounded-[1.4rem] md:rounded-[2.4rem] overflow-hidden grid grid-cols-1 md:grid-cols-3">
+
+              {/* LEFT: OLD WAY */}
+              <div className="p-4 md:p-3 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col justify-start pt-10 md:pt-12 bg-white/50 order-1">
+                <h3 className="text-center text-2xl font-black mb-1 text-slate-900">Old Way</h3>
+                <p className="text-sm text-center text-slate-500 mb-6 font-medium">Manual updates and scattered tools.</p>
+                <ScrollTrack cards={redCards} direction="down" />
+              </div>
+
+              {/* MIDDLE: 3D SHIELD & TEXT */}
+              <div
+                className="relative flex flex-col items-center justify-start py-10 md:py-12 px-4 group overflow-hidden bg-white/40 min-h-[450px] order-2"
+                onMouseEnter={() => setIsShieldHovered(true)}
+                onMouseLeave={() => setIsShieldHovered(false)}
+              >
+                <ScrollingDataBg isShieldHovered={isShieldHovered} />
+
+                <div className="relative z-40 text-center mb-10 pointer-events-none">
+                  <h3 className={`text-xl md:text-2xl font-black transition-colors duration-500 ${isShieldHovered ? "text-purple-600" : "text-slate-900"}`}>
+                    Security You Can Trust
+                  </h3>
+                  <p className={`text-[10px] mt-2 font-bold uppercase tracking-widest transition-colors duration-500 ${isShieldHovered ? "text-fuchsia-500" : "text-slate-500"}`}>
+                    More secure than using AI directly.
+                  </p>
                 </div>
 
-                {/* 2. MIDDLE SIDE: Shield */}
-                <div
-                  className="w-full md:w-[30%] flex flex-col items-center relative py-12 px-6 overflow-hidden self-stretch"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                >
-                  <div className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-700 flex flex-col justify-center ${isHovered ? "opacity-20" : "opacity-0"}`}>
-                    {rows.map((row, i) => (
-                      <motion.div
-                        key={i}
-                        animate={{ x: i % 2 === 0 ? [-100, 0] : [0, -100] }}
-                        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                        className="whitespace-nowrap text-purple-400 font-semibold text-lg py-1 select-none"
-                      >
-                        {row}
-                      </motion.div>
-                    ))}
+                <div className="relative flex items-center justify-center w-full max-w-[200px] md:max-w-[240px] aspect-square" style={{ perspective: "1200px" }}>
+                  <div className="absolute inset-0 z-10 opacity-80 scale-110">
+                    <LightShield3D />
                   </div>
 
-                  <div className="relative z-10 flex flex-col items-center w-full text-center">
-                    <h3 className={`text-xl md:text-2xl font-black mb-1 transition-colors duration-500 ${isHovered ? "text-fuchsia-500" : "text-slate-900"}`}>
-                      Enterprise-Grade Security
-                    </h3>
-                    <p className={`text-[11px] mb-6 font-medium transition-colors duration-500 ${isHovered ? "text-purple-500" : "text-slate-500"}`}>
-                      Your data is safe, private, and yours alone.
-                    </p>
-
-                    <div className="relative flex items-center justify-center w-full h-56" style={{ perspective: "1000px" }}>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-80 scale-90">
-                        <LightShield3D />
+                  <div className="relative z-30" style={{ transformStyle: "preserve-3d" }}>
+                    <motion.div
+                      animate={{
+                        rotateY: [0, 360],
+                        y: [0, -10, 0],
+                        scale: isShieldHovered ? 1.1 : 1
+                      }}
+                      transition={{
+                        rotateY: { duration: 10, repeat: Infinity, ease: "linear" },
+                        y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                        scale: { duration: 0.4 }
+                      }}
+                      className="w-32 h-32 md:w-44 md:h-44 relative"
+                      style={{ transformStyle: "preserve-3d" }}
+                    >
+                      <div className="absolute inset-0" style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+                        <img src={karyaUpLogo} alt="Logo Front" className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(168,85,247,0.5)]" />
                       </div>
-                      <motion.img
-                        src={karyaupLogo}
-                        alt="KaryaUp Logo"
-                        animate={{ rotateY: 360, scale: isHovered ? 1.05 : 0.9 }}
-                        transition={{ rotateY: { duration: 8, ease: "linear", repeat: Infinity }, scale: { duration: 0.4 } }}
-                        className="w-32 h-32 md:w-40 md:h-40 object-contain z-30 drop-shadow-[0_15px_35px_rgba(168,85,247,0.4)]"
-                        style={{ transformStyle: "preserve-3d" }}
-                      />
-                      <div className={`absolute w-32 h-32 bg-fuchsia-500/20 rounded-full blur-3xl transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`} />
-                    </div>
-                  </div>
-                </div>
 
-                {/* 3. RIGHT SIDE: KaryaUp Way */}
-                <div className="w-full md:w-[35%] p-6 sm:p-10 z-10 bg-white/40 border-t md:border-t-0 md:border-l border-slate-200">
-                  <h3 className="text-2xl font-black text-slate-900 mb-1 text-center">The KaryaUp Way</h3>
-                  <p className="text-[10px] text-slate-500 mb-6 text-center uppercase tracking-widest font-bold">Smart orchestration for learning.</p>
-                  <div className="h-64 overflow-hidden relative font-sans">
-                    <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-slate-50 via-transparent to-slate-50 opacity-80" />
-                    <motion.div
-                      animate={{ y: ["-50%", "0%"] }}
-                      transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
-                      className="flex flex-col gap-3"
-                    >
-                      {[...newWayItems, ...newWayItems].map((item, i) => (
-                        <div key={i} className="p-3 bg-white/80 backdrop-blur-md rounded-xl border border-purple-200 flex items-center gap-3 shadow-sm">
-                          <CheckCircle2 className="text-green-500 shrink-0" size={16} />
-                          <span className="text-purple-900 font-bold text-[12px]">{item}</span>
-                        </div>
-                      ))}
+                      <div className="absolute inset-0" style={{
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                        transform: 'rotateY(180deg) translateZ(1px)'
+                      }}>
+                        <img src={karyaUpLogo} alt="Logo Back" className="w-full h-full object-contain opacity-80" />
+                      </div>
                     </motion.div>
                   </div>
                 </div>
+
+                <motion.div
+                  animate={{ scale: isShieldHovered ? 1.4 : 1, opacity: isShieldHovered ? 0.4 : 0.15 }}
+                  className="absolute -bottom-40 w-64 h-64 bg-purple-400 rounded-full blur-[100px] pointer-events-none"
+                />
+              </div>
+
+              {/* RIGHT: KARYAUP WAY */}
+              <div className="p-4 md:p-6 border-t md:border-t-0 md:border-l border-slate-200 flex flex-col justify-start pt-10 md:pt-12 bg-white/50 order-3">
+                <h3 className="text-center text-2xl font-black mb-1 text-slate-900">The KaryaUp Way</h3>
+                <p className="text-sm text-center text-slate-500 mb-6 font-medium">Advanced execution loops for growth.</p>
+                <ScrollTrack cards={greenCards} direction="up" />
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+         
+      {/* ================= GLASS-EFFECT EDUCATION LIFECYCLE ================= */}
+      <section className="w-full py-10 relative overflow-hidden bg-white">
+        {/* Animated Background Glows for Glass Effect */}
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-white rounded-full blur-[120px] opacity-40 animate-pulse" />
+        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-fuchsia-200 rounded-full blur-[120px] opacity-40 animate-pulse" />
 
-        {/* ================= EDUCATION LIFECYCLE ================= */}
-        <section className="w-full py-24 px-6 lg:px-20 bg-slate-50/50">
-          <div className="max-w-7xl mx-auto text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: isMobile ? 0 : 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4 tracking-tight"
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6"
             >
               Streamline the <br />
               <motion.span
@@ -202,109 +437,48 @@ export default function Education() {
               >
                 Education Lifecycle
               </motion.span>
-            </motion.h2>
-          </div>
+            </motion.h1>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center max-w-7xl mx-auto">
-            {[
-              { title: "Admissions", desc: "Simplify applications and intake with automated workflows.", icon: <BookOpen className="mx-auto text-purple-600" size={28} /> },
-              { title: "Learning", desc: "Centralize coursework, assignments, and collaboration.", icon: <GraduationCap className="mx-auto text-purple-600" size={28} /> },
-              { title: "Administration", desc: "Manage schedules, resources, and compliance with ease.", icon: <School className="mx-auto text-purple-600" size={28} /> },
-              { title: "Outcomes", desc: "Track performance, visualize progress, and celebrate success.", icon: <Target className="mx-auto text-purple-600" size={28} /> },
-            ].map((step, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: isMobile ? 0 : 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-                className="bg-white rounded-3xl shadow-sm p-8 border border-slate-100 hover:shadow-xl hover:border-purple-200 transition-all duration-300 group"
-              >
-                <div className="mb-5 group-hover:scale-110 transition-transform duration-300">{step.icon}</div>
-                <h3 className="text-xl font-black text-slate-900 mb-3 tracking-tight">{step.title}</h3>
-                <p className="text-slate-600 text-sm font-medium leading-relaxed">{step.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        <section className="w-full py-24 relative overflow-hidden bg-slate-50">
-        {/* Animated Background Glows for Glass Effect */}
-        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-purple-200 rounded-full blur-[120px] opacity-40 animate-pulse" />
-        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-fuchsia-200 rounded-full blur-[120px] opacity-40 animate-pulse" />
-
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="text-center mb-16">
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6"
-          >
-            Streamline the <br />
-            <motion.span
-              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            >
-               Education Lifecycle
-            </motion.span>
-          </motion.h1>
-            
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "Admissions", desc: "Simplify applications and intake with automated workflows.", icon: <BookOpen className="text-purple-600" size={28} /> },
-              { title: "Learning", desc: "Centralize coursework, assignments, and collaboration.", icon: <GraduationCap className="text-purple-600" size={28} /> },
-              { title: "Administration", desc: "Manage schedules, resources, and compliance with ease.", icon: <School className="text-purple-600" size={28} /> },
-              { title: "Outcomes", desc: "Track performance, visualize progress, and celebrate success.", icon: <Target className="text-purple-600" size={28} /> },
-            ].map((step, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ y: -12 }}
-                className="group relative p-10 rounded-[2.5rem] bg-white/40 backdrop-blur-xl border border-white/20 shadow-2xl flex flex-col items-center text-center transition-all duration-300"
-              >
-                {/* Logo & Icon Container */}
-                <div className="mb-8 relative">
-                 
-                  <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center shadow-md border border-purple-100">
-                    {step.icon}
+              { title: "Admissions", desc: "Simplify applications and intake with automated workflows.", icon: BookOpen, color: "fuchsia" },
+              { title: "Learning", desc: "Centralize coursework, assignments, and collaboration.", icon: GraduationCap, color: "blue" },
+              { title: "Administration", desc: "Manage schedules, resources, and compliance with ease.", icon: School, color: "emerald" },
+              { title: "Outcomes", desc: "Track performance, visualize progress, and celebrate success.", icon: Target, color: "orange" },
+            ].map((feature, idx) => {
+              const Icon = feature.icon;
+              return (
+                <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 ${getColorClasses(feature.color)}`}>
+                    <Icon size={20} strokeWidth={2.5} />
                   </div>
-                </div>
-
-                <h3 className="text-xl font-black text-slate-900 mb-3 group-hover:text-purple-700 transition-colors">
-                  {step.title}
-                </h3>
-                <p className="text-slate-600 font-medium text-sm leading-relaxed mb-6">
-                  {step.desc}
-                </p>
-                
-                <div className="flex items-center gap-2 text-[#7e22ce] font-bold text-xs cursor-pointer opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
-                  EXPLORE FEATURE <ArrowRight size={14} />
-                </div>
-              </motion.div>
-            ))}
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">{feature.title}</h3>
+                  <p className="text-slate-600 text-sm font-medium leading-relaxed">{feature.desc}</p>
+                </TiltCard>
+              );
+            })}
           </div>
         </div>
       </section>
 
-        {/* ================= FINAL CTA ================= */}
-        <FeatureCTA
-          title="Tasks that connect to everything you do"
-          description="Work Smarter with tasks that can live in your whiteboards, chat, calendar—anywhere you work."
-          image={dashboardImage}
-          imageAlt="KaryaUp Education Dashboard"
-          containerClassName="mt-12 mb-24"
-          paddingClassName="p-3 lg:p-4 lg:py-6"
-          imageClassName="w-full max-w-[940px] translate-y-8"
-          imageOuterClassName="relative w-full flex justify-center"
-        />
-      </div>
-    </>
+      {/* ================= FINAL CTA ================= */}
+      <FeatureCTA
+        title={
+          <>
+            Tasks that connect to everything you do
+
+          </>
+        }
+        description="Work Smater with tasks that can live in your whiteboaards,chat,calendar - anywhere you work"
+        image={dashboardImage}
+        imageAlt="KaryaUp dashboard"
+        containerClassName="mt-10 mb-5"
+        paddingClassName="p-3 lg:p-4 lg:py-6"
+        imageClassName="w-full max-w-[940px]"
+        imageOuterClassName="relative w-[108%] lg:w-full translate-x-2 lg:translate-x-8"
+      />
+    </div>
   );
 }

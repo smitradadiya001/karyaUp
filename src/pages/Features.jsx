@@ -49,15 +49,6 @@ const SubPageLayout = ({ title, subtitle, badge, children }) => (
 
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl">
-        {badge && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 text-[11px] font-black tracking-widest uppercase rounded-full bg-emerald-100 border border-emerald-200 text-emerald-700 shadow-sm"
-          >
-            {badge}
-          </motion.div>
-        )}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

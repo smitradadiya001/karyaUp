@@ -64,40 +64,40 @@ const getColorClasses = (color) => {
 
 const integrations = [
   {
-    name: "Google Calendar",
+    name: "Calendar",
     logo: googleCalendarLogo,
     short: "Sync meetings & deadlines",
-    position: "top-[12%] left-[13%] sm:top-[14%] sm:left-[10%]",
+    position: "top-[12%] left-[8%] sm:top-[12%] sm:left-[3%] lg:top-[14%] lg:left-[5%]",
   },
   {
     name: "Google Drive",
     logo: googleDriveLogo,
     short: "Access & attach files",
-    position: "top-[12%] right-[13%] sm:top-[14%] sm:right-[10%]",
+    position: "top-[12%] right-[8%] sm:top-[12%] sm:right-[3%] lg:top-[14%] lg:right-[5%]",
   },
   {
     name: "Gmail",
     logo: gmailLogo,
     short: "Connected inbox",
-    position: "top-[44%] left-[2%] sm:top-[46%] sm:left-[0%]",
+    position: "top-[43%] left-[1%] sm:top-[42%] sm:left-[3%] lg:top-[43%] lg:left-[5%]",
   },
   {
     name: "Google Meet",
     logo: googleMeetLogo,
     short: "Schedule video calls",
-    position: "top-[44%] right-[2%] sm:top-[46%] sm:right-[0%]",
+    position: "top-[43%] right-[1%] sm:top-[42%] sm:right-[3%] lg:top-[43%] lg:right-[5%]",
   },
   {
     name: "Slack",
     logo: slackLogo,
     short: "Team notifications",
-    position: "bottom-[12%] left-[13%] sm:bottom-[14%] sm:left-[10%]",
+    position: "bottom-[12%] left-[8%] sm:bottom-[8%] sm:left-[3%] lg:bottom-[10%] lg:left-[5%]",
   },
   {
-    name: "Microsoft Teams",
+    name: "Teams",
     logo: microsoftTeamsLogo,
     short: "Channel updates",
-    position: "bottom-[12%] right-[13%] sm:bottom-[14%] sm:right-[10%]",
+    position: "bottom-[12%] right-[8%] sm:bottom-[8%] sm:right-[3%] lg:bottom-[10%] lg:right-[5%]",
   },
 ];
 
@@ -196,14 +196,13 @@ export default function Integrations() {
             <div className="grid items-center gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-6">
               <div className="text-center lg:text-left flex flex-col items-center lg:items-start lg:translate-y-2 xl:translate-y-4">
                 <motion.div
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-100 px-3.5 py-1.5 text-xs font-black uppercase tracking-widest text-purple-700"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
                 >
-                  Features <span className="opacity-60">/</span> Integrations
+                  INTEGRATIONS — CONNECT YOUR WORKFLOW
                 </motion.div>
-
                 <motion.h1
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -318,8 +317,8 @@ export default function Integrations() {
                     <g filter="url(#integrationGlow)" opacity="0.95">
                       <path d="M150 106V165H240V220" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                       <path d="M490 106V165H400V220" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M120 258H150V280H240" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M520 258H490V280H400" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M120 270H150V280H240" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M520 270H490V280H400" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                       <path d="M170 454V420H264V340" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                       <path d="M470 454V420H376V340" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                     </g>
@@ -347,21 +346,21 @@ export default function Integrations() {
                     ))}
                   </svg>
 
-                  <div className="absolute left-1/2 top-1/2 z-20 w-[56px] sm:w-[196px] -translate-x-1/2 -translate-y-1/2">
+                  <div className="absolute left-1/2 top-1/2 z-20 w-[56px] sm:w-[164px] -translate-x-1/2 -translate-y-1/2">
                     <motion.div
                       animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                       transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                      className="rounded-[1.1rem] sm:rounded-[1.8rem] bg-transparent sm:bg-gradient-to-r sm:from-[#8b5cf6] sm:via-[#ec4899] sm:to-[#60a5fa] sm:bg-[length:220%_220%] p-0 sm:p-[1.5px] shadow-none sm:shadow-[0_0_85px_rgba(168,85,247,0.5)]"
+                      className="rounded-[1.1rem] sm:rounded-[1.6rem] bg-transparent sm:bg-gradient-to-r sm:from-[#8b5cf6] sm:via-[#ec4899] sm:to-[#60a5fa] sm:bg-[length:220%_220%] p-0 sm:p-[1.5px] shadow-none sm:shadow-[0_0_85px_rgba(168,85,247,0.5)]"
                     >
-                      <div className="rounded-[calc(1.1rem-1.5px)] sm:rounded-[calc(1.8rem-1.5px)] border-0 sm:border sm:border-white/10 bg-transparent sm:bg-[#171428]/95 px-0 sm:px-5 py-0 sm:py-6 text-center">
-                        <div className="mx-auto flex h-14 w-14 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-white shadow-[0_0_35px_rgba(168,85,247,0.25)]">
-                          <img src={logo} alt="KaryaUp" className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
+                      <div className="rounded-[calc(1.1rem-1.5px)] sm:rounded-[calc(1.6rem-1.5px)] border-0 sm:border sm:border-white/10 bg-transparent sm:bg-[#171428]/95 px-0 sm:px-4 py-0 sm:py-5 text-center">
+                        <div className="mx-auto flex h-14 w-14 sm:h-12 sm:w-12 items-center justify-center rounded-[0.85rem] bg-white shadow-[0_0_35px_rgba(168,85,247,0.25)]">
+                          <img src={logo} alt="KaryaUp" className="h-8 w-8 sm:h-8 sm:w-8 object-contain" />
                         </div>
-                        <div className="mt-3 sm:mt-4 hidden sm:block text-[8px] sm:text-[10px] font-black uppercase tracking-[0.18em] sm:tracking-[0.22em] text-purple-300">
+                        <div className="mt-3 sm:mt-3.5 hidden sm:block text-[8px] sm:text-[9.5px] font-black uppercase tracking-[0.2em] text-purple-300">
                           Integration hub
                         </div>
-                        <div className="mt-2 hidden sm:block text-[1.05rem] sm:text-[1.45rem] font-black leading-none tracking-tight text-white">KaryaUp</div>
-                        <p className="mt-1.5 sm:mt-2 hidden sm:block text-[9px] sm:text-[11px] font-medium leading-relaxed text-slate-300">One connected workspace</p>
+                        <div className="mt-1.5 hidden sm:block text-[1.05rem] sm:text-[1.35rem] font-black leading-none tracking-tight text-white">KaryaUp</div>
+                        <p className="mt-1.5 hidden sm:block text-[9px] sm:text-[10px] font-medium leading-relaxed text-slate-300">One connected workspace</p>
                       </div>
                     </motion.div>
                   </div>
@@ -374,7 +373,7 @@ export default function Integrations() {
                       transition={{ duration: 0.55, delay: 0.12 * index, ease: [0.22, 1, 0.36, 1] }}
                       whileHover={{ y: 4, scale: 1.015 }}
                       whileTap={{ scale: 1.01 }}
-                      className={`group absolute z-10 w-[72px] sm:w-[170px] lg:w-[190px] rounded-[1.1rem] sm:rounded-[1.45rem] border border-white/10 bg-white/5 p-[1.5px] backdrop-blur-xl shadow-[0_0_32px_rgba(76,29,149,0.16)] ${item.position}`}
+                      className={`group absolute z-10 w-[72px] sm:w-[180px] rounded-[1.1rem] sm:rounded-[1.45rem] border border-white/10 bg-white/5 p-[1.5px] backdrop-blur-xl shadow-[0_0_32px_rgba(76,29,149,0.16)] ${item.position}`}
                     >
                       <div className="rounded-[calc(1.1rem-1.5px)] sm:rounded-[calc(1.45rem-1.5px)] border border-white/8 bg-[#131526]/95 px-2.5 py-2.5 sm:px-4 sm:py-4 shadow-[0_10px_28px_rgba(0,0,0,0.18)] transition-all duration-500 ease-out group-hover:border-white/20 group-hover:bg-[#17192c]/95 group-hover:shadow-[0_20px_42px_rgba(0,0,0,0.3)]">
                         <div className="flex items-center justify-center sm:justify-start gap-0 sm:gap-3">

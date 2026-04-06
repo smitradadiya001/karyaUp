@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 /**
  * Reusable layout for all sub-pages.
@@ -25,20 +26,38 @@ export const CTABanner = ({ title, desc, btnLabel = "Start Free →", btnTo = "/
   </div>
 );
 
-export default function SubPageLayout({ badge, badgeColor = "bg-indigo-100 text-indigo-700", title, subtitle, children }) {
+export default function SubPageLayout({ badge, badgeColor = "bg-purple-100 text-purple-700", title, subtitle, children }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white pt-28 pb-20">
+    <div className="min-h-screen bg-white pt-28 pb-20 overflow-hidden">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {badge && (
-          <span className={`inline-block mb-4 px-3 py-1 text-xs font-bold tracking-widest uppercase rounded-full ${badgeColor}`}>
-            {badge}
-          </span>
-        )}
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
+        <motion.div
+          initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm mb-6 ${badgeColor}`}
+        >
+          {badge}
+        </motion.div>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-[1.1] tracking-tight mb-5">
           {title}
         </h1>
-        <p className="text-lg text-gray-500 mb-12 max-w-2xl">{subtitle}</p>
-        {children}
+        <p className="text-lg text-gray-500 mb-12 max-w-2xl font-medium leading-relaxed">{subtitle}</p>
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          {children}
+        </motion.div>
       </div>
     </div>
   );

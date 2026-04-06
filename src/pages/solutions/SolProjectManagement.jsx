@@ -27,7 +27,7 @@ export default function SolProjectManagement() {
 
       {/* ================= HERO SECTION ================= */}
       <PageHero
-        pillText="Solutions / Project Management"
+        pillText="SOLUTIONS — PROJECT MANAGEMENT"
         titleBlack="Deliver with Full"
         titleGradient="Visibility & Accountability"
         descriptionList={[

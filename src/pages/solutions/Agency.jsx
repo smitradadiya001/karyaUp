@@ -1,234 +1,317 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import FeatureCTA from "../../components/FeatureCTA";
 import dashboardImg from "../../assets/dashboard2.webp";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import PageHero from "../../components/PageHero";
-import { Helmet } from "react-helmet-async";
+import { 
+  useInView,
+  useScroll 
+} from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { Video, Megaphone, Layers, Check, CheckCircle2, Zap, BarChart3, Users } from "lucide-react";
 
-export default function Agency() {
-  const [isMobile, setIsMobile] = useState(false);
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), { stiffness: 300, damping: 30 });
 
-  const benefits = [
-    {
-      title: "Faster Delivery",
-      desc: "Streamline workflows with boards, timelines, and automation so your team delivers projects ahead of schedule."
-    },
-    {
-      title: "Client Transparency",
-      desc: "Share progress with clients in real-time using dashboards and docs, building trust and stronger relationships."
-    },
-    {
-      title: "Smarter Operations",
-      desc: "Connect tasks, goals, and compliance in one place, reducing admin overhead and freeing your team."
-    }
-  ];
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;   // -1 … 1
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
 
-  const CapabilityCard = ({ title, desc, tag, iconColor }) => (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{
-        y: -12,
-        scale: 1.02,
-        transition: { duration: 0.3, ease: "easeOut" }
-      }}
-      className="group relative overflow-hidden rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(126,34,206,0.15)]"
-    >
-      <div className={`absolute -top-24 -right-24 h-64 w-64 rounded-full bg-gradient-to-br ${iconColor} opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-10`} />
-
-      <div className={`mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${iconColor} text-white shadow-lg transition-transform duration-500 group-hover:rotate-12`}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-        </svg>
-      </div>
-
-      <div className="relative z-10">
-        <span className="mb-4 inline-block rounded-full bg-slate-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 transition-colors duration-300 group-hover:bg-purple-100 group-hover:text-purple-700">
-          {tag}
-        </span>
-        <h3 className="mb-4 text-2xl font-black text-slate-900 transition-colors duration-300 group-hover:text-[#7e22ce]">
-          {title}
-        </h3>
-        <p className="font-medium leading-relaxed text-slate-500 transition-colors duration-300 group-hover:text-slate-600">
-          {desc}
-        </p>
-      </div>
-
-      <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 transition-all duration-700 ease-in-out group-hover:w-full" />
-    </motion.div>
-  );
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
 
   return (
-    <>
-      <Helmet>
-        <title>Agency | KaryaUp</title>
-        <meta name="description" content="KaryaUp agency solution simplifies client management, workflow automation, and resource tracking for modern agencies." />
-        <meta name="keywords" content="agency management, client transparency, project delivery, KaryaUp" />
-        <link rel="canonical" href="https://karyaup.com/solutions/agency" />
-      </Helmet>
-      <div className="bg-white font-sans min-h-screen pt-28 overflow-x-hidden">
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={className}
+    >
+      <div style={{ transform: 'translateZ(30px)' }} className="h-full flex flex-col">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
 
-        {/* ================= HERO SECTION ================= */}
-        <PageHero
-          pillText="Solutions / Agency"
-          titleBlack="Unlock Agency"
-          titleGradient="Productivity & Deliver Faster"
-          descriptionList={[
-            "Manage projects, client collaboration, and resource tracking in one place.",
-            "KaryaUp makes it easy to streamline workflows and deliver faster."
-          ]}
-          featureStackItems={["Faster Delivery", "Client Transparency", "Smarter Operations", "Resource Tracking"]}
-          imageSrc={dashboardImg}
-          imageAlt="Agency Dashboard"
-        />
+const WorkflowStep = ({ title, desc, icon: Icon, index }) => (
+  <motion.div 
+    initial={{ opacity: 0, x: -20 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ margin: "-100px" }}
+    transition={{ delay: index * 0.1 }}
+    className="group relative bg-white p-8 rounded-[2rem] border border-slate-100 hover:border-purple-200 shadow-sm hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-500"
+  >
+    <div className="flex gap-6 items-start">
+      <div className="p-4 rounded-2xl bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
+        <Icon size={24} />
+      </div>
+      <div>
+        <h4 className="text-xl font-black text-slate-900 mb-2">{title}</h4>
+        <p className="text-slate-500 leading-relaxed text-sm font-medium">{desc}</p>
+      </div>
+    </div>
+  </motion.div>
+);
 
-        {/* ================= WHY AGENCIES CHOOSE ================= */}
-        <section className="py-24 px-6 max-w-7xl mx-auto text-center">
-          <div className="mb-20">
-            <motion.h1 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4">
-              Why Agencies<br />
-              <motion.span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]" animate={{ backgroundPosition: ["0% center", "-200% center"] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
-                Choose KaryaUp
-              </motion.span>
-            </motion.h1>
-            <p className="text-lg text-gray-500 max-w-2xl mx-auto">From project delivery to client collaboration, KaryaUp empowers agencies to work smarter.</p>
-          </div>
+const getColorClasses = (color) => {
+  const colorMap = {
+    purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
+    fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
+    blue: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
+    pink: "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white",
+    emerald: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
+    orange: "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
+  };
+  return colorMap[color] || "bg-slate-50 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
+};
+const FeatureStack = ({ items = [] }) => {
+  const [index, setIndex] = useState(0);
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {benefits.map((benefit, i) => (
-              <motion.div
-                key={i}
-                initial={{
-                  opacity: 0,
-                  x: isMobile ? 0 : (i === 0 ? "105%" : i === 2 ? "-105%" : "0%"),
-                  y: 40
-                }}
-                whileInView={{ opacity: 1, x: "0%", y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.8,
-                  delay: i === 1 ? 0 : 0.2, // Smoothed delay sequence
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                className="bg-[#F8F9FA] rounded-[32px] p-8 border border-transparent hover:border-purple-200 hover:shadow-xl transition-all duration-300"
-              >
-                <h3 className="text-xl font-bold text-[#7e22ce] mb-3">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+  useEffect(() => {
+    if (items.length === 0) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % items.length);
+    }, 1500); // Snappy 1.5s interval
+    return () => clearInterval(timer);
+  }, [items.length]);
 
-        <section className="py-10 px-6 bg-[#FDFCFE] relative overflow-hidden">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 items-end mb-20">
-            <div className="lg:col-span-7">
+  if (items.length === 0) return null;
 
-            <motion.h1
+  return (
+    <div className="relative h-[80px] sm:h-[100px] w-full max-w-[280px] sm:max-w-[320px] mt-6 lg:mt-8 group overflow-visible">
+      <AnimatePresence mode="popLayout">
+        {[2, 1, 0].map((offset) => {
+          const itemIndex = (index + offset) % items.length;
+          const item = items[itemIndex];
+          const label = typeof item === "string" ? item : item.label;
+          const Icon = (typeof item === "object" && item.icon) ? item.icon : Check;
+
+          return (
+            <motion.div
+              key={label}
+              initial={{ opacity: 0, y: 15, scale: 0.9 }}
+              animate={{
+                opacity: offset === 0 ? 1 : offset === 1 ? 0.4 : 0.15,
+                scale: 1 - offset * 0.04,
+                y: offset * 12, // Compact vertical stacking for better hero-screen visibility
+                zIndex: 10 - offset,
+              }}
+              exit={{
+                opacity: 0,
+                y: -20,
+                scale: 1.05,
+                transition: { duration: 0.4, ease: "easeIn" }
+              }}
+              transition={{
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1],
+                delay: offset * 0.02
+              }}
+              className="absolute top-0 left-0 w-full px-5 py-3 rounded-xl bg-slate-400/10 backdrop-blur-xl border border-black/30 shadow-sm flex items-center gap-3 transition-colors duration-300 hover:bg-slate-400/20"
+            >
+              <div className="w-5 h-5 rounded bg-black/5 border border-black/10 flex items-center justify-center flex-shrink-0">
+                <Icon className="w-3 h-3 text-black stroke-[3]" />
+              </div>
+              <span className="text-[11px] sm:text-[13px] font-black uppercase tracking-widest text-black">
+                {label}
+              </span>
+            </motion.div>
+          );
+        })}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default function Agency() {
+  return (
+    <div className="bg-white font-sans min-h-screen pt-28 overflow-x-hidden">
+
+      {/* ================= HERO SECTION ================= */}
+      <section className="py-8 pt-4 px-6 lg:px-8 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative">
+        <div className="flex-1 text-center lg:text-left">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50/80 backdrop-blur-sm border border-purple-100 text-purple-600 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] shadow-sm mb-10"
+          >
+            AGENCY — SCALE YOUR CREATIVITY
+          </motion.div>
+          <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6"
           >
-             Built for the <br />
+            Unlock Agency <br />
             <motion.span
               className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
               animate={{ backgroundPosition: ["0% center", "-200% center"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
-              Modern Agency.
+              Productivity & Deliver Faster
             </motion.span>
           </motion.h1>
-              
+          <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+            Manage IT projects, service requests, and governance in one place all connected by AI. KaryaUp makes it easy to streamline workflows.
+          </p>
+          <FeatureStack items={[ {label: "Video Editing", icon: Video}, {label: "Digital Marketing", icon: Megaphone}, {label: "Motion Graphic", icon: Layers} ]} />
+        </div>
+        <div className="flex-1 w-full">
+          <img src={dashboardImg} alt="Hero" className="w-full h-auto rounded-2xl shadow-2xl border border-slate-100" />
+        </div>
+      </section>
+
+      {/* ================= AGENCY CAPABILITIES (With Hover Effects) ================= */}
+      <section className="py-10 px-6 bg-[#FDFCFE] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid lg:grid-cols-12 gap-12 items-end mb-20">
+            <div className="lg:col-span-7">
+
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="pb-2 text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6"
+              >
+                Built for the <br />
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  Modern Agency.
+                </motion.span>
+              </motion.h1>
+
             </div>
-            <div className="lg:col-span-4 text-slate-500 text-xl font-medium leading-relaxed">
-              Replace 5+ disconnected tools with one unified ecosystem. 
+            <div className="pb-9 lg:col-span-5 text-slate-500 text-xl font-medium leading-relaxed">
+              Replace 5+ disconnected tools with one unified ecosystem.
               KaryaUp handles the complexity so you can focus on the craft.
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <CapabilityCard 
-              tag="Visibility"
-              title="White-Label Client Portals"
-              desc="Give clients a branded, professional space to track progress, approve designs, and share feedback."
-              iconColor="from-purple-600 to-indigo-600"
-            />
-            <CapabilityCard 
-              tag="Efficiency"
-              title="Automated Profit Tracking"
-              desc="Know exactly which projects are making money. Real-time margin tracking across every task and billable hour."
-              iconColor="from-fuchsia-600 to-pink-600"
-            />
-            <CapabilityCard 
-              tag="Control"
-              title="Intelligent Resource Load"
-              desc="Instantly see who's overbooked. Balance workloads across your creative team with a drag-and-drop global timeline."
-              iconColor="from-blue-600 to-cyan-600"
-            />
+            {[
+              { title: "Video Editing", desc: "Streamline your creative pipeline by bringing video editing directly into your project management flow.", icon: Video, color: "purple" },
+              { title: "Digital Marketing", desc: "KaryaUp’s marketing workspace centralizes your entire campaign lifecycle—from initial brief and asset creation to real-time performance tracking.", icon: Megaphone, color: "fuchsia" },
+              { title: "Motion Graphic", desc: "KaryaUp’s motion graphics workspace is built for high-fidelity animation pipelines, allowing teams to manage complex keyframe projects.", icon: Layers, color: "blue" }
+            ].map((feature, idx) => {
+              const Icon = feature.icon;
+              return (
+                <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 ${getColorClasses(feature.color)}`}>
+                    <Icon size={20} strokeWidth={2.5} />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">{feature.title}</h3>
+                  <p className="text-slate-600 text-sm font-medium leading-relaxed">{feature.desc}</p>
+                </TiltCard>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ================= ELEVATE WORKFLOWS ================= */}
-      <section className="py-10 px-6 bg-white">
-        <div className="max-w-7xl mx-auto text-center mb-16">
-          <motion.h1 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4">
-            Elevate Your<br />
-            <motion.span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]" animate={{ backgroundPosition: ["0% center", "-200% center"] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
+      <section className="py-9 px-6 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-12"
+          >
+             Elevate Your<br />
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
               Agency Workflows
             </motion.span>
-          </motion.h1>
-        </div>
+          </motion.h2>
+            <p className="text-slate-500 max-w-2xl mx-auto text-lg font-medium">
+              KaryaUp doesn't just track tasks—it streamlines the entire creative lifecycle with data-driven insights.
+            </p>
+          </div>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-6">
-            <ul className="space-y-4">
-              {["Centralized dashboards", "Automated reporting", "Real-time collaboration"].map((text, idx) => (
-                <li key={idx} className="flex items-center gap-4 text-lg text-slate-700 bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-purple-200 transition-all">
-                  <span className="flex-shrink-0 w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center font-bold font-sans">✓</span>
-                  {text}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
-            <img src={dashboardImg} alt="Workflow Dashboard" className="w-full h-auto" />
-          </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Left Side: Dynamic Feature Content */}
+            <div className="space-y-6">
+              <WorkflowStep 
+                index={0}
+                icon={BarChart3}
+                title="Centralized Dashboards"
+                desc="Real-time visibility into every project. See margins, deadlines, and resource allocation in one unified view."
+              />
+              <WorkflowStep 
+                index={1}
+                icon={Zap}
+                title="Automated Reporting"
+                desc="Generate client-ready performance reports with a single click. AI summarizes wins and identifies bottlenecks."
+              />
+              <WorkflowStep 
+                index={2}
+                icon={Users}
+                title="Real-time Collaboration"
+                desc="Integrated chat and whiteboarding means your team stays in sync without ever leaving the project context."
+              />
+
+            </div>
+
+            {/* Right Side: Sticky Visual Container */}
+            <div className="sticky top-29 flex items-center justify-center h-full">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                className="relative rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-slate-50 bg-slate-100"
+              >
+                <img 
+                  src={dashboardImg} 
+                  alt="Workflow Dashboard" 
+                  className="w-full h-auto transform hover:scale-105 transition-transform duration-700" 
+                />
+                
+                {/* Floating UI Elements for extra depth */}
+                <motion.div 
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                  className="absolute top-10 -right-4 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 hidden sm:block"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[10px] font-black uppercase text-slate-400">Live Syncing</span>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
-        {/* ================= ELEVATE WORKFLOWS ================= */}
-        <section className="py-24 px-6 bg-slate-50/50">
-          <div className="max-w-7xl mx-auto text-center mb-16">
-            <motion.h1 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4">
-              Elevate Your<br />
-              <motion.span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]" animate={{ backgroundPosition: ["0% center", "-200% center"] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
-                Agency Workflows
-              </motion.span>
-            </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-lg text-gray-500 max-w-2xl mx-auto">
-              Scale your operations and manage multiple clients effortlessly with our unified platform.
-            </motion.p>
-          </div>
-        </section>
-
-        <FeatureCTA
-          title="Ready to Scale Your Agency?"
-          description="Join leading agencies that use KaryaUp to deliver excellence to their clients every single day."
-          buttonText="Get Started"
-          image={dashboardImg}
-          imageAlt="KaryaUp Agency"
-        />
-      </div>
-    </>
+      <FeatureCTA
+        title="Tasks that connect to everything you do"
+        description="Work Smarter with tasks that can live in your whiteboards, chat, calendar."
+        image={dashboardImg}
+        imageAlt="KaryaUp dashboard"
+        containerClassName="mt-20 mb-10"
+      />
+    </div>
   );
 }

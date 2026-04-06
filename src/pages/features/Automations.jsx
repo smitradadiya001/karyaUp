@@ -84,14 +84,13 @@ export default function Automations() {
               {/* Left Content */}
               <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
                 <motion.div
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-3xl bg-[#f3e8ff] text-[#9333ea] text-[11px] font-black uppercase tracking-[0.15em] mb-4"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
                 >
-                  Features <span className="opacity-50">/</span> Automations
+                  AUTOMATIONS — WORK ON AUTOPILOT
                 </motion.div>
-
                 <motion.h1
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -147,7 +146,7 @@ export default function Automations() {
                 initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24 mt-10 lg:mt-0"
+                className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24 mt-4 sm:mt-8 lg:mt-0"
               >
                 <div className="relative overflow-hidden shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white border border-slate-200/80 rounded-2xl sm:rounded-3xl">
                   <img

@@ -139,11 +139,10 @@ export default function Salary() {
                 initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
               >
-                Features <span className="opacity-60">/</span> Salary
+                PAYROLL — AUTOMATE YOUR SALARY
               </motion.div>
-
               <motion.h1
                 initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                 animate={{ opacity: 1, y: 0 }}

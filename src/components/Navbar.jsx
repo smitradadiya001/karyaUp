@@ -673,7 +673,7 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[68px] bottom-0 z-40 bg-white shadow-2xl overflow-y-auto">
+        <div data-lenis-prevent="true" className="md:hidden fixed inset-x-0 top-[68px] bottom-0 z-40 bg-white shadow-2xl overflow-y-auto">
           <div className="px-4 py-5 space-y-2 bg-white">
             {navItems.map((item) => (
               item.to ? (
@@ -708,6 +708,7 @@ const Navbar = () => {
                   {mobileOpenSection === item.label && (
                     <div className="px-3 pb-3">
                       <div
+                        data-lenis-prevent="true"
                         className={`rounded-xl bg-slate-50 border border-slate-100 overflow-hidden ${item.label === "Features" || item.label === "Solutions"
                             ? "max-h-[320px] overflow-y-auto overscroll-contain"
                             : ""

@@ -119,39 +119,39 @@ export default function Attendance() {
                     ))}
                   </div>
 
-                  <div className="mt-6 flex max-w-md flex-col items-center gap-4 rounded-[1.5rem] border border-purple-900/40 bg-slate-900/70 p-4 text-center shadow-lg shadow-purple-950/20 mx-auto sm:flex-row sm:text-left lg:mx-0">
-                    <div className="relative flex h-28 w-24 shrink-0 items-center justify-center rounded-[1.5rem] border border-purple-500/25 bg-black/50">
+                  <div className="mt-5 sm:mt-6 flex max-w-md items-center gap-3 sm:gap-4 rounded-[1.5rem] border border-purple-900/40 bg-slate-900/70 p-3.5 sm:p-4 text-left shadow-lg shadow-purple-950/20 mx-auto lg:mx-0">
+                    <div className="relative flex h-24 w-20 sm:h-28 sm:w-24 shrink-0 items-center justify-center rounded-[1.25rem] sm:rounded-[1.5rem] border border-purple-500/25 bg-black/50">
                       <motion.div
                         animate={{ scale: [0.96, 1.04, 0.96], opacity: [0.35, 0.75, 0.35] }}
                         transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute inset-3 rounded-[1rem] border border-fuchsia-400/40"
+                        className="absolute inset-2 sm:inset-3 rounded-[0.85rem] sm:rounded-[1rem] border border-fuchsia-400/40"
                       />
                       <motion.div
-                        animate={{ y: [-26, 26, -26] }}
+                        animate={{ y: [-20, 20, -20] }}
                         transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute left-2 right-2 h-8 rounded-full bg-gradient-to-r from-transparent via-fuchsia-400/45 to-transparent blur-md"
+                        className="absolute left-2 right-2 h-6 sm:h-8 rounded-full bg-gradient-to-r from-transparent via-fuchsia-400/45 to-transparent blur-md"
                       />
-                      <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-200">
-                        <Camera className="h-7 w-7" />
+                      <div className="relative flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-200">
+                        <Camera className="h-5 w-5 sm:h-7 sm:w-7" />
                       </div>
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-400 sm:justify-start">
-                        <ShieldCheck className="h-3.5 w-3.5" />
+                      <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-emerald-400">
+                        <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                         Identity Verified
                       </div>
-                      <div className="mt-3 text-xl font-black text-white">
+                      <div className="mt-1 sm:mt-2 text-lg sm:text-xl font-black text-white leading-tight">
                         Punch In Recorded
                       </div>
-                      <div className="mt-1 text-sm font-medium text-slate-400">
+                      <div className="mt-1 text-xs sm:text-sm font-medium text-slate-400 leading-snug hidden xs:block">
                         Front camera match passed. Timestamp synced to attendance.
                       </div>
-                      <div className="mt-4 flex items-center justify-center gap-2 sm:justify-start">
-                        <span className="rounded-full border border-purple-500/20 bg-purple-500/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-purple-200">
+                      <div className="mt-2.5 sm:mt-3 flex flex-wrap items-center gap-2">
+                        <span className="rounded-full border border-purple-500/20 bg-purple-500/10 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.16em] text-purple-200">
                           09:02 AM
                         </span>
-                        <span className="rounded-full border border-slate-700 bg-slate-800 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-slate-300">
+                        <span className="rounded-full border border-slate-700 bg-slate-800 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.16em] text-slate-300">
                           Main Office
                         </span>
                       </div>
@@ -173,7 +173,7 @@ export default function Attendance() {
                     Boss Dashboard
                   </div>
 
-                  <div className="mt-5 flex flex-col gap-3 items-center text-center sm:flex-row sm:items-end sm:justify-between sm:text-left w-full">
+                  <div className="mt-4 sm:mt-5 flex flex-col gap-4 sm:gap-3 items-center text-center sm:flex-row sm:items-end sm:justify-between sm:text-left w-full">
                     <div>
                       <h3 className="text-2xl font-black tracking-tight text-white sm:text-3xl lg:text-4xl">
                         All Employee Attendance In One Export-Ready View.
@@ -186,25 +186,25 @@ export default function Attendance() {
                     <motion.div
                       whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className="inline-flex items-center gap-2 self-start rounded-2xl border border-white/10 bg-white px-4 py-3 text-sm font-black text-black shadow-lg shadow-white/10"
+                      className="inline-flex items-center gap-2 self-center sm:self-start rounded-2xl border border-white/10 bg-white px-4 py-3 text-sm font-black text-black shadow-lg shadow-white/10"
                     >
                       <FileSpreadsheet className="h-4 w-4" />
                       Download CSV
                     </motion.div>
                   </div>
 
-                  <div className="mt-6 overflow-hidden rounded-[1.25rem] border border-white/10 bg-slate-950/65 shadow-inner">
-                    <div className="flex items-center justify-between border-b border-white/10 bg-slate-900/80 px-5 py-4">
+                  <div className="mt-5 sm:mt-6 w-full overflow-hidden rounded-[1.25rem] border border-white/10 bg-slate-950/65 shadow-inner">
+                    <div className="flex items-center justify-between border-b border-white/10 bg-slate-900/80 px-4 sm:px-5 py-4 text-left">
                       <div>
-                        <div className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+                        <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-slate-500">
                           Today&apos;s attendance
                         </div>
-                        <div className="mt-1 text-lg font-black text-white">
+                        <div className="mt-1 text-base sm:text-lg font-black text-white">
                           84 employees synced
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-700">
-                        <Eye className="h-3.5 w-3.5" />
+                      <div className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 sm:px-3 py-1 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-emerald-700">
+                        <Eye className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
                         Live
                       </div>
                     </div>
@@ -225,27 +225,38 @@ export default function Attendance() {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, amount: 0.4 }}
                             transition={{ duration: 0.45, delay: index * 0.08 }}
-                            className="grid items-center gap-4 bg-slate-950/50 px-5 py-4 sm:grid-cols-[1.25fr_0.9fr_0.8fr_auto]"
+                            className="flex flex-col sm:grid sm:grid-cols-[1.25fr_0.9fr_0.8fr_auto] sm:items-center gap-3 sm:gap-4 bg-slate-950/50 px-4 sm:px-5 py-3.5 sm:py-4 text-left"
                           >
-                            <div>
-                              <div className="font-black text-white">{row.name}</div>
-                              <div className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-slate-500">
-                                {row.team}
+                            <div className="flex items-start justify-between sm:block">
+                              <div>
+                                <div className="font-black text-white text-sm sm:text-base">{row.name}</div>
+                                <div className="mt-0.5 sm:mt-1 text-[10px] sm:text-xs font-bold uppercase tracking-[0.14em] text-slate-500">
+                                  {row.team}
+                                </div>
+                              </div>
+                              <div className={`sm:hidden inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-[9px] font-black uppercase tracking-[0.18em] ${statusStyles}`}>
+                                {row.status}
                               </div>
                             </div>
-                            <div>
-                              <div className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">
-                                Punch In
+                            
+                            <div className="grid grid-cols-2 sm:grid-cols-[auto_auto] sm:contents">
+                              <div>
+                                <div className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">
+                                  Punch In
+                                </div>
+                                <div className="mt-1 text-xs sm:text-sm font-bold text-slate-300">{row.punchIn}</div>
                               </div>
-                              <div className="mt-1 text-sm font-bold text-slate-300">{row.punchIn}</div>
-                            </div>
-                            <div className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">
-                              Face Verified
-                              <div className="mt-1 text-sm font-bold text-slate-300">
-                                {row.status === "Absent" ? "No Scan" : "Matched"}
+                              <div>
+                                <div className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">
+                                  Face Verified
+                                </div>
+                                <div className="mt-1 text-xs sm:text-sm font-bold text-slate-300">
+                                  {row.status === "Absent" ? "No Scan" : "Matched"}
+                                </div>
                               </div>
                             </div>
-                            <div className={`inline-flex items-center justify-center rounded-full border px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] ${statusStyles}`}>
+                            
+                            <div className={`hidden sm:inline-flex items-center justify-center rounded-full border px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] ${statusStyles}`}>
                               {row.status}
                             </div>
                           </motion.div>

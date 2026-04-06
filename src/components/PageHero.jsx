@@ -35,12 +35,12 @@ export default function PageHero({
           {/* Left Content */}
           <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
             <motion.div
-              initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-100 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-purple-700 shadow-sm"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50/80 backdrop-blur-sm border border-purple-100 text-purple-600 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] shadow-sm mb-6"
             >
-              {pillText || "Solutions / Module"}
+              {pillText || "PAGE — EXPLORE FEATURES"}
             </motion.div>
 
             <motion.h1

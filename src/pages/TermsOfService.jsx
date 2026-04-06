@@ -95,17 +95,6 @@ export default function TermsOfService() {
         <section className="relative pt-8 sm:pt-16 pb-12 sm:pb-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center text-center">
-              {/* Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] sm:text-xs font-black uppercase tracking-widest mb-6"
-              >
-                <FileText className="w-3.5 h-3.5" />
-                Legal <span className="opacity-60">/</span> Terms & Conditions
-              </motion.div>
-
               {/* Title */}
               <motion.h1
                 initial={{ opacity: 0, y: 22 }}

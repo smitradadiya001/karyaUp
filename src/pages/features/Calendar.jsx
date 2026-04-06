@@ -71,11 +71,10 @@ export default function CalendarPage() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.2 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-[11px] font-black uppercase tracking-widest shadow-sm"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
                 >
-                  Features <span className="opacity-60 text-purple-400">/</span> Calendar
+                  CALENDAR — ORGANIZE YOUR SCHEDULE
                 </motion.div>
-
                 <motion.h1
                   initial={{ opacity: 0, y: isMobile ? 0 : 40, x: isMobile ? 0 : -10 }}
                   animate={{ opacity: 1, y: 0, x: 0 }}
@@ -120,7 +119,7 @@ export default function CalendarPage() {
                 initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24 mt-10 lg:mt-0"
+                className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24 mt-4 sm:mt-8 lg:mt-0"
               >
                 <div className="relative">
                   <div className="overflow-hidden border border-slate-200/80 rounded-2xl sm:rounded-3xl bg-white group transition-all duration-500">

@@ -28,6 +28,7 @@ export default function Chat() {
     const rotateY = useSpring(useTransform(rawX, [-1, 1], [-10, 10]), { stiffness: 300, damping: 30 });
 
     const handleMouseMove = (e) => {
+      if (isMobile) return;
       const rect = ref.current.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
@@ -36,6 +37,7 @@ export default function Chat() {
     };
 
     const handleMouseLeave = () => {
+      if (isMobile) return;
       rawX.set(0);
       rawY.set(0);
     };
@@ -45,12 +47,12 @@ export default function Chat() {
         ref={ref}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
-        whileHover={{ scale: 1.02 }}
+        style={isMobile ? {} : { rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
+        whileHover={isMobile ? {} : { scale: 1.02 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className={className}
       >
-        <div style={{ transform: 'translateZ(20px)' }} className="h-full flex flex-col">
+        <div style={isMobile ? {} : { transform: 'translateZ(20px)' }} className="h-full flex flex-col">
           {children}
         </div>
       </motion.div>
@@ -114,9 +116,9 @@ export default function Chat() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
                 >
-                  Features <span className="opacity-60">/</span> Chat
+                  CHAT — COLLABORATE IN REAL-TIME
                 </motion.div>
 
                 <motion.h1
@@ -137,7 +139,7 @@ export default function Chat() {
                     </motion.span>
                   </span>
                 </motion.h1>
- Broadway
+ 
                 <motion.div
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -164,7 +166,7 @@ export default function Chat() {
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
                 className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
               >
- Broadway                {/* Chat Card */}
+               {/* Chat Card */}
                 <div className="relative border border-purple-900/30 rounded-3xl shadow-2xl shadow-purple-900/20 bg-slate-950 overflow-hidden flex flex-col h-[400px] sm:h-[450px]">
                   {/* Glow blobs */}
                   <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/15 rounded-full blur-[60px] pointer-events-none" />

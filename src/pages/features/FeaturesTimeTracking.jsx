@@ -3,7 +3,7 @@ import SubPageLayout, { FeatureCard, CTABanner } from "../../components/SubPageL
 
 export default function FeaturesTimeTracking() {
   return (
-    <SubPageLayout badge="Features" badgeColor="bg-teal-100 text-teal-700" title="Time Tracking" subtitle="Log time directly in your tasks and get powerful insights on where hours are spent.">
+    <SubPageLayout badge="TIME TRACKING — OPTIMIZE YOUR HOURS" badgeColor="bg-teal-100 text-teal-700" title="Time Tracking" subtitle="Log time directly in your tasks and get powerful insights on where hours are spent.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-4">
         <FeatureCard icon="⏱️" title="Task Timers" desc="Start and stop a live timer on any task. Time is automatically recorded and linked to the project." />
         <FeatureCard icon="✏️" title="Manual Entry" desc="Add time manually for meetings, travel, or work done offline by typing hours directly." />

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const INTRO_SENTENCES = [
   "Plan The Karya.",
   "Move The Karya.",
-  "Complete The Karya.",
+  "Complate The Karya.",
 ];
 
 // Summary: alternating words and dots
@@ -16,7 +16,7 @@ const SUMMARY_ITEMS = [
   { type: "dot" },
   { type: "word", text: "Move", gradient: false },
   { type: "dot" },
-  { type: "word", text: "Complete", gradient: false }
+  { type: "word", text: "Karya", gradient: true }
 ];
 
 // Main headline words: line1 then line2
@@ -24,12 +24,12 @@ const MAIN_LINE1 = "The Platform To Run Your";
 const MAIN_LINE2 = "Entire Company";
 
 // ── Timing (ms) ────────────────────────────────────────────────────────────────
-const INTRO_CHAR_DELAY = 45;   // intro: ms per char
-const SENTENCE_HOLD = 750;   // intro: hold after full sentence
-const SENTENCE_GAP = 250;   // intro: gap between sentences
-const SUMMARY_ITEM_DELAY = 140;   // summary: ms per item
-const SUMMARY_HOLD = 1500;  // summary: hold after all items shown (Increased for emphasis)
-const MAIN_CHAR_DELAY = 35;   // main: ms per char
+const INTRO_CHAR_DELAY = 60;   // Slowed down from 45ms
+const SENTENCE_HOLD = 850;   // intro: hold after full sentence
+const SENTENCE_GAP = 300;   // intro: gap between sentences
+const SUMMARY_ITEM_DELAY = 220;   // Slowed down from 140ms
+const SUMMARY_HOLD = 2000;  // summary: hold after all items shown (Longer for emphasis)
+const MAIN_CHAR_DELAY = 45;   // Slowed down from 35ms
 
 // ── Hook ──────────────────────────────────────────────────────────────────────
 // Phases: "intro" → "summary" → "summaryExit" → "main"
@@ -107,7 +107,7 @@ const Hero = () => {
           src="/Hero_BG.webp"
           alt=""
           aria-hidden="true"
-          loading="eager"
+          loading="lazy"
           className="absolute inset-0 h-full w-full scale-105 object-cover blur-[6px]"
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.2)_0%,rgba(15,23,42,0.12)_34%,rgba(15,23,42,0.22)_100%)]" />
@@ -196,7 +196,7 @@ const Hero = () => {
                             initial={{ opacity: 0, y: 16 }}
                             animate={i < summaryVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                             transition={{ duration: 0.26 }}
-                            className="inline-block pb-[2px] text-[2.2rem] sm:text-4xl lg:text-[4rem] font-black tracking-tight leading-[1.15] drop-shadow-[0_8px_24px_rgba(15,23,42,0.4)] text-white"
+                            className={`inline-block pb-[2px] text-[2.2rem] sm:text-4xl lg:text-[4rem] font-black tracking-tight leading-[1.15] drop-shadow-[0_8px_24px_rgba(15,23,42,0.4)] ${item.gradient ? "text-transparent bg-clip-text bg-gradient-to-r from-[#a855f7] via-fuchsia-400 to-[#7e22ce]" : "text-white"}`}
                           >
                             {item.text}
                           </motion.span>
