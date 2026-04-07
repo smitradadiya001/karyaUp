@@ -363,6 +363,15 @@ const ArticleDetail = ({ article, onBack, onOpenArticle }) => {
 
 
 export default function Blog() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [appliedSearch, setAppliedSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -505,8 +514,8 @@ export default function Blog() {
           href="https://karyaup.com/resources/blog"
         />
       </Helmet>
-      <div className="min-h-screen bg-white font-sans selection:bg-[#7e22ce] selection:text-white overflow-hidden">
-        <section className="relative min-h-screen pt-28 sm:pt-32 lg:pt-32 pb-2 lg:pb-2 overflow-hidden flex items-center">
+      <div className="min-h-screen bg-white pt-14 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 text-slate-900 font-sans selection:bg-[#7e22ce] selection:text-white overflow-hidden">
+        <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
           <div className="absolute top-0 right-0 -z-10 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
           <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
 
@@ -528,13 +537,13 @@ export default function Blog() {
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                   className="mt-5 text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.06]"
                 >
-                  Not Another <br />
+                  Not Another Productivity <br />
                   <motion.span
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                     animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   >
-                    Productivity Blog.
+                     Blog.
                   </motion.span>
                 </motion.h1>
 

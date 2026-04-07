@@ -4,12 +4,11 @@ import {
   Menu, X, ArrowRight, ChevronDown,
   CheckSquare, Kanban, Users, Clock, BarChart2, LayoutDashboard, CircleDollarSign,
   Megaphone, Contact,
-  AlignLeft, MessageSquare, Video, UserCheck, CalendarOff, Banknote, Calendar, Zap, Timer, Blocks, PlayCircle, Bell,
-  FileText, FileCode, MonitorPlay, LogIn, Briefcase, Network, PieChart, Wallet
+  AlignLeft, MessageSquare, Video, UserCheck, CalendarOff, Banknote, Calendar, Zap, Blocks, PlayCircle, Bell,
+  FileText, FileCode, LogIn, Briefcase, Network, PieChart, Wallet
 } from "lucide-react";
 import logo from "../assets/logo.png";
 import KaryaUpBtn from "../assets/KaryaupBtn.png";
-import BorderBeam from "./BorderBeam";
 
 const authUrl = "https://www.karyaup.com/auth";
 
