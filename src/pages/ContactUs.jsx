@@ -86,7 +86,7 @@ export default function ContactUs() {
   };
 
   return (
-    <section className="min-h-screen bg-[linear-gradient(180deg,#fafbff_0%,#f3f5fb_100%)] pt-20 sm:pt-24 lg:pt-32 pb-8 sm:pb-10 lg:pb-12 text-slate-900">
+    <section className="min-h-screen bg-[linear-gradient(180deg,#fafbff_0%,#f3f5fb_100%)] pt-32 pb-8 sm:pb-10 lg:pb-12 text-slate-900">
       <div className="mx-auto grid max-w-5xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_0.88fr] lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: -20 }}

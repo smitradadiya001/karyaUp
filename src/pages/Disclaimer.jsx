@@ -89,9 +89,9 @@ export default function Disclaimer() {
         <link rel="canonical" href="https://karyaup.com/disclaimer" />
       </Helmet>
 
-      <div className="min-h-screen bg-slate-50/50 pt-20 sm:pt-24 pb-16 lg:pb-24">
+      <div className="min-h-screen bg-slate-50/50 pt-32 pb-16 lg:pb-24">
         {/* Hero Section - Centered */}
-        <section className="relative pt-8 sm:pt-16 pb-12 sm:pb-20 overflow-hidden">
+        <section className="relative pt-0 pb-12 sm:pb-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center text-center">
               {/* Title */}

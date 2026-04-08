@@ -97,7 +97,7 @@ const plans = [
       "24/7 Phone Support",
     ],
     notIncluded: [],
-    buttonText: "Contact Sales",
+    buttonText: "Book a Demo",
     color: "brand",
   },
 ];
@@ -681,7 +681,7 @@ export default function Pricing() {
 
                       <a
                         href={
-                          plan.name === "Enterprise" ? "/contact-us" : authUrl
+                          plan.name === "Enterprise" ? "/book-demo" : authUrl
                         }
                         className="group relative z-10 flex h-[3.4em] w-full items-center justify-center overflow-hidden rounded-[30em] font-bold text-[14px] sm:text-[15px] transition-all duration-300 active:scale-95"
                         style={{
@@ -770,7 +770,7 @@ export default function Pricing() {
                               <a
                                 href={
                                   plan.name === "Enterprise"
-                                    ? "/contact-us"
+                                    ? "/book-demo"
                                     : authUrl
                                 }
                                 className="group relative mt-1 flex h-[2.5em] sm:h-[2.8em] items-center justify-center overflow-hidden rounded-[30em] bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 px-3 sm:px-6 text-[10px] sm:text-xs font-black transition-all duration-300 active:scale-95"
@@ -782,7 +782,7 @@ export default function Pricing() {
                                 <div className="absolute -inset-[3px] z-0 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
                                 <span className="relative z-10 flex items-center justify-center gap-1.5 text-white transition-colors duration-300 group-hover:text-slate-800">
                                   {plan.name === "Enterprise"
-                                    ? "Contact Sales"
+                                    ? "Book a Demo"
                                     : "Get Started"}
                                   <ArrowRight
                                     size={12}
@@ -846,7 +846,7 @@ export default function Pricing() {
                                   <a
                                     href={
                                       plan.name === "Enterprise"
-                                        ? "/contact-us"
+                                        ? "/book-demo"
                                         : authUrl
                                     }
                                     className="group relative mt-1 sm:mt-2 flex h-[2.7em] sm:h-[3em] items-center justify-center overflow-hidden rounded-[30em] bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 px-3 sm:px-6 text-[10px] sm:text-xs font-black transition-all duration-300 active:scale-95"
@@ -858,7 +858,7 @@ export default function Pricing() {
                                     <div className="absolute -inset-[3px] z-0 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
                                     <span className="relative z-10 flex items-center justify-center gap-1.5 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
                                       {plan.name === "Enterprise"
-                                        ? "Contact Sales"
+                                        ? "Book a Demo"
                                         : "Get Started"}
                                       <ArrowRight
                                         size={12}
@@ -1159,6 +1159,28 @@ export default function Pricing() {
                   Everything you need to know about our plans and features.
                   Can't find what you're looking for?
                 </p>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="mt-6 flex justify-center"
+                >
+                  <Link
+                    to="/contact-us"
+                    className="group relative flex h-[3.4em] items-center justify-center overflow-hidden rounded-[30em] px-10 text-[15px] font-black transition-all duration-300 active:scale-95 shadow-[0_18px_40px_rgba(126,34,206,0.22)]"
+                  >
+                    <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                    <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
+                    <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800">
+                      Contact Our Team
+                      <ArrowRight
+                        size={16}
+                        className="transition-transform group-hover:translate-x-1"
+                      />
+                    </span>
+                  </Link>
+                </motion.div>
               </motion.div>
 
               <div className="space-y-3 sm:space-y-4">

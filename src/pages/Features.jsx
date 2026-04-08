@@ -42,7 +42,7 @@ const TiltCard = ({ children, className }) => {
 };
 
 const SubPageLayout = ({ title, subtitle, badge, children }) => (
-  <div className="min-h-screen bg-white pt-28 md:pt-32 pb-20 relative overflow-hidden text-slate-900">
+  <div className="min-h-screen bg-white pt-32 md:pt-40 pb-20 relative overflow-hidden text-slate-900">
     {/* Ambient Background Glows */}
     <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-100/40 rounded-full blur-[120px] -z-10 animate-pulse" />
     <div className="absolute bottom-1/2 right-1/4 w-[400px] h-[400px] bg-teal-100/30 rounded-full blur-[100px] -z-10" />
