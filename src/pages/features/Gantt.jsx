@@ -35,28 +35,40 @@ export default function Gantt() {
     {
       header: "Add Tasks",
       title: "Set Up Your Task Automatically On Gantt",
-      desc: "In one click, turn entire projects into timelines. It's a great way to grasp your project workflow and dependencies.",
+      desc: [
+        "Turn entire projects into timelines in one click.",
+        "Grasp your project workflow and dependencies."
+      ],
       image: gantt1Img,
       tag: "Instant Board",
     },
     {
       header: "Smart Filters",
       title: "Filter By Priority",
-      desc: "Instantly organize your Gantt chart to highlight critical work. Quickly restructure your timeline visually using filters like Priority to keep focus exactly where it's needed.",
+      desc: [
+        "Instantly organize to highlight critical work.",
+        "Quickly restructure views by priority or status."
+      ],
       image: gantt2Img,
       tag: "Filter & Sort",
     },
     {
       header: "Export & Share",
       title: "Download Gantt Details to File",
-      desc: "Quickly export your entire Gantt chart and task details to a file format of your choice. A fast, easy way to share progress updates with external stakeholders.",
+      desc: [
+        "Download full gantt details to local file formats.",
+        "Easily share progress with external stakeholders."
+      ],
       image: gantt3Img,
       tag: "Export to File",
     },
     {
       header: "Live Adjustments",
       title: "Change Dates & Priorities Instantly",
-      desc: "Drag and drop tasks to change start/due dates in real time. Quickly adjust priority levels, assignees, and dependencies without navigating away from the timeline.",
+      desc: [
+        "Drag and drop tasks to change dates in real time.",
+        "Adjust assignees and priority without leaving."
+      ],
       image: gantt4Img,
       tag: "Dynamic Editing",
     }
@@ -178,7 +190,7 @@ export default function Gantt() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-4"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2"
                 >
                   GANTT — MAP YOUR MILESTONES
                 </motion.div>
@@ -187,9 +199,9 @@ export default function Gantt() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
+                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
                 >
-                  The ultimate  Visibility{" "}
+                  The ultimate <br/>Visibility{" "}
                   <span className="block">
                     With{" "}
                     <motion.span
@@ -213,7 +225,16 @@ export default function Gantt() {
                       <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
                     </div>
                     <p className="text-sm sm:text-lg text-slate-600 font-medium leading-relaxed">
-                      Timelines that tell the truth. Map dependencies, adjust milestones in real time, and finally answer the question everyone's afraid to ask: are we on track?
+                      Timelines that tell the truth.
+                    </p>
+                  </div>
+
+                   <div className="flex items-start gap-3 text-left">
+                    <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-sm sm:text-lg text-slate-600 font-medium leading-relaxed">
+                       Map dependencies, adjust milestones in real time
                     </p>
                   </div>
                 </motion.div>
@@ -255,8 +276,8 @@ export default function Gantt() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="flex flex-col items-center"
             >
-             
-              <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 tracking-tighter leading-tight">
+
+              <h2 className="mt-4 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]">
                 Powerful Timeline For <br />
                 <motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
@@ -287,9 +308,18 @@ export default function Gantt() {
                   <h3 className="text-xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-tight mb-2 sm:mb-6">
                     {item.title}
                   </h3>
-                  <p className="text-[12px] sm:text-lg text-slate-600 font-medium leading-relaxed max-w-lg mb-3 sm:mb-8 line-clamp-3 lg:line-clamp-none">
-                    {item.desc}
-                  </p>
+                  <div className="space-y-3 sm:space-y-4 max-w-lg mb-4 sm:mb-8">
+                    {item.desc.map((point, idx) => (
+                      <div key={idx} className="flex items-start gap-3 text-left">
+                        <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                        </div>
+                        <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                          {point}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                   <div className="inline-flex px-4 py-2 rounded-full bg-purple-50 border border-purple-200 text-[10px] sm:text-[11px] font-black text-purple-700 uppercase tracking-widest mb-2 lg:mb-0">
                     {item.tag}
                   </div>

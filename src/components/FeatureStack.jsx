@@ -1,26 +1,56 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Users, Calendar, Target, ListTree, Zap, MessageSquare, ShieldCheck, BarChart2, Rocket, Settings } from "lucide-react";
+import { 
+  Check, Users, Calendar, Target, ListTree, Zap, MessageSquare, ShieldCheck, 
+  BarChart2, Rocket, Settings, CalendarDays, Mail, Globe, Layers, Briefcase, 
+  CheckSquare, FileText, Clock, Play, Shuffle, Download, Lightbulb, TrendingUp, 
+  BookOpen, GraduationCap, School, Video, Megaphone 
+} from "lucide-react";
 
 /**
- * Default icon and color mapping for common feature names
+ * Returns an appropriate icon based on keywords in the feature label
  */
-const DEFAULT_ICON_MAP = {
-  "Assignees": { icon: Users, color: "#3b82f6" },     // Blue
-  "Due dates": { icon: Calendar, color: "#f59e0b" },  // Amber
-  "Priorities": { icon: Target, color: "#ef4444" },   // Red
-  "Sub-tasks": { icon: ListTree, color: "#10b981" },  // Emerald
-  "Automations": { icon: Zap, color: "#8b5cf6" },     // Violet
-  "Chat": { icon: MessageSquare, color: "#ec4899" },  // Pink
-  "Enterprise": { icon: ShieldCheck, color: "#64748b" }, // Slate
-  "Performance": { icon: BarChart2, color: "#06b6d4" }, // Cyan
-  "Launch": { icon: Rocket, color: "#f97316" },      // Orange
-  "Settings": { icon: Settings, color: "#475569" },    // Slate-600
+const getIconForLabel = (label) => {
+  if (!label) return Check;
+  const l = label.toLowerCase();
+  
+  if (l.includes('assignee') || l.includes('member') || l.includes('team') || l.includes('role')) return Users;
+  if (l.includes('date') || l.includes('schedule') || l.includes('calendar')) return CalendarDays;
+  if (l.includes('priorit') || l.includes('target')) return Target;
+  if (l.includes('task') || l.includes('hierarch') || l.includes('breakdown')) return ListTree;
+  if (l.includes('automat') || l.includes('trigger') || l.includes('dynamic')) return Zap;
+  if (l.includes('replies') || l.includes('chat') || l.includes('message') || l.includes('channel')) return MessageSquare;
+  if (l.includes('permission') || l.includes('enterpris') || l.includes('security')) return ShieldCheck;
+  if (l.includes('performance') || l.includes('visibilit') || l.includes('track') || l.includes('balance') || l.includes('calculat')) return BarChart2;
+  if (l.includes('launch') || l.includes('rocket')) return Rocket;
+  if (l.includes('setting') || l.includes('rule')) return Settings;
+  if (l.includes('invite') || l.includes('mail')) return Mail;
+  if (l.includes('global') || l.includes('world')) return Globe;
+  if (l.includes('view') || l.includes('layer') || l.includes('graphic')) return Layers;
+  if (l.includes('leave') || l.includes('briefcase')) return Briefcase;
+  if (l.includes('approv') || l.includes('check')) return CheckSquare;
+  if (l.includes('payslip') || l.includes('file') || l.includes('sheet') || l.includes('document')) return FileText;
+  if (l.includes('histor') || l.includes('time') || l.includes('log') || l.includes('clock')) return Clock;
+  if (l.includes('action') || l.includes('play')) return Play;
+  if (l.includes('condition') || l.includes('shuffle')) return Shuffle;
+  if (l.includes('export') || l.includes('download')) return Download;
+  if (l.includes('ideation') || l.includes('bulb')) return Lightbulb;
+  if (l.includes('growth') || l.includes('trend')) return TrendingUp;
+  if (l.includes('admission')) return BookOpen;
+  if (l.includes('learning')) return GraduationCap;
+  if (l.includes('admin')) return School;
+  if (l.includes('video')) return Video;
+  if (l.includes('marketing')) return Megaphone;
+  
+  return Check;
 };
 
 const FeatureStack = ({ items = [], interval = 2500 }) => {
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
+  const containerRef = useRef(null);
+
+
 
   useEffect(() => {
     if (items.length === 0 || hovered) return;
@@ -39,11 +69,9 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
       // Normalize item to object
       let itemObj = typeof rawItem === "string" ? { label: rawItem } : { ...rawItem };
       
-      // Apply defaults for icons/colors if missing
-      if (!itemObj.icon || !itemObj.iconColor) {
-        const mapped = DEFAULT_ICON_MAP[itemObj.label] || { icon: Check, color: "#000000" };
-        itemObj.icon = itemObj.icon || mapped.icon;
-        itemObj.iconColor = itemObj.iconColor || mapped.color;
+      // Apply smart keyword-based icon if one wasn't explicitly provided
+      if (!itemObj.icon) {
+        itemObj.icon = getIconForLabel(itemObj.label);
       }
 
       return { offset, item: itemObj };
@@ -53,11 +81,9 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
   if (items.length === 0) return null;
 
   return (
-    <div
-      className="relative w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
-      style={{
-        height: "80px",
-      }}
+    <motion.div
+      ref={containerRef}
+      className="relative h-[80px] z-20 w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -112,7 +138,7 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
               <div className="flex-shrink-0 w-6 h-6 sm:w-6.5 sm:h-6.5 rounded-md border border-black/5 bg-white/25 flex items-center justify-center">
                 <Icon
                   className="w-3 h-3 sm:w-3.5 sm:h-3.5"
-                  style={{ color: color }}
+                  style={{ color: "#9333ea" }} 
                   strokeWidth={2.5}
                 />
               </div>
@@ -125,7 +151,7 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
           );
         })}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };
 

@@ -132,7 +132,7 @@ export default function ScatteredWork() {
                 </motion.span>
               </h3>
               <p className="text-slate-500 font-medium text-base sm:text-lg leading-relaxed mb-6 max-w-xl">
-               KaryaUp turns your business into one unified engine.
+                KaryaUp turns your business into one unified engine.
               </p>
             </div>
 
@@ -158,14 +158,14 @@ export default function ScatteredWork() {
             {/* List and Outcome Section */}
             <div className="mt-auto lg:mt-6 flex flex-col items-center gap-6 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left w-full">
               {/* Transformation Steps */}
-              <div className="relative flex flex-col items-start gap-6 ml-2 lg:ml-0">
+              <div className="relative flex flex-col items-start justify-start text-left gap-6 w-full lg:w-auto">
                 {/* Animated Vertical Line */}
-                <motion.div 
-                  initial={{ height: 0 }}
-                  whileInView={{ height: "calc(100% - 20px)" }}
-                  viewport={{ once: true, margin: "-100px" }}
+                <motion.div
+                  initial={{ scaleY: 0 }}
+                  whileInView={{ scaleY: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 2.5, ease: "easeInOut" }}
-                  className="absolute left-[8px] top-[14px] w-[4px] rounded-full bg-gradient-to-b from-[#7e22ce] to-[#c084fc] z-0"
+                  className="hidden sm:block absolute left-[8px] top-[14px] bottom-3 w-[4px] origin-top rounded-full bg-gradient-to-b from-[#7e22ce] to-[#c084fc] z-0"
                 />
 
                 {[
@@ -173,15 +173,15 @@ export default function ScatteredWork() {
                   { text: "Move the Karya.", icon: Zap },
                   { text: "Complete the Karya.", icon: Rocket },
                 ].map((step, i) => (
-                  <motion.div 
-                    key={i} 
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ delay: i * 0.8 + 0.3 }}
-                    className="relative z-10 flex items-center justify-start gap-4"
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ delay: i * 0.4 + 0.2 }}
+                    className="relative z-10 flex flex-row items-center justify-start text-left gap-4 !w-full !mr-auto"
                   >
-                    <div className="w-5 h-5 rounded-full bg-[#7e22ce] flex-shrink-0" />
+                    <div className="hidden sm:block w-5 h-5 rounded-full bg-[#7e22ce] flex-shrink-0" />
                     <span className="text-xl font-black text-slate-800 tracking-normal leading-tight whitespace-nowrap">{step.text}</span>
                   </motion.div>
                 ))}

@@ -36,28 +36,40 @@ export default function Dashboards() {
     {
       header: "Boss Dashboard",
       title: "Leadership Insights",
-      desc: "Gain high-level visibility into core metrics. Monitor profitability, team allocation, and company health to steer your business with confidence.",
+      desc: [
+        "Gain high-level visibility into core metrics.",
+        "Monitor profitability, team allocation, and health."
+      ],
       image: dashboardImg2,
       tag: "Executive View",
     },
     {
       header: "PM Dashboard",
       title: "Project Orchestration",
-      desc: "Manage complexity with ease. Track sprint velocity, bottleneck trends, and resource distribution to ensure seamless delivery on every project.",
+      desc: [
+        "Manage complexity with ease and clarity.",
+        "Track sprint velocity and resource distribution."
+      ],
       image: featureProjects,
       tag: "Portfolio Tracking",
     },
     {
       header: "Employee Dashboard",
       title: "Personal Performance",
-      desc: "Optimize your daily flow. Visualize personal goals, time logs, and task efficiency to drive individual growth and focus.",
+      desc: [
+        "Optimize your daily flow and focus.",
+        "Visualize personal goals and task efficiency."
+      ],
       image: featureWork,
       tag: "Productivity Engine",
     },
     {
       header: "Sales Dashboard",
       title: "Growth Momentum",
-      desc: "Accelerate your pipeline. Monitor conversion rates, revenue forecasts, and sales velocity to keep your team consistently over-performing.",
+      desc: [
+        "Accelerate your pipeline and revenue pulse.",
+        "Monitor conversion rates and sales velocity."
+      ],
       image: featureChart,
       tag: "Revenue Pulse",
     }
@@ -172,7 +184,7 @@ export default function Dashboards() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
-                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50/80 backdrop-blur-sm border border-purple-100 text-purple-600 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] shadow-sm mb-10"
+                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50/80 backdrop-blur-sm border border-purple-100 text-purple-600 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] shadow-sm mb-2"
                 >
                   DASHBOARDS — VISUALIZE YOUR DATA
                 </motion.div>
@@ -181,11 +193,11 @@ export default function Dashboards() {
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
+                  className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
                 >
-                  Custom Metrics For <br />
+                  Custom Metrics <br />For Every <br />
                   <span className="block">
-                    Every{" "}
+                    {" "}
                     <motion.span
                       className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                       animate={{ backgroundPosition: ["0% center", "-200% center"] }}
@@ -204,7 +216,8 @@ export default function Dashboards() {
                 >
                   {[
                     "Real-time signals for every decision.",
-                    "Build custom dashboards that surface the metrics that matter — not just the ones that are easy to count."
+                    "Create dashboards focused on real impact"
+                  
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-3 text-left">
                       <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
@@ -258,7 +271,7 @@ export default function Dashboards() {
                 <span className="opacity-60">/</span>
                 <span>Universal Dashboard Control</span>
               </div>
-              <h2 className="mt-5 sm:mt-6 text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-tight">
+              <h2 className="mt-5 sm:mt-6 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]">
                 Multiple Dashboard For <br />
                 <motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
@@ -289,9 +302,18 @@ export default function Dashboards() {
                   <h3 className="text-xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-tight mb-2 sm:mb-6">
                     {item.title}
                   </h3>
-                  <p className="text-[12px] sm:text-lg text-slate-600 font-medium leading-relaxed max-w-lg mb-3 sm:mb-8 line-clamp-3 lg:line-clamp-none">
-                    {item.desc}
-                  </p>
+                  <div className="space-y-3 sm:space-y-4 max-w-lg mb-4 sm:mb-8">
+                    {item.desc.map((point, idx) => (
+                      <div key={idx} className="flex items-start gap-3 text-left">
+                        <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                        </div>
+                        <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                          {point}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                   <div className="inline-flex px-4 py-2 rounded-full bg-purple-50 border border-purple-200 text-[10px] sm:text-[11px] font-black text-purple-700 uppercase tracking-widest mb-2 lg:mb-0">
                     {item.tag}
                   </div>

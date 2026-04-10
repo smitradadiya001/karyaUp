@@ -125,7 +125,7 @@ export default function Chat() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06]"
+                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
                 >
                   Where Conversations
                   <span className="block mt-2">
@@ -139,7 +139,7 @@ export default function Chat() {
                     </motion.span>
                   </span>
                 </motion.h1>
- 
+
                 <motion.div
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -151,9 +151,21 @@ export default function Chat() {
                       <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
                     </div>
                     <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
-                      Conversations that stay close to the work. Chat directly inside projects, tasks, and teams — so context never gets lost in a separate inbox or a thread no one can find later.
+                      Conversations that stay close to the work. 
                     </p>
                   </div>
+
+                   <div className="flex items-start gap-3.5 text-left">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
+                      Chat directly inside projects, tasks, and teams
+                    </p>
+                  </div>
+
+
+                  
                 </motion.div>
 
                 <FeatureStack items={["Threaded replies", "Direct messages", "Project channels", "File sharing"]} />
@@ -166,7 +178,7 @@ export default function Chat() {
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
                 className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
               >
-               {/* Chat Card */}
+                {/* Chat Card */}
                 <div className="relative border border-purple-900/30 rounded-3xl shadow-2xl shadow-purple-900/20 bg-slate-950 overflow-hidden flex flex-col h-[400px] sm:h-[450px]">
                   {/* Glow blobs */}
                   <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/15 rounded-full blur-[60px] pointer-events-none" />
@@ -271,7 +283,7 @@ export default function Chat() {
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-3"
+                className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] mb-3"
               >
                 Chat Designed For <br className="hidden sm:block" />
                 <motion.span
@@ -299,9 +311,9 @@ export default function Chat() {
             >
               {/* 1. Group Chat */}
               <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
-                <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
 
-                <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white text-emerald-600">
+                <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white text-purple-600">
                   <Users className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">Group Chat</h3>
@@ -309,7 +321,7 @@ export default function Chat() {
                 <div className="relative z-10 space-y-2.5">
                   {["Team discussions", "File sharing", "Mentions & threads", "Instant updates"].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
-                      <div className="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                      <div className="w-4 h-4 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
                         <Check className="w-[10px] h-[10px]" />
                       </div>
                       <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item}</span>
@@ -320,9 +332,9 @@ export default function Chat() {
 
               {/* 2. Personal Chat */}
               <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
-                <div className="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
 
-                <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-100 border border-blue-200 flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white text-blue-600">
+                <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white text-purple-600">
                   <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">Personal Chat</h3>
@@ -330,7 +342,7 @@ export default function Chat() {
                 <div className="relative z-10 space-y-2.5">
                   {["Direct messaging", "Fast decision-making", "Private discussions"].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
-                      <div className="w-4 h-4 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                      <div className="w-4 h-4 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
                         <Check className="w-[10px] h-[10px]" />
                       </div>
                       <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item}</span>
@@ -399,7 +411,7 @@ export default function Chat() {
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-4xl sm:text-5xl lg:text-5xl font-black text-white leading-tight mb-4 tracking-tight"
+                    className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-white leading-[1.05] mb-4 tracking-normal"
                   >
                     Your Personal <br className="hidden sm:block" />
                     <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]">
@@ -414,7 +426,7 @@ export default function Chat() {
                     transition={{ delay: 0.1 }}
                     className="text-base sm:text-lg text-slate-400 font-medium mb-6 leading-relaxed max-w-xl"
                   >
-                    Don't just chat—execute. Ask the AI agent to summarize unread threads, extract action items, create tasks directly from messages, or draft replies for you.
+                    Don't just chat—execute. Ask the AI agent to summarize unread threads, extract action items.
                   </motion.p>
 
                   {/* Feature bullets */}
@@ -469,8 +481,8 @@ export default function Chat() {
 
         {/* Feature CTA Section */}
         <FeatureCTA
-          title={<>Chat That Connects To <br /> Every Project You Run</>}
-          description="Communicate seamlessly within your tasks, documents, and workflows—so you never lose context."
+          title={<>Chat That Connects <br /> To  Your Project</>}
+          description="Communicate seamlessly within your tasks, documents, and workflows so you never lose context."
           image={chatImg}
           imageAlt="KaryaUp Chat Interface"
           containerClassName="mt-12 sm:mt-16 lg:mt-20"

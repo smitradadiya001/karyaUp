@@ -49,12 +49,12 @@ const cards = [
     desc: 'Across projects, teams, and timelines to find bottlenecks.',
   },
   {
-    icon: <LineChart className="text-fuchsia-400" size={26} />,
+    icon: <LineChart className="text-purple-400" size={26} />,
     title: 'Identify delays',
     desc: 'Before they happen with predictive analytics and insights.',
   },
   {
-    icon: <Zap className="text-yellow-400" size={26} />,
+    icon: <Zap className="text-purple-400" size={26} />,
     title: 'Understand performance',
     desc: 'Without manual reports getting in the way of your work.',
   },
@@ -156,10 +156,19 @@ const WorkIntelligence = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-0 text-[13px] sm:text-sm font-bold text-white relative z-10 max-w-5xl mx-auto px-1 sm:px-6">
 
               {/* Box 1: Raw Activity */}
-              <div className="flex items-center justify-center gap-2 bg-slate-900 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-slate-700 hover:border-purple-500/50 transition-all duration-300 w-full sm:w-auto">
+              <motion.div 
+                animate={{ 
+                  borderColor: ["rgba(168,85,247,0.2)", "rgba(255,255,255,1)", "rgba(168,85,247,0.2)"],
+                  backgroundColor: ["rgba(88,28,135,0.2)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.2)"],
+                  boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 50px rgba(217,70,239,0.8)", "0 0 0px rgba(168,85,247,0)"],
+                  scale: [1, 1.15, 1]
+                }}
+                transition={{ duration: 5, repeat: Infinity, times: [0, 0.1, 0.2] }}
+                className="flex items-center justify-center gap-2 bg-purple-900/20 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 w-full sm:w-auto z-10"
+              >
                 <Database size={16} className="text-purple-400" />
                 <span>Raw Activity</span>
-              </div>
+              </motion.div>
 
               {/* Gap 1: Arrow 1 */}
               <div className="flex sm:hidden items-center justify-center h-6 -my-0.5 relative">
@@ -180,10 +189,10 @@ const WorkIntelligence = () => {
                     opacity: [0, 1, 0],
                   }}
                   transition={{
-                    duration: 1.5,
+                    duration: 2.5,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    repeatDelay: 1.5
+                    repeatDelay: 2.5
                   }}
                   className="absolute text-white"
                 >
@@ -192,10 +201,19 @@ const WorkIntelligence = () => {
               </div>
 
               {/* Box 2: Clear Insight */}
-              <div className="flex items-center justify-center gap-2 bg-purple-900/40 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/40 backdrop-blur-md hover:border-purple-500/60 transition-all duration-300 w-full sm:w-auto">
-                <BrainCircuit size={16} className="text-fuchsia-300" />
+              <motion.div 
+                animate={{ 
+                  borderColor: ["rgba(168,85,247,0.4)", "rgba(255,255,255,1)", "rgba(168,85,247,0.4)"],
+                  backgroundColor: ["rgba(88,28,135,0.4)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.4)"],
+                  boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 60px rgba(217,70,239,0.9)", "0 0 0px rgba(168,85,247,0)"],
+                  scale: [1, 1.15, 1]
+                }}
+                transition={{ duration: 5, repeat: Infinity, times: [0.4, 0.5, 0.6] }}
+                className="flex items-center justify-center gap-2 bg-purple-900/40 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/40 backdrop-blur-md hover:border-purple-500/60 transition-all duration-300 w-full sm:w-auto z-10"
+              >
+                <BrainCircuit size={16} className="text-purple-300" />
                 <span>Clear Insight</span>
-              </div>
+              </motion.div>
 
               {/* Gap 2: Arrow 2 */}
               <div className="flex sm:hidden items-center justify-center h-6 -my-0.5 relative">
@@ -216,11 +234,11 @@ const WorkIntelligence = () => {
                     opacity: [0, 1, 0],
                   }}
                   transition={{
-                    duration: 1.5,
-                    delay: 1.5,
+                    duration: 2.5,
+                    delay: 2.5,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    repeatDelay: 1.5
+                    repeatDelay: 2.5
                   }}
                   className="absolute text-white"
                 >
@@ -229,10 +247,19 @@ const WorkIntelligence = () => {
               </div>
 
               {/* Box 3: Faster Decisions */}
-              <div className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-fuchsia-600 border border-white/10 px-4 sm:px-8 py-2 sm:py-4 rounded-full shadow-[0_0_20px_rgba(217,70,239,0.35)] transition-all duration-300 w-full sm:w-auto">
+              <motion.div 
+                animate={{ 
+                  borderColor: ["rgba(168,85,247,0.4)", "rgba(255,255,255,1)", "rgba(168,85,247,0.4)"],
+                  backgroundColor: ["rgba(88,28,135,0.4)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.4)"],
+                  boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 60px rgba(217,70,239,0.9)", "0 0 0px rgba(168,85,247,0)"],
+                  scale: [1, 1.15, 1]
+                }}
+                transition={{ duration: 5, repeat: Infinity, times: [0.8, 0.9, 1] }}
+                className="flex items-center justify-center gap-2 bg-purple-900/40 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/40 backdrop-blur-md hover:border-purple-500/60 transition-all duration-300 w-full sm:w-auto z-10"
+              >
                 <Rocket size={16} className="text-white" />
                 <span>Faster Decisions</span>
-              </div>
+              </motion.div>
 
             </div>
           </motion.div>

@@ -52,17 +52,17 @@ export default function TeamInfoSection() {
     {
       title: "Role-Based Access",
       desc: "Assign Admin, Manager, or Member roles with full control.",
-      icon: ShieldCheck,
-      color: "emerald"
+      icon: Search,
+      color: "fuchsia"
     },
     {
-      title: "Add Members Instantly",
+      title: "Add Members ",
       desc: "Invite and onboard members in seconds without friction.",
       icon: UserPlus,
-      color: "blue"
+      color: "fuchsia"
     },
     {
-      title: "Quick Search & Filters",
+      title: "Quick Search ",
       desc: "Find any team member instantly with smart filtering.",
       icon: Search,
       color: "fuchsia"
@@ -100,7 +100,7 @@ export default function TeamInfoSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.06] mb-6 tracking-normal"
+            className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.05] mb-6 tracking-normal"
           >
             Your Team.{" "}Organized.<br className="hidden sm:block" />
             <motion.span 

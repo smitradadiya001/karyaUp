@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import FeatureStack from "../../components/FeatureStack";
 import FeatureCTA from "../../components/FeatureCTA";
 import calenderImg from "../../assets/Calender.webp";
@@ -76,13 +76,13 @@ export default function CalendarPage() {
                   CALENDAR — ORGANIZE YOUR SCHEDULE
                 </motion.div>
                 <motion.h1
-                  initial={{ opacity: 0, y: isMobile ? 0 : 40, x: isMobile ? 0 : -10 }}
-                  animate={{ opacity: 1, y: 0, x: 0 }}
-                  transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06] mb-3"
+                  initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black tracking-normal leading-[1.05] text-slate-900"
                 >
-                  Master Your  <br />Time With A
-                  <span className="block mt-1">
+                  Master Your <br />Time With A
+                  <span className="block mt-2">
                     {" "}
                     <span className="text-gradient inline-block">
                       Unified Calendar
@@ -94,17 +94,17 @@ export default function CalendarPage() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                  className="mt-5 sm:mt-6 space-y-4 max-w-2xl w-full mx-auto lg:mx-0"
+                  className="mt-4 sm:mt-6 space-y-3 w-full max-w-[28rem] mx-auto lg:max-w-none lg:mx-0"
                 >
                   {[
-                    "A single calendar that brings together tasks, events, meetings, and deadlines in one beautiful view.",
-                    "Plan seamlessly across teams, projects, and multiple timezones."
-                  ].map((text, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5 text-left group">
-                      <div className="mt-0.5 w-5.5 h-5.5 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-purple-500/20">
-                        <CheckCircle2 className="w-3.2 h-3.2 text-purple-400 stroke-[3.5]" />
+                    "Unified view for tasks, meetings & deadlines",
+                    "Visual timelines & seamless team coordination"
+                  ].map((text, i) => (
+                    <div key={i} className="flex items-start gap-4 text-left justify-center lg:justify-start">
+                      <div className="mt-1.5 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                        <Check size={10} className="text-[#7e22ce] stroke-[4]" />
                       </div>
-                      <p className="text-base text-slate-600 font-medium leading-relaxed group-hover:text-slate-900 transition-colors duration-300">
+                      <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
                         {text}
                       </p>
                     </div>
@@ -119,7 +119,7 @@ export default function CalendarPage() {
                 initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24 mt-4 sm:mt-8 lg:mt-0"
+                className="relative w-full max-w-[420px] sm:max-w-[480px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-8 xl:-mr-16 mt-4 sm:mt-8 lg:mt-0"
               >
                 <div className="relative">
                   <div className="overflow-hidden border border-slate-200/80 rounded-2xl sm:rounded-3xl bg-white group transition-all duration-500">

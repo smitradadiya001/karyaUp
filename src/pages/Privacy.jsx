@@ -141,7 +141,7 @@ export default function Privacy() {
                 initial={{ opacity: 0, y: 22 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06] mb-6"
+                className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] mb-6"
               >
                 Data Privacy & <br />
                 <motion.span
@@ -167,7 +167,7 @@ export default function Privacy() {
 
         {/* Detailed Policy Content - Right-Side Layout */}
         <section className="px-4 sm:px-6 lg:px-8 pb-12 sm:pb-20">
-          <div className="max-w-2xl lg:max-w-3xl ml-auto mr-0 lg:mr-10 xl:mr-20 relative">
+          <div className="max-w-2xl lg:max-w-3xl mx-auto relative">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

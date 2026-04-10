@@ -19,7 +19,7 @@ const TiltCard = ({ children, className }) => {
   const handleMouseMove = (e) => {
     const rect = ref.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;   // -1 … 1
-    const y = ((e.clientY - rect.top)  / rect.height) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
     rawX.set(x);
     rawY.set(y);
   };
@@ -76,7 +76,7 @@ export default function Automations() {
         <link rel="canonical" href="https://karyaup.com/features/automation" />
       </Helmet>
       <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900 overflow-x-hidden">
-        
+
         {/* Hero Section */}
         <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
           <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-0">
@@ -95,10 +95,10 @@ export default function Automations() {
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.06]"
+                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-[#0f172a] tracking-normal leading-[1.05]"
                 >
-                  Put Repetitive<br/>
-                  Tasks on<br className="hidden sm:block"/>
+                  Put Repetitive<br />
+                  Tasks on<br className="hidden sm:block" />
                   <span className="block sm:inline"> {" "}
                     <motion.span
                       className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#c026d3] to-[#9333ea] bg-[length:200%_auto]"
@@ -118,7 +118,7 @@ export default function Automations() {
                 >
                   {[
                     "Eliminate manual data entry and routine busywork.",
-                    "Construct custom workflows to automate tasks across your entire team securely without writing code."
+                    "Construct custom workflows to automate tasks."
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-3.5 text-left">
                       <div className="mt-1 w-5 h-5 rounded-full bg-[#f3e8ff] flex flex-col items-center justify-center flex-shrink-0">
@@ -142,7 +142,7 @@ export default function Automations() {
               </div>
 
               {/* Right Hero Image */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
@@ -167,20 +167,20 @@ export default function Automations() {
             <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#f3e8ff] text-[#9333ea] text-[11px] font-black uppercase tracking-[0.15em] mb-4">
               What you can do
             </span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#0f172a] tracking-tight leading-tight">
-              Automation, Built<br/>
+            <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-[#0f172a] tracking-normal leading-[1.05]">
+              Automation, Built<br />
               <span className="text-gradient">Around Your Workflow</span>
             </h2>
           </div>
 
           {/* 4-Box TiltCard Layout */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" style={{ perspective: '1200px' }}>
-            
+
             {/* Box 1 — Toggle Off Anytime */}
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="h-full">
               <TiltCard className="relative bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-5 sm:p-6 rounded-[2rem] h-full transition-colors transition-shadow duration-300 group overflow-hidden cursor-default">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-red-50/40 rounded-full blur-3xl -z-10 group-hover:bg-red-100/40 transition-colors duration-500" />
-                
+
                 {/* Mini UI */}
                 <div className="flex flex-col gap-2.5 w-full">
                   {[
@@ -199,7 +199,7 @@ export default function Automations() {
 
                 <div>
                   <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-1.5 leading-tight">Turn off anytime</h3>
-                  <p className="text-sm text-slate-500 font-medium leading-relaxed">Pause or disable any automation with a single click. Full control — always.</p>
+                  <p className="text-sm text-slate-500 font-medium leading-relaxed">Pause or disable any automation with a single click.</p>
                 </div>
               </TiltCard>
             </motion.div>
@@ -208,17 +208,16 @@ export default function Automations() {
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="h-full">
               <TiltCard className="relative bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-5 sm:p-6 rounded-[2rem] h-full transition-colors transition-shadow duration-300 group overflow-hidden cursor-default">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-purple-50/50 rounded-full blur-3xl -z-10 group-hover:bg-purple-100/50 transition-colors duration-500" />
-                
+
                 {/* Mini UI */}
                 <div className="grid grid-cols-4 gap-1.5 w-full">
-                  {["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map((m, i) => (
+                  {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((m, i) => (
                     <div
                       key={m}
-                      className={`text-center py-1.5 rounded-lg text-[10px] font-bold border transition-all ${
-                        selectedMonths.has(i)
+                      className={`text-center py-1.5 rounded-lg text-[10px] font-bold border transition-all ${selectedMonths.has(i)
                           ? "bg-[#9333ea] text-white border-[#9333ea] shadow-sm shadow-purple-300 scale-[1.02]"
                           : "border-slate-200 text-slate-400 bg-slate-50/50"
-                      }`}
+                        }`}
                     >
                       {m}
                     </div>
@@ -227,7 +226,7 @@ export default function Automations() {
 
                 <div>
                   <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-1.5 leading-tight">Schedule for any month</h3>
-                  <p className="text-sm text-slate-500 font-medium leading-relaxed">Pick exactly which months it fires. Quarterly, bi-annual, or every month.</p>
+                  <p className="text-sm text-slate-500 font-medium leading-relaxed">Pick exactly which months it fires. Quarterly or every month.</p>
                 </div>
               </TiltCard>
             </motion.div>
@@ -236,7 +235,7 @@ export default function Automations() {
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="h-full">
               <TiltCard className="relative bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-5 sm:p-6 rounded-[2rem] h-full transition-colors transition-shadow duration-300 group overflow-hidden cursor-default">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-fuchsia-50/40 rounded-full blur-3xl -z-10 group-hover:bg-fuchsia-100/40 transition-colors duration-500" />
-                
+
                 {/* Mini UI */}
                 <div className="flex flex-col gap-2 w-full">
                   {[
@@ -248,9 +247,8 @@ export default function Automations() {
                     return (
                       <div
                         key={t.team}
-                        className={`flex items-center gap-2 px-3 py-2 rounded-xl border bg-gradient-to-r w-full ${
-                          isAssigned ? t.color : "from-slate-50 to-slate-100 border-slate-200 text-slate-400"
-                        }`}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-xl border bg-gradient-to-r w-full ${isAssigned ? t.color : "from-slate-50 to-slate-100 border-slate-200 text-slate-400"
+                          }`}
                       >
                         <span className="text-sm">{t.icon}</span>
                         <span className={`text-[12px] font-bold ${isAssigned ? "" : "line-through opacity-50"}`}>{t.team}</span>
@@ -276,7 +274,7 @@ export default function Automations() {
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="h-full">
               <TiltCard className="relative bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-5 sm:p-6 rounded-[2rem] h-full transition-colors transition-shadow duration-300 group overflow-hidden cursor-default">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-blue-50/40 rounded-full blur-3xl -z-10 group-hover:bg-blue-100/40 transition-colors duration-500" />
-                
+
                 {/* Mini UI */}
                 <div className="flex flex-col gap-2.5 w-full">
                   {[
@@ -307,7 +305,7 @@ export default function Automations() {
         </section>
 
         {/* Automations CTA */}
-        <FeatureCTA 
+        <FeatureCTA
           title={<>Put Your Workflow on Autopilot.</>}
           description="Stop manually creating identical tasks every single month. Set up rule-based automations and let our system handle the boring stuff."
           buttonText="Set up automations"
@@ -317,7 +315,7 @@ export default function Automations() {
           paddingClassName="p-2 sm:p-3 lg:p-3.5"
           imageClassName="w-[60%] lg:w-[54%] mx-auto lg:translate-x-10"
           imageOuterClassName="relative w-full max-w-[260px] sm:max-w-[340px] lg:max-w-none lg:w-full mx-auto lg:mx-0 translate-x-0 lg:translate-x-2"
-          titleClassName="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.15] mb-3 tracking-tight drop-shadow-lg"
+          titleClassName="text-xl sm:text-2xl lg:text-[1.75rem] font-black text-white leading-[1.1] mb-3 tracking-tight drop-shadow-lg"
         />
       </div>
     </>

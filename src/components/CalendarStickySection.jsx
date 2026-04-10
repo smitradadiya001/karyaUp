@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { Check } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -166,17 +166,16 @@ export default function CalendarStickySection() {
                   {item.description}
                 </p>
 
-                <ul className="mb-4 hidden w-full max-w-md space-y-3 sm:block">
+                <ul className="mb-4 hidden w-full max-w-md space-y-2.5 sm:block">
                   {item.bullets.map((bullet, idx) => (
                     <li
                       key={idx}
-                      className="flex items-start gap-4 rounded-xl border border-purple-100/30 bg-purple-50/50 p-4 text-left text-[14px] font-bold text-slate-600"
+                      className="flex items-start gap-3.5 text-left"
                     >
-                      <CheckCircle2
-                        size={20}
-                        className="mt-0 shrink-0 text-purple-600"
-                      />
-                      <span className="mt-0.5">{bullet}</span>
+                      <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                        <Check size={10} className="text-[#7e22ce] stroke-[4]" />
+                      </div>
+                      <span className="text-sm sm:text-base font-bold text-slate-600 leading-relaxed">{bullet}</span>
                     </li>
                   ))}
                 </ul>
@@ -192,12 +191,7 @@ export default function CalendarStickySection() {
                     src={item.image}
                     alt={item.header}
                     loading="lazy"
-                    className={cn(
-                      "relative z-10 h-full max-h-[90%] w-auto max-w-[90%] object-contain transition-all duration-500 lg:h-auto lg:w-[85%]",
-                      item.id === "create-task"
-                        ? "lg:max-w-[75%]"
-                        : "lg:max-w-[95%]"
-                    )}
+                    className="relative z-10 h-full max-h-[66%] w-auto max-w-[80%] object-contain transition-all duration-500 lg:h-auto lg:w-[68%]"
                   />
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, Calendar, BarChart, Briefcase, Sparkles } from 'lucide-react';
+import { CreditCard, Calendar, BarChart, Briefcase, Sparkles, Check } from 'lucide-react';
 import TeamImg from "../assets/Team2.webp";
 
 const Management = () => {
@@ -31,9 +31,20 @@ const Management = () => {
                                 Just Tasks.
                             </motion.span>
                         </h2>
-                        <p className="text-base sm:text-xl font-medium text-slate-500 mb-4 sm:mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                            KaryaUp handles the essentials of your business operations. From salary to attendance, everything is seamlessly integrated into your elite workflow.
-                        </p>
+                        <div className="flex flex-col items-center lg:items-start gap-4 mb-8 sm:mb-12">
+                            <div className="flex items-center gap-2.5">
+                                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-50 flex items-center justify-center border border-purple-100">
+                                    <Check className="w-3 h-3 text-[#7e22ce]" strokeWidth={3} />
+                                </div>
+                                <span className="text-sm sm:text-base font-bold text-slate-700">Unified management for all business essentials</span>
+                            </div>
+                            <div className="flex items-center gap-2.5">
+                                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-50 flex items-center justify-center border border-purple-100">
+                                    <Check className="w-3 h-3 text-[#7e22ce]" strokeWidth={3} />
+                                </div>
+                                <span className="text-sm sm:text-base font-bold text-slate-700">Salary, attendance, and HR seamlessly integrated</span>
+                            </div>
+                        </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 w-full">
                             {items.map((item, idx) => (
                                 <div
@@ -45,7 +56,7 @@ const Management = () => {
                                     </div>
                                     <div className="flex flex-col items-center sm:items-start">
                                         <h4 className="font-black text-slate-800 text-base sm:text-lg mb-0.5 tracking-normal">{item.title}</h4>
-                                        <p className="text-xs sm:text-sm font-bold text-slate-400 leading-tight">{item.desc}</p>
+                                        <p className="text-xs sm:text-sm font-medium text-slate-400 leading-tight">{item.desc}</p>
                                     </div>
                                 </div>
                             ))}

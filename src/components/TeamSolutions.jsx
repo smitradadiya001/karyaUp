@@ -116,9 +116,10 @@ const teams = [
 ];
 
 /* ── Feature Icon placeholder ── */
+/* ── Feature Icon placeholder ── */
 const FeatureIcon = ({ icon: Icon }) => (
     <div
-        className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-300 bg-[#f5f3ff] border border-[#e9d5ff] group-hover:bg-purple-100 group-hover:border-purple-200"
+        className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 bg-[#f5f3ff] border border-[#e9d5ff] group-hover:bg-purple-100 group-hover:border-purple-300 shadow-sm"
     >
         <Icon size={18} className="text-[#a855f7] transition-colors duration-300 group-hover:text-purple-700" />
     </div>
@@ -215,12 +216,13 @@ const TeamSolutions = () => {
                 </motion.div>
 
                 {/* Sticky scrolling sections container */}
-                <div className="teamsolutions-sticky-container relative h-[70vh] sm:h-[75vh] lg:h-[75vh] w-full mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-100 shadow-sm bg-gradient-to-br from-white to-[#f5f3ff]/30">
+                {/* Sticky scrolling sections container */}
+                <div className="teamsolutions-sticky-container relative h-[70vh] sm:h-[75vh] lg:h-[75vh] w-full mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-100 shadow-sm bg-gradient-to-br from-[#ffffff] via-[#faf8ff] to-[#f3e8ff]">
                     {teams.map((active, i) => (
                         <div
                             key={active.id}
                             ref={(el) => (sectionRefs.current[i] = el)}
-                            className="absolute inset-0 w-full h-full bg-transparent flex flex-col items-center justify-center"
+                            className="absolute inset-0 w-full h-full bg-gradient-to-br from-white via-[#faf8ff] to-[#f3e8ff] flex flex-col items-center justify-center"
                         >
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-12 items-center p-4 sm:p-10 w-full h-full">
                                 {/* Left side */}
@@ -229,7 +231,13 @@ const TeamSolutions = () => {
                                         <h3 className="text-xl sm:text-3xl md:text-[2.75rem] font-black text-gray-900 leading-[1.1] mb-2 sm:mb-5">
                                             {active.title}
                                             <br />
-                                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 italic">{active.titleHighlight}</span>
+                                            <motion.span
+                                                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] italic"
+                                                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                                                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                                            >
+                                                {active.titleHighlight}
+                                            </motion.span>
                                         </h3>
 
                                         <p className="text-gray-500 text-xs sm:text-base leading-relaxed mb-3 sm:mb-6 max-w-md font-medium">
@@ -250,17 +258,15 @@ const TeamSolutions = () => {
                                                         {tool}
                                                     </div>
                                                 ))}
-                                                <div className="px-2 py-1 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-dashed border-gray-200 text-gray-400 text-[10px] sm:text-xs font-bold hover:border-[#7e22ce]/30 transition-all cursor-default">
-                                                    + more
-                                                </div>
+
                                             </div>
                                         </div>
 
                                         {/* Bullet list */}
                                         <ul className="space-y-2 sm:space-y-3 w-full">
                                             {active.bullets.map((b) => (
-                                                <li key={b} className="flex items-start gap-3 text-gray-600 text-[11px] sm:text-base font-bold bg-purple-50/50 p-2 sm:p-4 rounded-xl sm:rounded-2xl border border-purple-100/30 text-left">
-                                                    <CheckCircle2 size={16} className="text-[#7e22ce] mt-0.5 flex-shrink-0" />
+                                                <li key={b} className="flex items-start gap-3 text-gray-600 text-[11px] sm:text-base font-bold bg-purple-50/40 p-2 sm:p-4 rounded-xl sm:rounded-2xl border border-purple-100/30 text-left">
+                                                    <CheckCircle2 size={16} className="text-[#a855f7] mt-0.5 flex-shrink-0" />
                                                     {b}
                                                 </li>
                                             ))}
@@ -269,14 +275,14 @@ const TeamSolutions = () => {
                                 </div>
 
                                 {/* Right side — feature cards */}
-                                <div className="flex flex-col gap-2 sm:gap-3 w-full max-w-[400px] mx-auto lg:mx-0">
+                                <div className="flex flex-col items-start justify-start gap-2 sm:gap-3 w-[260px] xs:w-[280px] sm:w-[400px] max-w-full mx-auto lg:mx-0">
                                     {active.features.map((feature, idx) => (
                                         <div
                                             key={`${active.id}-${idx}`}
-                                            className="flex items-center gap-3 sm:gap-4 bg-white/60 hover:bg-white rounded-xl sm:rounded-2xl px-3 py-2 sm:px-5 sm:py-4 transition-all duration-300 cursor-default border border-gray-100 hover:border-purple-600 hover:shadow-md group"
+                                            className="flex flex-row items-center justify-start text-left gap-3 sm:gap-4 bg-white/60 hover:bg-white rounded-xl sm:rounded-2xl px-4 py-2 sm:px-5 sm:py-0 transition-all duration-300 cursor-default border border-gray-100 hover:border-purple-600 hover:shadow-lg hover:shadow-purple-500/10 group h-[4.5rem] sm:h-[5.25rem] !w-full min-w-[260px] shadow-sm !m-0"
                                         >
                                             <FeatureIcon color={feature.color} icon={feature.icon} />
-                                            <span className="text-[11px] sm:text-sm font-bold text-gray-700 transition-colors group-hover:text-[#7e22ce]">{feature.name}</span>
+                                            <span className="text-[11px] sm:text-sm font-bold text-gray-700 transition-colors group-hover:text-purple-900 leading-tight w-full break-normal text-left block">{feature.name}</span>
                                         </div>
                                     ))}
                                 </div>

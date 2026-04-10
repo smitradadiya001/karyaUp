@@ -106,25 +106,25 @@ const integrationDetails = [
     name: "Google Calendar",
     logo: googleCalendarLogo,
     desc: "Connect your calendar to sync meetings, deadlines, and create Google Meet links directly from KaryaUp.",
-    color: "blue"
+    color: "purple"
   },
   {
     name: "Google Drive",
     logo: googleDriveLogo,
     desc: "Access files, attach documents, and keep project resources linked without opening another workspace.",
-    color: "emerald"
+    color: "purple"
   },
   {
     name: "Gmail",
     logo: gmailLogo,
     desc: "Read and send emails inside KaryaUp so client communication stays connected to project execution.",
-    color: "fuchsia"
+    color: "purple"
   },
   {
     name: "Google Meet",
     logo: googleMeetLogo,
     desc: "Schedule meetings with a Meet link and manage upcoming calls from the same connected workflow.",
-    color: "emerald"
+    color: "purple"
   },
   {
     name: "Slack",
@@ -136,12 +136,49 @@ const integrationDetails = [
     name: "Microsoft Teams",
     logo: microsoftTeamsLogo,
     desc: "Send KaryaUp notifications into Teams channels and keep collaboration updates visible where teams talk.",
-    color: "blue"
+    color: "purple"
   },
 ];
 
 export default function Integrations() {
   const [isMobile, setIsMobile] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const [isHoveredOrbit, setIsHoveredOrbit] = useState(false);
+
+  // Snake trail springs for high-end cursor effect
+  const trailConfig = [
+    { stiffness: 220, damping: 24 },
+    { stiffness: 180, damping: 21 },
+    { stiffness: 140, damping: 18 },
+    { stiffness: 100, damping: 15 },
+    { stiffness: 70, damping: 12 },
+  ];
+
+  const s1x = useSpring(mouseX, trailConfig[0]);
+  const s1y = useSpring(mouseY, trailConfig[0]);
+  const s2x = useSpring(s1x, trailConfig[1]);
+  const s2y = useSpring(s1y, trailConfig[1]);
+  const s3x = useSpring(s2x, trailConfig[2]);
+  const s3y = useSpring(s2y, trailConfig[2]);
+  const s4x = useSpring(s3x, trailConfig[3]);
+  const s4y = useSpring(s3y, trailConfig[3]);
+  const s5x = useSpring(s4x, trailConfig[4]);
+  const s5y = useSpring(s4y, trailConfig[4]);
+
+  const segments = [
+    { x: s1x, y: s1y, size: 110, opacity: 0.5, blur: 14 },
+    { x: s2x, y: s2y, size: 90, opacity: 0.4, blur: 18 },
+    { x: s3x, y: s3y, size: 70, opacity: 0.35, blur: 22 },
+    { x: s4x, y: s4y, size: 55, opacity: 0.25, blur: 26 },
+    { x: s5x, y: s5y, size: 40, opacity: 0.15, blur: 30 },
+  ];
+
+  const handleHubMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -207,9 +244,9 @@ export default function Integrations() {
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.06]"
+                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black tracking-normal leading-[1.05] text-slate-900"
                 >
-                  Integrations That Work Inside
+                  Integrate This <br /> Apps With Your
                   <span className="block">
                     {" "}
                     <motion.span
@@ -217,12 +254,10 @@ export default function Integrations() {
                       animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                       transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                     >
-                      Where Your Team Already Works
+                      Workspace
                     </motion.span>
                   </span>
                 </motion.h1>
-
-
 
                 <motion.div
                   initial={{ opacity: 0, y: 18 }}
@@ -249,7 +284,6 @@ export default function Integrations() {
                   "API Access",
                   "Webhooks"
                 ]} />
-
               </div>
 
               <motion.div
@@ -258,13 +292,44 @@ export default function Integrations() {
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
                 className="relative w-full max-w-[660px] mx-auto lg:mx-0 lg:justify-self-end"
               >
-                <div className="relative min-h-[420px] sm:min-h-[500px] w-full overflow-hidden rounded-[2.1rem] sm:rounded-[2.35rem] border border-slate-900/80 bg-[#0b0b16] p-3 sm:p-4">
-                  <motion.div
-                    animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
-                    transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(168,85,247,0.22),transparent_24%),radial-gradient(circle_at_84%_18%,rgba(59,130,246,0.18),transparent_22%),radial-gradient(circle_at_15%_84%,rgba(236,72,153,0.16),transparent_22%),linear-gradient(135deg,rgba(168,85,247,0.08),rgba(59,130,246,0.05),rgba(236,72,153,0.06))] bg-[length:100%_100%,100%_100%,100%_100%,220%_220%]"
-                  />
-                  <div className="absolute inset-0 opacity-[0.12] mix-blend-screen">
+                <div 
+                  onMouseMove={handleHubMouseMove}
+                  onMouseEnter={() => setIsHoveredOrbit(true)}
+                  onMouseLeave={() => setIsHoveredOrbit(false)}
+                  className={`relative aspect-square sm:aspect-auto sm:h-[500px] w-full overflow-hidden rounded-[2.1rem] sm:rounded-[2.35rem] border border-slate-800/50 bg-[#080516] flex items-center justify-center p-3 sm:p-4 ${isHoveredOrbit ? 'cursor-none' : ''}`}
+                >
+                  {segments.map((seg, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute pointer-events-none z-[60] rounded-full mix-blend-screen"
+                      style={{
+                        width: seg.size,
+                        height: seg.size,
+                        left: seg.x,
+                        top: seg.y,
+                        x: "-50%",
+                        y: "-50%",
+                        opacity: isHoveredOrbit ? seg.opacity : 0,
+                        background: `radial-gradient(circle, rgba(168, 85, 247, 0.6) 0%, rgba(168, 85, 247, 0) 70%)`,
+                        filter: `blur(${seg.blur}px)`,
+                        scale: isHoveredOrbit ? 1 : 0
+                      }}
+                    />
+                  ))}
+
+                  <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-[radial-gradient(circle_at_50%_50%,rgba(126,34,206,0.15),transparent_60%)]" />
+                    <motion.div
+                      animate={{
+                        opacity: [0.3, 0.6, 0.3],
+                        scale: [1, 1.1, 1]
+                      }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] bg-[radial-gradient(circle_at_50%_50%,rgba(192,38,211,0.1),transparent_50%)]"
+                    />
+                  </div>
+
+                  <div className="absolute inset-0 opacity-[0.1] mix-blend-screen">
                     <svg className="h-full w-full">
                       <filter id="integrationNoise">
                         <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch" />
@@ -273,123 +338,93 @@ export default function Integrations() {
                     </svg>
                   </div>
 
-                  <svg className="pointer-events-none absolute inset-0 h-full w-full sm:hidden" viewBox="0 0 320 420" fill="none">
-                    <defs>
-                      <linearGradient id="integrationLineMobile" x1="52" y1="110" x2="268" y2="320" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="rgba(216,180,254,0.95)" />
-                        <stop offset="1" stopColor="rgba(96,165,250,0.95)" />
-                      </linearGradient>
-                      <filter id="integrationGlowMobile">
-                        <feGaussianBlur stdDeviation="3" result="blur" />
-                        <feMerge>
-                          <feMergeNode in="blur" />
-                          <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                      </filter>
-                    </defs>
-
-                    <g filter="url(#integrationGlowMobile)" opacity="0.95">
-                      <path d="M78 84V118H132V182" stroke="url(#integrationLineMobile)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M242 84V118H188V182" stroke="url(#integrationLineMobile)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M52 210H132" stroke="url(#integrationLineMobile)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M268 210H188" stroke="url(#integrationLineMobile)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M70 336H78V302H132V238" stroke="url(#integrationLineMobile)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M250 336H242V302H188V238" stroke="url(#integrationLineMobile)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                    </g>
-
-                  </svg>
-
-                  <svg className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block" viewBox="0 0 640 560" fill="none">
-                    <defs>
-                      <linearGradient id="integrationLineA" x1="78" y1="90" x2="562" y2="470" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="rgba(216,180,254,0.95)" />
-                        <stop offset="1" stopColor="rgba(96,165,250,0.95)" />
-                      </linearGradient>
-                      <filter id="integrationGlow">
-                        <feGaussianBlur stdDeviation="4" result="blur" />
-                        <feMerge>
-                          <feMergeNode in="blur" />
-                          <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                      </filter>
-                    </defs>
-
-                    <g filter="url(#integrationGlow)" opacity="0.95">
-                      <path d="M150 106V165H240V220" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M490 106V165H400V220" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M120 270H150V280H240" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M520 270H490V280H400" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M170 454V420H264V340" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M470 454V420H376V340" stroke="url(#integrationLineA)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                    </g>
-
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
                     {[
-                      [240, 165],
-                      [400, 165],
-                      [150, 280],
-                      [490, 280],
-                      [264, 420],
-                      [376, 420],
-                    ].map(([cx, cy], index) => (
-                      <g key={index}>
-                        <circle cx={cx} cy={cy} r="8" fill="rgba(168,85,247,0.08)" />
-                        <motion.circle
-                          cx={cx}
-                          cy={cy}
-                          r="3.2"
-                          fill={index % 2 === 0 ? "rgba(216,180,254,0.98)" : "rgba(96,165,250,0.98)"}
-                          animate={{ opacity: [0.55, 1, 0.55], scale: [1, 1.35, 1] }}
-                          transition={{ duration: 2.4 + (index % 3) * 0.4, repeat: Infinity, ease: "easeInOut" }}
-                          style={{ transformOrigin: `${cx}px ${cy}px` }}
-                        />
-                      </g>
+                      isMobile ? 48 : 100,
+                      isMobile ? 68 : 130,
+                      isMobile ? 88 : 160,
+                      isMobile ? 108 : 190,
+                      isMobile ? 128 : 220,
+                      isMobile ? 148 : 245
+                    ].map((radius, i) => (
+                      <div
+                        key={i}
+                        className="absolute rounded-full border border-purple-500/40 shadow-[0_0_12px_rgba(168,85,247,0.15)]"
+                        style={{
+                          width: radius * 2,
+                          height: radius * 2
+                        }}
+                      />
                     ))}
-                  </svg>
+                  </div>
 
-                  <div className="absolute left-1/2 top-1/2 z-20 w-[56px] sm:w-[164px] -translate-x-1/2 -translate-y-1/2">
+                  <div className="relative z-30 flex flex-col items-center">
                     <motion.div
-                      animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                      transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                      className="rounded-[1.1rem] sm:rounded-[1.6rem] bg-transparent sm:bg-gradient-to-r sm:from-[#8b5cf6] sm:via-[#ec4899] sm:to-[#60a5fa] sm:bg-[length:220%_220%] p-0 sm:p-[1.5px] shadow-none sm:shadow-[0_0_85px_rgba(168,85,247,0.5)]"
+                      animate={{
+                        boxShadow: [
+                          "0 0 40px rgba(126, 34, 206, 0.4)",
+                          "0 0 80px rgba(126, 34, 206, 0.7)",
+                          "0 0 40px rgba(126, 34, 206, 0.4)"
+                        ]
+                      }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-white shadow-2xl relative overflow-hidden border border-purple-100/50"
                     >
-                      <div className="rounded-[calc(1.1rem-1.5px)] sm:rounded-[calc(1.6rem-1.5px)] border-0 sm:border sm:border-white/10 bg-transparent sm:bg-[#171428]/95 px-0 sm:px-4 py-0 sm:py-5 text-center">
-                        <div className="mx-auto flex h-14 w-14 sm:h-12 sm:w-12 items-center justify-center rounded-[0.85rem] bg-white shadow-[0_0_35px_rgba(168,85,247,0.25)]">
-                          <img src={logo} alt="KaryaUp" className="h-8 w-8 sm:h-8 sm:w-8 object-contain" />
-                        </div>
-                        <div className="mt-3 sm:mt-3.5 hidden sm:block text-[8px] sm:text-[9.5px] font-black uppercase tracking-[0.2em] text-purple-300">
-                          Integration hub
-                        </div>
-                        <div className="mt-1.5 hidden sm:block text-[1.05rem] sm:text-[1.35rem] font-black leading-none tracking-tight text-white">KaryaUp</div>
-                        <p className="mt-1.5 hidden sm:block text-[9px] sm:text-[10px] font-medium leading-relaxed text-slate-300">One connected workspace</p>
-                      </div>
+                      <img src="/KaryaUp.jpeg" alt="KaryaUp Symbol" className="h-full w-full object-cover" />
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500/10 to-transparent pointer-events-none" />
                     </motion.div>
                   </div>
 
-                  {integrations.map((item, index) => (
-                    <motion.div
-                      key={item.name}
-                      initial={{ opacity: 0, scale: 0.92, y: 18 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{ duration: 0.55, delay: 0.12 * index, ease: [0.22, 1, 0.36, 1] }}
-                      whileHover={{ y: 4, scale: 1.015 }}
-                      whileTap={{ scale: 1.01 }}
-                      className={`group absolute z-10 w-[72px] sm:w-[180px] rounded-[1.1rem] sm:rounded-[1.45rem] border border-white/10 bg-white/5 p-[1.5px] backdrop-blur-xl ${item.position}`}
-                    >
-                      <div className="rounded-[calc(1.1rem-1.5px)] sm:rounded-[calc(1.45rem-1.5px)] border border-white/8 bg-[#131526]/95 px-2.5 py-2.5 sm:px-4 sm:py-4 transition-all duration-500 ease-out group-hover:border-white/20 group-hover:bg-[#17192c]/95 group-hover:shadow-[0_20px_42px_rgba(0,0,0,0.3)]">
-                        <div className="flex items-center justify-center sm:justify-start gap-0 sm:gap-3">
-                          <div className={`flex h-11 w-11 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-white shadow-[0_10px_20px_-14px_rgba(255,255,255,0.4)] overflow-hidden`}>
-                            <img src={item.logo} alt={item.name} className={`${item.name === 'Teams' ? 'h-full w-full scale-[1.1]' : 'h-6 w-6 sm:h-7 sm:w-7'} object-contain`} />
-                          </div>
-                          <div className="min-w-0 hidden sm:block">
-                            <div className="text-sm font-black text-white">{item.name}</div>
-                            <div className="mt-1 text-xs font-medium leading-relaxed text-slate-400">
-                              {item.short}
-                            </div>
-                          </div>
+                  {integrations.map((item, index) => {
+                    const baseDuration = 48;
+                    const configs = [
+                      { radius: isMobile ? 48 : 100, angle: 0 },
+                      { radius: isMobile ? 68 : 130, angle: 60 },
+                      { radius: isMobile ? 88 : 160, angle: 120 },
+                      { radius: isMobile ? 108 : 190, angle: 180 },
+                      { radius: isMobile ? 128 : 220, angle: 240 },
+                      { radius: isMobile ? 148 : 245, angle: 300 },
+                    ];
+                    const cfg = configs[index];
+
+                    return (
+                      <motion.div
+                        key={item.name}
+                        animate={{ rotate: [cfg.angle, cfg.angle + 360] }}
+                        transition={{
+                          duration: baseDuration,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="absolute w-full h-full flex items-center justify-center pointer-events-none"
+                      >
+                        <div
+                          className="absolute pointer-events-auto"
+                          style={{
+                            transform: `translateX(${cfg.radius}px)`
+                          }}
+                        >
+                          <motion.div
+                            animate={{ rotate: [-(cfg.angle), -(cfg.angle + 360)] }}
+                            transition={{
+                              duration: baseDuration,
+                              repeat: Infinity,
+                              ease: "linear"
+                            }}
+                            whileHover={{ scale: 1.15 }}
+                            className="group flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-[#131526]/90 border border-white/10 shadow-lg backdrop-blur-md cursor-pointer transition-colors hover:border-purple-500/50 hover:bg-[#17192c]"
+                          >
+                            <img
+                              src={item.logo}
+                              alt={item.name}
+                              className={`${item.name === 'Teams' ? 'h-full w-full p-0.5' : 'h-4 w-4 sm:h-5 sm:w-5'} object-contain brightness-110 group-hover:brightness-125 transition-all`}
+                            />
+                            <div className="absolute -inset-[1px] rounded-full bg-gradient-to-tr from-purple-500/0 via-purple-500/20 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </motion.div>
                         </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </motion.div>
             </div>
@@ -413,7 +448,7 @@ export default function Integrations() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.06] mb-4 sm:mb-6 tracking-tight"
+                className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.05] mb-4 sm:mb-6 tracking-normal"
               >
                 Works With Your <br />
                 <motion.span
@@ -468,7 +503,7 @@ export default function Integrations() {
         </section>
 
         <FeatureCTA
-          title={<>Integrations That Keep <br /> Your Stack Connected</>}
+          title={<>Integrations That Keep  Your Stack Connected</>}
           description="Bring your tools into one workflow and let KaryaUp keep meetings, files, email, and notifications in sync."
           buttonText="Explore integrations"
           image={app}

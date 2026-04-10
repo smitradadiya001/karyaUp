@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Zap, FileText, Database } from "lucide-react";
+import { Zap, FileText, Database, Check } from "lucide-react";
 import ClickUpLogo from "../assets/ClickUp.webp";
 import JiraLogo from "../assets/Jira.webp";
 import KaryaUpLogo from "../assets/logo.webp";
@@ -54,10 +54,26 @@ const DataImport = () => {
                   Existing Tools
                 </motion.span>
               </h2>
-              <p className="text-base sm:text-xl font-medium text-slate-500 mb-4 sm:mb-8 leading-relaxed max-w-[28rem] mx-auto lg:mx-0">
-                Move your entire workflow from ClickUp and Jira into Karyaup in
-                one click. No data loss, just pure productivity.
-              </p>
+              <div className="flex flex-col items-center lg:items-start gap-4 mb-8 sm:mb-12">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-50 flex items-center justify-center border border-purple-100">
+                    <Check className="w-3 h-3 text-[#7e22ce]" strokeWidth={3} />
+                  </div>
+                  <span className="text-sm sm:text-base font-bold text-slate-700">One-click Migration from ClickUp & Jira</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-50 flex items-center justify-center border border-purple-100">
+                    <Check className="w-3 h-3 text-[#7e22ce]" strokeWidth={3} />
+                  </div>
+                  <span className="text-sm sm:text-base font-bold text-slate-700">Zero Data Loss & Pure Productivity</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-50 flex items-center justify-center border border-purple-100">
+                    <Check className="w-3 h-3 text-[#7e22ce]" strokeWidth={3} />
+                  </div>
+                  <span className="text-sm sm:text-base font-bold text-slate-700">Retain all comments, attachments & histories</span>
+                </div>
+              </div>
             </motion.div>
           </div>
 

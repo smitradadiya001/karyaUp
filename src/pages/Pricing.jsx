@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   Check,
@@ -395,6 +395,40 @@ export default function Pricing() {
   const realTheadRef = useRef(null);
   const comparisonSectionRef = useRef(null);
 
+  // Snake trail cursor for CTA section
+  const ctaMouseX = useMotionValue(0);
+  const ctaMouseY = useMotionValue(0);
+  const [isHoveredCta, setIsHoveredCta] = useState(false);
+  const ctaTrailConfig = [
+    { stiffness: 220, damping: 24 },
+    { stiffness: 180, damping: 21 },
+    { stiffness: 140, damping: 18 },
+    { stiffness: 100, damping: 15 },
+    { stiffness: 70, damping: 12 },
+  ];
+  const c1x = useSpring(ctaMouseX, ctaTrailConfig[0]);
+  const c1y = useSpring(ctaMouseY, ctaTrailConfig[0]);
+  const c2x = useSpring(c1x, ctaTrailConfig[1]);
+  const c2y = useSpring(c1y, ctaTrailConfig[1]);
+  const c3x = useSpring(c2x, ctaTrailConfig[2]);
+  const c3y = useSpring(c2y, ctaTrailConfig[2]);
+  const c4x = useSpring(c3x, ctaTrailConfig[3]);
+  const c4y = useSpring(c3y, ctaTrailConfig[3]);
+  const c5x = useSpring(c4x, ctaTrailConfig[4]);
+  const c5y = useSpring(c4y, ctaTrailConfig[4]);
+  const ctaSegments = [
+    { x: c1x, y: c1y, size: 160, opacity: 0.45, blur: 18 },
+    { x: c2x, y: c2y, size: 130, opacity: 0.35, blur: 22 },
+    { x: c3x, y: c3y, size: 100, opacity: 0.28, blur: 28 },
+    { x: c4x, y: c4y, size: 80, opacity: 0.2, blur: 34 },
+    { x: c5x, y: c5y, size: 60, opacity: 0.12, blur: 40 },
+  ];
+  const handleCtaMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    ctaMouseX.set(e.clientX - rect.left);
+    ctaMouseY.set(e.clientY - rect.top);
+  };
+
   useEffect(() => {
     const updateIsDesktop = () => setIsDesktop(window.innerWidth >= 1024);
     updateIsDesktop();
@@ -514,7 +548,7 @@ export default function Pricing() {
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-4 tracking-tight leading-[1.06]"
+                className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 mb-4 tracking-normal leading-[1.05]"
               >
                 Plans For <br />
                 Every{" "}
@@ -580,7 +614,7 @@ export default function Pricing() {
                         : "bg-green-500 text-white"
                         }`}
                     >
-                      -20%
+                      -20% off
                     </span>
                   </button>
                 </div>
@@ -1266,90 +1300,78 @@ export default function Pricing() {
 
           {/* ── Premium CTA ── */}
           <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative">
-            <motion.div className="max-w-6xl mx-auto rounded-[2.5rem] sm:rounded-[3rem] lg:rounded-[3.25rem] p-8 sm:p-10 md:p-12 lg:p-14 relative overflow-hidden text-center shadow-[0_40px_100px_-24px_rgba(126,34,206,0.25)] border border-white/10">
-              {/* Mesh Gradient Background */}
-              <div className="absolute inset-0 bg-[#7e22ce]" />
+            <motion.div
+              onMouseMove={handleCtaMouseMove}
+              onMouseEnter={() => setIsHoveredCta(true)}
+              onMouseLeave={() => setIsHoveredCta(false)}
+              className={`max-w-6xl mx-auto rounded-[2.5rem] sm:rounded-[3rem] lg:rounded-[3.25rem] p-8 sm:p-10 md:p-12 lg:p-14 relative overflow-hidden text-center shadow-[0_40px_100px_-24px_rgba(126,34,206,0.35)] border border-white/10 ${isHoveredCta ? 'cursor-none' : ''}`}
+            >
+              {/* FeatureCTA-style Black Background */}
+              <div className="absolute inset-0 bg-black rounded-[2.5rem] sm:rounded-[3rem] lg:rounded-[3.25rem]" />
 
-              {/* Animated Blobs */}
-              <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-60">
+              {/* Ambient Radial Gradients (matching FeatureCTA) */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(168,85,247,0.4),transparent_50%)] pointer-events-none rounded-[2.5rem] sm:rounded-[3rem] lg:rounded-[3.25rem]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(236,72,153,0.12),transparent_40%)] pointer-events-none" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(126,34,206,0.12),transparent_40%)] pointer-events-none" />
+
+              {/* Snake Trail Cursor Effect */}
+              {ctaSegments.map((seg, i) => (
                 <motion.div
-                  animate={{
-                    x: [0, 100, -50],
-                    y: [0, -50, 80],
-                    scale: [1, 1.2, 0.9],
+                  key={i}
+                  className="absolute pointer-events-none z-[60] rounded-full mix-blend-screen"
+                  style={{
+                    width: seg.size,
+                    height: seg.size,
+                    left: seg.x,
+                    top: seg.y,
+                    x: "-50%",
+                    y: "-50%",
+                    opacity: isHoveredCta ? seg.opacity : 0,
+                    background: `radial-gradient(circle, rgba(192, 38, 211, 0.9) 0%, rgba(168, 85, 247, 0) 70%)`,
+                    filter: `blur(${seg.blur}px)`,
+                    scale: isHoveredCta ? 1 : 0,
                   }}
-                  transition={{
-                    duration: 15,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute top-[-30%] left-[-20%] w-[100%] h-[100%] bg-indigo-600 rounded-full blur-[120px]"
                 />
-                <motion.div
-                  animate={{
-                    x: [0, -80, 120],
-                    y: [0, 100, -40],
-                    scale: [1, 1.3, 1],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute bottom-[-40%] right-[-10%] w-[120%] h-[120%] bg-rose-500 rounded-full blur-[140px]"
-                />
-                <motion.div
-                  animate={{
-                    x: [0, 50, -30],
-                    y: [0, 80, 50],
-                    scale: [1, 1.1, 1.2],
-                  }}
-                  transition={{
-                    duration: 18,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute top-[20%] right-[10%] w-[60%] h-[60%] bg-pink-400 rounded-full blur-[100px]"
-                />
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute top-[-10%] left-[30%] w-[40%] h-[40%] bg-blue-400 rounded-full blur-[90px] opacity-40"
-                />
-              </div>
+              ))}
+
+              {/* Lead Cursor Glow */}
+              <motion.div
+                className="absolute w-80 h-80 pointer-events-none z-[50] rounded-full mix-blend-screen"
+                style={{
+                  left: c1x,
+                  top: c1y,
+                  x: "-50%",
+                  y: "-50%",
+                  opacity: isHoveredCta ? 0.4 : 0,
+                  scale: isHoveredCta ? 1 : 0,
+                  background: "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%)",
+                  filter: "blur(50px)",
+                }}
+              />
 
               {/* Noise Texture Overlay */}
-              <div className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-overlay">
+              <div className="absolute inset-0 opacity-[0.06] pointer-events-none mix-blend-overlay">
                 <svg className="h-full w-full">
-                  <filter id="noiseFilter">
-                    <feTurbulence
-                      type="fractalNoise"
-                      baseFrequency="0.65"
-                      numOctaves="3"
-                      stitchTiles="stitch"
-                    />
-                    <feColorMatrix type="saturate" values="0" />
+                  <filter id="pricingNoiseFilter">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch" />
                   </filter>
-                  <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+                  <rect width="100%" height="100%" filter="url(#pricingNoiseFilter)" />
                 </svg>
               </div>
 
-              {/* Glass Inner Glow */}
-              <div className="absolute inset-0 rounded-[2.5rem] sm:rounded-[3rem] lg:rounded-[3.25rem] border border-white/20 pointer-events-none shadow-[inset_0_2px_10px_rgba(255,255,255,0.1)]" />
-
               <div className="relative z-10">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-5 tracking-tight leading-[1.06]">
+                <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-white mb-4 sm:mb-5 tracking-normal leading-[1.05]">
                   Transform Your <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/70">
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
+                    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  >
                     Workflow
-                  </span>{" "}
+                  </motion.span>{" "}
                   Today.
                 </h2>
-                <p className="text-white/80 text-sm sm:text-base md:text-lg font-medium mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2">
+                <p className="text-slate-400 text-sm sm:text-base md:text-lg font-medium mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2">
                   Join thousands of high-performing teams who have already
                   leveled up their productivity with KaryaUp. From automated
                   payroll to AI-driven project insights, everything you need is
@@ -1358,16 +1380,19 @@ export default function Pricing() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <a
                     href={authUrl}
-                    className="relative z-10 flex h-[3.4em] w-full sm:w-auto min-w-[16em] items-center justify-center rounded-[30em] bg-white font-black text-[15px] sm:text-[16px] text-slate-900 shadow-[0_20px_50px_-12px_rgba(126,34,206,0.25)] border border-slate-100 transition-all duration-300 active:scale-95"
+                    className="group relative z-10 flex h-[3.5em] w-full sm:w-auto min-w-[16em] items-center justify-center overflow-hidden rounded-[30em] font-bold text-[15px] transition-all duration-300 active:scale-95"
+                    style={{ boxShadow: "0 18px 40px rgba(126, 34, 206, 0.22)" }}
                   >
-                    <span className="flex items-center justify-center gap-2">
+                    <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                    <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
+                    <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800">
                       Get Started for Free
-                      <ArrowRight size={18} />
+                      <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                     </span>
                   </a>
                   <Link
                     to="/book-demo"
-                    className="relative z-10 flex h-[3.4em] w-full sm:w-auto min-w-[14em] items-center justify-center rounded-[30em] bg-white/10 backdrop-blur-md border border-white/20 font-black text-[15px] sm:text-[16px] text-white transition-all duration-300 hover:bg-white/20 active:scale-95 shadow-lg"
+                    className="relative z-10 flex h-[3.5em] w-full sm:w-auto min-w-[14em] items-center justify-center rounded-[30em] bg-white/10 backdrop-blur-md border border-white/20 font-bold text-[15px] text-white transition-all duration-300 hover:bg-white/15 active:scale-95"
                   >
                     Book a Demo
                   </Link>

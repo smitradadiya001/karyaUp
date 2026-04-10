@@ -14,7 +14,7 @@ export default function AttendanceHero() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-white pt-8 sm:pt-10 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
+    <section className="relative w-full overflow-hidden bg-white pt-8 sm:pt-10 lg:pt-8 pb-16 sm:pb-20 lg:pb-24">
       <div className="absolute top-0 right-0 -z-10 h-[600px] w-[600px] translate-x-1/4 -translate-y-1/2 rounded-full bg-purple-100/60 blur-[120px]" />
       <div className="absolute bottom-0 left-0 -z-10 h-[500px] w-[500px] -translate-x-1/4 translate-y-1/2 rounded-full bg-fuchsia-100/40 blur-[100px]" />
 
@@ -34,11 +34,11 @@ export default function AttendanceHero() {
               initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-              className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.06]"
+              className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
             >
-              Attendance{" "}
-              <span className="mt-2 block">
-                Tracked.<br />{" "}
+              Attendance
+              <span className="mt-1.5 block">
+                Tracked &<br/>{" "}
                 <motion.span
                   className="bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0% center", "-200% center"] }}
@@ -49,16 +49,26 @@ export default function AttendanceHero() {
               </span>
             </motion.h1>
 
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-              className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed max-w-xl mx-auto lg:mx-0"
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+              className="mt-4 sm:mt-6 space-y-3 w-full max-w-[28rem] mx-auto lg:max-w-none lg:mx-0"
             >
-              Presence tracked. Records kept. No follow-ups required. Attendance
-              logs itself in real time so your data is always clean, compliant,
-              and ready when you need it, not just at appraisal time.
-            </motion.p>
+              {[
+                "Precise tracking, real-time sync",
+                "Audit-ready logs for payroll"
+              ].map((text, i) => (
+                <div key={i} className="flex items-start gap-4 text-left justify-center lg:justify-start">
+                  <div className="mt-1.5 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                    <Check size={10} className="text-[#7e22ce] stroke-[4]" />
+                  </div>
+                  <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                    {text}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
 
             <FeatureStack items={["Auto check-in", "Real-time logs", "Timesheets", "Audit-ready exports"]} />
           </div>

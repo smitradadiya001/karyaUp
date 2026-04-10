@@ -19,7 +19,7 @@ const DarkRoleManagementPreview = () => {
             <span className="text-xs sm:text-sm font-medium truncate">Search team members...</span>
           </div>
           <div className="bg-gradient-to-tr from-[#7e22ce] to-[#a855f7] text-white px-4 py-2.5 rounded-xl flex items-center gap-2 text-sm font-bold shadow-lg shrink-0">
-            <UserPlus size={16} className="shrink-0" /> Add 
+            <UserPlus size={16} className="shrink-0" /> Add
           </div>
         </div>
 
@@ -38,7 +38,7 @@ const DarkRoleManagementPreview = () => {
 
         {/* Cards Stack */}
         <div className="space-y-3.5 relative z-20">
-          
+
           {/* Card 1: Administrator */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -126,7 +126,7 @@ export default function TeamHero() {
   }, []);
 
   return (
-    <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
+    <section className="relative pt-3 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center justify-items-center lg:justify-items-stretch">
 
@@ -144,17 +144,17 @@ export default function TeamHero() {
               initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-              className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.06]"
+              className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
             >
-              Structure That{" "}
+   One Place For Your  {" "}
               <span className="block">
-                Scales With{" "}
+                {" "}
                 <motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                   animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 >
-                  Ambition.
+                 Entire Team
                 </motion.span>
               </span>
             </motion.h1>
@@ -166,8 +166,9 @@ export default function TeamHero() {
               className="mt-4 sm:mt-6 space-y-3 w-full max-w-[28rem] mx-auto lg:max-w-none lg:mx-0"
             >
               {[
-                "Define roles, distribute ownership, and get complete visibility into how your team's capacity is being used.",
-                "Stay ahead of burnout and workload issues before they become a problem, not after."
+                "Define roles, distribute ownership",
+                "Full visibility into team capacity"
+               
               ].map((text, i) => (
                 <div key={i} className="flex items-start gap-4 text-left justify-center lg:justify-start">
                   <div className="mt-1.5 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">

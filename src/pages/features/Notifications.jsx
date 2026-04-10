@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Bell, Shield, BellOff, Zap, CheckCircle2, ArrowRight, Archive, Clock, Filter, MousePointerClick } from "lucide-react";
+import { Bell, Shield, BellOff, Zap, CheckCircle2, ArrowRight, Archive, Clock, Filter, MousePointerClick, Check } from "lucide-react";
 
 const TiltCard = ({ children, className }) => {
   const ref = useRef(null);
@@ -59,13 +59,13 @@ export default function Notifications() {
       title: "Smart Filters",
       desc: "Instantly adjust filters to see only what requires your direct attention.",
       icon: Filter,
-      color: "emerald"
+      color: "fuchsia"
     },
     {
       title: "Overdue Alerts",
       desc: "Never miss a deadline with automated red-flag popup tracking.",
       icon: Clock,
-      color: "blue"
+      color: "purple"
     },
     {
       title: "Instant Actions",
@@ -165,7 +165,7 @@ export default function Notifications() {
                     stiffness: 100,
                     delay: 0.1
                   }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.06] mb-3"
+                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] mb-3"
                 >
                   Connected With Smart
                   <span className="block mt-1">
@@ -180,21 +180,28 @@ export default function Notifications() {
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                  className="mt-4 space-y-3.5 max-w-lg mx-auto lg:mx-0"
+                  className="mt-5 sm:mt-6 space-y-4 max-w-2xl w-full mx-auto lg:mx-0"
                 >
-                  {[
-                    "Alerts that actually mean something. No spam, no noise — only the updates tied to work you own, follow, or need to act on.",
-                    "Stay informed without being interrupted."
-                  ].map((text, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5 text-left lg:justify-start group">
-                      <div className="mt-0.5 w-5.5 h-5.5 rounded-full bg-purple-100 border border-purple-200/60 flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-purple-200/40">
-                        <CheckCircle2 className="w-3.2 h-3.2 text-purple-600 stroke-[3.5]" />
-                      </div>
-                      <p className="text-base text-slate-600 font-medium leading-relaxed group-hover:text-slate-900 transition-colors duration-300">
-                        {text}
-                      </p>
+                  <div className="flex items-start gap-3.5 text-left">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
                     </div>
-                  ))}
+                    <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
+                      Conversations that stay close to the work.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 text-left">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
+                      Chat directly inside projects, tasks, and teams
+                    </p>
+                  </div>
+
+
+
                 </motion.div>
 
                 <FeatureStack items={[
@@ -244,7 +251,7 @@ export default function Notifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.06] mb-6 tracking-tight"
+                className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.05] mb-6 tracking-normal"
               >
                 Never Lose Track Of<br className="hidden sm:block" />
                 <motion.span
@@ -300,7 +307,7 @@ export default function Notifications() {
         {/* Smart Filtering Feature CTA */}
         <FeatureCTA
           title={<>Silence The Noise. <br /> Focus On What Matters.</>}
-          description="With our smart inbox, filter your feed to show only what requires your direct attention. "
+          description="With our smart filter your feed to show only what requires your direct attention. "
           image={notificationImg}
           imageAlt="Smart Notification Filtering"
           containerClassName="mt-0"

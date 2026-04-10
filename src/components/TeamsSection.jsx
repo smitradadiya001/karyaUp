@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Rocket, Users, Cpu, TrendingUp, UserCircle2, CheckCircle2 } from 'lucide-react';
+import { Rocket, Users, Cpu, Handshake, UserCircle2, CheckCircle2 } from 'lucide-react';
 
 const teams = [
   {
@@ -15,6 +15,7 @@ const teams = [
     bg: 'bg-violet-50',
     stat: 'Days, not weeks',
     statSub: 'from idea to release',
+    accent: '#7e22ce',
   },
   {
     icon: Users,
@@ -28,6 +29,7 @@ const teams = [
     bg: 'bg-fuchsia-50',
     stat: '2x more',
     statSub: 'projects, same team',
+    accent: '#d946ef',
   },
   {
     icon: Cpu,
@@ -36,24 +38,26 @@ const teams = [
     result: 'Reduce delays across sprints.',
     summary: 'Align product, design, and engineering around one shared source of truth from planning to launch.',
     bullets: ['Sprint-ready planning', 'Cross-team sync', 'Better release control'],
-    gradient: 'from-purple-600 to-indigo-600',
-    textGrad: 'from-purple-600 to-indigo-600',
-    bg: 'bg-purple-50',
+    gradient: 'from-violet-500 to-purple-600',
+    textGrad: 'from-violet-500 to-purple-600',
+    bg: 'bg-violet-50',
     stat: 'Zero delays',
     statSub: 'across sprints',
+    accent: '#7e22ce',
   },
   {
-    icon: TrendingUp,
+    icon: Handshake,
     label: 'Sales Teams',
     headline: 'Track deals and stay aligned with delivery.',
     result: 'Close faster with full visibility.',
     summary: 'Connect pipeline activity with execution so handoffs stay smooth and revenue work keeps moving.',
     bullets: ['Lead-to-delivery flow', 'Shared client context', 'Faster follow-ups'],
-    gradient: 'from-pink-500 to-rose-500',
-    textGrad: 'from-pink-500 to-rose-500',
-    bg: 'bg-pink-50',
+    gradient: 'from-fuchsia-500 to-pink-500',
+    textGrad: 'from-fuchsia-500 to-pink-500',
+    bg: 'bg-fuchsia-50',
     stat: 'Close faster',
     statSub: 'with full visibility',
+    accent: '#d946ef',
   },
   {
     icon: UserCircle2,
@@ -62,11 +66,12 @@ const teams = [
     result: 'Never miss a deadline again.',
     summary: 'Run every client, task, and due date from one clean workspace that feels built for solo operators.',
     bullets: ['Client-by-client clarity', 'Reliable reminders', 'One-person control'],
-    gradient: 'from-indigo-500 to-violet-600',
-    textGrad: 'from-indigo-500 to-violet-600',
-    bg: 'bg-indigo-50',
+    gradient: 'from-violet-500 to-purple-600',
+    textGrad: 'from-violet-500 to-purple-600',
+    bg: 'bg-violet-50',
     stat: '0 missed',
     statSub: 'deadlines',
+    accent: '#7e22ce',
   },
 ];
 
@@ -75,24 +80,31 @@ const CARD_ADVANCE_DELAY = 700; // ms between card changes (fast scroll still wa
 const TeamsSection = () => {
   const [active, setActive] = useState(0);
 
-  // ── refs (no stale closures) ──
+  // ── refs ──
   const sectionRef = useRef(null);
   const rightPanelRef = useRef(null);
   const activeRef = useRef(0);
-  const isInsideRef = useRef(false); // true = section is in viewport
-  const completedRef = useRef(false); // true = all cards have been shown going down
-  const lastAdvance = useRef(0);     // timestamp of last card change
-  const wheelBuffer = useRef(0);     // accumulated deltaY for fast-scroll
-  const bufferTimer = useRef(null);  // resets buffer after idle
+  const isInsideRef = useRef(false);
+  const lastAdvance = useRef(0);
 
   useEffect(() => { activeRef.current = active; }, [active]);
 
-  // ── scroll the window to pin the section top exactly at viewport top ──
+  // Snap section top to viewport top (entering from above)
   const snapSectionToTop = useCallback(() => {
     if (!sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
     if (Math.abs(rect.top) > 2) {
       window.scrollBy({ top: rect.top, behavior: 'smooth' });
+    }
+  }, []);
+
+  // Snap section bottom to viewport bottom (entering from below)
+  const snapSectionToBottom = useCallback(() => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const delta = rect.bottom - window.innerHeight;
+    if (Math.abs(delta) > 2) {
+      window.scrollBy({ top: delta, behavior: 'smooth' });
     }
   }, []);
 
@@ -103,23 +115,26 @@ const TeamsSection = () => {
         isInsideRef.current = entry.isIntersecting && entry.intersectionRatio >= 0.5;
 
         if (isInsideRef.current) {
-          // Reset completion state when entering from top
           const rect = sectionRef.current?.getBoundingClientRect();
-          if (rect && rect.top >= 0) {
-            // entering from above → start from first card
-            completedRef.current = false;
+          if (rect && rect.top >= -10) {
+            // Entering from above → start at card 1
             activeRef.current = 0;
             setActive(0);
+            snapSectionToTop();
+          } else {
+            // Entering from below → start at last card
+            activeRef.current = teams.length - 1;
+            setActive(teams.length - 1);
+            snapSectionToBottom();
           }
-          snapSectionToTop();
         }
       },
-      { threshold: [0.8] }
+      { threshold: [0.5] }
     );
 
     if (rightPanelRef.current) observer.observe(rightPanelRef.current);
 
-    // ── Wheel handler ──
+    // ── Wheel handler: simple boundary logic ──
     const onWheel = (e) => {
       if (!isInsideRef.current) return;
 
@@ -128,52 +143,33 @@ const TeamsSection = () => {
       const goingDown = e.deltaY > 0;
       const goingUp = e.deltaY < 0;
 
-      // Accumulate wheel delta to detect fast scrolling intent
-      clearTimeout(bufferTimer.current);
-      wheelBuffer.current += e.deltaY;
-      bufferTimer.current = setTimeout(() => { wheelBuffer.current = 0; }, 150);
-
-      // ── Scrolling DOWN ──
       if (goingDown) {
         if (idx < teams.length - 1) {
-          // Still have cards left — always block and advance
+          // Not on last card → block scroll and advance card
           e.preventDefault();
           e.stopPropagation();
-
-          if (now - lastAdvance.current < CARD_ADVANCE_DELAY) return; // throttle
+          if (now - lastAdvance.current < CARD_ADVANCE_DELAY) return;
           lastAdvance.current = now;
-          wheelBuffer.current = 0;
-
-          const next = Math.min(teams.length - 1, idx + 1);
+          const next = idx + 1;
           activeRef.current = next;
           setActive(next);
           snapSectionToTop();
-          return;
-        } else {
-          // On last card — mark complete and allow scroll out
-          completedRef.current = true;
-          // let native scroll happen
         }
+        // On last card → let native scroll pass (exit to next section)
       }
 
-      // ── Scrolling UP ──
       if (goingUp) {
         if (idx > 0) {
-          // Still have cards going back — block and reverse
+          // Not on first card → block scroll and retreat card
           e.preventDefault();
           e.stopPropagation();
-
           if (now - lastAdvance.current < CARD_ADVANCE_DELAY) return;
           lastAdvance.current = now;
-          wheelBuffer.current = 0;
-
-          const prev = Math.max(0, idx - 1);
+          const prev = idx - 1;
           activeRef.current = prev;
           setActive(prev);
-          snapSectionToTop();
-          return;
         }
-        // On first card scrolling up — let native scroll happen (go to prev section)
+        // On first card → let native scroll pass (exit to previous section)
       }
     };
 
@@ -303,36 +299,58 @@ const TeamsSection = () => {
             </div>
           </div>
 
-          {/* LEFT: stacked rows — desktop */}
-          <div className="hidden lg:col-span-4 lg:flex lg:flex-col lg:divide-y lg:divide-slate-100">
+          {/* LEFT: stacked rows — desktop with Wizard Timeline */}
+          <div className="hidden lg:col-span-4 lg:flex lg:flex-col relative px-4">
+            {/* The Background Track (Line) */}
+            <div className="absolute left-[36px] top-[40px] bottom-[40px] w-0.5 bg-slate-100 rounded-full z-0" />
+            
+            {/* The Animated Progress Line */}
+            <motion.div 
+              animate={{ 
+                height: `${(active / (teams.length - 1)) * 100}%`,
+                background: `linear-gradient(to bottom, ${teams[Math.max(0, active - 1)].accent}, ${teams[active].accent})`
+              }}
+              transition={{ type: 'spring', stiffness: 200, damping: 30 }}
+              className="absolute left-[36px] top-[40px] w-0.5 rounded-full origin-top z-10"
+              style={{ maxHeight: 'calc(100% - 80px)' }}
+            />
+
             {teams.map((t, i) => {
               const TIcon = t.icon;
               const isActive = active === i;
+              const isPast = active > i;
+
               return (
                 <motion.button
                   key={t.label}
                   onClick={() => { activeRef.current = i; setActive(i); }}
                   whileHover={{ x: 4 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  className="flex items-center gap-5 py-5 text-left group w-full"
+                  className="flex items-center gap-6 py-6 text-left group w-full relative z-10"
                 >
+                  {/* Step dot / Icon Container */}
                   <motion.div
-                    animate={{ height: isActive ? '48px' : '24px', opacity: isActive ? 1 : 0.2 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-                    className={`w-1 rounded-full bg-gradient-to-b ${t.gradient} flex-shrink-0`}
-                  />
-                  <motion.div
-                    animate={{ scale: isActive ? 1.1 : 1 }}
+                    animate={{ 
+                      scale: isActive ? 1.15 : 1,
+                    }}
                     transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${isActive ? `bg-gradient-to-br ${t.gradient}` : 'bg-slate-100'
-                      }`}
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 relative z-20"
+                    style={{ 
+                      backgroundColor: isActive ? t.accent : isPast ? t.accent : '#6b21a8',
+                      boxShadow: isActive ? `0 0 25px ${t.accent}66` : isPast ? `0 0 10px ${t.accent}33` : 'none',
+                      opacity: 1,
+                    }}
                   >
-                    <TIcon size={18} className={isActive ? 'text-white' : 'text-slate-400'} />
+                    <TIcon size={18} className="text-white" />
                   </motion.div>
-                  <div>
+
+                  <div className="flex-1">
                     <motion.p
-                      animate={{ color: isActive ? '#0f172a' : '#94a3b8' }}
-                      className="text-base font-black"
+                      animate={{ 
+                        color: isActive ? '#0f172a' : isPast ? '#64748b' : '#94a3b8',
+                        scale: isActive ? 1.05 : 1
+                      }}
+                      className={`text-[15px] font-black tracking-tight leading-none`}
                     >
                       {t.label}
                     </motion.p>
@@ -343,7 +361,7 @@ const TeamsSection = () => {
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.25 }}
-                          className="text-xs text-slate-400 font-medium mt-0.5 overflow-hidden"
+                          className="text-xs text-slate-400 font-medium mt-1.5 overflow-hidden pr-4"
                         >
                           {t.result}
                         </motion.p>
@@ -367,7 +385,7 @@ const TeamsSection = () => {
                 className={`relative overflow-hidden rounded-3xl border border-slate-100 p-4.5 sm:p-10 lg:p-12 ${team.bg}`}
               >
                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-slate-100 bg-white shadow-sm sm:mb-8 sm:h-16 sm:w-16">
-                  <Icon size={20} style={{ color: '#7e22ce' }} />
+                  <Icon size={20} style={{ color: team.accent }} />
                 </div>
                 <div>
                   <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r ${team.textGrad}`}>
@@ -407,7 +425,7 @@ const TeamsSection = () => {
                           key={item}
                           className="flex items-start gap-3 rounded-2xl border border-white/70 bg-white/75 px-4 py-2.5 text-sm font-bold text-slate-600 shadow-sm backdrop-blur-sm text-left"
                         >
-                          <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-[#7e22ce]" />
+                          <CheckCircle2 size={16} className="mt-0.5 shrink-0" style={{ color: team.accent }} />
                           <span>{item}</span>
                         </div>
                       ))}

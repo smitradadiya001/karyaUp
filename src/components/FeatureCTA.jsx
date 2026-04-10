@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useVelocity, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import logo from '../assets/logo.webp';
 
@@ -14,10 +14,50 @@ export default function FeatureCTA({
   imageClassName = "w-full",
   containerClassName = "mt-24 mb-10",
   paddingClassName = "p-1.5 sm:p-3 lg:p-4",
-  titleClassName = "text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.08] mb-2 tracking-normal drop-shadow-lg",
+  titleClassName = "text-xl sm:text-2xl lg:text-[1.75rem] font-black text-white leading-[1.1] mb-2 tracking-tight drop-shadow-lg",
   imageOuterClassName = "relative w-full max-w-[260px] sm:max-w-[400px] lg:max-w-none lg:w-full mx-auto lg:mx-0 translate-x-0 lg:translate-x-6"
 }) {
   const [isMobile, setIsMobile] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Mouse tracking logic for custom cursor
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Chained springs for snake effect
+  const trailConfig = [
+    { stiffness: 250, damping: 25 },
+    { stiffness: 200, damping: 22 },
+    { stiffness: 150, damping: 18 },
+    { stiffness: 100, damping: 15 },
+    { stiffness: 80, damping: 12 },
+  ];
+
+  const s1x = useSpring(mouseX, trailConfig[0]);
+  const s1y = useSpring(mouseY, trailConfig[0]);
+  const s2x = useSpring(s1x, trailConfig[1]);
+  const s2y = useSpring(s1y, trailConfig[1]);
+  const s3x = useSpring(s2x, trailConfig[2]);
+  const s3y = useSpring(s2y, trailConfig[2]);
+  const s4x = useSpring(s3x, trailConfig[3]);
+  const s4y = useSpring(s3y, trailConfig[3]);
+  const s5x = useSpring(s4x, trailConfig[4]);
+  const s5y = useSpring(s4y, trailConfig[4]);
+
+  const velX = useVelocity(mouseX);
+  const velY = useVelocity(mouseY);
+  const velocity = useTransform([velX, velY], ([vx, vy]) => Math.sqrt(vx * vx + vy * vy));
+
+  // Create a spring-smoothed opacity that reacts to movement
+  const movementOpacity = useSpring(useTransform(velocity, [0, 50, 300], [0, 0, 1]), { stiffness: 60, damping: 20 });
+
+  const segments = [
+    { x: s1x, y: s1y, size: 160, opacity: 0.8, blur: 18 },
+    { x: s2x, y: s2y, size: 130, opacity: 0.7, blur: 22 },
+    { x: s3x, y: s3y, size: 100, opacity: 0.6, blur: 28 },
+    { x: s4x, y: s4y, size: 80, opacity: 0.5, blur: 34 },
+    { x: s5x, y: s5y, size: 60, opacity: 0.35, blur: 40 },
+  ];
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -26,13 +66,62 @@ export default function FeatureCTA({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
+
   const handleAuthRedirect = () => {
     window.location.href = authUrl;
   };
 
   return (
     <section className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ${containerClassName}`}>
-      <div className={`relative rounded-[2.5rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch border border-white/5 ${paddingClassName}`}>
+      <div
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`relative rounded-[2.5rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch ${paddingClassName} ${isHovered ? 'cursor-none' : ''}`}
+      >
+        {/* Snake Trail Effect */}
+        {segments.map((seg, i) => (
+          <motion.div
+            key={i}
+            className="absolute pointer-events-none z-[100] rounded-full mix-blend-screen"
+            style={{
+              width: seg.size,
+              height: seg.size,
+              left: seg.x,
+              top: seg.y,
+              x: "-50%",
+              y: "-50%",
+              opacity: useTransform(
+                [movementOpacity],
+                ([v]) => (isHovered ? (i === 0 ? seg.opacity : v * seg.opacity) : 0)
+              ),
+              scale: isHovered ? 1 : 0,
+              background: `radial-gradient(circle, rgba(192, 38, 211, 0.9) 0%, rgba(168, 85, 247, 0) 70%)`,
+              filter: `blur(${seg.blur}px)`,
+            }}
+          />
+        ))}
+
+        {/* Lead Cursor Glow (Extra diffuse, always shows when hovered) */}
+        <motion.div
+          className="absolute w-80 h-80 pointer-events-none z-[90] rounded-full mix-blend-screen"
+          style={{
+            left: s1x,
+            top: s1y,
+            x: "-50%",
+            y: "-50%",
+            opacity: isHovered ? 0.45 : 0,
+            scale: isHovered ? 1 : 0,
+            background: "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%)",
+            filter: "blur(50px)"
+          }}
+        />
+
         {/* Ambient Background Gradients for Depth */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(168,85,247,0.4),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(236,72,153,0.1),transparent_40%)] pointer-events-none" />
@@ -77,7 +166,7 @@ export default function FeatureCTA({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-400 text-sm font-medium mb-4 max-w-xs mx-auto lg:mx-0 leading-relaxed"
+            className="text-slate-400 text-[13px] sm:text-sm font-medium mb-4 max-w-xs mx-auto lg:mx-0 leading-relaxed"
           >
             {description}
           </motion.p>
@@ -116,15 +205,15 @@ export default function FeatureCTA({
             <div className="absolute top-1/2 left-0 w-full h-full bg-purple-600/50 blur-[150px] rounded-full opacity-70 pointer-events-none" />
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-fuchsia-500/30 blur-[100px] rounded-full opacity-60 pointer-events-none" />
 
-            {/* Image Wrapper with Gradient Border */}
-            <div className={`relative p-[1.5px] rounded-[1.1rem] bg-gradient-to-br from-purple-500 via-fuchsia-500 to-[#7e22ce] ${imageClassName}`}>
+            {/* Image Wrapper (No border line, just smooth shadow/glow) */}
+            <div className={`relative ${imageClassName}`}>
               <img
                 src={image}
                 alt={imageAlt}
                 width="800"
                 height="500"
                 loading="lazy"
-                className="relative w-full h-auto object-contain rounded-[1.1rem] border border-white/10 hover:border-white/20 transition-all duration-500 z-10"
+                className="relative w-full h-auto object-contain rounded-[1.1rem] transition-all duration-500 z-10"
               />
             </div>
           </motion.div>
