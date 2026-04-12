@@ -75,14 +75,14 @@ export default function Automations() {
         <meta property="og:site_name" content="Karyaup" />
         <link rel="canonical" href="https://karyaup.com/features/automation" />
       </Helmet>
-      <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900 overflow-x-hidden">
+      <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900 overflow-x-hidden">
 
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
           <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-0">
             <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-12 items-center">
               {/* Left Content */}
-              <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
+              <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start lg:self-start lg:pt-2">
                 <motion.div
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -95,11 +95,11 @@ export default function Automations() {
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-[#0f172a] tracking-normal leading-[1.05]"
+                  className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-[#0f172a] tracking-normal leading-[1.05]"
                 >
-                  Put Repetitive<br />
-                  Tasks on<br className="hidden sm:block" />
-                  <span className="block sm:inline"> {" "}
+                  Put Repetitive Tasks
+                  <span className="block">
+                    on{" "}
                     <motion.span
                       className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#c026d3] to-[#9333ea] bg-[length:200%_auto]"
                       animate={{ backgroundPosition: ["0% center", "-200% center"] }}

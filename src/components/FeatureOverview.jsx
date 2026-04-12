@@ -144,8 +144,8 @@ const FeatureRow = ({ feature, index }) => {
 };
 
 const FeatureOverview = () => (
-  <section className="py-6 sm:py-14 sm:pb-20 bg-white relative">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section className="py-6 sm:py-14 sm:pb-20 bg-white relative px-2 sm:px-0">
+    <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
       {/* Heading */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

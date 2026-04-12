@@ -520,7 +520,7 @@ export default function Blog() {
           href="https://karyaup.com/resources/blog"
         />
       </Helmet>
-      <div className="min-h-screen bg-white pt-32 sm:pt-36 pb-12 sm:pb-16 lg:pb-20 text-slate-900 font-sans selection:bg-[#7e22ce] selection:text-white overflow-hidden">
+      <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900 font-sans selection:bg-[#7e22ce] selection:text-white overflow-hidden">
         <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
           <div className="absolute top-0 right-0 -z-10 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
           <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
@@ -541,7 +541,7 @@ export default function Blog() {
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-5 text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.06]"
+                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
                 >
                   Not Another Productivity <br />
                   <motion.span
@@ -557,16 +557,21 @@ export default function Blog() {
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                  className="mt-6 space-y-4 max-w-2xl mx-auto lg:mx-0"
+                  className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 max-w-2xl mx-auto lg:mx-0"
                 >
-                  <div className="flex items-start gap-3.5 text-left">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                      <CheckCircle2 className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
+                  {[
+                    "Real talk on how modern teams work, lead, and grow.",
+                    "Written by people who've actually felt the pressure of a missed deadline."
+                  ].map((text, i) => (
+                    <div key={i} className="flex items-start gap-3 text-left">
+                      <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                      </div>
+                      <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                        {text}
+                      </p>
                     </div>
-                    <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
-                      Real talk on how modern teams work, lead, and grow — written by people who've actually felt the pressure of a missed deadline.
-                    </p>
-                  </div>
+                  ))}
                 </motion.div>
 
               </div>
@@ -651,7 +656,7 @@ export default function Blog() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
-                  className="text-[30px] sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 leading-[1.08] sm:leading-[1.05] tracking-tight drop-shadow-2xl"
+                  className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-white mb-4 sm:mb-6 leading-[1.05] tracking-normal drop-shadow-2xl"
                 >
                   One Idea. Every Tuesday. <br />
                   <motion.span

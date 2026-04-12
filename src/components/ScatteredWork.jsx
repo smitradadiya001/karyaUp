@@ -23,9 +23,9 @@ export default function ScatteredWork() {
   ];
 
   return (
-    <section className="w-full py-8 sm:py-12 px-6 bg-white relative font-sans">
+    <section className="w-full py-8 sm:py-12 px-2 sm:px-6 bg-white relative font-sans">
       <div className="max-w-[1440px] mx-auto relative z-10">
-        <div className="text-center mb-6 px-4">
+        <div className="text-center mb-6 px-1 sm:px-4">
           <motion.span
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}

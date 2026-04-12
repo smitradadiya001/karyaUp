@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useVelocity, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import logo from '../assets/logo.webp';
+import React, { useState, useEffect } from "react";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useVelocity,
+  useTransform,
+} from "framer-motion";
+import { ArrowRight, Check } from "lucide-react";
+import logo from "../assets/logo.webp";
 
 const authUrl = "https://www.karyaup.com/auth";
 
 export default function FeatureCTA({
   title,
   description,
+  eyebrow,
+  highlights,
   buttonText = "Get started. It's FREE",
   image,
   imageAlt = "KaryaUp Showcase",
@@ -15,7 +23,8 @@ export default function FeatureCTA({
   containerClassName = "mt-24 mb-10",
   paddingClassName = "p-1.5 sm:p-3 lg:p-4",
   titleClassName = "text-xl sm:text-2xl lg:text-[1.75rem] font-black text-white leading-[1.1] mb-2 tracking-tight drop-shadow-lg",
-  imageOuterClassName = "relative w-full max-w-[260px] sm:max-w-[400px] lg:max-w-none lg:w-full mx-auto lg:mx-0 translate-x-0 lg:translate-x-6"
+  imageOuterClassName = "relative w-full max-w-[300px] sm:max-w-[460px] lg:max-w-none lg:w-full lg:max-w-[560px] mx-auto lg:mx-0 translate-x-0 lg:translate-x-6",
+  imageSectionClassName = "flex-[1.5] xl:flex-[1.4] relative mt-2 lg:mt-0 flex items-center justify-center lg:justify-end p-2 lg:p-4 lg:pr-8",
 }) {
   const [isMobile, setIsMobile] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -46,10 +55,15 @@ export default function FeatureCTA({
 
   const velX = useVelocity(mouseX);
   const velY = useVelocity(mouseY);
-  const velocity = useTransform([velX, velY], ([vx, vy]) => Math.sqrt(vx * vx + vy * vy));
+  const velocity = useTransform([velX, velY], ([vx, vy]) =>
+    Math.sqrt(vx * vx + vy * vy),
+  );
 
   // Create a spring-smoothed opacity that reacts to movement
-  const movementOpacity = useSpring(useTransform(velocity, [0, 50, 300], [0, 0, 1]), { stiffness: 60, damping: 20 });
+  const movementOpacity = useSpring(
+    useTransform(velocity, [0, 50, 300], [0, 0, 1]),
+    { stiffness: 60, damping: 20 },
+  );
 
   const segments = [
     { x: s1x, y: s1y, size: 160, opacity: 0.8, blur: 18 },
@@ -77,12 +91,14 @@ export default function FeatureCTA({
   };
 
   return (
-    <section className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ${containerClassName}`}>
+    <section
+      className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ${containerClassName}`}
+    >
       <div
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`relative rounded-[2.5rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch ${paddingClassName} ${isHovered ? 'cursor-none' : ''}`}
+        className={`relative rounded-[2.5rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch ${paddingClassName} ${isHovered ? "cursor-none" : ""}`}
       >
         {/* Snake Trail Effect */}
         {segments.map((seg, i) => (
@@ -96,9 +112,8 @@ export default function FeatureCTA({
               top: seg.y,
               x: "-50%",
               y: "-50%",
-              opacity: useTransform(
-                [movementOpacity],
-                ([v]) => (isHovered ? (i === 0 ? seg.opacity : v * seg.opacity) : 0)
+              opacity: useTransform([movementOpacity], ([v]) =>
+                isHovered ? (i === 0 ? seg.opacity : v * seg.opacity) : 0,
               ),
               scale: isHovered ? 1 : 0,
               background: `radial-gradient(circle, rgba(192, 38, 211, 0.9) 0%, rgba(168, 85, 247, 0) 70%)`,
@@ -117,8 +132,9 @@ export default function FeatureCTA({
             y: "-50%",
             opacity: isHovered ? 0.45 : 0,
             scale: isHovered ? 1 : 0,
-            background: "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%)",
-            filter: "blur(50px)"
+            background:
+              "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%)",
+            filter: "blur(50px)",
           }}
         />
 
@@ -147,11 +163,32 @@ export default function FeatureCTA({
                 className="h-full w-auto filter brightness-0 invert opacity-100"
               />
               {/* Colorful Overlay (Icon only) */}
-              <div className="absolute inset-0 pointer-events-none" style={{ clipPath: 'inset(0 75% 0 0)' }}>
-                <img src={logo} alt="" width="160" height="44" loading="lazy" className="h-full w-auto" />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ clipPath: "inset(0 75% 0 0)" }}
+              >
+                <img
+                  src={logo}
+                  alt=""
+                  width="160"
+                  height="44"
+                  loading="lazy"
+                  className="h-full w-auto"
+                />
               </div>
             </div>
           </motion.div>
+          {eyebrow ? (
+            <motion.span
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.05 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/5 text-[10px] font-black uppercase tracking-[0.18em] text-purple-200/95 mb-3 self-center lg:self-start"
+            >
+              {eyebrow}
+            </motion.span>
+          ) : null}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -170,6 +207,27 @@ export default function FeatureCTA({
           >
             {description}
           </motion.p>
+          {Array.isArray(highlights) && highlights.length > 0 ? (
+            <motion.ul
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 }}
+              className="mb-5 w-full max-w-md mx-auto lg:mx-0 space-y-2.5 text-left"
+            >
+              {highlights.map((line, i) => (
+                <li
+                  key={i}
+                  className="flex items-start gap-2.5 text-slate-300 text-[13px] sm:text-sm font-medium leading-snug"
+                >
+                  <span className="mt-0.5 w-5 h-5 rounded-full bg-white/10 border border-white/10 flex items-center justify-center shrink-0">
+                    <Check className="w-2.5 h-2.5 text-fuchsia-400" strokeWidth={3} />
+                  </span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </motion.ul>
+          ) : null}
           <motion.button
             type="button"
             onClick={handleAuthRedirect}
@@ -177,20 +235,23 @@ export default function FeatureCTA({
             whileTap={{ scale: 0.98 }}
             className="group relative z-10 flex h-[3.5em] w-full max-w-[14em] shrink-0 items-center justify-center overflow-hidden rounded-[30em] font-bold text-[15px] transition-all duration-300 self-center lg:self-start cursor-pointer"
             style={{
-              boxShadow: "0 18px 40px rgba(126, 34, 206, 0.22)"
+              boxShadow: "0 18px 40px rgba(126, 34, 206, 0.22)",
             }}
           >
             <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
             <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
             <span className="relative z-10 flex items-center justify-center gap-3 text-white transition-colors duration-300 group-hover:text-slate-800">
               {buttonText}
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1.5" />
+              <ArrowRight
+                size={18}
+                className="transition-transform group-hover:translate-x-1.5"
+              />
             </span>
           </motion.button>
         </div>
 
         {/* Right Content Area: Interface Showcase with Glows */}
-        <div className="flex-[1.5] xl:flex-[1.4] relative mt-2 lg:mt-0 flex items-center justify-center lg:justify-end p-2 lg:p-4 lg:pr-10">
+        <div className={imageSectionClassName}>
           <motion.div
             initial={{ opacity: 0, x: isMobile ? 0 : 80, scale: 0.95 }}
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
@@ -210,10 +271,10 @@ export default function FeatureCTA({
               <img
                 src={image}
                 alt={imageAlt}
-                width="800"
-                height="500"
+                width="960"
+                height="600"
                 loading="lazy"
-                className="relative w-full h-auto object-contain rounded-[1.1rem] transition-all duration-500 z-10"
+                className="relative w-full h-auto max-h-[360px] sm:max-h-[420px] lg:max-h-[500px] object-contain rounded-[12px] transition-all duration-500 z-10"
               />
             </div>
           </motion.div>

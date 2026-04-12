@@ -110,7 +110,7 @@ const Hero = () => {
           loading="eager"
           width="1920"
           height="1080"
-          fetchpriority="high"
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full scale-105 object-cover blur-[6px]"
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.2)_0%,rgba(15,23,42,0.12)_34%,rgba(15,23,42,0.22)_100%)]" />

@@ -17,6 +17,7 @@ import featureProjects from '../../assets/projects.webp';
 import featureWork from '../../assets/work_analysis.webp';
 import featureChart from '../../assets/chart.webp';
 import FeatureCTA from "../../components/FeatureCTA";
+import GrowthGraph from "../../components/GrowthGraph";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -173,13 +174,13 @@ export default function Dashboards() {
           href="https://karyaup.com/features/dashboards"
         />
       </Helmet>
-      <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+      <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
-        <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
               {/* Left Content */}
-              <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+              <div className="text-center lg:text-left flex flex-col items-center lg:items-start lg:self-start lg:pt-2">
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -195,9 +196,9 @@ export default function Dashboards() {
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                   className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
                 >
-                  Custom Metrics <br />For Every <br />
+                  Custom Metrics
                   <span className="block">
-                    {" "}
+                    For Every{" "}
                     <motion.span
                       className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                       animate={{ backgroundPosition: ["0% center", "-200% center"] }}
@@ -325,11 +326,17 @@ export default function Dashboards() {
                     {/* Decorative background element */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-purple-100/50 to-transparent blur-3xl rounded-full" />
 
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="relative max-h-full w-full object-contain rounded-2xl shadow-2xl shadow-slate-900/30 ring-1 ring-black/5"
-                    />
+                    {item.header === "Sales Dashboard" ? (
+                      <div className="relative w-full h-full bg-white rounded-2xl shadow-2xl flex items-center justify-center p-6 sm:p-10 lg:p-16">
+                         <GrowthGraph className="w-full" />
+                      </div>
+                    ) : (
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="relative max-h-full w-full object-contain rounded-2xl shadow-2xl shadow-slate-900/30 ring-1 ring-black/5"
+                      />
+                    )}
                   </div>
                 </div>
               </div>

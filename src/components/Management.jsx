@@ -12,8 +12,8 @@ const Management = () => {
     ];
 
     return (
-        <section className="py-6 sm:py-16 lg:py-20 bg-white overflow-hidden relative">
-            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <section className="py-6 sm:py-16 lg:py-20 bg-white overflow-hidden relative px-2 sm:px-6">
+            <div className="max-w-[1440px] mx-auto px-1 sm:px-6 lg:px-12">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
                     {/* Text and Features Side (40% Width) - Condensed */}
                     <div className="lg:flex-[0.4] w-full text-center lg:text-left flex flex-col items-center lg:items-start">
@@ -21,8 +21,8 @@ const Management = () => {
                             <Sparkles size={11} />
                             Operations Layer
                         </div>
-                        <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] mb-2 sm:mb-3">
-                            More Than <br />
+                        <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] mb-8 sm:mb-10">
+                            More Than <br className="hidden md:block" />
                             <motion.span
                                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
                                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
@@ -31,14 +31,14 @@ const Management = () => {
                                 Just Tasks.
                             </motion.span>
                         </h2>
-                        <div className="flex flex-col items-center lg:items-start gap-4 mb-8 sm:mb-12">
-                            <div className="flex items-center gap-2.5">
+                        <div className="flex flex-col items-start justify-start text-left gap-2 sm:gap-4 mb-8 sm:mb-12">
+                            <div className="flex items-center justify-start text-left gap-2.5">
                                 <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-50 flex items-center justify-center border border-purple-100">
                                     <Check className="w-3 h-3 text-[#7e22ce]" strokeWidth={3} />
                                 </div>
                                 <span className="text-sm sm:text-base font-bold text-slate-700">Unified management for all business essentials</span>
                             </div>
-                            <div className="flex items-center gap-2.5">
+                            <div className="flex items-center justify-start text-left gap-2.5">
                                 <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-50 flex items-center justify-center border border-purple-100">
                                     <Check className="w-3 h-3 text-[#7e22ce]" strokeWidth={3} />
                                 </div>

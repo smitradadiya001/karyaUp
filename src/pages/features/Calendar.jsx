@@ -56,9 +56,9 @@ export default function CalendarPage() {
           href="https://karyaup.com/features/calendar"
         />
       </Helmet>
-      <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+      <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
           {/* Ambient Background Glows */}
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-slate-200/20 rounded-full blur-[120px] -z-10" />
           <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-slate-100/30 rounded-full blur-[100px] -z-10" />
@@ -66,7 +66,7 @@ export default function CalendarPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
               {/* Left Content */}
-              <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
+              <div className="text-center lg:text-left flex flex-col items-center lg:items-start lg:self-start lg:pt-2">
                 <motion.div
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -79,10 +79,10 @@ export default function CalendarPage() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black tracking-normal leading-[1.05] text-slate-900"
+                  className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black tracking-normal leading-[1.05] text-slate-900"
                 >
-                  Master Your <br />Time With A
-                  <span className="block mt-2">
+                  Master Your Time With
+                  <span className="block">
                     {" "}
                     <span className="text-gradient inline-block">
                       Unified Calendar

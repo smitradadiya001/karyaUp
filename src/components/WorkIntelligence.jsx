@@ -64,8 +64,8 @@ const WorkIntelligence = () => {
 
   return (
     /* outer: full-width bg so the page doesn't break; inner: constrained card */
-    <section className="py-1.5 sm:py-6 sm:pb-10 bg-white relative">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+    <section className="py-1.5 sm:py-6 sm:pb-10 bg-white relative px-2 sm:px-0">
+      <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
 
         {/* ── The constrained, rounded section ── */}
         <div className="bg-slate-950 rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden border border-purple-900/30 relative px-3 sm:px-12 py-5 sm:py-14">
@@ -156,8 +156,8 @@ const WorkIntelligence = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-0 text-[13px] sm:text-sm font-bold text-white relative z-10 max-w-5xl mx-auto px-1 sm:px-6">
 
               {/* Box 1: Raw Activity */}
-              <motion.div 
-                animate={{ 
+              <motion.div
+                animate={{
                   borderColor: ["rgba(168,85,247,0.2)", "rgba(255,255,255,1)", "rgba(168,85,247,0.2)"],
                   backgroundColor: ["rgba(88,28,135,0.2)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.2)"],
                   boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 50px rgba(217,70,239,0.8)", "0 0 0px rgba(168,85,247,0)"],
@@ -201,8 +201,8 @@ const WorkIntelligence = () => {
               </div>
 
               {/* Box 2: Clear Insight */}
-              <motion.div 
-                animate={{ 
+              <motion.div
+                animate={{
                   borderColor: ["rgba(168,85,247,0.4)", "rgba(255,255,255,1)", "rgba(168,85,247,0.4)"],
                   backgroundColor: ["rgba(88,28,135,0.4)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.4)"],
                   boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 60px rgba(217,70,239,0.9)", "0 0 0px rgba(168,85,247,0)"],
@@ -247,8 +247,8 @@ const WorkIntelligence = () => {
               </div>
 
               {/* Box 3: Faster Decisions */}
-              <motion.div 
-                animate={{ 
+              <motion.div
+                animate={{
                   borderColor: ["rgba(168,85,247,0.4)", "rgba(255,255,255,1)", "rgba(168,85,247,0.4)"],
                   backgroundColor: ["rgba(88,28,135,0.4)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.4)"],
                   boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 60px rgba(217,70,239,0.9)", "0 0 0px rgba(168,85,247,0)"],

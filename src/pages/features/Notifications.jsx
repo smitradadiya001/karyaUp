@@ -136,9 +136,9 @@ export default function Notifications() {
         />
       </Helmet>
 
-      <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+      <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
-        <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12 overflow-hidden">
+        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12 overflow-hidden">
           {/* Ambient Background Glows */}
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-100/30 rounded-full blur-[120px] -z-10 animate-pulse" />
           <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-fuchsia-100/30 rounded-full blur-[100px] -z-10" />
@@ -146,7 +146,7 @@ export default function Notifications() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-[1.3fr_2fr] gap-12 items-center">
               {/* Left Content - Compact High Density */}
-              <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
+              <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start lg:self-start lg:pt-2">
                 <motion.div
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -165,10 +165,10 @@ export default function Notifications() {
                     stiffness: 100,
                     delay: 0.1
                   }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] mb-3"
+                  className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
                 >
                   Connected With Smart
-                  <span className="block mt-1">
+                  <span className="block">
                     {" "}
                     <span className="text-gradient inline-block">
                       Notifications

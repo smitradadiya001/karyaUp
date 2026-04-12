@@ -83,7 +83,7 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
   return (
     <motion.div
       ref={containerRef}
-      className="relative h-[80px] z-20 w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
+      className="relative h-[80px] mb-16 md:mb-0 z-20 w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

@@ -3,7 +3,7 @@ import { useRef, useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { CheckCircle2, XCircle, Check, Zap, Target, Search } from "lucide-react";
-import dashboardImage from "../../assets/dashboard2.png";
+import dashboardImage from "../../assets/dashboard2.webp";
 import planImage from "../../assets/Gantt.webp";
 import FeatureCTA from "../../components/FeatureCTA";
 import karyaUpLogo from "../../assets/logo-svg.svg";

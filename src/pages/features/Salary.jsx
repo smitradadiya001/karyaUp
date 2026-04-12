@@ -127,8 +127,8 @@ export default function Salary() {
         {/* Favicon (optional) */}
         <link rel="icon" href="/favicon.ico" />
       </Helmet>
-      <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
-        <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
+      <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
           {/* Background Blobs Container - isolates overflow clipping from actual content */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
             <div className="absolute top-0 right-0 h-[560px] w-[560px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
@@ -137,7 +137,7 @@ export default function Salary() {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-              <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+              <div className="text-center lg:text-left flex flex-col items-center lg:items-start lg:self-start lg:pt-2">
                 <motion.div
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -152,9 +152,9 @@ export default function Salary() {
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
                   className="mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
                 >
-                  Salary That
-                  <span className="block mt-2">
-                    Removes <br /> {" "}
+                  Salary That Removes
+                  <span className="block">
+                    {" "}
                     <motion.span
                       className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                       animate={{ backgroundPosition: ["0% center", "-200% center"] }}

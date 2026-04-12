@@ -94,7 +94,7 @@ const FinalCTA = () => {
 
             {/* Main Value Prop */}
             <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] mb-2 sm:mb-3">
-              Run Your Entire <br />
+              Run Your Entire <br className="hidden md:block" />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:400%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-400% center"] }}
@@ -105,7 +105,7 @@ const FinalCTA = () => {
             </h2>
 
             <p className="text-base sm:text-xl text-slate-500 font-medium max-w-xl mx-auto mb-4 sm:mb-5 leading-relaxed">
-              Stop switching tools. Start moving move. <br />
+              Stop switching tools. Start moving move. <br className="hidden md:block" />
               <span className="text-slate-900 font-black">
                 Execution speed <span className="text-[#7e22ce] sm:inline">{speed.toFixed(1)}x faster</span>.
               </span>

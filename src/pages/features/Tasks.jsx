@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useSpring, useAnimationFrame, useMotio
 import { Check, Sparkles, Activity } from "lucide-react";
 import Task2 from "../../assets/Task.webp";
 import AgentAssign from "../../assets/Agent-Assign.webp";
+import GrowthGraph from "../../components/GrowthGraph";
 import FeatureCTA from "../../components/FeatureCTA";
 import { Helmet } from "react-helmet-async";
 import FeatureStack from "../../components/FeatureStack";
@@ -132,7 +133,7 @@ export default function Tasks() {
         {/* Canonical URL */}
         <link rel="canonical" href="https://karyaup.com/features/tasks" />
       </Helmet>
-      <div className="min-h-screen bg-white pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
+      <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
 
         {/* ── Hero ── */}
         <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
@@ -145,7 +146,7 @@ export default function Tasks() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-4"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
                 >
                   TASKS — SIMPLIFY YOUR TO-DO LISTS
                 </motion.div>
@@ -154,11 +155,11 @@ export default function Tasks() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
+                  className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
                 >
-                  Task Management Features That
+                  Task Management
                   <span className="block">
-                    {" "}
+                    That{" "}
                     <motion.span
                       className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                       animate={{ backgroundPosition: ["0% center", "-200% center"] }}
@@ -201,7 +202,7 @@ export default function Tasks() {
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
                 className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
               >
-                <div className="relative overflow-hidden  shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white">
+                <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white">
                   <img
                     src={Task2}
                     alt="KaryaUp task management"
@@ -230,7 +231,7 @@ export default function Tasks() {
                     <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     AI Agent for Tasks
                   </div>
-                  <h2 className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.05] tracking-normal">
+                  <h2 className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.05] tracking-normal">
                     Prompt It. The Agent{" "}
                     <br className="hidden sm:block" />
                     <motion.span
@@ -308,6 +309,70 @@ export default function Tasks() {
         </section>
 
 
+
+        {/* 🔥 Visual Analytics - Restored Section */}
+        <section className="pt-4 sm:pt-10 lg:pt-12 pb-12 sm:pb-20 lg:pb-24 bg-slate-50/50 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-24 items-center">
+              
+              {/* Left – Animated Graph */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                className="relative order-2 lg:order-1"
+              >
+                <div className="relative bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-12 border border-slate-200 shadow-[0_22px_70px_-30px_rgba(2,6,23,0.12)]">
+                  <GrowthGraph />
+                </div>
+                {/* Decorative background glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-gradient-to-br from-purple-100/60 to-blue-100/40 rounded-full blur-[140px] -z-10 animate-pulse" />
+              </motion.div>
+
+              {/* Right – Text Content */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                className="order-1 lg:order-2 text-center lg:text-left flex flex-col items-center lg:items-start"
+              >
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                  <Activity className="w-3.5 h-3.5" />
+                  Visual Analytics
+                </div>
+                <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.1] tracking-normal">
+                  Turn Task Into <br className="hidden lg:block" />
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  >
+                    Actionable Insights.
+                  </motion.span>
+                </h2>
+               
+                
+                <div className="mt-8 space-y-4 w-full max-w-md">
+                  {[
+                    "Custom filters for members, status, and priority",
+                    "Real-time completion and trend tracking",
+                    "Visual work distribution across your whole team"
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-3 text-left">
+                      <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-[#7e22ce] stroke-[4]" />
+                      </div>
+                      <span className="text-sm sm:text-base text-slate-700 font-bold leading-tight">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+            </div>
+          </div>
+        </section>
 
         {/* ── Feature CTA ── */}
         <FeatureCTA

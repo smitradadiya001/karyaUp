@@ -39,11 +39,9 @@ const DataImport = () => {
                   Zero Friction Sync
                 </span>
               </div>
-              <h2 className="mx-auto max-w-[12ch] text-3xl sm:max-w-[12ch] sm:text-4xl md:max-w-none md:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1] mb-3 sm:mb-8 lg:mx-0">
-                Seamless Import
-                <br />
-                From Your
-                <br />
+              <h2 className="mx-auto text-3xl sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1] mb-8 sm:mb-10 lg:mx-0">
+                Seamless Import <br className="hidden md:block" />
+                From Your <br className="hidden md:block" />
                 <motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
                   animate={{
@@ -54,8 +52,8 @@ const DataImport = () => {
                   Existing Tools
                 </motion.span>
               </h2>
-              <div className="flex flex-col items-center lg:items-start gap-4 mb-8 sm:mb-12">
-                <div className="flex items-center gap-2.5">
+              <div className="flex flex-col items-start justify-start text-left gap-2 sm:gap-4 mb-8 sm:mb-12">
+                <div className="flex items-center justify-start text-left gap-2.5">
                   <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-50 flex items-center justify-center border border-purple-100">
                     <Check className="w-3 h-3 text-[#7e22ce]" strokeWidth={3} />
                   </div>

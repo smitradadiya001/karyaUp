@@ -1,20 +1,21 @@
 import { Helmet } from "react-helmet-async";
 import { useRef, useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Sparkles, BrainCircuit, Zap, Search, ShieldCheck, Check } from "lucide-react";
-import dashboardImage from "../../assets/dashboard2.webp";
-import karyaupLogo from "../../assets/logo-svg.svg";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useAnimationFrame } from "framer-motion";
+import { BrainCircuit, Zap, Search, ShieldCheck, Check, X, User, TrendingUp, BarChart3, PieChart, Wallet } from "lucide-react";
+import dashboardImage from "../../assets/Salary.webp";
+import { lazy, Suspense } from "react";
 import FeatureCTA from "../../components/FeatureCTA";
+import karyaupLogo from "../../assets/logo-svg.svg";
+import FeatureStack from "../../components/FeatureStack";
+import CollabTiltCard from "../../components/CollabTiltCard";
+
+// Lazy load the 3D component to improve initial page load speed
+const SpinningLogo3D = lazy(() => import("../../components/SpinningLogo3D"));
+
 
 /* ═══════════════════════════════════════════════
     ICONS & HELPERS
 ═══════════════════════════════════════════════ */
-const CheckIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="13" height="13"><polyline points="3,9 7,13 13,5" /></svg>
-);
-const XIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" width="13" height="13"><line x1="4" y1="4" x2="12" y2="12" /><line x1="12" y1="4" x2="4" y2="12" /></svg>
-);
 const ListIcon = () => (
   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" width="11" height="11">
     <line x1="5" y1="4" x2="13" y2="4" /><line x1="5" y1="8" x2="13" y2="8" /><line x1="5" y1="12" x2="13" y2="12" />
@@ -23,6 +24,75 @@ const ListIcon = () => (
     <circle cx="2.5" cy="12" r="1" fill="currentColor" stroke="none" />
   </svg>
 );
+
+function Card({ data, type }) {
+  const isRed = type === "red";
+  return (
+    <div className="border border-slate-200 rounded-xl px-2.5 py-2 sm:px-3 sm:py-2.5 lg:px-4 lg:py-3 flex flex-nowrap items-center gap-2 lg:gap-3 bg-white shadow-sm ring-1 ring-black/5">
+      <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${isRed
+        ? "bg-red-50 border-red-100 text-red-500"
+        : "bg-purple-50 border-purple-100 text-purple-600"
+        }`}>
+        {isRed ? <X className="w-4 h-4" /> : <Check className="w-4 h-4" />}
+      </div>
+
+      <div className="min-w-0 flex-1">
+        <div className="font-black text-slate-900 text-[13px] sm:text-sm break-words leading-tight">
+          {data.title}
+        </div>
+        <div className="mt-0.5 text-[10px] sm:text-xs font-semibold text-slate-500 flex flex-wrap gap-x-3 gap-y-0.5">
+          <span className="flex items-center gap-1">
+            Owner: <span className="text-slate-700">{data.owner || "Aisha"}</span>
+          </span>
+          <span className="flex items-center gap-1">
+            Due: <span className="text-slate-700">{data.due || "Now"}</span>
+          </span>
+        </div>
+      </div>
+
+      <div
+        className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full border flex-shrink-0"
+        style={{
+          borderColor: isRed ? "rgba(239,68,68,0.25)" : "rgba(126,34,206,0.25)",
+          background: isRed ? "rgba(239,68,68,0.05)" : "rgba(126,34,206,0.05)",
+          color: isRed ? "rgb(185,28,28)" : "rgb(126,34,206)",
+        }}
+      >
+        {data.pr || (isRed ? "HIGH" : "NORMAL")}
+      </div>
+    </div>
+  );
+}
+
+const BarrelItem = ({ data, type, containerRef }) => {
+  const itemRef = useRef(null);
+  const rotateX = useMotionValue(0);
+  const scale = useMotionValue(1);
+  const opacity = useMotionValue(1);
+
+  useAnimationFrame(() => {
+    if (!itemRef.current || !containerRef.current) return;
+    const container = containerRef.current.getBoundingClientRect();
+    const item = itemRef.current.getBoundingClientRect();
+
+    const containerCenter = container.top + container.height / 2;
+    const itemCenter = item.top + item.height / 2;
+    const normalizedDistance = (itemCenter - containerCenter) / (container.height / 2);
+    const clamped = Math.max(-1, Math.min(1, normalizedDistance));
+
+    rotateX.set(clamped * -45);
+    scale.set(1 - Math.abs(clamped) * 0.25);
+    opacity.set(1 - Math.abs(clamped) * 0.6);
+  });
+
+  return (
+    <div ref={itemRef} style={{ perspective: "1000px" }}>
+      <motion.div style={{ rotateX, scale, opacity, transformStyle: "preserve-3d" }}>
+        <Card data={data} type={type} />
+      </motion.div>
+    </div>
+  );
+};
 
 /* ═══════════════════════════════════════════════
     COMPONENTS
@@ -53,80 +123,93 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d", transformPerspective: 1000 }}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
       whileHover={{ scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      whileTap={{ scale: 0.98 }} // Fixed for Mobile
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       className={className}
     >
-      <div style={{ transform: "translateZ(30px)" }} className="h-full flex flex-col">
+      <div style={{ transform: 'translateZ(30px)' }} className="h-full flex flex-col">
         {children}
       </div>
     </motion.div>
   );
 };
 
-function Card({ data, type, index }) {
-  const isRed = type === "red";
+const MarqueeRow = ({ text, direction, isShieldHovered }) => {
+  const isLeft = direction === "left";
   return (
     <motion.div
-      initial={{ y: 0 }}
-      animate={{ y: [0, -8, 0] }}
-      transition={{ duration: 4, repeat: Infinity, delay: index * 0.4, ease: "easeInOut" }}
-      className="relative group rounded-xl w-full"
+      initial={{ x: isLeft ? 0 : -1000 }}
+      animate={{ x: isLeft ? -1000 : 0 }}
+      transition={{
+        duration: isShieldHovered ? 15 : 40,
+        repeat: Infinity,
+        ease: "linear",
+      }}
+      // Added leading-none and kept text-2xl for smaller size
+      className="whitespace-nowrap text-purple-700 font-black text-2xl select-none tracking-tighter flex gap-10 leading-none"
     >
-      <div className="backdrop-blur-md bg-white/40 border border-white/30 rounded-xl p-3 flex items-start gap-3 w-full shadow-[0_8px_32px_0_rgba(0,0,0,0.05)] transition-all duration-300 group-hover:border-purple-400/50">
-        <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 border ${isRed ? "bg-red-500/20 border-red-500/50 text-red-600" : "bg-green-500/20 border-green-500/50 text-green-600"}`}>
-          {isRed ? <XIcon /> : <CheckIcon />}
-        </div>
-        <div className="flex-1 min-w-0 text-left">
-          <div className="text-[13px] font-bold text-slate-900 truncate">{data.title}</div>
-          <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5 font-medium">
-            <span>{data.tag}</span>
-            <span className="w-1 h-1 rounded-full bg-slate-300" />
-            <span className="flex items-center gap-1"><ListIcon /> Active</span>
-          </div>
-        </div>
-      </div>
+      {/* Repeating text to ensure a gapless loop */}
+      {Array(9).fill(null).map((_, i) => (
+        <span key={i}>{text}  </span>
+      ))}
     </motion.div>
   );
 }
 
-function ScrollTrack({ cards, direction }) {
-  const trackRef = useRef(null);
-  const posRef = useRef(direction === "up" ? -25 : 0);
-  const doubled = useMemo(() => [...cards, ...cards], [cards]);
+function ScrollingDataBg({ isShieldHovered }) {
+  return (
+    <div className={`absolute inset-0 pointer-events-none transition-all duration-1000 flex flex-col justify-center gap-20 overflow-hidden ${isShieldHovered ? "opacity-30" : "opacity-[0.05]"
+      }`}>
+      {/* Row 1: Plan (Left) */}
+      <MarqueeRow text="Plan the Karya" direction="right" isShieldHovered={isShieldHovered} />
 
-  useEffect(() => {
-    const speed = 0.045;
-    const animate = () => {
-      if (direction === "down") {
-        posRef.current -= speed;
-        if (posRef.current <= -25) posRef.current = 0;
-      } else {
-        posRef.current += speed;
-        if (posRef.current >= 0) posRef.current = -25;
-      }
-      if (trackRef.current) trackRef.current.style.transform = `translateY(${posRef.current}%)`;
-      requestAnimationFrame(animate);
-    };
-    const raf = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(raf);
-  }, [direction]);
+      {/* Row 2: Move (Right) */}
+      <MarqueeRow text="Move the Karya" direction="left" isShieldHovered={isShieldHovered} />
+
+      {/* Row 3: Complete (Left) */}
+      <MarqueeRow text="Complete the Karya" direction="right" isShieldHovered={isShieldHovered} />
+    </div>
+  );
+}
+
+function ScrollTrack({ cards, direction }) {
+  const containerRef = useRef(null);
+  const isUp = direction === "up";
 
   return (
-    <div className="h-[220px] overflow-hidden relative">
+    <div className="h-[190px] lg:h-[240px] overflow-hidden relative">
       <div
+        ref={containerRef}
         className="relative h-full"
         style={{
-          maskImage: "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
+          perspective: "1000px"
         }}
       >
-        <div ref={trackRef} className="flex flex-col gap-2 py-2 will-change-transform">
-          {doubled.map((card, i) => (
-            <Card key={i} data={card} type={direction === "down" ? "red" : "green"} index={i % cards.length} />
+        <motion.div
+          animate={{ y: isUp ? ["-50%", "0%"] : ["0%", "-50%"] }}
+          transition={{
+            y: {
+              repeat: Infinity,
+              duration: 25,
+              ease: "linear",
+            },
+          }}
+          className="flex flex-col gap-2 py-2 lg:gap-3 lg:py-4 will-change-transform"
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          {[...cards, ...cards].map((card, i) => (
+            <BarrelItem
+              key={`${card.title}-${i}`}
+              data={card}
+              type={direction === "down" ? "red" : "green"}
+              containerRef={containerRef}
+            />
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -171,76 +254,59 @@ const LightShield3D = () => (
   </svg>
 );
 
-const FeatureStack = ({ items = [] }) => {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (items.length === 0) return;
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % items.length);
-    }, 1500);
-    return () => clearInterval(timer);
-  }, [items.length]);
-
-  if (items.length === 0) return null;
-
-  return (
-    <div className="relative h-[80px] sm:h-[100px] w-full max-w-[280px] sm:max-w-[320px] mt-6 lg:mt-8 group overflow-visible">
-      <AnimatePresence mode="popLayout">
-        {[2, 1, 0].map((offset) => {
-          const itemIndex = (index + offset) % items.length;
-          const item = items[itemIndex];
-          const label = typeof item === "string" ? item : item.label;
-          const Icon = typeof item === "object" && item.icon ? item.icon : Check;
-
-          return (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, y: 15, scale: 0.9 }}
-              animate={{
-                opacity: offset === 0 ? 1 : offset === 1 ? 0.4 : 0.15,
-                scale: 1 - offset * 0.04,
-                y: offset * 12,
-                zIndex: 10 - offset,
-              }}
-              exit={{ opacity: 0, y: -20, scale: 1.05, transition: { duration: 0.4, ease: "easeIn" } }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: offset * 0.02 }}
-              className="absolute top-0 left-0 w-full px-5 py-3 rounded-xl bg-slate-400/10 backdrop-blur-xl border border-black/30 shadow-sm flex items-center gap-3 transition-colors duration-300 hover:bg-slate-400/20"
-            >
-              <div className="w-5 h-5 rounded bg-black/5 border border-black/10 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-3 h-3 text-black stroke-[3]" />
-              </div>
-              <span className="text-[11px] sm:text-[13px] font-black uppercase tracking-widest text-black">{label}</span>
-            </motion.div>
-          );
-        })}
-      </AnimatePresence>
-    </div>
-  );
-};
+const profitTiltPillars = [
+  {
+    icon: TrendingUp,
+    title: "Live margin signals",
+    desc: "Watch contribution and burn move with the week so you can correct course before the quarter is written in stone.",
+    color: "purple",
+  },
+  {
+    icon: PieChart,
+    title: "Costs tied to outcomes",
+    desc: "Map spend and hours to projects and clients — so every invoice, overrun, and discount has a clear story.",
+    color: "fuchsia",
+  },
+  {
+    icon: BarChart3,
+    title: "Forecasts you can brief",
+    desc: "Rolling views of revenue, capacity, and margin give finance and ops the same numbers without another deck.",
+    color: "purple",
+  },
+  {
+    icon: Wallet,
+    title: "Cash reality, in context",
+    desc: "See liquidity next to delivery dates and commitments — not buried three exports deep in a workbook.",
+    color: "fuchsia",
+  },
+];
 
 /* ═══════════════════════════════════════════════
     MAIN PAGE EXPORT
 ═══════════════════════════════════════════════ */
 export default function ProfitTracking() {
+  const sectionSpacing = "py-12 sm:py-16 lg:py-20";
+  const [isMobile, setIsMobile] = useState(false);
   const [isShieldHovered, setIsShieldHovered] = useState(false);
 
   const redCards = [
-    { title: "Manual spreadsheet updates", tag: "Finance" },
-    { title: "Delayed profit visibility", tag: "Risk" },
-    { title: "Inaccurate expense tracking", tag: "Accounting" },
-    { title: "Missed revenue bottlenecks", tag: "Security" },
-    { title: "Siloed financial reports", tag: "Data" },
+    { title: "Manual spreadsheet updates", owner: "Rahul", due: "Wed", pr: "High" },
+    { title: "Delayed profit visibility", owner: "Aisha", due: "Fri", pr: "High" },
+    { title: "Inaccurate expense tracking", owner: "Rahul", due: "Mon", pr: "Normal" },
+    { title: "Missed revenue bottlenecks", owner: "Sneha", due: "Thu", pr: "High" },
+    { title: "Siloed financial reports", owner: "Aisha", due: "Tue", pr: "High" },
   ];
 
   const greenCards = [
-    { title: "Real-time P&L dashboard", tag: "Profit" },
-    { title: "Automated expense allocation", tag: "Sync" },
-    { title: "Unified financial data hub", tag: "Growth" },
-    { title: "Secure encryption for billing", tag: "Storage" },
-    { title: "AI-powered margin alerts", tag: "Users" },
-    { title: "Instant resource analytics", tag: "Performance" },
+    { title: "Real-time P&L dashboard", owner: "Agent", due: "Now", pr: "Normal" },
+    { title: "Automated expense allocation", owner: "Agent", due: "Now", pr: "Normal" },
+    { title: "Unified financial data hub", owner: "Agent", due: "Now", pr: "Normal" },
+    { title: "Secure encryption for billing", owner: "Agent", due: "Now", pr: "Normal" },
+    { title: "AI-powered margin alerts", owner: "Agent", due: "Now", pr: "Normal" },
+    { title: "Instant resource analytics", owner: "Agent", due: "Now", pr: "Normal" },
   ];
+
+
 
   const getColorClasses = (color) => {
     const colorMap = {
@@ -255,12 +321,122 @@ export default function ProfitTracking() {
     return colorMap[color] || "bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
   };
 
-  const aiFeatures = [
-    { icon: <Sparkles className="w-5 h-5" />, title: "Predictive Margins", desc: "AI forecasts future profitability based on current sprint velocity.", color: "purple" },
-    { icon: <BrainCircuit className="w-5 h-5" />, title: "Smart Allocation", desc: "Automatically maps expenses to specific projects using NLP.", color: "fuchsia" },
-    { icon: <Search className="w-5 h-5" />, title: "Contextual Query", desc: "Ask 'Which project is over budget?' and get instant visual data.", color: "blue" },
-    { icon: <Zap className="w-5 h-5" />, title: "Automated Standups", desc: "AI summarizes daily progress vs budget utilization for the team.", color: "orange" },
-  ];
+  const DEFAULT_ICON_MAP = {
+    "AUTO EXPENSE": { icon: BrainCircuit, color: "#4c1d95" },
+    "LIVE MARGINS": { icon: Zap, color: "#4c1d95" },
+    "DEEP AUDIT": { icon: Search, color: "#4c1d95" },
+  }
+  const FeatureStack = ({ items = [], interval = 2500 }) => {
+    const [index, setIndex] = useState(0);
+    const [hovered, setHovered] = useState(false);
+
+    useEffect(() => {
+      if (items.length === 0 || hovered) return;
+      const timer = setInterval(() => {
+        setIndex((prev) => (prev + 1) % items.length);
+      }, interval);
+      return () => clearInterval(timer);
+    }, [items.length, interval, hovered]);
+
+    const visibleItems = useMemo(() => {
+      if (items.length === 0) return [];
+      return [0, 1, 2].map((offset) => {
+        const itemIndex = (index + offset) % items.length;
+        const rawItem = items[itemIndex];
+
+        // Normalize item to object
+        let itemObj = typeof rawItem === "string" ? { label: rawItem } : { ...rawItem };
+
+        // Apply defaults for icons/colors if missing
+        if (!itemObj.icon || !itemObj.iconColor) {
+          const mapped = DEFAULT_ICON_MAP[itemObj.label] || { icon: Check, color: "#000000" };
+          itemObj.icon = itemObj.icon || mapped.icon;
+          itemObj.iconColor = itemObj.iconColor || mapped.color;
+        }
+
+        return { offset, item: itemObj };
+      });
+    }, [items, index]);
+
+    if (items.length === 0) return null;
+
+    return (
+      <div
+        className="relative w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
+        style={{
+          height: "80px",
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <AnimatePresence mode="popLayout">
+          {visibleItems.map(({ offset, item }) => {
+            const Icon = item.icon;
+            const color = item.iconColor;
+
+            return (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                animate={
+                  hovered
+                    ? {
+                      opacity: 1,
+                      scale: 1,
+                      y: offset * 54, // Clear separation between cards
+                      zIndex: 10 - offset,
+                    }
+                    : {
+                      opacity: offset === 0 ? 1 : offset === 1 ? 0.45 : 0.2,
+                      scale: 1 - offset * 0.035,
+                      y: offset * 11,
+                      zIndex: 10 - offset,
+                    }
+                }
+                exit={{
+                  opacity: 0,
+                  y: -10,
+                  scale: 0.95,
+                  transition: { duration: 0.5, ease: "easeOut" },
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: hovered ? offset * 0.05 : offset * 0.02,
+                }}
+                className="absolute top-0 left-0 w-full px-4 sm:px-4 py-1.5 sm:py-2 rounded-xl flex items-center justify-center gap-3"
+                style={{
+                  background:
+                    offset === 0
+                      ? "linear-gradient(135deg, rgba(226, 232, 240, 0.15) 0%, rgba(203, 213, 225, 0.08) 100%)"
+                      : "linear-gradient(135deg, rgba(226, 232, 240, 0.06) 0%, rgba(203, 213, 225, 0.03) 100%)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1.2px solid rgba(0, 0, 0, 0.25)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
+                }}
+              >
+                {/* Icon box with colorful icon */}
+                <div className="flex-shrink-0 w-6 h-6 sm:w-6.5 sm:h-6.5 rounded-md border border-black/5 bg-white/25 flex items-center justify-center">
+                  <Icon
+                    className="w-3 h-3 sm:w-3.5 sm:h-3.5"
+                    style={{ color: color }}
+                    strokeWidth={2.5}
+                  />
+                </div>
+
+                {/* Precise Small Uppercase Text */}
+                <span className="text-[10px] sm:text-[11.5px] font-black tracking-widest text-black uppercase">
+                  {item.label}
+                </span>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </div>
+    );
+  };
+ 
 
   return (
     <div className="bg-white font-sans overflow-x-hidden">
@@ -277,149 +453,145 @@ export default function ProfitTracking() {
         <link rel="canonical" href="https://karyaup.com/features/profit-tracking" />
       </Helmet>
 
-      {/* ── Hero Section ── */}
-      <section className="py-20 md:py-25">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Text */}
-          <div>
-            <div className="text-center lg:text-left">
-              <span className="inline-block px-2 py-1.5 rounded-full bg-purple-50 text-[11px] font-black uppercase tracking-widest text-purple-600 mb-8 border border-purple-100">
-                PLATFORM / PROFIT TRACKING
-              </span>
-              <motion.h1
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4"
-              >
-                Control your Margins.
-                <br />
-                <motion.span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                >
-                  Master your Growth.
-                </motion.span>
-              </motion.h1>
+      {/* Hero Section */}
+      <section className="py-28 px-6">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <div className="text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-3">
+              PROFIT TRACKING — REVENUE GROWTH
             </div>
-            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl text-center lg:text-left">
-              Stop leaking revenue. KaryaUp gives you an automated, real-time view of your team's profitability and project expenses.
-            </p>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] mb-1 text-balance max-w-xl sm:max-w-2xl mx-auto lg:mx-0"
+            >
+              <span className="text-slate-900">{"Control Your\u00A0Margins. "}</span>
+              <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-500 to-purple-700 bg-[length:200%_auto]"
+                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                Master Your Growth.
+              </motion.span>
+            </motion.h1>
+            <div className="mt-5 space-y-3 max-w-lg w-full">
+              <div className="flex items-start gap-3">
+                <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center shrink-0">
+                  <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
+                </div>
+                <p className="text-sm sm:text-base text-slate-600 font-medium"> KaryaUp gives you an automated, real time view of your team's profitability and project expenses.</p>
+              </div>
+            </div>
+            {/* <p className="text-lg text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 font-medium">
+            Stop leaking revenue. KaryaUp gives you an automated, real time view of your team's profitability and project expenses.
+            </p> */}
             <FeatureStack
               items={[
-                { label: "Predictive Margins", icon: Sparkles },
-                { label: "Smart Allocation", icon: BrainCircuit },
-                { label: "Contextual Query", icon: Search },
-                { label: "Automated Standups", icon: Zap },
+                { label: "AUTO EXPENSE", icon: BrainCircuit },
+                { label: "LIVE MARGINS", icon: Zap },
+                { label: "DEEP AUDIT", icon: Search },
+
               ]}
             />
           </div>
-
-          {/* Right: Dashboard image wrapped in TiltCard */}
           <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-              className="relative lg:-mr-24 xl:-mr-40"
-            >
-              <div className="absolute -inset-8 bg-gradient-to-tr from-[#7e22ce]/16 via-fuchsia-500/8 to-transparent blur-3xl opacity-55" />
-              <div className="relative overflow-hidden border border-slate-200/80 rounded-3xl shadow-2xl shadow-slate-900/10 bg-white">
-                <img
-                  src={dashboardImage}
-                  alt="KaryaUp task management"
-                  className="w-full h-[320px] sm:h-[420px] lg:h-[500px] object-cover object-left"
-                />
-                {/* Right-side invisible/fade effect like reference */}
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-32 sm:w-44 lg:w-56 bg-gradient-to-r from-transparent via-white/70 to-white" />
-              </div>
-            </motion.div>
+            initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+            className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
+          >
+            <div className="relative overflow-hidden rounded-[12px] shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white mt-[-20px] lg:mt-[-5px]">
+              <img
+                src={dashboardImage}
+                alt="KaryaUp task management"
+                className="w-full h-[250px] sm:h-[300px] md:h-[280px] lg:h-[380px] xl:h-[350px] object-cover object-left-top bg-white transition-all duration-300"
+              />
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── Comparison Section ── */}
-      <section className="py-3 bg-white px-2 md:px-3">
+      {/* Comparison Section */}
+      {/* Comparison Section */}
+      <section className="py-8 bg-white px-4">
         <div className="max-w-7xl mx-auto">
-          <motion.h1
+
+          <motion.h2
             initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-12"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center text-2xl min-[420px]:text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.06] sm:leading-[1.1] tracking-normal mb-8 lg:mb-12 text-balance max-w-[min(100%,40rem)] mx-auto px-2"
           >
-            Profit Tracking
-            <br />
+            <span className="text-slate-900">{"Profit\u00A0Tracking "}</span>
             <motion.span
               className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
               animate={{ backgroundPosition: ["0% center", "-200% center"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
-              is broken, we fixed it
+              Is Broken, We Fixed It
             </motion.span>
-          </motion.h1>
+          </motion.h2>
 
-          <div className="p-[2px] rounded-[1.5rem] md:rounded-[2.5rem] bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-500 shadow-2xl overflow-hidden mb-20">
-            <div className="bg-slate-50 rounded-[1.4rem] md:rounded-[2.4rem] overflow-hidden grid grid-cols-1 md:grid-cols-3">
+          <div className="p-[2px] rounded-[2.5rem] bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-500 shadow-2xl overflow-hidden">
+            <div className="bg-slate-50 rounded-[2.4rem] overflow-hidden grid grid-cols-1 md:grid-cols-3">
 
-              {/* LEFT: Old Way */}
-              <div className="p-4 md:p-3 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col justify-start pt-10 md:pt-12 bg-white/50 order-1 relative z-20">
-                <h3 className="text-center text-2xl font-black mb-1 text-slate-900">Old Way</h3>
-                <p className="text-sm text-center text-slate-500 mb-6 font-medium">Manual updates and scattered tools.</p>
+              {/* OLD WAY */}
+              <div className="pt-5 pb-3 lg:pt-8 lg:pb-4 border-r border-slate-200 bg-white/50">
+                <h3 className="text-center text-[1.5rem] font-black mb-1">Old Way</h3>
+                <p className="text-xs text-center text-slate-500 mb-3 lg:mb-6 font-medium">Manual updates and scattered tools.</p>
                 <ScrollTrack cards={redCards} direction="down" />
               </div>
 
-              {/* MIDDLE: Shield */}
+              {/* MIDDLE SHIELD & MARQUEE */}
               <div
-                className="relative flex flex-col items-center justify-start py-10 md:py-12 px-4 group overflow-hidden bg-white/40 min-h-[450px] order-2"
+                className="relative flex flex-col items-center justify-start py-5 px-4 lg:py-8 group overflow-hidden bg-white/40 min-h-[300px] lg:min-h-[450px]"
                 onMouseEnter={() => setIsShieldHovered(true)}
                 onMouseLeave={() => setIsShieldHovered(false)}
               >
-                <WatermarkBg isHovered={isShieldHovered} />
+                <ScrollingDataBg isShieldHovered={isShieldHovered} />
 
-                <div className="relative z-40 text-center mb-10 pointer-events-none">
-                  <h3 className={`text-xl md:text-2xl font-black transition-colors duration-500 ${isShieldHovered ? "text-purple-600" : "text-slate-900"}`}>
+                <div className="relative z-40 text-center mb-5 lg:mb-10">
+                  <h3 className={`text-[1.55rem] font-black transition-colors ${isShieldHovered ? "text-purple-600" : "text-slate-900"}`}>
                     Security You Can Trust
                   </h3>
-                  <p className={`text-[10px] mt-2 font-bold uppercase tracking-widest transition-colors duration-500 ${isShieldHovered ? "text-fuchsia-500" : "text-slate-500"}`}>
+                  <p className="text-[10px] mt-2 font-bold uppercase tracking-widest text-slate-500">
                     More secure than using AI directly.
                   </p>
                 </div>
 
-                <div className="relative flex items-center justify-center w-full max-w-[200px] md:max-w-[240px] aspect-square" style={{ perspective: "1200px" }}>
-                  <div className="absolute inset-0 z-10 opacity-80 scale-110">
+                <div className="relative flex items-center justify-center w-full max-w-[200px] h-[180px] lg:max-w-[220px] lg:h-[220px]" style={{ perspective: "1200px" }}>
+                  <div className="absolute inset-0 z-10 opacity-80 scale-110 pointer-events-none">
                     <LightShield3D />
                   </div>
-                  <div className="relative z-30" style={{ transformStyle: "preserve-3d" }}>
+                  {/* Centered spinning logo */}
+                  <div className="relative z-30 flex items-center justify-center w-full h-full" style={{ transformStyle: "preserve-3d" }}>
                     <motion.div
-                      animate={{ rotateY: [0, 360], y: [0, -10, 0], scale: isShieldHovered ? 1.1 : 1 }}
-                      transition={{
-                        rotateY: { duration: 10, repeat: Infinity, ease: "linear" },
-                        y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                        scale: { duration: 0.4 },
+                      animate={{
+                        y: [0, -10, 0],
+                        scale: isShieldHovered ? 1.1 : 1
                       }}
-                      className="w-32 h-32 md:w-44 md:h-44 relative"
+                      transition={{
+                        y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                        scale: { duration: 0.4 }
+                      }}
+                      className="w-28 h-28 md:w-35 md:h-35 relative"
                       style={{ transformStyle: "preserve-3d" }}
                     >
-                      <div className="absolute inset-0" style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}>
-                        <img
-                          src={karyaupLogo}
-                          alt="Logo Front"
-                          className="w-full h-full object-contain"
-                          style={{
-                            filter: isShieldHovered
-                              ? "drop-shadow(0 20px 50px rgba(168,85,247,0.8)) hue-rotate(220deg) brightness(1.5) contrast(1.2)"
-                              : "drop-shadow(0 20px 50px rgba(168,85,247,0.5))",
-                            transition: "filter 0.5s ease",
-                          }}
-                        />
-                      </div>
                       <div
                         className="absolute inset-0"
-                        style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg) translateZ(1px)" }}
+                        style={{
+                          filter: isShieldHovered
+                            ? "drop-shadow(0 20px 50px rgba(168,85,247,0.9)) brightness(1.2)"
+                            : "drop-shadow(0 20px 50px rgba(168,85,247,0.5))",
+                          transition: "filter 0.5s ease"
+                        }}
                       >
-                        <img
-                          src={karyaupLogo}
-                          alt="Logo Back"
-                          className="w-full h-full object-contain opacity-80"
-                          style={{ filter: isShieldHovered ? "hue-rotate(220deg) brightness(1.5) contrast(1.2)" : "none", transition: "filter 0.5s ease" }}
-                        />
+                        <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><div className="w-15 h-15 rounded-full border-2 border-purple-500 border-t-transparent animate-spin" /></div>}>
+                          <SpinningLogo3D
+                            isHovered={isShieldHovered}
+                            className="w-full h-full object-contain"
+                          />
+                        </Suspense>
                       </div>
                     </motion.div>
                   </div>
@@ -431,78 +603,49 @@ export default function ProfitTracking() {
                 />
               </div>
 
-              {/* RIGHT: KaryaUp Way */}
-              <div className="p-4 md:p-6 border-t md:border-t-0 md:border-l border-slate-200 flex flex-col justify-start pt-10 md:pt-12 bg-white/50 order-3 relative z-20">
-                <h3 className="text-center text-2xl font-black mb-1 text-slate-900">The KaryaUp Way</h3>
-                <p className="text-sm text-center text-slate-500 mb-6 font-medium">Advanced execution loops for growth.</p>
+
+              {/* KARYAUP WAY */}
+              <div className="pt-5 pb-3 lg:pt-8 lg:pb-4 border-l border-slate-200 bg-white/50">
+                <h3 className="text-center text-2xl font-black mb-1">The KaryaUp Way</h3>
+                <p className="text-xs text-center text-slate-500 mb-3 lg:mb-6 font-medium">Advanced execution loops for growth.</p>
                 <ScrollTrack cards={greenCards} direction="up" />
               </div>
+
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── AI Workspace Section ── */}
-      <section className="py-10 px-6 bg-white-50 relative overflow-hidden border-t border-slate-200">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-white" />
-        <div className="absolute bottom-0 left-0 w-1/3 h-full bg-white" />
-
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-purple-700 font-bold text-sm mb-6 shadow-sm border border-purple-100"
-            >
-              <Sparkles className="w-4 h-4" /> KaryaUp AI Workspace
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 40, x: -10 }}
-              animate={{ opacity: 1, y: 0, x: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-4 drop-shadow-sm"
-            >
-              Task Management that
-              <br />
+      <section className="py-16 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-slate-50 to-white border-t border-slate-100">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center max-w-3xl mx-auto mb-12 sm:mb-14"
+          >
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em]">
+              Profit intelligence
+            </span>
+            <h2 className="mt-4 text-center text-2xl min-[420px]:text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.06] sm:leading-[1.1] tracking-normal text-balance max-w-[min(100%,40rem)] mx-auto px-2">
+              <span className="text-slate-900">{"Numbers that stay "}</span>
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               >
-                Drives Profitability.
+                close to the work
               </motion.span>
-            </motion.h1>
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
+              KaryaUp connects delivery, time, and billing so profitability is visible where your teams already operate.
+            </p>
+          </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-lg text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed"
-            >
-              Our AI doesn't just track your projects—
-              <br />
-              it actively manages tasks to ensure every sprint operates at maximum margin. Delegate the busywork to the machine.
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-            {aiFeatures.map((feature, i) => (
-              <TiltCard
-                key={i}
-                className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-all duration-300 group"
-              >
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className={`w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center transition-all duration-500 border border-transparent group-hover:scale-110 group-hover:shadow-lg ${getColorClasses(feature.color)}`}>
-                      {feature.icon}
-                    </div>
-                    <h3 className="text-xl font-black text-slate-900 leading-tight">{feature.title}</h3>
-                  </div>
-                  <p className="text-slate-500 font-medium leading-relaxed text-sm">{feature.desc}</p>
-                </div>
-              </TiltCard>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            {profitTiltPillars.map((item, i) => (
+              <CollabTiltCard key={item.title} item={item} delay={i * 0.06} />
             ))}
           </div>
         </div>

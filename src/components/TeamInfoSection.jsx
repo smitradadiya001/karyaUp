@@ -59,7 +59,7 @@ export default function TeamInfoSection() {
       title: "Add Members ",
       desc: "Invite and onboard members in seconds without friction.",
       icon: UserPlus,
-      color: "fuchsia"
+      color: "purple"
     },
     {
       title: "Quick Search ",

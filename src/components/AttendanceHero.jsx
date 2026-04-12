@@ -14,13 +14,13 @@ export default function AttendanceHero() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-white pt-8 sm:pt-10 lg:pt-8 pb-16 sm:pb-20 lg:pb-24">
+    <section className="relative w-full overflow-hidden bg-white pt-8 sm:pt-10 lg:pt-4 pb-16 sm:pb-20 lg:pb-24">
       <div className="absolute top-0 right-0 -z-10 h-[600px] w-[600px] translate-x-1/4 -translate-y-1/2 rounded-full bg-purple-100/60 blur-[120px]" />
       <div className="absolute bottom-0 left-0 -z-10 h-[500px] w-[500px] -translate-x-1/4 translate-y-1/2 rounded-full bg-fuchsia-100/40 blur-[100px]" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-16">
-        <div className="grid items-center gap-8 sm:gap-10 lg:gap-14 lg:grid-cols-2">
-          <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
+          <div className="text-center lg:text-left flex flex-col items-center lg:items-start lg:self-start lg:pt-2">
             <motion.div
               initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -36,9 +36,9 @@ export default function AttendanceHero() {
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
             >
-              Attendance
-              <span className="mt-1.5 block">
-                Tracked &<br/>{" "}
+              Attendance Tracked
+              <span className="block">
+                &{" "}
                 <motion.span
                   className="bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0% center", "-200% center"] }}

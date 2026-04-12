@@ -191,8 +191,8 @@ const TeamSolutions = () => {
     }, { scope: container });
 
     return (
-        <section ref={container} className="pb-8 sm:pb-10 bg-[white] overflow-hidden">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section ref={container} className="pb-8 sm:pb-10 px-2 sm:px-6 bg-[white] overflow-hidden">
+            <div className="max-w-6xl mx-auto px-1 sm:px-6 lg:px-8">
                 {/* Heading */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -201,7 +201,7 @@ const TeamSolutions = () => {
                     className="text-center mb-4 sm:mb-8"
                 >
                     <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-gray-900 leading-[1.05] tracking-normal mb-3">
-                        Built For Teams That<br />
+                        Built For Teams That <br className="hidden md:block" />
                         <motion.span
                             className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                             animate={{ backgroundPosition: ["0% center", "-200% center"] }}

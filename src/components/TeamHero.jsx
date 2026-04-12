@@ -131,7 +131,7 @@ export default function TeamHero() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center justify-items-center lg:justify-items-stretch">
 
           {/* Left Content */}
-          <div className="w-full text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
+          <div className="w-full text-center lg:text-left max-w-xl mx-auto lg:mx-0 flex flex-col items-center lg:items-start lg:self-start lg:pt-2">
             <motion.div
               initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
