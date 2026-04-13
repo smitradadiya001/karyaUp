@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
 import dashboardImage from "../../assets/Project_ss.webp";
-import projectImage from "../../assets/project2.webp";
+import projectImage from "../../assets/Project2.webp";
 import { lazy, Suspense } from "react";
 import FeatureCTA from "../../components/FeatureCTA";
 import FeatureStack from "../../components/FeatureStack";
