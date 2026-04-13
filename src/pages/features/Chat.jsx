@@ -6,7 +6,7 @@ import { FeatureCard, CTABanner } from "../../components/SubPageLayout";
 import FeatureCTA from "../../components/FeatureCTA";
 import FeatureStack from "../../components/FeatureStack";
 import agentAssignImg from "../../assets/Agent-Assign.webp";
-import chatImg from "../../assets/chat.webp";
+import chatImg from "../../assets/Chat.webp";
 import { Helmet } from "react-helmet-async";
 
 export default function Chat() {

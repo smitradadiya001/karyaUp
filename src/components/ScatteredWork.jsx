@@ -91,16 +91,16 @@ export default function ScatteredWork() {
             </motion.div>
 
             {/* Negative Result Box */}
-            <div className="p-6 bg-purple-50/50 rounded-2xl border border-purple-100 mt-auto w-full">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-400 mb-3">Daily Friction</p>
+            <div className="p-6 bg-red-50/40 rounded-2xl border border-red-200 mt-auto w-full">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-red-400 mb-3">Daily Friction</p>
               <ul className="space-y-3">
                 {[
                   "30% time lost in context switching",
                   "Fragmented data & missed deadlines",
                   "Zero visibility into real performance"
                 ].map((text, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm font-black text-purple-700">
-                    <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-purple-500 shadow-sm border border-purple-100">
+                  <li key={i} className="flex items-center gap-3 text-sm font-black text-slate-800">
+                    <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-red-400 shadow-sm border border-red-100">
                       <X size={11} strokeWidth={3.5} className="shrink-0" />
                     </div>
                     {text}
@@ -187,22 +187,21 @@ export default function ScatteredWork() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.4 }}
-                className="relative w-full max-w-[210px] lg:max-w-[230px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#2e0b54] to-[#7e22ce] border border-[#a855f7]/30 p-4 text-white flex flex-col gap-3 shadow-2xl shadow-purple-900/40 lg:-mr-2"
+                className="relative w-full max-w-[210px] lg:max-w-[230px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 p-4 flex flex-col gap-3 shadow-lg shadow-emerald-100/50 lg:-mr-2"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
                 <div className="relative z-10 flex items-center gap-3">
-                  <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center text-emerald-400 border border-emerald-500/10">
+                  <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center text-emerald-600 border border-emerald-200">
                     <TrendingUp size={18} />
                   </div>
                   <div>
-                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mb-0.5">Net Gain</p>
-                    <p className="font-black text-sm tracking-normal">40% Boost</p>
+                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-500 mb-0.5">Net Gain</p>
+                    <p className="font-black text-sm tracking-normal text-slate-800">40% Boost</p>
                   </div>
                 </div>
-                <div className="h-[1px] w-full bg-slate-800" />
+                <div className="h-[1px] w-full bg-emerald-200" />
                 <div className="relative z-10 flex items-center gap-2 px-1">
-                  <ShieldCheck size={14} className="text-purple-400" />
-                  <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest whitespace-nowrap">Enterprise Class</span>
+                  <ShieldCheck size={14} className="text-emerald-600" />
+                  <span className="text-[10px] font-black text-emerald-700 uppercase tracking-widest whitespace-nowrap">Enterprise Class</span>
                 </div>
               </motion.div>
             </div>
