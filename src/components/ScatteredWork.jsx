@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import {
   CheckCircle2, AlertCircle, TrendingUp, ShieldCheck,
-  ArrowRight, Zap, Target, Rocket, X
+  ArrowRight, Zap, Target, Rocket, X, Check
 } from "lucide-react";
 import problemImage from '../assets/problem.webp';
 import solutionImage from '../assets/solution1.webp';
@@ -58,12 +58,12 @@ export default function ScatteredWork() {
           className="bg-white border border-slate-200 rounded-[3rem] shadow-2xl shadow-purple-900/5 overflow-hidden flex flex-col lg:flex-row max-w-[1300px] mx-auto"
         >
           {/* THE PROBLEM SIDE */}
-          <div className="w-full lg:w-1/2 px-6 pt-4 pb-6 sm:px-10 sm:pt-6 sm:pb-10 lg:px-12 lg:pt-6 lg:pb-12 bg-gradient-to-br from-red-50/30 via-white to-white border-b lg:border-b-0 lg:border-r border-slate-100 flex flex-col items-center lg:items-start text-center lg:text-left h-full">
+          <div className="flex-1 w-full px-6 pt-4 pb-6 sm:px-10 sm:pt-6 sm:pb-10 lg:px-12 lg:pt-6 lg:pb-12 bg-gradient-to-br from-red-50/30 via-white to-white border-b lg:border-b-0 lg:border-r border-slate-100 flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center text-purple-500 border border-purple-100">
+              <div className="w-9 h-9 rounded-xl bg-red-50 flex items-center justify-center text-red-500 border border-red-100">
                 <AlertCircle size={18} />
               </div>
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">The Problem</span>
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-red-400">The Problem</span>
             </div>
 
             <div className="flex flex-col items-center lg:items-start lg:justify-start">
@@ -91,8 +91,8 @@ export default function ScatteredWork() {
             </motion.div>
 
             {/* Negative Result Box */}
-            <div className="p-6 bg-red-50/40 rounded-2xl border border-red-200 mt-auto w-full">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-red-400 mb-3">Daily Friction</p>
+            <div className="p-6 bg-red-50/40 rounded-2xl border border-red-200 mt-auto w-full flex-shrink-0 h-[170px] flex flex-col justify-center">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-red-400 mb-4 text-left">Daily Friction</p>
               <ul className="space-y-3">
                 {[
                   "30% time lost in context switching",
@@ -111,12 +111,12 @@ export default function ScatteredWork() {
           </div>
 
           {/* THE SOLUTION SIDE */}
-          <div className="w-full lg:w-1/2 px-6 pt-4 pb-6 sm:px-10 sm:pt-6 sm:pb-10 lg:px-12 lg:pt-6 lg:pb-12 relative bg-gradient-to-br from-emerald-50/30 via-white to-white flex flex-col items-center lg:items-start text-center lg:text-left h-full">
+          <div className="flex-1 w-full px-6 pt-4 pb-6 sm:px-10 sm:pt-6 sm:pb-10 lg:px-12 lg:pt-6 lg:pb-12 relative bg-gradient-to-br from-emerald-50/30 via-white to-white flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center text-[#7e22ce] border border-purple-100">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 border border-emerald-200">
                 <CheckCircle2 size={18} />
               </div>
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#7e22ce]">The Solution</span>
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-emerald-600">The Solution</span>
             </div>
 
             <div className="flex flex-col items-center lg:items-start lg:justify-start">
@@ -150,35 +150,24 @@ export default function ScatteredWork() {
             </motion.div>
 
             {/* List and Outcome Section */}
-            <div className="mt-auto lg:mt-6 flex flex-col items-center gap-6 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left w-full">
-              {/* Transformation Steps */}
-              <div className="relative flex flex-col items-start justify-start text-left gap-6 w-full lg:w-auto">
-                {/* Animated Vertical Line */}
-                <motion.div
-                  initial={{ scaleY: 0 }}
-                  whileInView={{ scaleY: 1 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 2.5, ease: "easeInOut" }}
-                  className="hidden sm:block absolute left-[8px] top-[14px] bottom-3 w-[4px] origin-top rounded-full bg-gradient-to-b from-emerald-400 to-emerald-200 z-0"
-                />
-
-                {[
-                  { text: "Plan the Karya.", icon: Target },
-                  { text: "Move the Karya.", icon: Zap },
-                  { text: "Complete the Karya.", icon: Rocket },
-                ].map((step, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ delay: i * 0.4 + 0.2 }}
-                    className="relative z-10 flex flex-row items-center justify-start text-left gap-4 !w-full !mr-auto"
-                  >
-                    <div className="hidden sm:block w-5 h-5 rounded-full bg-emerald-500 flex-shrink-0 border-2 border-emerald-100" />
-                    <span className="text-xl font-black text-slate-800 tracking-normal leading-tight whitespace-nowrap">{step.text}</span>
-                  </motion.div>
-                ))}
+            <div className="p-6 bg-emerald-50/40 rounded-2xl border border-emerald-200 mt-auto w-full flex-shrink-0 h-[170px] flex flex-col items-center justify-center gap-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left overflow-hidden">
+              {/* Positive Result List */}
+              <div className="relative flex flex-col justify-center text-left w-full lg:w-auto">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500 mb-4">Instant Value</p>
+                <ul className="space-y-3">
+                  {[
+                    "Save 30% time with automation",
+                    "Unified data & guaranteed deadlines",
+                    "Real-time visibility & reporting"
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-center gap-3 text-sm font-black text-slate-800">
+                      <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-emerald-500 shadow-sm border border-emerald-200">
+                        <Check size={11} strokeWidth={3.5} className="shrink-0" />
+                      </div>
+                      {text}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Small Outcome Badge */}
