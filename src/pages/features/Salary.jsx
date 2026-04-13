@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import FeatureCTA from "../../components/FeatureCTA";
 import FeatureStack from "../../components/FeatureStack";
-import featureSalary from "../../assets/salary.webp";
+import featureSalary from "../../assets/Salary.webp";
 import { Helmet } from "react-helmet-async";
 
 const salaryTags = [
