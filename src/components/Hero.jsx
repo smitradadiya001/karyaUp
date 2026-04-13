@@ -321,7 +321,7 @@ const Hero = () => {
                 </span>
               </Link>
 
-              <button className="group relative flex h-[3.5em] w-full max-w-[14em] shrink-0 items-center justify-center gap-3 rounded-[30em] border border-transparent hover:border-[#c084fc] hover:bg-[#c084fc]/10 font-bold text-[15px] text-white transition-all duration-300 active:scale-95">
+              <button className="group relative flex h-[3.5em] w-full max-w-[14em] shrink-0 items-center justify-center gap-3 rounded-[30em] border border-transparent hover:border-white hover:bg-white/10 font-bold text-[15px] text-white transition-all duration-300 active:scale-95">
                 <div className="w-9 h-9 rounded-full bg-white/10 shadow-lg backdrop-blur-sm flex items-center justify-center border border-white/20 transition-transform">
                   <Play className="w-4 h-4 fill-white text-white ml-[2px]" />
                 </div>

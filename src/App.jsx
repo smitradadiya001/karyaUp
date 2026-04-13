@@ -83,10 +83,7 @@ function App() {
           <Routes>
             {/* Main pages */}
             <Route path="/" element={<Home />} />
-            <Route path="/platform" element={<Platform />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/solutions" element={<Solutions />} />
-            <Route path="/resources" element={<Resources />} />
+           
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/privacy-policy" element={<Privacy />} />
