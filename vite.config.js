@@ -9,4 +9,12 @@ export default defineConfig({
     tailwindcss(),
   ],
   assetsInclude: ['**/*.glb'],
+  server: {
+    host: true
+  },
+  preview: {
+    host: true,
+    allowedHosts: "all"
+  }
 })
+

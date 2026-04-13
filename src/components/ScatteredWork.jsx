@@ -150,49 +150,22 @@ export default function ScatteredWork() {
             </motion.div>
 
             {/* List and Outcome Section */}
-            <div className="p-6 bg-emerald-50/40 rounded-2xl border border-emerald-200 mt-auto w-full flex-shrink-0 h-[170px] flex flex-col items-center justify-center gap-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left overflow-hidden">
-              {/* Positive Result List */}
-              <div className="relative flex flex-col justify-center text-left w-full lg:w-auto">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500 mb-4">Instant Value</p>
-                <ul className="space-y-3">
-                  {[
-                    "Save 30% time with automation",
-                    "Unified data & guaranteed deadlines",
-                    "Real-time visibility & reporting"
-                  ].map((text, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm font-black text-slate-800">
-                      <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-emerald-500 shadow-sm border border-emerald-200">
-                        <Check size={11} strokeWidth={3.5} className="shrink-0" />
-                      </div>
-                      {text}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Small Outcome Badge */}
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.4 }}
-                className="relative w-full max-w-[210px] lg:max-w-[230px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 p-4 flex flex-col gap-3 shadow-lg shadow-emerald-100/50 lg:-mr-2"
-              >
-                <div className="relative z-10 flex items-center gap-3">
-                  <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center text-emerald-600 border border-emerald-200">
-                    <TrendingUp size={18} />
-                  </div>
-                  <div>
-                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-500 mb-0.5">Net Gain</p>
-                    <p className="font-black text-sm tracking-normal text-slate-800">40% Boost</p>
-                  </div>
-                </div>
-                <div className="h-[1px] w-full bg-emerald-200" />
-                <div className="relative z-10 flex items-center gap-2 px-1">
-                  <ShieldCheck size={14} className="text-emerald-600" />
-                  <span className="text-[10px] font-black text-emerald-700 uppercase tracking-widest whitespace-nowrap">Enterprise Class</span>
-                </div>
-              </motion.div>
+            <div className="p-6 bg-emerald-50/40 rounded-2xl border border-emerald-200 mt-auto w-full flex-shrink-0 h-[170px] flex flex-col justify-center">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500 mb-4 text-left">Instant Value</p>
+              <ul className="space-y-3 text-left">
+                {[
+                  "Save 30% time with automation",
+                  "Unified data & guaranteed deadlines",
+                  "Real-time visibility & reporting"
+                ].map((text, i) => (
+                  <li key={i} className="flex items-center gap-3 text-sm font-black text-slate-800">
+                    <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-emerald-500 shadow-sm border border-emerald-200">
+                      <Check size={11} strokeWidth={3.5} className="shrink-0" />
+                    </div>
+                    {text}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </motion.div>
