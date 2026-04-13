@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import FeatureStack from "../../components/FeatureStack";
 import FeatureCTA from "../../components/FeatureCTA";
-import calenderImg from "../../assets/Calender.webp";
+import calenderImg from "../../assets/calender.webp";
 import { Helmet } from "react-helmet-async";
 const CalendarStickySection = lazy(
   () => import("../../components/CalendarStickySection")
