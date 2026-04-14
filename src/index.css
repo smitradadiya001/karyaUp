@@ -353,7 +353,7 @@ html {
   }
 }
 
-/* Blog list cards — traveling purple outline (conic gradient) */
+/* Blog list cards -traveling purple outline (conic gradient) */
 @keyframes ku-blog-card-outline-rotate {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -365,35 +365,31 @@ html {
 }
 
 .ku-blog-card-outline-spin {
-  background: conic-gradient(
-    from 0deg at 50% 50%,
-    transparent 0deg,
-    transparent 230deg,
-    rgba(126, 34, 206, 0.4) 250deg,
-    rgba(126, 34, 206, 1) 280deg,
-    rgba(217, 70, 239, 0.9) 310deg,
-    rgba(126, 34, 206, 0.5) 340deg,
-    transparent 360deg
-  );
+  background: conic-gradient(from 0deg at 50% 50%,
+      transparent 0deg,
+      transparent 230deg,
+      rgba(126, 34, 206, 0.4) 250deg,
+      rgba(126, 34, 206, 1) 280deg,
+      rgba(217, 70, 239, 0.9) 310deg,
+      rgba(126, 34, 206, 0.5) 340deg,
+      transparent 360deg);
   animation: ku-blog-card-outline-rotate 8s linear infinite;
 }
 
-/* Narrow pills (FeatureStack heroes) — slightly faster loop reads better at small size */
+/* Narrow pills (FeatureStack heroes) -slightly faster loop reads better at small size */
 .ku-blog-card-outline-spin--fast {
   animation-duration: 5.5s;
 }
 
-/* Hero pills — thin light violet trace only (no heavy glow) */
+/* Hero pills -thin light violet trace only (no heavy glow) */
 .ku-blog-card-outline-spin--pill {
-  background: conic-gradient(
-    from 0deg at 50% 50%,
-    transparent 0deg,
-    transparent 274deg,
-    rgba(196, 181, 253, 0.55) 286deg,
-    rgba(167, 139, 250, 0.5) 294deg,
-    rgba(196, 181, 253, 0.45) 302deg,
-    transparent 312deg
-  );
+  background: conic-gradient(from 0deg at 50% 50%,
+      transparent 0deg,
+      transparent 274deg,
+      rgba(196, 181, 253, 0.55) 286deg,
+      rgba(167, 139, 250, 0.5) 294deg,
+      rgba(196, 181, 253, 0.45) 302deg,
+      transparent 312deg);
 }
 
 @media (prefers-reduced-motion: reduce) {

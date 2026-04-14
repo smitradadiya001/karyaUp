@@ -58,7 +58,7 @@ export default function WatchDemo() {
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
                 >
-                  WATCH DEMO — SEE KARYAUP IN ACTION
+                  WATCH DEMO -SEE KARYAUP IN ACTION
                 </motion.div>
 
                 <motion.h1

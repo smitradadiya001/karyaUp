@@ -111,8 +111,8 @@ export default function Attendance() {
                           transition={{ duration: 0.45, delay: index * 0.08 }}
                           className="flex items-start justify-center gap-3 text-left lg:justify-start"
                         >
-                          <div className="mt-[3px] flex h-5 w-5 items-center justify-center rounded-full bg-purple-500/15 text-purple-300">
-                            <Check className="h-3 w-3" />
+                          <div className="mt-[3px] flex h-5 w-5 items-center justify-center rounded-full bg-purple-100 border border-purple-200 text-[#7e22ce]">
+                            <Check className="h-2.5 w-2.5 stroke-[4]" />
                           </div>
                           <span className="text-sm font-medium text-slate-400">{item}</span>
                         </motion.div>

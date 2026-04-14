@@ -127,129 +127,33 @@ export default function TemplateCRM() {
     }
   ];
 
-  const taskManagementFeatures = [
-    { icon: ListTodo, title: "Contextual Task Creation", desc: "AI identifies tasks buried in meeting notes and syncs them across your workspace.", color: "purple" },
-    { icon: Calendar, title: "Smart Scheduling", desc: "Automatically finds meeting times by analyzing your team and prospect availability.", color: "fuchsia" },
-    { icon: Zap, title: "Urgency Prioritization", desc: "Tasks are dynamically re-ordered based on deal health and closing proximity.", color: "purple" },
-  ];
+  // const features = [
+  //   { icon: ListTodo, title: "Contextual Task Creation", desc: "AI identifies tasks buried in meeting notes and syncs them across your workspace.", color: "purple" },
+  //   { icon: Calendar, title: "Smart Scheduling", desc: "Automatically finds meeting times by analyzing your team and prospect availability.", color: "fuchsia" },
+  //   { icon: Zap, title: "Urgency Prioritization", desc: "Tasks are dynamically re-ordered based on deal health and closing proximity.", color: "purple" },
+  // ];
+  const [activeFeature, setActiveFeature] = useState('universal');
 
+  const features = [
+    {
+      title: "Intelligent Task Routing",
+      desc: "Automatically assign tasks to the right team members based on capacity and skill sets.",
+    },
+    {
+      title: "Real-time Collaboration",
+      desc: "Comment, tag, and securely share files within each task layer for instant approvals.",
+    },
+    {
+      title: "Visual Progress Tracking",
+      desc: "Customizable boards and instant metric dashboards keep your delivery on speed.",
+    },
+  ];
   const DEFAULT_ICON_MAP = {
     "DEAL ROUTING" : { icon: BrainCircuit, color: "#4c1d95" },
     "PIPELINE SYNC" : { icon: Zap, color: "#4c1d95" },
     "CONTACT FIND"  : { icon: Search, color: "#4c1d95" },
 }
-  const FeatureStack = ({ items = [], interval = 2500 }) => {
-    const [index, setIndex] = useState(0);
-    const [hovered, setHovered] = useState(false);
-  
-    useEffect(() => {
-      if (items.length === 0 || hovered) return;
-      const timer = setInterval(() => {
-        setIndex((prev) => (prev + 1) % items.length);
-      }, interval);
-      return () => clearInterval(timer);
-    }, [items.length, interval, hovered]);
-  
-    const visibleItems = useMemo(() => {
-      if (items.length === 0) return [];
-      return [0, 1, 2].map((offset) => {
-        const itemIndex = (index + offset) % items.length;
-        const rawItem = items[itemIndex];
-        
-        // Normalize item to object
-        let itemObj = typeof rawItem === "string" ? { label: rawItem } : { ...rawItem };
-        
-        // Apply defaults for icons/colors if missing
-        if (!itemObj.icon || !itemObj.iconColor) {
-          const mapped = DEFAULT_ICON_MAP[itemObj.label] || { icon: Check, color: "#000000" };
-          itemObj.icon = itemObj.icon || mapped.icon;
-          itemObj.iconColor = itemObj.iconColor || mapped.color;
-        }
-  
-        return { offset, item: itemObj };
-      });
-    }, [items, index]);
-  
-    if (items.length === 0) return null;
-  
-    return (
-      <div
-        className="relative w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
-        style={{
-          height: "80px",
-        }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <AnimatePresence mode="popLayout">
-          {visibleItems.map(({ offset, item }) => {
-            const Icon = item.icon;
-            const color = item.iconColor;
-  
-            return (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 15, scale: 0.9 }}
-                animate={
-                  hovered
-                    ? {
-                        opacity: 1,
-                        scale: 1,
-                        y: offset * 54, // Clear separation between cards
-                        zIndex: 10 - offset,
-                      }
-                    : {
-                        opacity: offset === 0 ? 1 : offset === 1 ? 0.45 : 0.2,
-                        scale: 1 - offset * 0.035,
-                        y: offset * 11,
-                        zIndex: 10 - offset,
-                      }
-                }
-                exit={{
-                  opacity: 0,
-                  y: -10,
-                  scale: 0.95,
-                  transition: { duration: 0.5, ease: "easeOut" },
-                }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: hovered ? offset * 0.05 : offset * 0.02,
-                }}
-                className="absolute top-0 left-0 w-full px-4 sm:px-4 py-1.5 sm:py-2 rounded-xl flex items-center justify-center gap-3"
-                style={{
-                  background:
-                    offset === 0
-                      ? "linear-gradient(135deg, rgba(226, 232, 240, 0.15) 0%, rgba(203, 213, 225, 0.08) 100%)"
-                      : "linear-gradient(135deg, rgba(226, 232, 240, 0.06) 0%, rgba(203, 213, 225, 0.03) 100%)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1.2px solid rgba(0, 0, 0, 0.25)",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
-                }}
-              >
-                {/* Icon box with colorful icon */}
-                <div className="flex-shrink-0 w-6 h-6 sm:w-6.5 sm:h-6.5 rounded-md border border-black/5 bg-white/25 flex items-center justify-center">
-                  <Icon
-                    className="w-3 h-3 sm:w-3.5 sm:h-3.5"
-                    style={{ color: color }}
-                    strokeWidth={2.5}
-                  />
-                </div>
-  
-                {/* Precise Small Uppercase Text */}
-                <span className="text-[10px] sm:text-[11.5px] font-black tracking-widest text-black uppercase">
-                  {item.label}
-                </span>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
-    );
-  };
-
-
+ 
   // REMOVED group-hover CLASSES TO KEEP COLORS STATIC
   const getColorClasses = (color) => {
     const classes = {
@@ -280,7 +184,7 @@ export default function TemplateCRM() {
 
       {/* --- HERO SECTION --- */}
 
-      <section className="relative pt-27 pb-20 px-6 overflow-hidden bg-white">
+      <section className="relative pt-25 pb-20 px-6 overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
 
@@ -290,7 +194,7 @@ export default function TemplateCRM() {
                 initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-1"
               >
                 Revenue Intelligence
               </motion.div>
@@ -299,7 +203,7 @@ export default function TemplateCRM() {
                 initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                className="mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.06]"
+                className="mt-4 sm:mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.06]"
               >
               Close more Deals with
                 <span className="block">
@@ -322,6 +226,26 @@ export default function TemplateCRM() {
               >
                 {[
                   "KaryaUp CRM unifies your pipeline, contacts, and communication into a single, AI driven interface."
+                ].map((text, i) => (
+                  <div key={i} className="flex items-start gap-3 text-left">
+                    <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                      {text}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                className="mt-5 sm:mt-5 space-y-3 sm:space-y-4 max-w-lg w-full"
+              >
+                {[
+                  "Turn every interaction into growth with a smarter, connected CRM."
                 ].map((text, i) => (
                   <div key={i} className="flex items-start gap-3 text-left">
                     <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
@@ -357,7 +281,7 @@ export default function TemplateCRM() {
       </section>
 
       {/* --- AI WORKSPACE --- */}
-      <section className="py-3 bg-white relative overflow-hidden">
+      <section className="py-2 bg-white relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-15">
             <motion.h1
@@ -385,7 +309,7 @@ export default function TemplateCRM() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-9">
             {aiFeatures.map((feat, i) => (
-              <TiltCard key={i} className="bg-white border border-slate-200 lg:hover:border-purple-300 shadow-xl p-7 sm:p-8 rounded-[2rem] cursor-default group">
+              <TiltCard key={i} className="bg-white border border-slate-200 shadow-xl p-7 sm:p-8 rounded-[2rem] cursor-default group">
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 ${getColorClasses(feat.color)}`}>
                   <feat.icon size={22} strokeWidth={2.5} />
                 </div>
@@ -471,20 +395,112 @@ export default function TemplateCRM() {
                 you need to do it.
               </p>
 
-              <div className="grid gap-8">
-                {taskManagementFeatures.map((feat, i) => (
-                  <div key={i} className="flex gap-5 items-start group">
-                    <div className={`p-3 rounded-xl shrink-0 transition-transform duration-300 group-hover:scale-110 ${getColorClasses(feat.color)}`}>
-                      <feat.icon size={20} strokeWidth={2.5} />
-                    </div>
-                    <div>
-                      <h4 className="text-slate-900 font-black text-lg mb-1">{feat.title}</h4>
-                      <p className="text-slate-500 text-sm leading-relaxed font-medium">{feat.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <div className="flex flex-col order-1 lg:order-2 w-full max-w-[min(100%,400px)] sm:max-w-[440px] lg:max-w-[460px] mx-auto lg:mx-0 lg:justify-self-start">
+              {features.map((item, i) => {
+                const isActive = activeFeature === i;
+                const isPast = activeFeature > i;
+                const isLineActive = activeFeature > i;
 
+                // Gap from circle edge to row boundary:
+                //   collapsed row ≈ 52px  → center=26, radius=22, gap=4
+                //   expanded  row ≈ 104px → center=52, radius=22, gap=30
+                const COLL = 4;
+                const EXP = 30;
+                const upperGap = activeFeature === i ? EXP : COLL;
+                const lowerGap = activeFeature === i + 1 ? EXP : COLL;
+                // connector height fills: mb-4 gap (16px) + both circle-edge gaps
+                const connHeight = 16 + upperGap + lowerGap;
+
+                return (
+                  <div key={i}>
+                    {/* Row: circle CENTERED with card */}
+                    <div
+                      className="flex items-center gap-5 mb-4 last:mb-0"
+                      onMouseEnter={() => setActiveFeature(i)}
+                    >
+                      {/* Number Circle — no ring so line can touch */}
+                      <motion.div
+                        animate={{
+                          scale: isActive ? 1.1 : 1,
+                          backgroundColor:
+                            isActive || isPast ? "#7E22CE" : "#f1f5f9",
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 shadow-md z-10"
+                      >
+                        <span
+                          className={`font-black text-base leading-none ${isActive || isPast ? "text-white" : "text-slate-400"}`}
+                        >
+                          {i + 1}
+                        </span>
+                      </motion.div>
+
+                      {/* Card */}
+                      <motion.div
+                        animate={{
+                          borderColor: isActive
+                            ? "rgba(126,34,206,0.25)"
+                            : "rgba(226,232,240,1)",
+                          boxShadow: isActive
+                            ? "0 4px 20px rgba(0,0,0,0.08)"
+                            : "0 1px 4px rgba(0,0,0,0.04)",
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="flex-1 bg-white border rounded-2xl px-5 py-4 cursor-pointer"
+                      >
+                        <motion.h3
+                          animate={{ color: isActive ? "#0f172a" : "#64748b" }}
+                          className="text-[1.05rem] font-black tracking-tight"
+                        >
+                          {item.title}
+                        </motion.h3>
+
+                        <AnimatePresence>
+                          {isActive && (
+                            <motion.p
+                              key="desc"
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                              className="text-slate-500 font-medium text-sm leading-relaxed mt-2 overflow-hidden"
+                            >
+                              {item.desc}
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    </div>
+
+                    {/* Connector — neg margins pull it flush to both circle edges */}
+                    {i < features.length - 1 && (
+                      <div
+                        className="flex gap-5"
+                        style={{
+                          marginTop: `-${upperGap}px`,
+                          marginBottom: `-${lowerGap}px`,
+                        }}
+                      >
+                        <div className="w-11 flex justify-center">
+                          <motion.div
+                            animate={{
+                              backgroundColor: isLineActive
+                                ? "#7E22CE"
+                                : "#e2e8f0",
+                            }}
+                            transition={{ duration: 0.4 }}
+                            style={{ height: `${connHeight}px` }}
+                            className="w-0.5 rounded-full"
+                          />
+                        </div>
+                        <div className="flex-1" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          
             </div>
           </div>
         </div>

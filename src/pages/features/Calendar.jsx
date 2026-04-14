@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, CalendarDays, Clock, Globe, Layout } from "lucide-react";
 import FeatureStack from "../../components/FeatureStack";
 import FeatureCTA from "../../components/FeatureCTA";
 import calenderImg from "../../assets/calender.webp";
@@ -58,7 +58,7 @@ export default function CalendarPage() {
       </Helmet>
       <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
-        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-2 sm:pb-4 lg:pb-4">
           {/* Ambient Background Glows */}
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-slate-200/20 rounded-full blur-[120px] -z-10" />
           <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-slate-100/30 rounded-full blur-[100px] -z-10" />
@@ -102,7 +102,7 @@ export default function CalendarPage() {
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-4 text-left justify-center lg:justify-start">
                       <div className="mt-1.5 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                        <Check size={10} className="text-[#7e22ce] stroke-[4]" />
+                        <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
                       </div>
                       <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
                         {text}
@@ -111,7 +111,12 @@ export default function CalendarPage() {
                   ))}
                 </motion.div>
 
-                <FeatureStack items={["Task scheduling", "Meeting invites", "Global tracking", "Timeline view"]} />
+                <FeatureStack items={[
+                  { label: "Task scheduling", icon: CalendarDays },
+                  { label: "Meeting invites", icon: Clock },
+                  { label: "Global tracking", icon: Globe },
+                  { label: "Timeline view", icon: Layout }
+                ]} />
               </div>
 
               {/* Right Hero Image - Without SVGs */}

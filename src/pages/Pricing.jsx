@@ -770,7 +770,7 @@ export default function Pricing() {
 
           {/* ── Comparison Section (Collapsible) ── */}
 
-          {/* Floating sticky header clone — shown when real thead scrolls above navbar */}
+          {/* Floating sticky header clone -shown when real thead scrolls above navbar */}
           <AnimatePresence>
             {showComparison && stickyHeaderVisible && (
               <motion.div
@@ -870,7 +870,7 @@ export default function Pricing() {
                         className="w-full text-left border-collapse"
                         style={{ minWidth: "680px" }}
                       >
-                        {/* Real thead — tracked via ref to detect when it scrolls off screen */}
+                        {/* Real thead -tracked via ref to detect when it scrolls off screen */}
                         <thead ref={realTheadRef} className="bg-white">
                           <tr>
                             <th className="py-4 sm:py-6 px-4 sm:px-8 w-1/4 bg-white border-b border-slate-200" />

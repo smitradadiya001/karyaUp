@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Demo() {
   return (
-    <SubPageLayout badge="DEMO — SEE IT IN ACTION" badgeColor="bg-rose-100 text-rose-700" title="Live Demo" subtitle="See KaryaUp in action with an interactive demo tailored to your team's needs.">
+    <SubPageLayout badge="DEMO -SEE IT IN ACTION" badgeColor="bg-rose-100 text-rose-700" title="Live Demo" subtitle="See KaryaUp in action with an interactive demo tailored to your team's needs.">
       <div className="text-center py-16 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-2xl border border-violet-100">
         <div className="text-6xl mb-6">🖥️</div>
         <h3 className="text-2xl font-bold text-gray-900 mb-3">Book a Live Demo</h3>

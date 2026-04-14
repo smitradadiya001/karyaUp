@@ -92,117 +92,7 @@ export default function MarketingPage() {
     "BRAND GUARD"   : { icon: ShieldCheck, color: "#4c1d95" },
     "CAMPAIGN FLOW" : { icon: BrainCircuit, color: "#4c1d95" },
 }
-  const FeatureStack = ({ items = [], interval = 2500 }) => {
-    const [index, setIndex] = useState(0);
-    const [hovered, setHovered] = useState(false);
   
-    useEffect(() => {
-      if (items.length === 0 || hovered) return;
-      const timer = setInterval(() => {
-        setIndex((prev) => (prev + 1) % items.length);
-      }, interval);
-      return () => clearInterval(timer);
-    }, [items.length, interval, hovered]);
-  
-    const visibleItems = useMemo(() => {
-      if (items.length === 0) return [];
-      return [0, 1, 2].map((offset) => {
-        const itemIndex = (index + offset) % items.length;
-        const rawItem = items[itemIndex];
-        
-        // Normalize item to object
-        let itemObj = typeof rawItem === "string" ? { label: rawItem } : { ...rawItem };
-        
-        // Apply defaults for icons/colors if missing
-        if (!itemObj.icon || !itemObj.iconColor) {
-          const mapped = DEFAULT_ICON_MAP[itemObj.label] || { icon: Check, color: "#000000" };
-          itemObj.icon = itemObj.icon || mapped.icon;
-          itemObj.iconColor = itemObj.iconColor || mapped.color;
-        }
-  
-        return { offset, item: itemObj };
-      });
-    }, [items, index]);
-  
-    if (items.length === 0) return null;
-  
-    return (
-      <div
-        className="relative w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
-        style={{
-          height: "80px",
-        }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <AnimatePresence mode="popLayout">
-          {visibleItems.map(({ offset, item }) => {
-            const Icon = item.icon;
-            const color = item.iconColor;
-  
-            return (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 15, scale: 0.9 }}
-                animate={
-                  hovered
-                    ? {
-                        opacity: 1,
-                        scale: 1,
-                        y: offset * 54, // Clear separation between cards
-                        zIndex: 10 - offset,
-                      }
-                    : {
-                        opacity: offset === 0 ? 1 : offset === 1 ? 0.45 : 0.2,
-                        scale: 1 - offset * 0.035,
-                        y: offset * 11,
-                        zIndex: 10 - offset,
-                      }
-                }
-                exit={{
-                  opacity: 0,
-                  y: -10,
-                  scale: 0.95,
-                  transition: { duration: 0.5, ease: "easeOut" },
-                }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: hovered ? offset * 0.05 : offset * 0.02,
-                }}
-                className="absolute top-0 left-0 w-full px-4 sm:px-4 py-1.5 sm:py-2 rounded-xl flex items-center justify-center gap-3"
-                style={{
-                  background:
-                    offset === 0
-                      ? "linear-gradient(135deg, rgba(226, 232, 240, 0.15) 0%, rgba(203, 213, 225, 0.08) 100%)"
-                      : "linear-gradient(135deg, rgba(226, 232, 240, 0.06) 0%, rgba(203, 213, 225, 0.03) 100%)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1.2px solid rgba(0, 0, 0, 0.25)",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
-                }}
-              >
-                {/* Icon box with colorful icon */}
-                <div className="flex-shrink-0 w-6 h-6 sm:w-6.5 sm:h-6.5 rounded-md border border-black/5 bg-white/25 flex items-center justify-center">
-                  <Icon
-                    className="w-3 h-3 sm:w-3.5 sm:h-3.5"
-                    style={{ color: color }}
-                    strokeWidth={2.5}
-                  />
-                </div>
-  
-                {/* Precise Small Uppercase Text */}
-                <span className="text-[10px] sm:text-[11.5px] font-black tracking-widest text-black uppercase">
-                  {item.label}
-                </span>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
-    );
-  };
-
   const sectionSpacing = "py-12 sm:py-16 lg:py-20";
   const [isMobile, setIsMobile] = useState(false);
 
@@ -213,7 +103,7 @@ export default function MarketingPage() {
 
       {/* ================= HERO SECTION ================= */}
 
-      <section className="py-28 px-6">
+      <section className="py-22 px-6">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
             <span className="inline-block px-2 py-1.5 rounded-full bg-purple-50 text-[11px] font-black uppercase tracking-widest text-purple-600 mb-3 border border-purple-100">
@@ -233,15 +123,15 @@ export default function MarketingPage() {
                 for Marketing Teams
               </motion.span>
             </motion.h1>
-            <div className="mt-5 space-y-3 max-w-lg w-full">
-              <div className="flex items-start gap-3">
+            <div className="mt-4 space-y-3 max-w-lg w-full">
+              <div className="flex items-start gap-2">
                 <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center shrink-0">
                   <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
                 </div>
                 <p className="text-sm sm:text-base text-slate-600 font-medium">  Brainstorm, Plan, and Execute your Team's Marketing Programs.</p>
               </div>
             </div>
-            <div className="mt-5 space-y-3 max-w-lg w-full">
+            <div className="mt-3 space-y-6 max-w-lg w-full">
               <div className="flex items-start gap-3">
                 <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center shrink-0">
                   <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
@@ -249,9 +139,7 @@ export default function MarketingPage() {
                 <p className="text-sm sm:text-base text-slate-600 font-medium"> Multi channel campaigns to global events and more with KaryaUp. </p>
               </div>
             </div>
-            {/* <p className="text-lg text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 font-medium">
-              Brainstorm, plan, and execute your team's marketing programs from multi channel campaigns to global events and more with KaryaUp.
-            </p> */}
+            
             <FeatureStack
               items={[
                 { label: "ASSET FIND", icon: BrainCircuit },
@@ -277,61 +165,6 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      <section className="py-10 pb-10 bg-white pt-10">
-        <div className="max-w-7xl mx-auto px-3 lg:px-5">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="order-2 lg:order-1"
-            >
-              <div className="rounded-3xl overflow-hidden shadow-2xl pt-10 border-8 border-purple-100">
-                <img src={planImage} alt="Gantt Planning" className="w-full h-auto" />
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-center lg:text-left"
-            >
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-3 drop-shadow-sm">
-                Visualize your<br />
-                <motion.span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                >
-                  Marketing ROI
-                </motion.span>
-              </h1>
-              <p className="text-[1rem] text-slate-600 mb-3">
-                Stop guessing which campaigns work.
-                <br />
-                Align your budget with performance data.
-              </p>
-              <div className="relative mt-8 space-y-6">
-                {[
-                  { label: "Multi-channel Attribution" },
-                  { label: "Real-time Budget Tracking" },
-                  { label: "Customizable KPI Dashboards" },
-                ].map((item, index) => (
-                  <div key={index} className="relative flex items-center gap-4">
-                    <div className="relative z-10 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-purple-100 border border-purple-200 text-purple-700">
-                      <Check className="w-5 h-5 stroke-[4]" />
-                    </div>
-                    <span className="text-lg font-bold text-slate-800 tracking-tight">
-                      {item.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
       <MetricStorySlider
         logoSrc={karyaupLogo}

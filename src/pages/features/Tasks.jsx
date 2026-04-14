@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useSpring, useAnimationFrame, useMotionValue } from "framer-motion";
-import { Check, Sparkles, Activity } from "lucide-react";
+import { Check, Sparkles, Activity, Eye, MessageSquare, Filter, CheckCircle2, Users } from "lucide-react";
 import Task2 from "../../assets/Task.webp";
 import AgentAssign from "../../assets/Agent-Assign.webp";
 import GrowthGraph from "../../components/GrowthGraph";
@@ -42,13 +42,13 @@ export default function Tasks() {
       if (!itemRef.current || !containerRef.current) return;
       const container = containerRef.current.getBoundingClientRect();
       const item = itemRef.current.getBoundingClientRect();
-      
+
       const containerCenter = container.top + container.height / 2;
       const itemCenter = item.top + item.height / 2;
       const normalizedDistance = (itemCenter - containerCenter) / (container.height / 2);
       const clamped = Math.max(-1, Math.min(1, normalizedDistance));
-      
-      rotateX.set(clamped * -45); 
+
+      rotateX.set(clamped * -45);
       scale.set(1 - Math.abs(clamped) * 0.15);
       opacity.set(1 - Math.abs(clamped) * 0.7);
     });
@@ -56,11 +56,25 @@ export default function Tasks() {
     return (
       <div ref={itemRef} style={{ perspective: "1000px" }}>
         <motion.div
-          style={{ rotateX, scale, opacity, transformStyle: "preserve-3d" }}
-          className="border border-slate-200 rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2 sm:gap-3 bg-white shadow-sm"
+          className="rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2 sm:gap-3 bg-white shadow-sm"
+          animate={{
+            borderColor: t.pr === "High" ? "rgba(248, 113, 113, 0.38)" : "rgba(134, 239, 172, 0.42)",
+          }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          whileHover={{
+            borderColor: t.pr === "High" ? "rgba(248, 113, 113, 0.52)" : "rgba(74, 222, 128, 0.58)",
+          }}
+          style={{
+            rotateX,
+            scale,
+            opacity,
+            transformStyle: "preserve-3d",
+            borderWidth: 1,
+            borderStyle: "solid",
+          }}
         >
           <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0 text-purple-700">
-            <Check className="w-3 h-3 sm:w-4 sm:h-4" />
+            <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4" />
           </span>
           <div className="min-w-0 flex-1 w-full sm:w-auto">
             <div className="font-black text-slate-900 text-xs sm:text-sm break-words leading-snug">{t.title}</div>
@@ -136,7 +150,7 @@ export default function Tasks() {
       <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
 
         {/* ── Hero ── */}
-        <section className="relative pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-2 sm:pb-4 lg:pb-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
 
@@ -177,16 +191,16 @@ export default function Tasks() {
                   className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 max-w-lg w-full"
                 >
                   {[
-                    "Every piece of work, owned and visible.",
-                    "Turn conversations into tasks with a single click."
-                   
-                  ].map((text, i) => (
+                    { text: "Every piece of work, owned and visible.", icon: Eye },
+                    { text: "Turn conversations into tasks with a single click.", icon: MessageSquare }
+
+                  ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3 text-left">
                       <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                        <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                        <item.icon className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
                       </div>
                       <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
-                        {text}
+                        {item.text}
                       </p>
                     </div>
                   ))}
@@ -214,7 +228,7 @@ export default function Tasks() {
           </div>
         </section>
 
-        <section className="pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20">
+        <section className="pt-2 lg:pt-4 pb-12 sm:pb-16 lg:pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
               <motion.div
@@ -252,7 +266,7 @@ export default function Tasks() {
                     {/* Prompt panel / image */}
                     <div className="lg:col-span-5 flex items-center justify-center w-full">
                       <div className="relative h-[220px] sm:h-[300px] lg:h-[360px] w-fit max-w-full p-[2.5px] rounded-[1.25rem] sm:rounded-3xl overflow-hidden group mx-auto">
-                        <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--border-angle),#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#9400d3,#ff0000)] animate-[spin-border_4s_linear_infinite]" />
+                        <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--border-angle),#7e22ce,#ec4899,#00ccff,#7e22ce)] animate-[spin-border_4s_linear_infinite]" />
                         <div className="relative h-full w-full rounded-[calc(1.25rem-2.5px)] sm:rounded-[calc(1.5rem-2.5px)] flex items-center justify-center p-0 z-10 overflow-hidden bg-white">
                           <img
                             src={AgentAssign}
@@ -272,11 +286,11 @@ export default function Tasks() {
                           </div>
                           <div className="text-[10px] sm:text-xs font-semibold text-slate-400">Auto-assigned · Auto-dated</div>
                         </div>
-                        <div ref={listContainerRef} className="p-3 sm:p-4 overflow-hidden flex-1 relative bg-slate-50/30" 
-                             style={{ 
-                               maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-                               perspective: "1000px"
-                             }}>
+                        <div ref={listContainerRef} className="p-3 sm:p-4 overflow-hidden flex-1 relative bg-slate-50/30"
+                          style={{
+                            maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                            perspective: "1000px"
+                          }}>
                           <motion.div
                             animate={{ y: ["0%", "-50%"] }}
                             transition={{
@@ -311,10 +325,10 @@ export default function Tasks() {
 
 
         {/* 🔥 Visual Analytics - Restored Section */}
-        <section className="pt-4 sm:pt-10 lg:pt-12 pb-12 sm:pb-20 lg:pb-24 bg-slate-50/50 relative overflow-hidden">
+        <section className="pt-2 sm:pt-4 lg:pt-4 pb-12 sm:pb-20 lg:pb-24 bg-slate-50/50 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-24 items-center">
-              
+
               {/* Left – Animated Graph */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -352,19 +366,19 @@ export default function Tasks() {
                     Actionable Insights.
                   </motion.span>
                 </h2>
-               
-                
+
+
                 <div className="mt-8 space-y-4 w-full max-w-md">
                   {[
-                    "Custom filters for members, status, and priority",
-                    "Real-time completion and trend tracking",
-                    "Visual work distribution across your whole team"
+                    { text: "Custom filters for members, status, and priority", icon: Filter },
+                    { text: "Real-time completion and trend tracking", icon: Activity },
+                    { text: "Visual work distribution across your whole team", icon: Users }
                   ].map((item) => (
-                    <div key={item} className="flex items-center gap-3 text-left">
+                    <div key={item.text} className="flex items-center gap-4 text-left">
                       <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                        <Check className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-[#7e22ce] stroke-[4]" />
+                        <item.icon className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-[#7e22ce] stroke-[4]" />
                       </div>
-                      <span className="text-sm sm:text-base text-slate-700 font-bold leading-tight">{item}</span>
+                      <span className="text-sm sm:text-base text-slate-700 font-bold leading-tight">{item.text}</span>
                     </div>
                   ))}
                 </div>

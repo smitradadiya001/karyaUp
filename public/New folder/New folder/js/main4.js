@@ -4,18 +4,18 @@
 const hSection = document.querySelector('.horizontal-scroll-section');
 const hTrack = document.querySelector('.h-track');
 
-if(hSection && hTrack) {
+if (hSection && hTrack) {
     // Calculate total scroll distance based on track width vs viewport
     function getScrollAmount() {
         let trackWidth = hTrack.scrollWidth;
         return -(trackWidth - window.innerWidth + 100);
     }
-    
+
     const tween = gsap.to(hTrack, {
         x: getScrollAmount,
         ease: "none"
     });
-    
+
     ScrollTrigger.create({
         trigger: hSection,
         start: "top top",
@@ -27,7 +27,7 @@ if(hSection && hTrack) {
     });
 }
 
-// B. How Kai Thinks (Neural Network Canvas) — Stable Cyber Animation
+// B. How Kai Thinks (Neural Network Canvas) -Stable Cyber Animation
 const nnCanvas = document.getElementById('nn-canvas');
 const nnContainer = document.querySelector('.nn-container');
 const nnSection = document.querySelector('.neural-network-section');
@@ -44,7 +44,7 @@ if (nnCanvas && nnContainer && nnNodes.length > 0) {
         [255, 107, 53],
     ];
 
-    // STATIC cached positions — measured once, never inside rAF
+    // STATIC cached positions -measured once, never inside rAF
     let pts = [];
     let connections = [];
     let pulses = [];
@@ -52,8 +52,8 @@ if (nnCanvas && nnContainer && nnNodes.length > 0) {
     function cachePositions() {
         // offsetLeft/offsetTop relative to nn-container are scroll-stable
         pts = Array.from(nnNodes).map(node => ({
-            x: node.offsetLeft + node.offsetWidth  / 2,
-            y: node.offsetTop  + node.offsetHeight / 2,
+            x: node.offsetLeft + node.offsetWidth / 2,
+            y: node.offsetTop + node.offsetHeight / 2,
         }));
     }
 
@@ -77,12 +77,12 @@ if (nnCanvas && nnContainer && nnNodes.length > 0) {
                     const col = LINE_COLORS[Math.floor(Math.random() * LINE_COLORS.length)];
                     connections.push({ i, j, dist, col });
                     pulses.push({
-                        ci:    connections.length - 1,
-                        t:     Math.random(),
+                        ci: connections.length - 1,
+                        t: Math.random(),
                         speed: 0.003 + Math.random() * 0.003,
-                        dir:   Math.random() > 0.5 ? 1 : -1,
+                        dir: Math.random() > 0.5 ? 1 : -1,
                         col,
-                        size:  2 + Math.random() * 1.5,
+                        size: 2 + Math.random() * 1.5,
                     });
                 }
             });
@@ -90,7 +90,7 @@ if (nnCanvas && nnContainer && nnNodes.length > 0) {
     }
 
     function setup() {
-        nnCanvas.width  = nnContainer.offsetWidth;
+        nnCanvas.width = nnContainer.offsetWidth;
         nnCanvas.height = nnContainer.offsetHeight;
         cachePositions();
         buildConnections();
@@ -182,10 +182,10 @@ const demoSection = document.querySelector('.live-demo-section');
 const demoUI = document.querySelector('.demo-ui');
 const typingIndicator = document.getElementById('typing-indicator');
 
-if(demoSection) {
+if (demoSection) {
     // Reset state
     const chatBody = document.querySelector('.chat-body');
-    
+
     const demoTimeline = gsap.timeline({
         scrollTrigger: {
             trigger: demoSection,
@@ -193,27 +193,27 @@ if(demoSection) {
             once: true
         }
     });
-    
+
     // Simulate user message reveal
     demoTimeline.to(".msg-user", {
-        opacity: 1, 
+        opacity: 1,
         y: 0,
         duration: 0.5,
         ease: "power2.out"
     });
-    
+
     // Show typing, pulse UI box
     demoTimeline.add(() => {
         typingIndicator.style.display = 'flex';
-        gsap.to(typingIndicator, {opacity: 1, y: 0, duration: 0.3});
+        gsap.to(typingIndicator, { opacity: 1, y: 0, duration: 0.3 });
         demoUI.classList.add('active-glow');
     }, "+=0.5");
-    
+
     // Hide typing, show generated responses
     demoTimeline.add(() => {
-        gsap.to(typingIndicator, {opacity: 0, duration: 0.3, onComplete: () => typingIndicator.style.display = 'none'});
+        gsap.to(typingIndicator, { opacity: 0, duration: 0.3, onComplete: () => typingIndicator.style.display = 'none' });
         demoUI.classList.remove('active-glow');
-        
+
         // Inject fake responses
         const responses = [
             "Analyzing request parameters...",
@@ -221,25 +221,25 @@ if(demoSection) {
             "• Launch timeline established (3 weeks).",
             "• Generating 45 automation sub-tasks."
         ];
-        
+
         responses.forEach((text, index) => {
             const div = document.createElement('div');
             div.className = 'chat-msg msg-kai';
             div.innerText = text;
             chatBody.appendChild(div);
-            
+
             // Initial state
-            gsap.set(div, {opacity: 0, y: 20});
-            
+            gsap.set(div, { opacity: 0, y: 20 });
+
             // Pop in
             gsap.to(div, {
-                opacity: 1, 
-                y: 0, 
-                duration: 0.4, 
-                ease: "back.out(1.2)", 
+                opacity: 1,
+                y: 0,
+                duration: 0.4,
+                ease: "back.out(1.2)",
                 delay: index * 0.4
             });
         });
-        
+
     }, "+=2.0"); // "Type" for 2 seconds
 }

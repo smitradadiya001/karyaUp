@@ -53,21 +53,23 @@ export default function AttendanceHero() {
               initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-              className="mt-4 sm:mt-6 space-y-3 w-full max-w-[28rem] mx-auto lg:max-w-none lg:mx-0"
+              className="mt-4 sm:mt-6 flex flex-col items-center lg:items-start w-full"
             >
-              {[
-                "Precise tracking, real-time sync",
-                "Audit-ready logs for payroll"
-              ].map((text, i) => (
-                <div key={i} className="flex items-start gap-4 text-left justify-center lg:justify-start">
-                  <div className="mt-1.5 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                    <Check size={10} className="text-[#7e22ce] stroke-[4]" />
+              <div className="space-y-3 w-fit">
+                {[
+                  "Precise tracking, real-time sync",
+                  "Audit-ready logs for payroll"
+                ].map((text, i) => (
+                  <div key={i} className="flex items-start gap-4 text-left">
+                    <div className="mt-1.5 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                      {text}
+                    </p>
                   </div>
-                  <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
-                    {text}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </motion.div>
 
             <FeatureStack items={["Auto check-in", "Real-time logs", "Timesheets", "Audit-ready exports"]} />

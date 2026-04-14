@@ -93,7 +93,7 @@ const SuperAgents = () => {
                         </span>
                     </h2>
                     <p className="text-gray-400 text-xl mx-auto mb-10 font-medium" style={{ maxWidth: '600px' }}>
-                        KaryaUp Agents work alongside your team — handling tasks, tracking progress, and getting things done while you focus on what matters.
+                        KaryaUp Agents work alongside your team -handling tasks, tracking progress, and getting things done while you focus on what matters.
                     </p>
                     <motion.a
                         href="#"
@@ -128,7 +128,7 @@ const SuperAgents = () => {
                     }}
                 />
 
-                {/* Agent / Boy Image — mid layer, parallax with scroll and mouse */}
+                {/* Agent / Boy Image -mid layer, parallax with scroll and mouse */}
                 <motion.div
                     className="absolute left-1/2 bottom-0"
                     style={{
@@ -154,7 +154,7 @@ const SuperAgents = () => {
                     />
                 </motion.div>
 
-                {/* === GOGGLES glow overlay — placed over the character's eye region === */}
+                {/* === GOGGLES glow overlay -placed over the character's eye region === */}
                 <motion.div
                     className="absolute pointer-events-none z-10"
                     style={{
@@ -212,7 +212,7 @@ const SuperAgents = () => {
                     />
                 </motion.div>
 
-                {/* Foreground Mask Image — top layer, clips and frames the character */}
+                {/* Foreground Mask Image -top layer, clips and frames the character */}
                 <motion.div
                     className="absolute inset-0 pointer-events-none z-20 flex justify-center items-end"
                     style={{ x: useTransform(scrollYProgress, [0, 1], [0, 15]) }}
@@ -297,7 +297,7 @@ const SuperAgents = () => {
                     </motion.div>
                 </motion.div>
 
-                {/* Small badge — bottom center */}
+                {/* Small badge -bottom center */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

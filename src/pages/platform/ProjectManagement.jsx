@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo, useState } from "react";
+ import { useRef, useEffect, useMemo, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -9,8 +9,8 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
-import dashboardImage from "../../assets/Project_ss.webp";
-import projectImage from "../../assets/Project2.webp";
+import dashboardImage from "../../assets/projects.webp";
+import projectImage from "../../assets/project.webp";
 import { lazy, Suspense } from "react";
 import FeatureCTA from "../../components/FeatureCTA";
 import FeatureStack from "../../components/FeatureStack";
@@ -48,7 +48,7 @@ const MarqueeRow = ({ text, direction, isShieldHovered }) => {
         repeat: Infinity,
         ease: "linear",
       }}
-      className="whitespace-nowrap text-purple-700 font-black text-2xl select-none tracking-tighter flex gap-10 leading-none"
+      className="whitespace-nowrap text-gray font-black text-2xl select-none tracking-tighter flex gap-10 leading-none"
     >
       {Array(9)
         .fill(null)
@@ -62,7 +62,7 @@ const MarqueeRow = ({ text, direction, isShieldHovered }) => {
 function ScrollingDataBg({ isShieldHovered }) {
   return (
     <div
-      className={`absolute inset-0 pointer-events-none transition-all duration-1000 flex flex-col justify-center gap-20 overflow-hidden ${isShieldHovered ? "opacity-30" : "opacity-[0.05]"
+      className={`absolute inset-0 pointer-events-none transition-all duration-1000 flex flex-col justify-center gap-20 overflow-hidden ${isShieldHovered ? "opacity-10" : "opacity-[0.05]"
         }`}
     >
       <MarqueeRow
@@ -191,29 +191,32 @@ const LightShield3D = () => (
   <svg
     viewBox="0 0 200 220"
     fill="none"
-    className="w-full h-full drop-shadow-[0_25px_50px_rgba(0,0,0,0.12)]"
+    className="w-full h-full drop-shadow-[0_65px_50px_rgba(0,0,0,0.30)]"
   >
     <defs>
       <linearGradient
         id="glassBorderGradient"
-        x1="100"
-        y1="10"
-        x2="100"
-        y2="208"
+        x1="110"
+        y1="20"
+        x2="110"
+        y2="220"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F472B6" stopOpacity="0.4" />
-        <stop offset="0.5" stopColor="white" stopOpacity="0.6" />
-        <stop offset="1" stopColor="#A855F7" stopOpacity="0.4" />
+        <stop stopColor="#A855F7" stopOpacity="0.9" />
+        <stop offset="0.5" stopColor="white" stopOpacity="0.9" />
+        <stop offset="1" stopColor="#A855F7" stopOpacity="0.9" />
       </linearGradient>
     </defs>
     <path
       d="M100 10 L182 42 L182 108 C182 154 146 190 100 208 C54 190 18 154 18 108 L18 42 Z"
       fill="white"
-      fillOpacity="0.03"
+      fillOpacity="0.05"
       stroke="url(#glassBorderGradient)"
-      strokeOpacity="0.6"
-      strokeWidth="2"
+      strokeOpacity="0.9"
+      strokeLinecap="round"
+      strokeWidth="3"
+
+      className="group-hover:stroke-purple-700 transition-all duration-100 group-hover:stroke-purple group-hover:stroke-[3px] drop-shadow-sm"
     />
   </svg>
 );
@@ -246,14 +249,14 @@ function Card({ data, type }) {
         borderWidth: "1px",
         borderStyle: "solid",
         borderColor: isRed ? "rgba(248,113,113,0.18)" : "rgba(34,197,94,0.32)",
-        background: isRed ? "rgba(254,242,242,0.72)" : "rgb(255,255,255)",
-        boxShadow: isRed ? "0 8px 24px rgba(248,113,113,0.06)" : "0 8px 24px rgba(34,197,94,0.08)",
+        background: isRed ? "rgba(254,242,242,0.72)" : "rgba(232, 247, 234, 0.72)",
+        boxShadow: isRed ? "0 8px 24px rgba(248,113,113,0.06)" : "0 8px 24px rgba(112, 244, 158, 0.08)",
       }}
     >
       <div
         className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${isRed
-            ? "bg-red-50 border-red-100 text-red-500"
-            : "bg-emerald-50 border-emerald-100 text-emerald-600"
+          ? "bg-red-50 border-red-100 text-red-500"
+          : "bg-green-50 border-emerald-100 text-emerald-600"
           }`}
       >
         {isRed ? <X className="w-4 h-4" /> : <Check className="w-4 h-4" />}
@@ -277,8 +280,8 @@ function Card({ data, type }) {
       <div
         className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full border flex-shrink-0"
         style={{
-          borderColor: isRed ? "rgba(239,68,68,0.25)" : "rgba(34,197,94,0.28)",
-          background: isRed ? "rgba(239,68,68,0.05)" : "rgba(34,197,94,0.08)",
+          borderColor: isRed ? "rgba(239,68,68,0.25)" : "rgba(69, 182, 110, 0.28)",
+          background: isRed ? "rgba(239,68,68,0.05)" : "rgba(239, 68,68,0.05))",
           color: isRed ? "rgb(185,28,28)" : "rgb(21,128,61)",
         }}
       >
@@ -373,6 +376,14 @@ export default function ProjectManagement() {
 
   const [isShieldHovered, setIsShieldHovered] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
+
+  const [activeId, setActiveId] = useState(null);
+
+  const toggle = (id) => {
+    setActiveId((prev) => (prev === id ? null : id));
+  };
+
+  const [isStackOpen, setIsStackOpen] = useState(false);
 
   const redCards = [
     {
@@ -472,56 +483,57 @@ export default function ProjectManagement() {
       icon: <Search className="w-5 h-5" />,
       title: "Contextual Query",
       desc: "Ask natural language questions like 'Which project is over budget?' to get instant, deep-dive data visualizations",
-      color: "blue",
+      color: "purple",
     },
     {
       icon: <Zap className="w-5 h-5" />,
       title: "Automated Standups",
       desc: "Plan smarter, track faster, deliver on time.",
+      color: "fuchsia"
     },
   ];
 
 
   return (
+
     <div className="bg-white font-sans overflow-x-hidden">
       <Helmet>
         <title>Project Management | Karyaup</title>
       </Helmet>
 
       {/* HERO SECTION */}
-      <section className="relative pt-24 sm:pt-28 lg:pt-30 pb-8 sm:pb-16 lg:pb-20 px-4 sm:px-6 overflow-hidden bg-white">
+      <section className="relative pt-26 sm:pt-30 lg:pt-34 pb-8 sm:pb-16 lg:pb-20 px-4 sm:px-6 overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <div
+            className={`grid lg:grid-cols-2 items-center transition-all duration-300 ${isStackOpen ? "gap-10" : "gap-0"
+              }`}
+            style={{ transition: "gap 0.35s ease" }}
+          >
             <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-4">
+              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-4">
                 PROJECT MANAGEMENT — PLAN, EXECUTE
               </div>
 
               <motion.h1
-                initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.7,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: 0.08,
-                }}
-                className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] text-balance max-w-xl sm:max-w-2xl mx-auto lg:mx-0"
-              >
-                <span className="text-slate-900">{"Unified\u00A0Project "}</span>
-                <motion.span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                  animate={{
-                    backgroundPosition: ["0% center", "-200% center"],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                >
-                  Management Software
-                </motion.span>
-              </motion.h1>
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  /* FIX 1: Adjusted mobile text to 'text-3xl' (approx 30px) so it fits.
+     FIX 2: Added 'whitespace-nowrap' to the span below to force a single line.
+  */
+  className="text-3xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1"
+>
+  Unified Project
+  {/* FIX 3: Added 'hidden md:block' so the break ONLY happens on desktop */}
+  <br className="hidden md:block" /> 
+  
+  <motion.span
+    className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-500 to-purple-700 bg-[length:200%_auto] whitespace-nowrap"
+    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+  >
+    Management Software
+  </motion.span>
+</motion.h1>
 
               <div className="mt-5 space-y-3 max-w-lg w-full">
                 <div className="flex items-start gap-3">
@@ -554,7 +566,7 @@ export default function ProjectManagement() {
                 ]}
               />
             </div>
-            <div className="relative w-full max-w-[540px] mx-auto lg:max-w-none overflow-hidden rounded-[12px]">
+            <div className="pt-6   relative w-full max-w-[540px] mx-auto lg:max-w-none overflow-hidden rounded-[10px]">
               <img
                 src={dashboardImage}
                 alt="Dashboard"
@@ -566,13 +578,13 @@ export default function ProjectManagement() {
       </section>
 
       {/* COMPARISON SECTION (WITH MARQUEE) */}
-      <section className="py-8 bg-white px-4">
+      <section className="py-5 bg-white px-4">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center text-2xl min-[420px]:text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.06] sm:leading-[1.1] tracking-normal mb-8 lg:mb-12 text-balance max-w-[min(100%,40rem)] mx-auto px-2"
+            className="text-center text-2xl min-[420px]:text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.06] sm:leading-[1.1] tracking-normal mb-6 lg:mb-10 text-balance max-w-[min(100%,40rem)] mx-auto px-2"
           >
             <span className="text-slate-900">{"Project\u00A0Management "}</span>
             <motion.span
@@ -620,7 +632,7 @@ export default function ProjectManagement() {
                   className="relative flex items-center justify-center w-full max-w-[200px] h-[180px] lg:max-w-[220px] lg:h-[220px]"
                   style={{ perspective: "1200px" }}
                 >
-                  <div className="absolute inset-0 z-10 opacity-80 scale-110 pointer-events-none">
+                  <div className="absolute inset-0 z-10 opacity-90 scale-110 pointer-events-none">
                     <LightShield3D />
                   </div>
                   <div
@@ -643,8 +655,8 @@ export default function ProjectManagement() {
                         className="absolute inset-0"
                         style={{
                           filter: isShieldHovered
-                            ? "drop-shadow(0 20px 50px rgba(168,85,247,0.9)) brightness(1.2)"
-                            : "drop-shadow(0 20px 50px rgba(168,85,247,0.5))",
+                            ? "drop-shadow(0 50px 100px rgba(87, 40, 132, 0.9)) brightness(1.2)"
+                            : "drop-shadow(0 50px 100px rgba(152, 66, 232, 0.5))",
                           transition: "filter 0.5s ease",
                         }}
                       >
@@ -670,7 +682,7 @@ export default function ProjectManagement() {
                     scale: isShieldHovered ? 1.4 : 1,
                     opacity: isShieldHovered ? 0.4 : 0.15,
                   }}
-                  className="absolute -bottom-40 w-64 h-64 bg-purple-400 rounded-full blur-[100px] pointer-events-none"
+                  className="absolute -bottom-40 w-64 h-64 bg-purple-100 rounded-full blur-[100px] pointer-events-none"
                 />
               </div>
 
@@ -682,6 +694,7 @@ export default function ProjectManagement() {
                 <p className="text-xs text-center text-slate-500 mb-3 lg:mb-6 font-medium">
                   Advanced execution loops for growth.
                 </p>
+                {/* <ScrollTrack cards={greenCards} direction="up" /> */}
                 <ScrollTrack cards={greenCards} direction="up" />
               </div>
             </div>
@@ -690,16 +703,16 @@ export default function ProjectManagement() {
       </section>
 
       {/* TASK WORKSPACE SECTION */}
-      <section className="py-12 sm:py-16 lg:py-20 px-6 bg-white relative overflow-hidden">
+      <section className="mt-10 pb-0 p-4 py-10 sm:py-16 lg:py-6 px-4 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           {/* HEADING */}
-          <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <span className="inline-block px-4 py-1.5 rounded-full bg-slate-50 text-[11px] font-black uppercase tracking-widest text-slate-600 mb-4 border border-slate-200">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-slate-50 text-[11px] font-black uppercase tracking-widest text-slate-600 mb-3 border border-slate-200">
                 Unified Task Workspace
               </span>
 
@@ -724,7 +737,7 @@ export default function ProjectManagement() {
           </div>
 
           {/* GRID: IMAGE LEFT | NUMBERED FEATURES RIGHT — tighter gap, columns hug center */}
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-8 xl:gap-10 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-8 xl:gap-8 items-center">
             {/* Static Image (Left) */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -851,6 +864,68 @@ export default function ProjectManagement() {
         </div>
       </section>
 
+      {/* NEW AI WORKSPACE SECTION */}
+      <section className="py-6 px-6 pb-10 bg-white-50 relative overflow-hidden border-t border-slate-200">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-white" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-full bg-white" />
+
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-purple-700 font-bold text-sm mb-3 shadow-sm border border-purple-100"
+            >
+              <Sparkles className="w-4 h-4" /> KaryaUp AI Workspace
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 40, x: -10 }}
+              animate={{ opacity: 1, y: 0, x: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
+              className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-1 drop-shadow-sm"
+            >
+              The Unified<br />
+              <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                AI Command Center
+              </motion.span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-lg text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed"
+            >
+              Stop managing tools and start leading growth.
+              <br />
+              KaryaUp merges your project context with autonomous
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+            {aiFeatures.map((feature, i) => (
+              <TiltCard
+                key={i}
+                className="bg-white border border-slate-200 shadow-xl p-7 sm:p-8 rounded-[2rem] cursor-default group"
+              >
+                <div className="flex items-center gap-4 mb-3">
+                  <div className={`w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center transition-all duration-500 border border-transparent group-hover:scale-110 ${getColorClasses(feature.color)}`}>
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-black text-slate-900">{feature.title}</h3>
+                </div>
+                <p className="text-slate-500 font-medium text-sm">{feature.desc}</p>
+              </TiltCard>
+            ))}
+          </div>
+        </div>
+      </section>
       <FeatureCTA
         title="Tasks That Connect To Everything You Do"
         description="Work smarter with tasks that can live in your whiteboards, chat, and calendar."

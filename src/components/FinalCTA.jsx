@@ -10,7 +10,7 @@ const FinalCTA = () => {
   const [isHoveringCTA, setIsHoveringCTA] = useState(false);
   const [speed, setSpeed] = useState(1);
   const testimonials = [
-    "Reduced tool usage by 70% — everything is now in one place.",
+    "Reduced tool usage by 70% -everything is now in one place.",
     "We improved execution speed within the first week.",
     "For the first time, we can actually see everything happening.",
     "The clarity this platform provides is a complete game changer.",
@@ -60,7 +60,7 @@ const FinalCTA = () => {
           <div className="relative z-10 text-center">
 
             {/* Trust Badge */}
-          
+
 
             {/* Testimonial Marquee (Infinite Scroll) - Seamless Loop */}
             <div className="mb-2 sm:mb-3 overflow-hidden relative w-full h-8 sm:h-12 flex items-center">

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   KAI — PREMIUM AWWWARDS VISUAL OVERRIDES
+   KAI -PREMIUM AWWWARDS VISUAL OVERRIDES
    Upgrades every section to feel elite and intentional.
 ═══════════════════════════════════════════════════════ */
 
@@ -13,7 +13,7 @@
 }
 
 /* ═══════════════════════════════════════════
-   NOISE TEXTURE — global subtle grain
+   NOISE TEXTURE -global subtle grain
 ═══════════════════════════════════════════ */
 body::after {
     content: '';
@@ -39,23 +39,25 @@ body::after {
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--accent-1);
-    border: 1px solid rgba(0,255,204,0.25);
+    border: 1px solid rgba(0, 255, 204, 0.25);
     border-radius: 100px;
     padding: 6px 14px;
     margin-bottom: 24px;
     backdrop-filter: blur(8px);
 }
+
 .section-label::before {
     content: '';
-    width: 5px; height: 5px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: var(--accent-1);
     box-shadow: 0 0 6px var(--accent-1);
-    animation: ping 2s cubic-bezier(0,0,0.2,1) infinite;
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 /* ═══════════════════════════════════════════
-   SECTION TITLES — bigger, bolder, gradient
+   SECTION TITLES -bigger, bolder, gradient
 ═══════════════════════════════════════════ */
 .section-title {
     font-family: var(--font-head);
@@ -75,28 +77,30 @@ body::after {
     border-radius: 3px;
     background: var(--grad-1);
     margin-top: 20px;
-    box-shadow: 0 0 12px rgba(0,255,204,0.6);
+    box-shadow: 0 0 12px rgba(0, 255, 204, 0.6);
 }
+
 .text-center .section-title::after,
 .section-title.text-center::after {
     margin: 20px auto 0;
 }
+
 .text-left .section-title::after,
 .section-title.text-left::after {
     margin-left: 0;
 }
 
 /* ═══════════════════════════════════════════
-   FEATURE CARDS — complete redesign
+   FEATURE CARDS -complete redesign
 ═══════════════════════════════════════════ */
 .feature-card {
-    background: rgba(255,255,255,0.02) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
     border: none !important;
     border-radius: 28px !important;
     padding: 44px 36px !important;
     position: relative;
     overflow: hidden !important;
-    transition: transform 0.4s cubic-bezier(0.25,1,0.5,1), box-shadow 0.4s !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s !important;
 }
 
 /* Gradient border via pseudo */
@@ -106,7 +110,7 @@ body::after {
     inset: 0;
     border-radius: 28px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(0,255,204,0.3) 0%, rgba(188,19,254,0.15) 50%, rgba(255,0,85,0.1) 100%);
+    background: linear-gradient(135deg, rgba(0, 255, 204, 0.3) 0%, rgba(188, 19, 254, 0.15) 50%, rgba(255, 0, 85, 0.1) 100%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -119,7 +123,9 @@ body::after {
 .feature-card::after {
     content: '';
     position: absolute;
-    top: 0; left: 24px; right: 24px;
+    top: 0;
+    left: 24px;
+    right: 24px;
     height: 1px;
     background: var(--grad-1);
     opacity: 0.5;
@@ -129,40 +135,45 @@ body::after {
 
 .feature-card:hover {
     transform: translateY(-8px) !important;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,255,204,0.12) !important;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 255, 204, 0.12) !important;
 }
-.feature-card:hover::after { opacity: 1; }
 
-/* Card icons — glowing badge style */
+.feature-card:hover::after {
+    opacity: 1;
+}
+
+/* Card icons -glowing badge style */
 .card-icon {
     font-size: 2rem !important;
     width: 60px !important;
     height: 60px !important;
-    background: rgba(0,255,204,0.06) !important;
-    border: 1px solid rgba(0,255,204,0.2) !important;
+    background: rgba(0, 255, 204, 0.06) !important;
+    border: 1px solid rgba(0, 255, 204, 0.2) !important;
     border-radius: 16px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     margin-bottom: 28px !important;
-    box-shadow: 0 0 20px rgba(0,255,204,0.1) !important;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.1) !important;
     transition: box-shadow 0.3s, background 0.3s !important;
 }
+
 .feature-card:hover .card-icon {
-    background: rgba(0,255,204,0.12) !important;
-    box-shadow: 0 0 36px rgba(0,255,204,0.25) !important;
+    background: rgba(0, 255, 204, 0.12) !important;
+    box-shadow: 0 0 36px rgba(0, 255, 204, 0.25) !important;
 }
 
 /* Feature card nth-child color variants */
 .feature-card:nth-child(2) .card-icon {
-    background: rgba(188,19,254,0.06) !important;
-    border-color: rgba(188,19,254,0.2) !important;
-    box-shadow: 0 0 20px rgba(188,19,254,0.1) !important;
+    background: rgba(188, 19, 254, 0.06) !important;
+    border-color: rgba(188, 19, 254, 0.2) !important;
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.1) !important;
 }
+
 .feature-card:nth-child(3) .card-icon {
-    background: rgba(255,0,85,0.06) !important;
-    border-color: rgba(255,0,85,0.2) !important;
-    box-shadow: 0 0 20px rgba(255,0,85,0.1) !important;
+    background: rgba(255, 0, 85, 0.06) !important;
+    border-color: rgba(255, 0, 85, 0.2) !important;
+    box-shadow: 0 0 20px rgba(255, 0, 85, 0.1) !important;
 }
 
 .feature-card h3 {
@@ -172,7 +183,10 @@ body::after {
     margin-bottom: 12px !important;
 }
 
-.feature-card p { color: #7a7a8c !important; font-size: 1rem !important; }
+.feature-card p {
+    color: #7a7a8c !important;
+    font-size: 1rem !important;
+}
 
 /* ═══════════════════════════════════════════
    FEATURES SECTION LAYOUT
@@ -180,34 +194,35 @@ body::after {
 .features-section {
     padding: var(--section-pad) !important;
 }
+
 .feature-grid {
     gap: 20px !important;
 }
 
 /* ═══════════════════════════════════════════
-   INTEGRATION NODES — premium pill style
+   INTEGRATION NODES -premium pill style
 ═══════════════════════════════════════════ */
 .node .magnetic-element {
-    background: rgba(5,5,10,0.7) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: rgba(5, 5, 10, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: 16px !important;
     padding: 14px 26px !important;
     font-size: 0.85rem !important;
     letter-spacing: 0.12em !important;
     box-shadow:
-        0 8px 32px rgba(0,0,0,0.6),
-        inset 0 1px 0 rgba(255,255,255,0.06) !important;
-    transition: all 0.35s cubic-bezier(0.25,1,0.5,1) !important;
+        0 8px 32px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
     position: relative;
 }
 
 .node:hover .magnetic-element {
-    background: rgba(0,255,204,0.06) !important;
-    border-color: rgba(0,255,204,0.3) !important;
+    background: rgba(0, 255, 204, 0.06) !important;
+    border-color: rgba(0, 255, 204, 0.3) !important;
     box-shadow:
-        0 16px 48px rgba(0,0,0,0.5),
-        0 0 0 1px rgba(0,255,204,0.1),
-        0 0 30px rgba(0,255,204,0.15) !important;
+        0 16px 48px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(0, 255, 204, 0.1),
+        0 0 30px rgba(0, 255, 204, 0.15) !important;
     color: #fff !important;
 }
 
@@ -217,12 +232,12 @@ body::after {
     height: 120px !important;
     font-size: 1.6rem !important;
     font-weight: 900 !important;
-    background: rgba(0,0,0,0.9) !important;
+    background: rgba(0, 0, 0, 0.9) !important;
     border: none !important;
     box-shadow:
-        0 0 0 1px rgba(0,255,204,0.4),
-        0 0 0 8px rgba(0,255,204,0.06),
-        0 0 60px rgba(0,255,204,0.25) !important;
+        0 0 0 1px rgba(0, 255, 204, 0.4),
+        0 0 0 8px rgba(0, 255, 204, 0.06),
+        0 0 60px rgba(0, 255, 204, 0.25) !important;
     background-image: var(--grad-1) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -232,19 +247,21 @@ body::after {
 /* ═══════════════════════════════════════════
    TECH SECTION
 ═══════════════════════════════════════════ */
-.tech-section { padding: var(--section-pad) !important; }
+.tech-section {
+    padding: var(--section-pad) !important;
+}
 
 .tech-bg {
     background-image:
-        linear-gradient(rgba(0,255,204,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,204,0.04) 1px, transparent 1px) !important;
+        linear-gradient(rgba(0, 255, 204, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 204, 0.04) 1px, transparent 1px) !important;
     background-size: 80px 80px !important;
 }
 
 .tech-list .tech-item {
     font-size: 1rem !important;
     padding: 14px 0 !important;
-    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
     color: #c0c0cc !important;
     letter-spacing: 0.02em !important;
 }
@@ -260,10 +277,10 @@ body::after {
 
 /* Dashboard */
 .tech-dashboard {
-    background: rgba(8,8,16,0.8) !important;
-    border: 1px solid rgba(255,255,255,0.06) !important;
+    background: rgba(8, 8, 16, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
     border-radius: 24px !important;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
 }
 
 .widget-value {
@@ -275,17 +292,19 @@ body::after {
 }
 
 /* ═══════════════════════════════════════════
-   METRIC CARDS — radical upgrade
+   METRIC CARDS -radical upgrade
 ═══════════════════════════════════════════ */
-.metrics-section { padding: var(--section-pad) !important; }
+.metrics-section {
+    padding: var(--section-pad) !important;
+}
 
 .metric-card {
-    background: rgba(5,5,12,0.6) !important;
+    background: rgba(5, 5, 12, 0.6) !important;
     border: none !important;
     border-radius: 28px !important;
     height: 320px !important;
     overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.25,1,0.5,1), box-shadow 0.4s !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s !important;
 }
 
 .metric-card::before {
@@ -294,7 +313,7 @@ body::after {
     inset: 0;
     border-radius: 28px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(0,255,204,0.25) 0%, rgba(188,19,254,0.1) 100%);
+    background: linear-gradient(135deg, rgba(0, 255, 204, 0.25) 0%, rgba(188, 19, 254, 0.1) 100%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -304,7 +323,7 @@ body::after {
 
 .metric-card:hover {
     transform: translateY(-6px) !important;
-    box-shadow: 0 40px 70px rgba(0,0,0,0.5) !important;
+    box-shadow: 0 40px 70px rgba(0, 0, 0, 0.5) !important;
 }
 
 .metric-number {
@@ -320,36 +339,39 @@ body::after {
 .metric-label {
     font-size: 0.72rem !important;
     letter-spacing: 0.2em !important;
-    color: rgba(255,255,255,0.35) !important;
+    color: rgba(255, 255, 255, 0.35) !important;
 }
 
 /* ═══════════════════════════════════════════
    SECURITY SECTION
 ═══════════════════════════════════════════ */
-.security-section { padding: var(--section-pad) !important; }
+.security-section {
+    padding: var(--section-pad) !important;
+}
 
 .sec-icon {
     font-size: 1.6rem !important;
-    width: 56px !important; height: 56px !important;
+    width: 56px !important;
+    height: 56px !important;
     border-radius: 16px !important;
-    background: rgba(0,255,204,0.04) !important;
-    border: 1px solid rgba(0,255,204,0.1) !important;
+    background: rgba(0, 255, 204, 0.04) !important;
+    border: 1px solid rgba(0, 255, 204, 0.1) !important;
     flex-shrink: 0 !important;
-    transition: all 0.3s cubic-bezier(0.25,1,0.5,1) !important;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 .sec-item {
     padding: 24px 0 !important;
     margin-bottom: 0 !important;
-    border-bottom: 1px solid rgba(255,255,255,0.04) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
     gap: 20px !important;
     align-items: flex-start !important;
 }
 
 .sec-item:hover .sec-icon {
-    background: rgba(0,255,204,0.1) !important;
-    border-color: rgba(0,255,204,0.35) !important;
-    box-shadow: 0 0 24px rgba(0,255,204,0.2) !important;
+    background: rgba(0, 255, 204, 0.1) !important;
+    border-color: rgba(0, 255, 204, 0.35) !important;
+    box-shadow: 0 0 24px rgba(0, 255, 204, 0.2) !important;
 }
 
 .sec-content h3 {
@@ -362,31 +384,36 @@ body::after {
     background-clip: text;
 }
 
-.sec-content p { font-size: 0.95rem !important; color: #5a5a6a !important; }
+.sec-content p {
+    font-size: 0.95rem !important;
+    color: #5a5a6a !important;
+}
 
 /* Digital face upgrade */
 .digital-face {
-    border-color: rgba(0,255,204,0.3) !important;
+    border-color: rgba(0, 255, 204, 0.3) !important;
     border-radius: 40% 60% 40% 60% / 50% 40% 60% 50% !important;
     box-shadow:
-        inset 0 0 60px rgba(0,255,204,0.08),
-        0 0 60px rgba(0,255,204,0.06),
-        0 0 0 1px rgba(0,255,204,0.08) !important;
+        inset 0 0 60px rgba(0, 255, 204, 0.08),
+        0 0 60px rgba(0, 255, 204, 0.06),
+        0 0 0 1px rgba(0, 255, 204, 0.08) !important;
 }
 
 /* ═══════════════════════════════════════════
    COST SECTION
 ═══════════════════════════════════════════ */
-.cost-section { padding: var(--section-pad) !important; }
+.cost-section {
+    padding: var(--section-pad) !important;
+}
 
 .calc-inner {
-    background: rgba(5,5,12,0.8) !important;
+    background: rgba(5, 5, 12, 0.8) !important;
     border: none !important;
     border-radius: 36px !important;
     padding: 64px 56px !important;
     box-shadow:
-        0 40px 100px rgba(0,0,0,0.7),
-        inset 0 1px 0 rgba(255,255,255,0.05) !important;
+        0 40px 100px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
     position: relative;
 }
 
@@ -408,7 +435,7 @@ body::after {
 .calc-label {
     font-size: 0.72rem !important;
     letter-spacing: 0.25em !important;
-    color: rgba(255,255,255,0.35) !important;
+    color: rgba(255, 255, 255, 0.35) !important;
     text-transform: uppercase !important;
 }
 
@@ -421,7 +448,7 @@ body::after {
 }
 
 /* ═══════════════════════════════════════════
-   CTA BUTTON — magnetic glowing upgrade
+   CTA BUTTON -magnetic glowing upgrade
 ═══════════════════════════════════════════ */
 .cta-btn {
     background: transparent !important;
@@ -436,8 +463,8 @@ body::after {
     display: block;
     padding: 22px 56px;
     border-radius: 100px;
-    background: rgba(5,5,5,0.95);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(5, 5, 5, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     font-size: 1.1rem !important;
     letter-spacing: 0.06em;
     position: relative;
@@ -457,20 +484,26 @@ body::after {
     transition: opacity 0.3s;
 }
 
-.cta-wrapper:hover .cta-btn::before { opacity: 1; }
+.cta-wrapper:hover .cta-btn::before {
+    opacity: 1;
+}
+
 .cta-wrapper:hover .cta-btn .btn-text {
-    background: rgba(10,10,10,0.9) !important;
-    box-shadow: 0 0 40px rgba(0,255,204,0.15) !important;
+    background: rgba(10, 10, 10, 0.9) !important;
+    box-shadow: 0 0 40px rgba(0, 255, 204, 0.15) !important;
 }
 
 /* Outer glow */
 .btn-glow {
-    background: radial-gradient(ellipse, rgba(0,255,204,0.4) 0%, transparent 70%) !important;
+    background: radial-gradient(ellipse, rgba(0, 255, 204, 0.4) 0%, transparent 70%) !important;
     filter: blur(24px) !important;
     opacity: 0 !important;
     transition: opacity 0.4s !important;
 }
-.cta-wrapper:hover .btn-glow { opacity: 1 !important; }
+
+.cta-wrapper:hover .btn-glow {
+    opacity: 1 !important;
+}
 
 /* ═══════════════════════════════════════════
    FINAL CTA SECTION
@@ -481,7 +514,7 @@ body::after {
     font-weight: 900 !important;
     letter-spacing: -0.05em !important;
     line-height: 0.9 !important;
-    background: linear-gradient(160deg, #ffffff 0%, rgba(255,255,255,0.5) 100%);
+    background: linear-gradient(160deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -489,18 +522,18 @@ body::after {
 
 .cta-subtitle {
     font-size: 1.1rem !important;
-    color: rgba(255,255,255,0.35) !important;
+    color: rgba(255, 255, 255, 0.35) !important;
     letter-spacing: 0.05em !important;
     text-transform: uppercase !important;
     margin-top: 20px !important;
 }
 
 /* ═══════════════════════════════════════════
-   FOOTER — elevated
+   FOOTER -elevated
 ═══════════════════════════════════════════ */
 .site-footer {
-    border-top: 1px solid rgba(255,255,255,0.04) !important;
-    background: rgba(3,3,6,0.95) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.04) !important;
+    background: rgba(3, 3, 6, 0.95) !important;
 }
 
 .footer-logo {
@@ -518,7 +551,7 @@ body::after {
    HORIZONTAL SCROLL CARDS
 ═══════════════════════════════════════════ */
 .h-card {
-    background: rgba(5,5,12,0.6) !important;
+    background: rgba(5, 5, 12, 0.6) !important;
     border: none !important;
     border-radius: 28px !important;
     overflow: hidden !important;
@@ -530,7 +563,7 @@ body::after {
     inset: 0;
     border-radius: 28px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -540,7 +573,7 @@ body::after {
 
 .h-card:hover {
     transform: translateY(-16px) scale(1.01) !important;
-    box-shadow: 0 50px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,255,204,0.1) !important;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 255, 204, 0.1) !important;
 }
 
 .h-card h3 {
@@ -550,7 +583,7 @@ body::after {
 }
 
 /* ═══════════════════════════════════════════
-   SECTION BACKGROUNDS — richer treatment
+   SECTION BACKGROUNDS -richer treatment
 ═══════════════════════════════════════════ */
 .tech-section::before,
 .metrics-section::before,
@@ -564,87 +597,101 @@ body::after {
 
 /* Radial accent glow per section */
 .tech-section::before {
-    right: -200px; top: -100px;
-    width: 600px; height: 600px;
+    right: -200px;
+    top: -100px;
+    width: 600px;
+    height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(188,19,254,0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(188, 19, 254, 0.06) 0%, transparent 70%);
 }
+
 .metrics-section::before {
-    left: -200px; bottom: 0;
-    width: 700px; height: 700px;
+    left: -200px;
+    bottom: 0;
+    width: 700px;
+    height: 700px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,255,204,0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 255, 204, 0.05) 0%, transparent 70%);
 }
+
 .cost-section::before {
-    right: -100px; top: 50%;
-    width: 500px; height: 500px;
+    right: -100px;
+    top: 50%;
+    width: 500px;
+    height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,0,85,0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 0, 85, 0.06) 0%, transparent 70%);
 }
 
 /* ═══════════════════════════════════════════
-   MARQUEE ITEMS — premium outline style
+   MARQUEE ITEMS -premium outline style
 ═══════════════════════════════════════════ */
 .marquee-item {
     font-size: 5rem !important;
-    -webkit-text-stroke: 1px rgba(255,255,255,0.15) !important;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15) !important;
     letter-spacing: 0.05em !important;
     transition: -webkit-text-stroke 0.3s, color 0.3s !important;
 }
 
 .marquee-track:hover .marquee-item {
-    -webkit-text-stroke: 1px rgba(0,255,204,0.5) !important;
+    -webkit-text-stroke: 1px rgba(0, 255, 204, 0.5) !important;
 }
 
 /* ═══════════════════════════════════════════
-   FLOATING AGENT AVATARS — upgrade
+   FLOATING AGENT AVATARS -upgrade
 ═══════════════════════════════════════════ */
 .agent-avatar {
     border: none !important;
-    background: rgba(5,5,12,0.8) !important;
+    background: rgba(5, 5, 12, 0.8) !important;
     box-shadow:
-        0 20px 50px rgba(0,0,0,0.6),
-        inset 0 1px 0 rgba(255,255,255,0.06),
-        0 0 0 1px rgba(255,255,255,0.06) !important;
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 0 0 1px rgba(255, 255, 255, 0.06) !important;
     backdrop-filter: blur(20px) !important;
-    transition: transform 0.4s cubic-bezier(0.25,1,0.5,1), box-shadow 0.4s !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s !important;
 }
 
 .agent-avatar:hover {
     box-shadow:
-        0 30px 70px rgba(0,0,0,0.7),
-        0 0 0 1px rgba(0,255,204,0.2),
-        0 0 40px rgba(0,255,204,0.1) !important;
+        0 30px 70px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(0, 255, 204, 0.2),
+        0 0 40px rgba(0, 255, 204, 0.1) !important;
 }
 
 /* ═══════════════════════════════════════════
    LIVE DEMO / CHAT
 ═══════════════════════════════════════════ */
 .demo-ui {
-    background: rgba(5,5,12,0.85) !important;
-    border: 1px solid rgba(255,255,255,0.04) !important;
+    background: rgba(5, 5, 12, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
     box-shadow:
-        0 40px 80px rgba(0,0,0,0.5),
-        inset 0 1px 0 rgba(255,255,255,0.04) !important;
+        0 40px 80px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
 }
 
 .msg-user {
-    background: rgba(255,255,255,0.05) !important;
-    border: 1px solid rgba(255,255,255,0.06) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
     font-size: 1rem !important;
 }
 
 .msg-kai {
-    background: rgba(0,255,204,0.04) !important;
-    border: 1px solid rgba(0,255,204,0.1) !important;
+    background: rgba(0, 255, 204, 0.04) !important;
+    border: 1px solid rgba(0, 255, 204, 0.1) !important;
     font-size: 1rem !important;
 }
 
 /* ═══════════════════════════════════════════
    SCROLLBAR
 ═══════════════════════════════════════════ */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom, #00ffcc, #bc13fe);
     border-radius: 4px;

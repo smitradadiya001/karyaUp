@@ -15,6 +15,7 @@ import karyaupLogo from "../../assets/logo-svg.svg";
 // import karyaupInfographicOperations from "../../assets/karyaup-soft-operations.png";
 import karyaupInfographicProduct from "../../assets/karyaup-soft-product.png";
 import FeatureCTA from "../../components/FeatureCTA";
+import FeatureStack from "../../components/FeatureStack";
 import MetricStorySlider from "../../components/MetricStorySlider";
 
 const getColorClasses = (colorName) => {
@@ -78,73 +79,12 @@ export default function Operations() {
     "WORKLOAD FIND": { icon: Search, color: "#4c1d95" },
   }
 
-  const FeatureStack = ({ items = [], interval = 2500 }) => {
-    const [index, setIndex] = useState(0);
-    const [hovered, setHovered] = useState(false);
-
-    useEffect(() => {
-      if (items.length === 0 || hovered) return;
-      const timer = setInterval(() => {
-        setIndex((prev) => (prev + 1) % items.length);
-      }, interval);
-      return () => clearInterval(timer);
-    }, [items.length, interval, hovered]);
-
-    const visibleItems = useMemo(() => {
-      if (items.length === 0) return [];
-      return [0, 1, 2].map((offset) => {
-        const itemIndex = (index + offset) % items.length;
-        const rawItem = items[itemIndex];
-        let itemObj = typeof rawItem === "string" ? { label: rawItem } : { ...rawItem };
-        if (!itemObj.icon || !itemObj.iconColor) {
-          const mapped = DEFAULT_ICON_MAP[itemObj.label] || { icon: Check, color: "#000000" };
-          itemObj.icon = itemObj.icon || mapped.icon;
-          itemObj.iconColor = itemObj.iconColor || mapped.color;
-        }
-        return { offset, item: itemObj };
-      });
-    }, [items, index]);
-
-    return (
-      <div
-        className="relative w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
-        style={{ height: "80px" }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <AnimatePresence mode="popLayout">
-          {visibleItems.map(({ offset, item }) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={item.label}
-                animate={hovered ? { opacity: 1, scale: 1, y: offset * 54, zIndex: 10 - offset } : { opacity: offset === 0 ? 1 : 0.45, scale: 1 - offset * 0.035, y: offset * 11, zIndex: 10 - offset }}
-                exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                className="absolute top-0 left-0 w-full px-4 py-2 rounded-xl flex items-center justify-center gap-3"
-                style={{
-                  background: "linear-gradient(135deg, rgba(226, 232, 240, 0.15) 0%, rgba(203, 213, 225, 0.08) 100%)",
-                  backdropFilter: "blur(12px)",
-                  border: "1.2px solid rgba(0, 0, 0, 0.25)",
-                }}
-              >
-                <div className="flex-shrink-0 w-6 h-6 rounded-md bg-white/25 flex items-center justify-center">
-                  <Icon className="w-3.5 h-3.5" style={{ color: item.iconColor }} strokeWidth={2.5} />
-                </div>
-                <span className="text-[11.5px] font-black tracking-widest text-black uppercase">{item.label}</span>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
-    );
-  };
-
   return (
     <div className="bg-white font-sans overflow-x-hidden selection:bg-purple-100">
       <Helmet><title>Operations | Karyaup</title></Helmet>
 
       {/* HERO SECTION */}
-      <section className="py-28 px-6">
+      <section className="pb-10 py-25 px-6">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
             <span className="inline-block px-2 py-1.5 rounded-full bg-purple-50 text-[11px] font-black uppercase tracking-widest text-purple-600 mb-3 border border-purple-100">
@@ -160,15 +100,32 @@ export default function Operations() {
                 App for Operations
               </motion.span>
             </h1>
-            <div className="mt-5 space-y-3 max-w-lg w-full">
+            <div className="mt-3 space-y-1 max-w-lg w-full">
               <div className="flex items-start gap-3">
                 <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
                   <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
                 </div>
-                <p className="text-sm sm:text-base text-slate-600 font-medium">Analyze profitability across projects, teams, and clients with KaryaUp.</p>
+                <p className="text-sm sm:text-base text-slate-600 font-medium">Analyze profitability across teams, and clients <br />with KaryaUp.</p>
               </div>
             </div>
-            <FeatureStack items={[{ label: "SMART ALLOCATE", icon: BrainCircuit, color: "purple" }, { label: "VELOCITY TRACK", icon: Zap, color: "fuchsia" }, { label: "WORKLOAD FIND", icon: Search, color: "purple" }]} />
+
+            <div className="mt-3 space-y-3 max-w-lg w-full">
+              <div className="flex items-start gap-3">
+                <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
+                  <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
+                </div>
+                <p className="text-sm sm:text-base text-slate-600 font-medium">Run smarter operations with complete visibility <br />and control</p>
+              </div>
+            </div>
+            {/* <FeatureStack items={[{ label: "SMART ALLOCATE", icon: BrainCircuit, color: "purple" }, { label: "VELOCITY TRACK", icon: Zap, color: "fuchsia" }, { label: "WORKLOAD FIND", icon: Search, color: "purple" }]} /> */}
+            <FeatureStack
+              items={[
+                { label: "SMART ALLOCATE", icon: BrainCircuit },
+                { label: "VELOCITY TRACK", icon: Zap },
+                { label: "WORKLOAD FIND", icon: Search }
+
+              ]}
+            />
           </div>
           <div className="relative w-full max-w-[540px] mx-auto">
             <img src={dashboardImage} className="w-full rounded-2xl shadow-2xl shadow-purple-900/10" alt="Dashboard" />
@@ -177,8 +134,8 @@ export default function Operations() {
       </section>
 
       {/* SELF-DRIVING WORKFLOWS - NO BORDERS */}
-      <section className="py-10 px-6 bg-slate-50/30 border-t border-slate-100">
-        <div className="max-w-8xl mx-auto text-center mb-16">
+      <section className="py-5 px-6 bg-slate-50/30 border-t border-slate-100">
+        <div className="max-w-8xl mx-auto text-center mb-10">
           <h2 className="text-4xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1">
             Self-Driving 
             <motion.span
@@ -189,7 +146,7 @@ export default function Operations() {
               Workflows
             </motion.span>
           </h2>
-          <p className="text-slate-600 font-bold">Define the logic once, let KaryaUp handle the execution.</p>
+          <p className="text-[1rem] text-slate-600 font-bold">Define the logic once, let KaryaUp handle the execution.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">

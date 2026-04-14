@@ -187,7 +187,7 @@ const sections = {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {[
           { emoji: "▶️", title: "KaryaUp in 5 Minutes", duration: "5:12", level: "Beginner", desc: "The fastest way to understand what KaryaUp is and why your team will love it." },
-          { emoji: "▶️", title: "Creating Your First Project", duration: "8:34", level: "Beginner", desc: "Watch us set up a real project from scratch — tasks, assignees, deadlines, and views." },
+          { emoji: "▶️", title: "Creating Your First Project", duration: "8:34", level: "Beginner", desc: "Watch us set up a real project from scratch -tasks, assignees, deadlines, and views." },
           { emoji: "▶️", title: "Mastering the Board View", duration: "11:20", level: "Intermediate", desc: "Learn to build powerful Kanban boards with automation, WIP limits, and custom columns." },
           { emoji: "▶️", title: "Time Tracking Deep Dive", duration: "9:45", level: "Intermediate", desc: "Everything you need to know about logging time, reviewing timesheets, and billing clients." },
           { emoji: "▶️", title: "Building Automations", duration: "14:02", level: "Advanced", desc: "Build no-code automations that run your team's repetitive workflows automatically." },
@@ -238,7 +238,7 @@ export default function Resources() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {allResources.filter(r => !r.to.endsWith(`/${page}`)).map((r) => (
               <Link key={r.to} to={r.to} className="group flex items-center gap-3 text-sm text-slate-600 hover:text-violet-700 font-black bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100 hover:border-violet-200 hover:bg-violet-50/50 hover:shadow-sm transition-all">
-                <span className="text-xl group-hover:scale-110 transition-transform">{r.icon}</span> 
+                <span className="text-xl group-hover:scale-110 transition-transform">{r.icon}</span>
                 {r.label}
               </Link>
             ))}

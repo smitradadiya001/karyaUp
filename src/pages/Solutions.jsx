@@ -224,7 +224,7 @@ const sections = {
   marketing: {
     badge: "Solutions / Teams",
     title: "KaryaUp for Marketing",
-    subtitle: "Plan campaigns, manage content, and measure results — all without juggling multiple tools.",
+    subtitle: "Plan campaigns, manage content, and measure results -all without juggling multiple tools.",
     content: (
       <>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -286,7 +286,7 @@ const sections = {
           <FeatureCard icon="🚀" title="Quick Setup" desc="Get your workspace up and running in minutes with pre-built startup templates." />
           <FeatureCard icon="💸" title="Startup Pricing" desc="Affordable plans designed for small teams and early-stage companies with big ambitions." />
           <FeatureCard icon="⚡" title="Move Fast" desc="Lightweight, flexible tools that don't slow you down with unnecessary complexity." />
-          <FeatureCard icon="📈" title="Scale With You" desc="As your team grows, KaryaUp grows with you — add features and seats on demand." />
+          <FeatureCard icon="📈" title="Scale With You" desc="As your team grows, KaryaUp grows with you -add features and seats on demand." />
           <FeatureCard icon="🤝" title="Investor-Ready Reports" desc="Generate clean progress reports and OKR summaries for board updates and investor meetings." />
           <FeatureCard icon="🏆" title="All-in-One" desc="Replace 5 different tools with KaryaUp. One subscription, one login, one source of truth." />
         </div>
@@ -324,7 +324,7 @@ const sections = {
           <FeatureCard icon="👩‍🏫" title="Faculty Collaboration" desc="Enable faculty to share resources, coordinate events, and manage departmental tasks together." />
           <FeatureCard icon="📅" title="Academic Calendar" desc="Sync all academic events, exam schedules, and submission deadlines to a shared calendar." />
           <FeatureCard icon="📊" title="Enrollment Dashboards" desc="Track enrollment metrics, program completions, and student progress at a glance." />
-          <FeatureCard icon="💸" title="Education Pricing" desc="Significant discounts for accredited educational institutions — contact us to apply." />
+          <FeatureCard icon="💸" title="Education Pricing" desc="Significant discounts for accredited educational institutions -contact us to apply." />
         </div>
         <CTA bg="bg-yellow-50" textColor="text-yellow-900" btnColor="bg-yellow-600" title="Organized education, better outcomes." desc="Get KaryaUp for your institution with an education discount." btnLabel="Learn More" />
       </>
@@ -397,7 +397,7 @@ const sections = {
           <FeatureCard icon="📧" title="Email Campaign" desc="Plan and manage every email campaign with segments, copy, design, and send-date tracking." />
           <FeatureCard icon="📱" title="Social Media Plan" desc="Schedule posts, assign copy and creative, and track engagement goals per channel." />
           <FeatureCard icon="📊" title="Campaign Report" desc="Auto-generate campaign performance summaries with metrics from your dashboard." />
-          <FeatureCard icon="🚀" title="Product Launch" desc="The complete product launch template — from pre-launch tasks to post-launch review." />
+          <FeatureCard icon="🚀" title="Product Launch" desc="The complete product launch template -from pre-launch tasks to post-launch review." />
         </div>
         <CTA bg="bg-indigo-50" textColor="text-indigo-900" btnColor="bg-indigo-600" title="Your marketing, organized and on time." desc="Use our marketing templates and ship campaigns that hit their deadlines." btnLabel="Use This Template" />
       </>
@@ -406,26 +406,32 @@ const sections = {
 };
 
 const allSections = [
-  { group: "For Teams", items: [
-    { label: "Project Management", to: "/solutions/project-management", icon: "📋" },
-    { label: "Product Development", to: "/solutions/product-development", icon: "🛠️" },
-    { label: "Operations", to: "/solutions/operations", icon: "⚙️" },
-    { label: "IT", to: "/solutions/it", icon: "🖥️" },
-    { label: "Marketing", to: "/solutions/marketing", icon: "📣" },
-    { label: "Human Resources", to: "/solutions/hr", icon: "🤝" },
-  ]},
-  { group: "For Companies", items: [
-    { label: "Enterprise", to: "/solutions/enterprise", icon: "🏢" },
-    { label: "Startup", to: "/solutions/startup", icon: "🚀" },
-    { label: "Non-Profit", to: "/solutions/non-profit", icon: "❤️" },
-    { label: "Education", to: "/solutions/education", icon: "🎓" },
-    { label: "Agency", to: "/solutions/agency", icon: "🗂️" },
-  ]},
-  { group: "Templates", items: [
-    { label: "Project Management", to: "/solutions/templates/project-management", icon: "📋" },
-    { label: "Sales/CRM", to: "/solutions/templates/crm", icon: "🤝" },
-    { label: "Marketing", to: "/solutions/templates/marketing", icon: "📣" },
-  ]},
+  {
+    group: "For Teams", items: [
+      { label: "Project Management", to: "/solutions/project-management", icon: "📋" },
+      { label: "Product Development", to: "/solutions/product-development", icon: "🛠️" },
+      { label: "Operations", to: "/solutions/operations", icon: "⚙️" },
+      { label: "IT", to: "/solutions/it", icon: "🖥️" },
+      { label: "Marketing", to: "/solutions/marketing", icon: "📣" },
+      { label: "Human Resources", to: "/solutions/hr", icon: "🤝" },
+    ]
+  },
+  {
+    group: "For Companies", items: [
+      { label: "Enterprise", to: "/solutions/enterprise", icon: "🏢" },
+      { label: "Startup", to: "/solutions/startup", icon: "🚀" },
+      { label: "Non-Profit", to: "/solutions/non-profit", icon: "❤️" },
+      { label: "Education", to: "/solutions/education", icon: "🎓" },
+      { label: "Agency", to: "/solutions/agency", icon: "🗂️" },
+    ]
+  },
+  {
+    group: "Templates", items: [
+      { label: "Project Management", to: "/solutions/templates/project-management", icon: "📋" },
+      { label: "Sales/CRM", to: "/solutions/templates/crm", icon: "🤝" },
+      { label: "Marketing", to: "/solutions/templates/marketing", icon: "📣" },
+    ]
+  },
 ];
 
 export default function Solutions() {

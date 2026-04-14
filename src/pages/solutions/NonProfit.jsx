@@ -93,14 +93,14 @@ const ImpactCard = ({ icon: Icon, title, description }) => (
 export default function NonProfit() {
 
   const DEFAULT_ICON_MAP = {
-    "MISSION MATCH" : { icon: BrainCircuit, color: "#4c1d95" },
-    "LIVE IMPACT"   : { icon: Zap, color: "#4c1d95" },
-    "GRANT FIND"    : { icon: Search, color: "#4c1d95" },
-}
+    "MISSION MATCH": { icon: BrainCircuit, color: "#4c1d95" },
+    "LIVE IMPACT": { icon: Zap, color: "#4c1d95" },
+    "GRANT FIND": { icon: Search, color: "#4c1d95" },
+  }
   const FeatureStack = ({ items = [], interval = 2500 }) => {
     const [index, setIndex] = useState(0);
     const [hovered, setHovered] = useState(false);
-  
+
     useEffect(() => {
       if (items.length === 0 || hovered) return;
       const timer = setInterval(() => {
@@ -108,29 +108,29 @@ export default function NonProfit() {
       }, interval);
       return () => clearInterval(timer);
     }, [items.length, interval, hovered]);
-  
+
     const visibleItems = useMemo(() => {
       if (items.length === 0) return [];
       return [0, 1, 2].map((offset) => {
         const itemIndex = (index + offset) % items.length;
         const rawItem = items[itemIndex];
-        
+
         // Normalize item to object
         let itemObj = typeof rawItem === "string" ? { label: rawItem } : { ...rawItem };
-        
+
         // Apply defaults for icons/colors if missing
         if (!itemObj.icon || !itemObj.iconColor) {
           const mapped = DEFAULT_ICON_MAP[itemObj.label] || { icon: Check, color: "#000000" };
           itemObj.icon = itemObj.icon || mapped.icon;
           itemObj.iconColor = itemObj.iconColor || mapped.color;
         }
-  
+
         return { offset, item: itemObj };
       });
     }, [items, index]);
-  
+
     if (items.length === 0) return null;
-  
+
     return (
       <div
         className="relative w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
@@ -144,7 +144,7 @@ export default function NonProfit() {
           {visibleItems.map(({ offset, item }) => {
             const Icon = item.icon;
             const color = item.iconColor;
-  
+
             return (
               <motion.div
                 key={item.label}
@@ -152,17 +152,17 @@ export default function NonProfit() {
                 animate={
                   hovered
                     ? {
-                        opacity: 1,
-                        scale: 1,
-                        y: offset * 54, // Clear separation between cards
-                        zIndex: 10 - offset,
-                      }
+                      opacity: 1,
+                      scale: 1,
+                      y: offset * 54, // Clear separation between cards
+                      zIndex: 10 - offset,
+                    }
                     : {
-                        opacity: offset === 0 ? 1 : offset === 1 ? 0.45 : 0.2,
-                        scale: 1 - offset * 0.035,
-                        y: offset * 11,
-                        zIndex: 10 - offset,
-                      }
+                      opacity: offset === 0 ? 1 : offset === 1 ? 0.45 : 0.2,
+                      scale: 1 - offset * 0.035,
+                      y: offset * 11,
+                      zIndex: 10 - offset,
+                    }
                 }
                 exit={{
                   opacity: 0,
@@ -195,7 +195,7 @@ export default function NonProfit() {
                     strokeWidth={2.5}
                   />
                 </div>
-  
+
                 {/* Precise Small Uppercase Text */}
                 <span className="text-[10px] sm:text-[11.5px] font-black tracking-widest text-black uppercase">
                   {item.label}
@@ -318,7 +318,7 @@ export default function NonProfit() {
                 <p className="text-sm sm:text-base text-slate-600 font-medium">Bring your team, tools, and work into one place with <br />Karyaup to move your mission forward more effectively. </p>
               </div>
             </div>
-           
+
             <FeatureStack
               items={[
                 { label: "MISSION MATCH", icon: BrainCircuit },
@@ -400,7 +400,7 @@ export default function NonProfit() {
               </div>
             </motion.div>
 
-            {/* Feature List — numbered steps with connecting lines */}
+            {/* Feature List -numbered steps with connecting lines */}
             <div className="flex flex-col">
               {whyItWorksFeatures.map((item, i) => (
                 <div key={i} className="flex items-stretch gap-5">
@@ -419,7 +419,7 @@ export default function NonProfit() {
                       {i + 1}
                     </motion.div>
 
-                    {/* Connecting line — hidden after last item */}
+                    {/* Connecting line -hidden after last item */}
                     {i < whyItWorksFeatures.length - 1 && (
                       <motion.div
                         animate={
@@ -436,11 +436,10 @@ export default function NonProfit() {
                   {/* Right column: feature card */}
                   <motion.div
                     onMouseEnter={() => setActiveFeature(i)}
-                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${
-                      activeFeature === i
+                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${activeFeature === i
                         ? "bg-white border-slate-200 shadow-xl shadow-purple-500/5 translate-x-2"
                         : "bg-transparent border-transparent opacity-60 hover:opacity-100"
-                    }`}
+                      }`}
                   >
                     <h3 className="text-xl font-bold text-slate-900 leading-none">
                       {item.title}
@@ -490,7 +489,7 @@ export default function NonProfit() {
               </motion.span>
             </motion.h1>
             <p className="text-[1rem] text-slate-600 font-medium leading-relaxed">
-              From fundraising and programs to volunteers and impact 
+              From fundraising and programs to volunteers and impact
               <br />
               reporting run every stage of nonprofit work in one connected workspace.
             </p>
@@ -521,7 +520,7 @@ export default function NonProfit() {
       {/* CTA */}
       <FeatureCTA
         title="Tasks that connect to everything you do"
-        description="Work smarter with tasks that can live in your whiteboards, chat, and calendar — anywhere you work."
+        description="Work smarter with tasks that can live in your whiteboards, chat, and calendar -anywhere you work."
         image={dashboardImage}
         containerClassName="mb-12 md:mb-10"
       />

@@ -40,10 +40,11 @@ const DataImport = () => {
                 </span>
               </div>
               <h2 className="mx-auto text-3xl sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1] mb-8 sm:mb-10 lg:mx-0">
-                Seamless Import <br className="hidden md:block" />
-                From Your <br className="hidden md:block" />
+                Seamless Import
+                <span className="block sm:inline">From Your</span>
+                <br className="hidden sm:block" />
                 <motion.span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
+                  className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
                   animate={{
                     backgroundPosition: ["0% center", "-200% center"],
                   }}
@@ -78,7 +79,7 @@ const DataImport = () => {
           {/* Right: Visual Area */}
           <div className="flex-[0.55] relative w-full max-w-full overflow-hidden flex items-center justify-center lg:justify-end pr-0 sm:pr-4 lg:pr-12">
             {/* ══════════════════════════════════
-                            DESKTOP  sm and above — UNCHANGED
+                            DESKTOP  sm and above -UNCHANGED
                         ══════════════════════════════════ */}
             <div className="hidden sm:block relative w-full h-[420px] sm:h-[500px]">
               {/* KaryaUp hub */}
@@ -150,7 +151,7 @@ const DataImport = () => {
                 </motion.div>
               </div>
 
-              {/* Desktop animated file icons — original paths */}
+              {/* Desktop animated file icons -original paths */}
               <div className="absolute inset-0 z-40 pointer-events-none overflow-hidden">
                 {[0, 1, 2].map((i) => (
                   <motion.div
@@ -208,7 +209,7 @@ const DataImport = () => {
                 style={{ width: 100, height: 100, top: 62, right: 12 }}
               />
 
-              {/* KaryaUp logo — right center */}
+              {/* KaryaUp logo -right center */}
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
@@ -226,7 +227,7 @@ const DataImport = () => {
                 />
               </motion.div>
 
-              {/* ClickUp — top left */}
+              {/* ClickUp -top left */}
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{
@@ -247,7 +248,7 @@ const DataImport = () => {
                 />
               </motion.div>
 
-              {/* Jira — bottom left */}
+              {/* Jira -bottom left */}
               <motion.div
                 animate={{ y: [0, 8, 0] }}
                 transition={{

@@ -146,7 +146,7 @@ export default function TeamHero() {
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
               className="mt-4 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
             >
-   One Place For Your  {" "}
+              One Place For Your  {" "}
               <span className="block">
                 {" "}
                 <motion.span
@@ -154,7 +154,7 @@ export default function TeamHero() {
                   animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 >
-                 Entire Team
+                  Entire Team
                 </motion.span>
               </span>
             </motion.h1>
@@ -163,22 +163,23 @@ export default function TeamHero() {
               initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-              className="mt-4 sm:mt-6 space-y-3 w-full max-w-[28rem] mx-auto lg:max-w-none lg:mx-0"
+              className="mt-4 sm:mt-6 flex flex-col items-center lg:items-start w-full"
             >
-              {[
-                "Define roles, distribute ownership",
-                "Full visibility into team capacity"
-               
-              ].map((text, i) => (
-                <div key={i} className="flex items-start gap-4 text-left justify-center lg:justify-start">
-                  <div className="mt-1.5 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                    <Check size={10} className="text-[#7e22ce] stroke-[4]" />
+              <div className="space-y-3 w-fit">
+                {[
+                  "Define roles, distribute ownership",
+                  "Full visibility into team capacity"
+                ].map((text, i) => (
+                  <div key={i} className="flex items-start gap-4 text-left">
+                    <div className="mt-1.5 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                      {text}
+                    </p>
                   </div>
-                  <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
-                    {text}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </motion.div>
 
             <FeatureStack items={["Roles & permissions", "Workload visibility", "Department hierarchy", "Member profiles"]} />

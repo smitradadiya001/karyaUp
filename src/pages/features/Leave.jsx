@@ -103,11 +103,11 @@ export default function Leave() {
         />
       </Helmet>
       <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
-        <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-4 pb-2 sm:pb-4 lg:pb-4">
           <div className="absolute top-0 right-0 -z-10 h-[580px] w-[580px] translate-x-1/4 -translate-y-1/3 rounded-full bg-purple-100/60 blur-[120px]" />
           <div className="absolute bottom-0 left-0 -z-10 h-[420px] w-[420px] -translate-x-1/4 translate-y-1/3 rounded-full bg-fuchsia-100/50 blur-[110px]" />
 
-          <div className="mx-auto flex min-h-[calc(100vh-7rem)] max-w-7xl items-start px-4 sm:px-6 lg:px-8 lg:pt-2">
+          <div className="mx-auto flex max-w-7xl items-start px-4 sm:px-6 lg:px-8 lg:pt-2">
             <div className="grid w-full items-start gap-10 lg:grid-cols-2 lg:gap-14">
               <div className="text-center lg:text-left flex flex-col items-center lg:items-start lg:self-start lg:pt-2">
                 <motion.div
@@ -149,7 +149,7 @@ export default function Leave() {
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-4 text-left justify-center lg:justify-start">
                       <div className="mt-1.5 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                        <Check size={10} className="text-[#7e22ce] stroke-[4]" />
+                        <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
                       </div>
                       <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
                         {text}
@@ -246,7 +246,7 @@ export default function Leave() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden pt-4 lg:pt-6 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative overflow-hidden pt-2 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
           <div className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[980px] -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-100/80 via-fuchsia-100/60 to-transparent blur-[130px]" />
 
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -384,8 +384,8 @@ export default function Leave() {
                     "Overlap alerts flag coverage risk before decisions are made",
                   ].map((item) => (
                     <div key={item} className="flex items-start justify-center gap-3 text-left lg:justify-start">
-                      <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-purple-100 text-[#7e22ce]">
-                        <Check className="h-3.5 w-3.5" />
+                      <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-purple-100 border border-purple-200 text-[#7e22ce]">
+                        <Check className="h-3.5 w-3.5 stroke-[4]" />
                       </div>
                       <span className="font-medium text-slate-700">{item}</span>
                     </div>

@@ -181,7 +181,7 @@ export default function Gantt() {
 
       <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
-        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-2 sm:pb-4 lg:pb-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
               {/* Left Content */}
@@ -229,12 +229,12 @@ export default function Gantt() {
                     </p>
                   </div>
 
-                   <div className="flex items-start gap-3 text-left">
+                  <div className="flex items-start gap-3 text-left">
                     <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
                       <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
                     </div>
                     <p className="text-sm sm:text-lg text-slate-600 font-medium leading-relaxed">
-                       Map dependencies, adjust milestones in real time
+                      Map dependencies, adjust milestones in real time
                     </p>
                   </div>
                 </motion.div>
@@ -267,7 +267,7 @@ export default function Gantt() {
         </section>
 
         {/* "How They Work" Section */}
-        <section ref={container} className="bg-white pt-4 lg:pt-8 pb-4 sm:pb-16 lg:pb-20 overflow-hidden">
+        <section ref={container} className="bg-white pt-2 lg:pt-4 pb-4 sm:pb-16 lg:pb-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10 text-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -290,12 +290,12 @@ export default function Gantt() {
             </motion.div>
           </div>
 
-          <div className="sticky-sections-container relative h-[65vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl">
+          <div className="sticky-sections-container relative h-auto max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl">
             {ganttSections.map((item, i) => (
               <div
                 key={i}
                 ref={(el) => (sectionRefs.current[i] = el)}
-                className="absolute inset-0 w-full h-full bg-white flex flex-col lg:flex-row items-center border-b border-black/5"
+                className={`${i === 0 ? "relative" : "absolute inset-0"} w-full bg-white flex flex-col lg:flex-row items-center border-b border-black/5`}
               >
                 {/* Content Side */}
                 <div className="flex-[0.48] lg:flex-1 flex flex-col justify-end lg:justify-center items-center lg:items-start text-center lg:text-left p-4 pb-2 sm:p-8 lg:p-12 w-full">

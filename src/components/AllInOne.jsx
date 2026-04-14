@@ -32,12 +32,12 @@ const MarqueeTile = ({ icon: Icon, label, isPaused }) => (
 );
 
 const FeatureCard = ({ title, image }) => (
-    <div className="w-full h-[150px] lg:h-[240px] bg-white border border-gray-50 flex flex-col relative overflow-hidden group/card shadow-none transition-shadow duration-300">
+    <div className="w-full h-[185px] sm:h-[150px] lg:h-[240px] bg-white border border-gray-50 flex flex-col relative overflow-hidden group/card shadow-none transition-shadow duration-300">
         <div className="w-full h-full overflow-hidden flex items-center justify-center">
             <img
                 src={image}
                 alt={title}
-                className="block w-full h-full object-contain p-2 sm:p-4 grayscale-[30%] group-hover/card:grayscale-0 group-hover/card:scale-[1.05] transition-all duration-1000 ease-out object-center"
+                className="block w-full h-full object-contain p-1.5 sm:p-4 grayscale-[30%] group-hover/card:grayscale-0 group-hover/card:scale-[1.05] transition-all duration-1000 ease-out object-center"
             />
         </div>
     </div>
@@ -191,13 +191,13 @@ const AllInOne = () => {
                         <span className="text-[10px] font-bold text-[#7e22ce] uppercase tracking-wider">Zero Friction Sync</span>
                     </div>
                     <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]">
-                        Unify your tools into one<br />
+                        Unify Your Tools Into One<br />
                         <motion.span
                             className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
                             animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                             transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                         >
-                            seamless platform
+                            Seamless Platform
                         </motion.span>
                     </h2>
                 </motion.div>

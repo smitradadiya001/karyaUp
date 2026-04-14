@@ -17,6 +17,7 @@ export default function FeatureCTA({
   eyebrow,
   highlights,
   buttonText = "Get Started. It's FREE",
+  extra,
   image,
   imageAlt = "KaryaUp Showcase",
   imageClassName = "w-full",
@@ -248,6 +249,11 @@ export default function FeatureCTA({
               />
             </span>
           </motion.button>
+          {extra && (
+            <div className="mt-6 w-full opacity-90">
+              {extra}
+            </div>
+          )}
         </div>
 
         {/* Right Content Area: Interface Showcase with Glows */}

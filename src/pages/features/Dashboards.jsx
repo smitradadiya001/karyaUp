@@ -176,7 +176,7 @@ export default function Dashboards() {
       </Helmet>
       <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
-        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-2 sm:pb-4 lg:pb-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
               {/* Left Content */}
@@ -218,7 +218,7 @@ export default function Dashboards() {
                   {[
                     "Real-time signals for every decision.",
                     "Create dashboards focused on real impact"
-                  
+
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-3 text-left">
                       <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
@@ -258,7 +258,7 @@ export default function Dashboards() {
         </section>
 
         {/* Role-Based Dashboards Section */}
-        <section ref={container} className="bg-white pt-4 lg:pt-8 pb-4 sm:pb-16 lg:pb-20 overflow-hidden">
+        <section ref={container} className="bg-white pt-2 lg:pt-4 pb-4 sm:pb-16 lg:pb-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12 text-center">
             <motion.div
               initial={{ opacity: 0, x: isMobile ? 0 : -30 }}
@@ -285,12 +285,12 @@ export default function Dashboards() {
             </motion.div>
           </div>
 
-          <div className="sticky-sections-container relative h-[65vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl mb-4 sm:mb-24">
+          <div className="sticky-sections-container relative h-auto max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl mb-4 sm:mb-24">
             {dashboardSections.map((item, i) => (
               <div
                 key={i}
                 ref={(el) => (sectionRefs.current[i] = el)}
-                className="absolute inset-0 w-full h-full bg-white flex flex-col lg:flex-row items-center border-b border-black/5"
+                className={`${i === 0 ? "relative" : "absolute inset-0"} w-full bg-white flex flex-col lg:flex-row items-center border-b border-black/5`}
               >
                 {/* Content Side */}
                 <div className="flex-[0.48] lg:flex-1 flex flex-col justify-end lg:justify-center items-center lg:items-start text-center lg:text-left p-4 pb-2 sm:p-8 lg:p-12 w-full">
@@ -328,7 +328,7 @@ export default function Dashboards() {
 
                     {item.header === "Sales Dashboard" ? (
                       <div className="relative w-full h-full bg-white rounded-2xl shadow-2xl flex items-center justify-center p-6 sm:p-10 lg:p-16">
-                         <GrowthGraph className="w-full" />
+                        <GrowthGraph className="w-full" />
                       </div>
                     ) : (
                       <img

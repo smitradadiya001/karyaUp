@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Video, CheckSquare, Send } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -127,14 +127,14 @@ export default function CalendarStickySection() {
   return (
     <section
       ref={container}
-      className="relative overflow-hidden bg-white pt-12 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-20"
+      className="relative overflow-hidden bg-white pt-4 sm:pt-6 lg:pt-6 pb-4 sm:pb-6 lg:pb-6"
     >
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12 text-center"
+          className="mb-6 sm:mb-8 text-center"
         >
           <h2 className="mb-4 text-3xl font-black leading-[1.06] tracking-normal text-slate-900 sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem]">
             Everything Happens in
@@ -146,7 +146,7 @@ export default function CalendarStickySection() {
           </p>
         </motion.div>
 
-        <div className="sticky-sections-container relative h-[65vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto mb-12 sm:mb-24 rounded-xl sm:rounded-[2.5rem] overflow-hidden border border-slate-200/80 shadow-2xl bg-white">
+        <div className="sticky-sections-container relative h-[65vh] sm:h-[80vh] lg:h-[75vh] max-w-6xl mx-auto mb-6 sm:mb-12 rounded-xl sm:rounded-[2.5rem] overflow-hidden border border-slate-200/80 shadow-2xl bg-white">
           {calendarSections.map((item, i) => (
             <div
               key={item.id}
@@ -167,17 +167,20 @@ export default function CalendarStickySection() {
                 </p>
 
                 <ul className="mb-4 hidden w-full max-w-md space-y-2.5 sm:block">
-                  {item.bullets.map((bullet, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-start gap-3.5 text-left"
-                    >
-                      <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                        <Check size={10} className="text-[#7e22ce] stroke-[4]" />
-                      </div>
-                      <span className="text-sm sm:text-base font-bold text-slate-600 leading-relaxed">{bullet}</span>
-                    </li>
-                  ))}
+                  {item.bullets.map((bullet, idx) => {
+                    const BulletIcon = item.id === "schedule-meeting" ? Video : item.id === "create-task" ? CheckSquare : Send;
+                    return (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3.5 text-left"
+                      >
+                        <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                          <BulletIcon size={10} className="text-[#7e22ce] stroke-[4]" />
+                        </div>
+                        <span className="text-sm sm:text-base font-bold text-slate-600 leading-relaxed">{bullet}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 <div className="inline-flex rounded-full border border-purple-200 bg-purple-50 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-purple-700 sm:hidden">

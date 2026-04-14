@@ -11,7 +11,7 @@ const features = [
     tag: 'Dashboard',
     title: 'A live view of your entire company.',
     label: 'Track',
-    desc: 'Tasks, deadlines, team workload, performance — in real time.',
+    desc: 'Tasks, deadlines, team workload, performance -in real time.',
     stat: '94%', statLabel: 'on-time delivery',
     accent: '#7e22ce',
     shine: 'from-purple-500/10 via-purple-200/5 to-transparent',
@@ -31,7 +31,7 @@ const features = [
   {
     icon: Briefcase,
     tag: 'CRM Pipeline',
-    title: 'From lead to delivery — fully connected.',
+    title: 'From lead to delivery -fully connected.',
     label: 'Track',
     desc: 'Track revenue alongside execution.',
     stat: '+23%', statLabel: 'win rate',
@@ -168,7 +168,7 @@ const FeatureOverview = () => (
           </motion.span>
         </h2>
         <p className="text-slate-500 text-base sm:text-lg font-medium">
-          One platform. Every view — always current.
+          One platform. Every view -always current.
         </p>
       </motion.div>
 

@@ -138,7 +138,7 @@ const Footer = () => {
                 return (
                   <span
                     key={`wm-${i}`}
-                    className="inline-block font-black font-sans uppercase leading-none tracking-[-0.12em] antialiased text-[#7e22ce]/[0.18] sm:text-[#7e22ce]/[0.15] md:text-[#7e22ce]/[0.12] lg:text-[#7e22ce]/[0.1]"
+                   className="inline-block font-black font-sans uppercase leading-none tracking-[-0.12em] antialiased text-slate-500/[0.18] sm:text-slate-500/[0.15] md:text-slate-500/[0.12] lg:text-slate-500/[0.1]"
                     style={{
                       fontSize: `clamp(${minRem}rem, ${prefVw}vw, ${maxRem}rem)`,
                       transform: `translateZ(${Math.round(t * 72 * scale)}px)`,

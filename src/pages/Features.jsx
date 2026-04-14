@@ -125,7 +125,7 @@ const sections = {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <FeatureCard icon="📊" title="Drag & Drop Widgets" desc="Build your ideal dashboard by dragging charts, task lists, and metrics exactly where you want them." />
         <FeatureCard icon="📈" title="Progress Charts" desc="Track team velocity, task completion rates, and sprint burndowns with live charts." />
-        <FeatureCard icon="🔢" title="Metric Tiles" desc="Display key numbers — open tasks, overdue items, team headcount — as highlighted tiles." />
+        <FeatureCard icon="🔢" title="Metric Tiles" desc="Display key numbers -open tasks, overdue items, team headcount -as highlighted tiles." />
         <FeatureCard icon="🎯" title="Goal Progress" desc="Show goal completion percentage alongside project data to keep priorities aligned." />
         <FeatureCard icon="📤" title="Share & Export" desc="Share dashboards with stakeholders or export charts as images and PDFs for reports." />
         <FeatureCard icon="🔄" title="Auto-Refresh" desc="Dashboards update automatically so you always have the latest data without manual refreshing." />
@@ -180,7 +180,7 @@ const sections = {
   team: {
     badge: "Management",
     title: "Team Management",
-    subtitle: "Manage your entire workforce in one place — from onboarding to performance tracking.",
+    subtitle: "Manage your entire workforce in one place -from onboarding to performance tracking.",
     content: (
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <FeatureCard icon="👤" title="Employee Profiles" desc="Maintain rich profiles for every team member including roles, skills, and contact information." />
@@ -214,7 +214,7 @@ const sections = {
     content: (
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <FeatureCard icon="🏖️" title="Leave Requests" desc="Employees submit leave requests in seconds. Managers approve or decline from a single inbox." />
-        <FeatureCard icon="📊" title="Leave Balances" desc="Every employee can see their remaining leave balance by type — annual, sick, maternity, etc." />
+        <FeatureCard icon="📊" title="Leave Balances" desc="Every employee can see their remaining leave balance by type -annual, sick, maternity, etc." />
         <FeatureCard icon="🗓️" title="Team Calendar" desc="See all approved leaves on a shared calendar so teams plan coverage effectively." />
         <FeatureCard icon="⚙️" title="Policy Configuration" desc="Define custom leave policies by role, department, or seniority level including carry-forward rules." />
         <FeatureCard icon="🔔" title="Approval Workflows" desc="Route leave requests through single or multi-level approval chains based on your hierarchy." />
@@ -274,9 +274,9 @@ const sections = {
     content: (
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <FeatureCard icon="⚡" title="Trigger-Based Rules" desc="Create rules that fire when a status changes, a date arrives, or a task is assigned." />
-        <FeatureCard icon="🤖" title="No-Code Builder" desc="Build automation workflows with a visual drag-and-drop editor — no developer needed." />
+        <FeatureCard icon="🤖" title="No-Code Builder" desc="Build automation workflows with a visual drag-and-drop editor -no developer needed." />
         <FeatureCard icon="📨" title="Auto-Notifications" desc="Automatically notify the right people when key events happen in your workspace." />
-        <FeatureCard icon="🔁" title="Recurring Automations" desc="Set schedules — daily, weekly, monthly — for automations that repeat on a cadence." />
+        <FeatureCard icon="🔁" title="Recurring Automations" desc="Set schedules -daily, weekly, monthly -for automations that repeat on a cadence." />
         <FeatureCard icon="🔗" title="App Integrations" desc="Connect KaryaUp with Slack, Gmail, and other tools to automate cross-platform workflows." />
         <FeatureCard icon="📊" title="Automation Logs" desc="See a full execution history of every automation run to debug and optimize your rules." />
       </div>
@@ -362,7 +362,7 @@ export default function Features() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             {allFeatures.filter(f => !f.to.endsWith(`/${page}`)).map((f) => (
               <Link key={f.to} to={f.to} className="group flex items-center gap-3 text-sm text-slate-600 hover:text-emerald-700 font-black bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/50 hover:shadow-sm transition-all">
-                <span className="text-xl group-hover:scale-110 transition-transform">{f.icon}</span> 
+                <span className="text-xl group-hover:scale-110 transition-transform">{f.icon}</span>
                 {f.label}
               </Link>
             ))}

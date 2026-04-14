@@ -139,7 +139,7 @@ const TeamSolutions = () => {
         gsap.set(sections[0], { y: "0%", scale: 1, opacity: 1 });
         for (let i = 1; i < totalSections; i++) {
             if (!sections[i]) continue;
-            gsap.set(sections[i], { y: "100%", scale: 1, opacity: 1 });
+            gsap.set(sections[i], { y: "150%", scale: 1, opacity: 1 });
         }
 
         const scrollTimeline = gsap.timeline({
@@ -217,18 +217,18 @@ const TeamSolutions = () => {
 
                 {/* Sticky scrolling sections container */}
                 {/* Sticky scrolling sections container */}
-                <div className="teamsolutions-sticky-container relative h-[70vh] sm:h-[75vh] lg:h-[75vh] w-full mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-100 shadow-sm bg-gradient-to-br from-[#ffffff] via-[#faf8ff] to-[#f3e8ff]">
+                <div className="teamsolutions-sticky-container relative h-[90vh] sm:h-[75vh] lg:h-[75vh] w-full mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-100 shadow-sm bg-gradient-to-br from-[#ffffff] via-[#faf8ff] to-[#f3e8ff]">
                     {teams.map((active, i) => (
                         <div
                             key={active.id}
                             ref={(el) => (sectionRefs.current[i] = el)}
                             className="absolute inset-0 w-full h-full bg-gradient-to-br from-white via-[#faf8ff] to-[#f3e8ff] flex flex-col items-center justify-center"
                         >
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-12 items-center p-4 sm:p-10 w-full h-full">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-12 items-center p-6 sm:p-10 w-full h-full max-h-full overflow-hidden">
                                 {/* Left side */}
-                                <div className="relative overflow-hidden lg:pr-10 flex flex-col items-center lg:items-start text-center lg:text-left h-auto lg:h-full justify-center mb-6 lg:mb-0">
-                                    <div className="relative z-10 w-full flex flex-col items-center lg:items-start">
-                                        <h3 className="text-xl sm:text-3xl md:text-[2.75rem] font-black text-gray-900 leading-[1.1] mb-2 sm:mb-5">
+                                <div className="relative lg:pr-10 flex flex-col items-center lg:items-start text-center lg:text-left h-auto lg:h-full justify-center mb-0">
+                                    <div className="relative z-10 w-full flex flex-col items-center lg:items-start pt-2 lg:pt-0">
+                                        <h3 className="text-xl sm:text-2xl md:text-[2.25rem] font-black text-gray-900 leading-[1.1] mb-2 sm:mb-4">
                                             {active.title}
                                             <br />
                                             <motion.span
@@ -274,12 +274,12 @@ const TeamSolutions = () => {
                                     </div>
                                 </div>
 
-                                {/* Right side — feature cards */}
+                                {/* Right side -feature cards */}
                                 <div className="flex flex-col items-start justify-start gap-2 sm:gap-3 w-[260px] xs:w-[280px] sm:w-[400px] max-w-full mx-auto lg:mx-0">
                                     {active.features.map((feature, idx) => (
                                         <div
                                             key={`${active.id}-${idx}`}
-                                            className="flex flex-row items-center justify-start text-left gap-3 sm:gap-4 bg-white/60 hover:bg-white rounded-xl sm:rounded-2xl px-4 py-2 sm:px-5 sm:py-0 transition-all duration-300 cursor-default border border-gray-100 hover:border-purple-600 hover:shadow-lg hover:shadow-purple-500/10 group h-[4.5rem] sm:h-[5.25rem] !w-full min-w-[260px] shadow-sm !m-0"
+                                            className="flex flex-row items-center justify-start text-left gap-3 sm:gap-4 bg-white/60 hover:bg-white rounded-xl sm:rounded-2xl px-4 py-2 sm:px-5 sm:py-0 transition-all duration-300 cursor-default border border-gray-100 hover:border-[#7e22ce] hover:shadow-lg hover:shadow-purple-500/10 hover:ring-1 hover:ring-[#7e22ce]/10 group h-[4.5rem] sm:h-[5.25rem] !w-full min-w-[260px] shadow-sm !m-0"
                                         >
                                             <FeatureIcon color={feature.color} icon={feature.icon} />
                                             <span className="text-[11px] sm:text-sm font-bold text-gray-700 transition-colors group-hover:text-purple-900 leading-tight w-full break-normal text-left block">{feature.name}</span>

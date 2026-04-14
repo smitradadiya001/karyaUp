@@ -49,17 +49,25 @@ const getIconForLabel = (label) => {
 const FeatureStack = ({ items = [], interval = 2500 }) => {
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState(false);
   const containerRef = useRef(null);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-
+  const isExpanded = isMobile ? mobileExpanded : hovered;
 
   useEffect(() => {
-    if (items.length === 0 || hovered) return;
+    if (items.length === 0 || isExpanded) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % items.length);
     }, interval);
     return () => clearInterval(timer);
-  }, [items.length, interval, hovered]);
+  }, [items.length, interval, isExpanded]);
 
   const visibleItems = useMemo(() => {
     if (items.length === 0) return [];
@@ -84,9 +92,18 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
   return (
     <motion.div
       ref={containerRef}
-      className="relative z-20 mx-auto mb-10 mt-6 min-h-[158px] w-full max-w-[240px] overflow-visible pb-2 sm:mb-12 sm:min-h-[162px] sm:max-w-[320px] md:mb-0 md:min-h-[100px] lg:mx-0 lg:mt-8 lg:min-h-[92px]"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className={`relative z-20 mx-auto mt-6 w-full max-w-[240px] overflow-visible sm:mb-12 sm:min-h-[162px] sm:max-w-[320px] md:mb-0 md:min-h-[100px] lg:mx-0 lg:mt-8 lg:min-h-[92px] transition-all duration-500 ease-in-out cursor-pointer sm:cursor-default ${
+        isExpanded ? "mb-0 min-h-[146px] pb-0" : "mb-0 min-h-[55px] pb-0"
+      }`}
+      onMouseEnter={() => {
+        if (!isMobile) setHovered(true);
+      }}
+      onMouseLeave={() => {
+        if (!isMobile) setHovered(false);
+      }}
+      onPointerUp={() => {
+        if (isMobile) setMobileExpanded((prev) => !prev);
+      }}
     >
       <AnimatePresence mode="popLayout">
         {visibleItems.map(({ offset, item }) => {
@@ -98,7 +115,7 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
               key={item.label}
               initial={{ opacity: 0, y: 15, scale: 0.9 }}
               animate={
-                hovered
+                isExpanded
                   ? {
                       opacity: 1,
                       scale: 1,
@@ -121,7 +138,7 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
               transition={{
                 duration: 0.5,
                 ease: [0.22, 1, 0.36, 1],
-                delay: hovered ? offset * 0.05 : offset * 0.02,
+                delay: isExpanded ? offset * 0.05 : offset * 0.02,
               }}
               className="absolute top-0 left-0 w-full"
             >

@@ -182,23 +182,20 @@ export default function Notifications() {
                   transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
                   className="mt-5 sm:mt-6 space-y-4 max-w-2xl w-full mx-auto lg:mx-0"
                 >
-                  <div className="flex items-start gap-3.5 text-left">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
+                  {[
+                    "Conversations and alerts that stay close to the work",
+                    "Chat directly inside projects, tasks, and teams",
+                    "Retrieve any past alert with smart history search"
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3.5 text-left">
+                      <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
+                      </div>
+                      <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
+                        {item}
+                      </p>
                     </div>
-                    <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
-                      Conversations that stay close to the work.
-                    </p>
-                  </div>
-
-                  <div className="flex items-start gap-3.5 text-left">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
-                    </div>
-                    <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
-                      Chat directly inside projects, tasks, and teams
-                    </p>
-                  </div>
+                  ))}
 
 
 
@@ -231,7 +228,7 @@ export default function Notifications() {
           </div>
         </section>
         {/* ── Notification Grid Section ── */}
-        <section className="pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20 bg-white relative overflow-hidden">
+        <section className="pt-2 lg:pt-4 pb-12 sm:pb-16 lg:pb-20 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
             {/* Heading */}

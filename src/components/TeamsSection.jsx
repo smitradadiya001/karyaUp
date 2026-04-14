@@ -298,14 +298,14 @@ const TeamsSection = () => {
             </div>
           </div>
 
-          {/* LEFT: stacked rows — desktop with Wizard Timeline */}
+          {/* LEFT: stacked rows -desktop with Wizard Timeline */}
           <div className="hidden lg:col-span-4 lg:flex lg:flex-col relative px-4">
             {/* The Background Track (Line) */}
             <div className="absolute left-[36px] top-[40px] bottom-[40px] w-0.5 bg-slate-100 rounded-full z-0" />
-            
+
             {/* The Animated Progress Line */}
-            <motion.div 
-              animate={{ 
+            <motion.div
+              animate={{
                 height: `${(active / (teams.length - 1)) * 100}%`,
                 background: `linear-gradient(to bottom, ${teams[Math.max(0, active - 1)].accent}, ${teams[active].accent})`
               }}
@@ -329,12 +329,12 @@ const TeamsSection = () => {
                 >
                   {/* Step dot / Icon Container */}
                   <motion.div
-                    animate={{ 
+                    animate={{
                       scale: isActive ? 1.15 : 1,
                     }}
                     transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                     className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 relative z-20"
-                    style={{ 
+                    style={{
                       backgroundColor: isActive ? t.accent : isPast ? t.accent : '#6b21a8',
                       boxShadow: isActive ? `0 0 25px ${t.accent}66` : isPast ? `0 0 10px ${t.accent}33` : 'none',
                       opacity: 1,
@@ -345,7 +345,7 @@ const TeamsSection = () => {
 
                   <div className="flex-1">
                     <motion.p
-                      animate={{ 
+                      animate={{
                         color: isActive ? '#0f172a' : isPast ? '#64748b' : '#94a3b8',
                         scale: isActive ? 1.05 : 1
                       }}

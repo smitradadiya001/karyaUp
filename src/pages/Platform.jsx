@@ -94,7 +94,7 @@ const FeatureCard = ({ icon, title, desc, color = "indigo" }) => {
       default: return 'bg-indigo-50 text-indigo-600 ring-indigo-100';
     }
   };
-  
+
   const getHoverClasses = (c) => {
     switch (c) {
       case 'amber': return 'group-hover:bg-amber-500 group-hover:shadow-[0_10px_30px_-10px_rgba(245,158,11,0.5)]';
@@ -125,7 +125,7 @@ const sections = {
   "project-management": {
     badge: "Platform",
     title: "Project Management",
-    subtitle: "Plan, track, and deliver projects on time — from simple tasks to complex cross-team initiatives.",
+    subtitle: "Plan, track, and deliver projects on time -from simple tasks to complex cross-team initiatives.",
     content: (
       <>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
@@ -203,11 +203,11 @@ const sections = {
   "team-collaboration": {
     badge: "Platform",
     title: "Team Collaboration",
-    subtitle: "Work together seamlessly — share updates, files, and feedback without leaving your workspace.",
+    subtitle: "Work together seamlessly -share updates, files, and feedback without leaving your workspace.",
     content: (
       <>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
-          <FeatureCard icon="💬" title="Task Comments" desc="Discuss work in context — leave comments on any task, tag teammates, and attach files directly." />
+          <FeatureCard icon="💬" title="Task Comments" desc="Discuss work in context -leave comments on any task, tag teammates, and attach files directly." />
           <FeatureCard icon="📁" title="File Sharing" desc="Attach documents, images, and links to tasks. Everything your team needs is always in one place." />
           <FeatureCard icon="🤝" title="Shared Workspaces" desc="Organize all your projects, teams, and work into a single collaborative workspace." />
           <FeatureCard icon="✅" title="Task Dependencies" desc="Link tasks so blocked work is surfaced automatically when a prerequisite isn't complete yet." />
@@ -228,7 +228,7 @@ const sections = {
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 py-4">
               <div className="text-center md:text-left">
                 <h3 className="text-2xl sm:text-3xl font-black text-white mb-3">Your whole team, in one place.</h3>
-                <p className="text-white/80 font-medium text-sm sm:text-base">No more scattered emails and Slack threads — collaborate where the work happens.</p>
+                <p className="text-white/80 font-medium text-sm sm:text-base">No more scattered emails and Slack threads -collaborate where the work happens.</p>
               </div>
               <Link to="/start" className="group shrink-0 flex h-[3.4em] min-w-[14em] items-center justify-center rounded-[30em] bg-white font-black text-[15px] sm:text-[16px] text-purple-900 shadow-xl transition-all duration-300 active:scale-95">
                 <span className="flex items-center gap-2">Start Free <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" /></span>
@@ -242,7 +242,7 @@ const sections = {
   "boss-dashboard": {
     badge: "Platform",
     title: "Boss Dashboard",
-    subtitle: "A high-level command center for leaders who need clarity on team performance, priorities, and progress — all at once.",
+    subtitle: "A high-level command center for leaders who need clarity on team performance, priorities, and progress -all at once.",
     content: (
       <>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
@@ -322,7 +322,7 @@ const sections = {
 const overviewSection = {
   badge: "Platform",
   title: "The KaryaUp Platform",
-  subtitle: "One workspace for your entire company. Manage projects, track time, collaborate, and measure outcomes — without switching tools.",
+  subtitle: "One workspace for your entire company. Manage projects, track time, collaborate, and measure outcomes -without switching tools.",
   content: (
     <>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">

@@ -7,7 +7,7 @@ import autoImg from "../../assets/New_Task.png";
 import AutomationImg from "../../assets/Automation.png";
 import { Helmet } from "react-helmet-async";
 
-/* 3D tilt card — light theme */
+/* 3D tilt card -light theme */
 const TiltCard = ({ children, className }) => {
   const ref = useRef(null);
   const rawX = useMotionValue(0);
@@ -78,7 +78,7 @@ export default function Automations() {
       <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900 overflow-x-hidden">
 
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-4 pb-2 sm:pb-4 lg:pb-4">
           <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-0">
             <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-12 items-center">
               {/* Left Content */}
@@ -121,8 +121,8 @@ export default function Automations() {
                     "Construct custom workflows to automate tasks."
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-3.5 text-left">
-                      <div className="mt-1 w-5 h-5 rounded-full bg-[#f3e8ff] flex flex-col items-center justify-center flex-shrink-0">
-                        <Check className="w-3 h-3 text-[#9333ea] stroke-[3.5]" />
+                      <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex flex-col items-center justify-center flex-shrink-0">
+                        <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
                       </div>
                       <p className="text-sm sm:text-base lg:text-lg text-[#475569] font-medium leading-relaxed">
                         {text}
@@ -161,7 +161,7 @@ export default function Automations() {
         </section>
 
         {/* Features Bento Section */}
-        <section className="pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8 max-w-[90rem] mx-auto overflow-hidden">
+        <section className="pt-2 lg:pt-4 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8 max-w-[90rem] mx-auto overflow-hidden">
           {/* Section Tag */}
           <div className="flex flex-col items-center text-center mb-10 sm:mb-14">
             <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#f3e8ff] text-[#9333ea] text-[11px] font-black uppercase tracking-[0.15em] mb-4">
@@ -176,7 +176,7 @@ export default function Automations() {
           {/* 4-Box TiltCard Layout */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" style={{ perspective: '1200px' }}>
 
-            {/* Box 1 — Toggle Off Anytime */}
+            {/* Box 1 -Toggle Off Anytime */}
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="h-full">
               <TiltCard className="relative bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-5 sm:p-6 rounded-[2rem] h-full transition-colors transition-shadow duration-300 group overflow-hidden cursor-default">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-red-50/40 rounded-full blur-3xl -z-10 group-hover:bg-red-100/40 transition-colors duration-500" />
@@ -204,7 +204,7 @@ export default function Automations() {
               </TiltCard>
             </motion.div>
 
-            {/* Box 2 — Schedule for any month */}
+            {/* Box 2 -Schedule for any month */}
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="h-full">
               <TiltCard className="relative bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-5 sm:p-6 rounded-[2rem] h-full transition-colors transition-shadow duration-300 group overflow-hidden cursor-default">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-purple-50/50 rounded-full blur-3xl -z-10 group-hover:bg-purple-100/50 transition-colors duration-500" />
@@ -215,8 +215,8 @@ export default function Automations() {
                     <div
                       key={m}
                       className={`text-center py-1.5 rounded-lg text-[10px] font-bold border transition-all ${selectedMonths.has(i)
-                          ? "bg-[#9333ea] text-white border-[#9333ea] shadow-sm shadow-purple-300 scale-[1.02]"
-                          : "border-slate-200 text-slate-400 bg-slate-50/50"
+                        ? "bg-[#9333ea] text-white border-[#9333ea] shadow-sm shadow-purple-300 scale-[1.02]"
+                        : "border-slate-200 text-slate-400 bg-slate-50/50"
                         }`}
                     >
                       {m}
@@ -231,7 +231,7 @@ export default function Automations() {
               </TiltCard>
             </motion.div>
 
-            {/* Box 3 — Assign to any team */}
+            {/* Box 3 -Assign to any team */}
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="h-full">
               <TiltCard className="relative bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-5 sm:p-6 rounded-[2rem] h-full transition-colors transition-shadow duration-300 group overflow-hidden cursor-default">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-fuchsia-50/40 rounded-full blur-3xl -z-10 group-hover:bg-fuchsia-100/40 transition-colors duration-500" />
@@ -270,7 +270,7 @@ export default function Automations() {
               </TiltCard>
             </motion.div>
 
-            {/* Box 4 — Smart Alerts (New) */}
+            {/* Box 4 -Smart Alerts (New) */}
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="h-full">
               <TiltCard className="relative bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-5 sm:p-6 rounded-[2rem] h-full transition-colors transition-shadow duration-300 group overflow-hidden cursor-default">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-blue-50/40 rounded-full blur-3xl -z-10 group-hover:bg-blue-100/40 transition-colors duration-500" />

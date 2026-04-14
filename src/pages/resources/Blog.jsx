@@ -20,7 +20,7 @@ const articles = [
   {
     id: "featured",
     title: "Why Your Team Is Busy But Nothing Is Getting Done",
-    excerpt: "Busyness is not progress. Most teams confuse activity with output — and managers let it slide because the calendar looks full. Here's how to tell the difference, and what to actually fix.",
+    excerpt: "Busyness is not progress. Most teams confuse activity with output -and managers let it slide because the calendar looks full. Here's how to tell the difference, and what to actually fix.",
     category: "Team Management",
     author: "Alex Rivers",
     role: "Head of Operations",
@@ -29,12 +29,12 @@ const articles = [
     image: Blog2,
     illustration: null,
     hookStat: "73% of tasks on average to-do lists never get done.",
-    pullQuote: "A full calendar and an empty sprint are not the same problem — but they have the same root cause.",
+    pullQuote: "A full calendar and an empty sprint are not the same problem -but they have the same root cause.",
     content: `
       <p>Busyness is the ultimate hiding place. It feels like commitment, it looks like hard work, and it sounds like progress. But for most teams, it's just noise.</p>
       <h2>The Paradox of Activity</h2>
       <p>In modern workplaces, we've developed a cult of the 'busy'. We measure success by the density of our calendars and the speed of our Slack replies. However, research consistently shows that there is a diminishing return on hours worked. When teams are "always on," they lose the capacity for deep work—the very thing that drives actual results.</p>
-      <blockquote>"A full calendar and an empty sprint are not the same problem — but they have the same root cause."</blockquote>
+      <blockquote>"A full calendar and an empty sprint are not the same problem -but they have the same root cause."</blockquote>
       <h2>Confusing Motion with Progress</h2>
       <p>Motion is doing things; progress is getting things done. A team can spend forty hours a week in meetings discussing a feature, but if not a single line of code is written, that's motion without progress. Managers often let this slide because intervention feels like micro-management, or worse, because they are caught in the same cycle themselves.</p>
       <h2>What to Actually Fix</h2>
@@ -43,8 +43,8 @@ const articles = [
   },
   {
     id: 1,
-    title: "The 3-Task Rule — Why Top Performers Never Write Long To-Do Lists",
-    excerpt: "Long task lists feel productive to write and useless to execute. The best performers work differently — and it starts with a number most people think is too small.",
+    title: "The 3-Task Rule -Why Top Performers Never Write Long To-Do Lists",
+    excerpt: "Long task lists feel productive to write and useless to execute. The best performers work differently -and it starts with a number most people think is too small.",
     category: "Productivity",
     author: "Sarah Chen",
     role: "Senior Product Designer",
@@ -67,7 +67,7 @@ const articles = [
   {
     id: 2,
     title: "Hiring for Culture Fit Is Killing Your Team's Potential",
-    excerpt: "Culture fit sounds smart until you realise you've built a room full of the same person. The teams that outperform aren't the ones that agree — they're the ones that argue well.",
+    excerpt: "Culture fit sounds smart until you realise you've built a room full of the same person. The teams that outperform aren't the ones that agree -they're the ones that argue well.",
     category: "Team Management",
     author: "Marcus Volt",
     role: "Full Stack Lead",
@@ -89,8 +89,8 @@ const articles = [
   },
   {
     id: 3,
-    title: "The Hidden Cost of a Bad Leave Policy — And How to Fix It in a Day",
-    excerpt: "Most companies don't have a leave problem. They have a leave policy problem. Here's what a broken system actually costs you — in time, trust, and talent.",
+    title: "The Hidden Cost of a Bad Leave Policy -And How to Fix It in a Day",
+    excerpt: "Most companies don't have a leave problem. They have a leave policy problem. Here's what a broken system actually costs you -in time, trust, and talent.",
     category: "HR & Ops",
     author: "Priya Sharma",
     role: "HR Strategist",
@@ -113,7 +113,7 @@ const articles = [
   {
     id: 4,
     title: "Stop Motivating Your Team. Start Removing What Demotivates Them.",
-    excerpt: "Motivation is not a manager's job. Removing friction is. The best leaders don't inspire — they clear the path and get out of the way.",
+    excerpt: "Motivation is not a manager's job. Removing friction is. The best leaders don't inspire -they clear the path and get out of the way.",
     category: "Leadership",
     author: "Jordan Lee",
     role: "Experience Lead",
@@ -136,7 +136,7 @@ const articles = [
   {
     id: 5,
     title: "Meetings Are Not the Problem. Purposeless Meetings Are.",
-    excerpt: "The meeting-hating culture has gone too far. Some meetings are irreplaceable — but only when they have a clear owner, a defined outcome, and a hard stop time.",
+    excerpt: "The meeting-hating culture has gone too far. Some meetings are irreplaceable -but only when they have a clear owner, a defined outcome, and a hard stop time.",
     category: "Productivity",
     author: "Nina Patel",
     role: "Growth Advisor",
@@ -174,11 +174,10 @@ const PostRow = ({ article, onClick, index = 0 }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 16 }}
         transition={{ type: "spring", stiffness: 380, damping: 32 }}
-        className={`relative overflow-hidden border border-slate-100/90 bg-white p-6 shadow-[0_4px_12px_rgba(15,23,42,0.06),0_16px_40px_-16px_rgba(15,23,42,0.12)] transition-all duration-500 ease-out hover:-translate-y-0.5 md:p-8 lg:p-9 ${
-          altLayout
+        className={`relative overflow-hidden border border-slate-100/90 bg-white p-6 shadow-[0_4px_12px_rgba(15,23,42,0.06),0_16px_40px_-16px_rgba(15,23,42,0.12)] transition-all duration-500 ease-out hover:-translate-y-0.5 md:p-8 lg:p-9 ${altLayout
             ? "hover:border-violet-300/50 hover:shadow-[0_0_0_1px_rgba(139,92,246,0.12),0_24px_56px_-16px_rgba(124,58,237,0.22),0_12px_32px_-12px_rgba(15,23,42,0.06)]"
             : "hover:border-violet-200/60 hover:shadow-[0_0_0_1px_rgba(167,139,250,0.2),0_28px_64px_-18px_rgba(109,40,217,0.18),0_12px_32px_-12px_rgba(15,23,42,0.06)]"
-        }`}
+          }`}
       >
         {/* Purple hover washes */}
         <div
@@ -236,7 +235,7 @@ const PostRow = ({ article, onClick, index = 0 }) => {
             </div>
           </div>
 
-          {/* Body — alternate image side on large screens */}
+          {/* Body -alternate image side on large screens */}
           <div
             className={`flex flex-col items-start gap-8 lg:gap-14 xl:gap-16 ${altLayout ? "lg:flex-row-reverse" : "lg:flex-row"}`}
           >
@@ -590,7 +589,7 @@ export default function Blog() {
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
                 >
-                  BLOG — INSIGHTS & IDEAS
+                  BLOG -INSIGHTS & IDEAS
                 </motion.div>
 
                 <motion.h1
@@ -647,7 +646,7 @@ export default function Blog() {
             </div>
           </div>
         </section>
-        {/* Articles feed — card grid */}
+        {/* Articles feed -card grid */}
         <section className="relative bg-gradient-to-b from-slate-50/50 via-white to-violet-50/25 pt-10 pb-16 sm:pb-20 lg:pb-24 min-h-[600px]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="relative isolate flex flex-col gap-5 pb-16 pt-2 sm:gap-6 md:gap-7 md:pb-20">

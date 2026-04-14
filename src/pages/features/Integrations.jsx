@@ -292,11 +292,11 @@ export default function Integrations() {
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
                 className="relative w-full max-w-[660px] mx-auto lg:mx-0 lg:justify-self-end"
               >
-                <div 
+                <div
                   onMouseMove={handleHubMouseMove}
                   onMouseEnter={() => setIsHoveredOrbit(true)}
                   onMouseLeave={() => setIsHoveredOrbit(false)}
-                  className={`relative aspect-square sm:aspect-auto sm:h-[500px] w-full overflow-hidden rounded-[2.1rem] sm:rounded-[2.35rem] border border-slate-800/50 bg-[#080516] flex items-center justify-center p-3 sm:p-4 ${isHoveredOrbit ? 'cursor-none' : ''}`}
+                  className={`relative aspect-square sm:aspect-auto sm:h-[620px] w-full rounded-[2.1rem] sm:rounded-[2.35rem] border border-slate-800/50 bg-[#080516] flex items-center justify-center p-3 sm:p-4 ${isHoveredOrbit ? 'cursor-none' : ''}`}
                 >
                   {segments.map((seg, i) => (
                     <motion.div
@@ -340,12 +340,12 @@ export default function Integrations() {
 
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
                     {[
-                      isMobile ? 48 : 100,
-                      isMobile ? 68 : 130,
-                      isMobile ? 88 : 160,
-                      isMobile ? 108 : 190,
-                      isMobile ? 128 : 220,
-                      isMobile ? 148 : 245
+                      isMobile ? 42 : 85,
+                      isMobile ? 58 : 105,
+                      isMobile ? 74 : 130,
+                      isMobile ? 90 : 155,
+                      isMobile ? 106 : 180,
+                      isMobile ? 122 : 205
                     ].map((radius, i) => (
                       <div
                         key={i}
@@ -378,12 +378,12 @@ export default function Integrations() {
                   {integrations.map((item, index) => {
                     const baseDuration = 48;
                     const configs = [
-                      { radius: isMobile ? 48 : 100, angle: 0 },
-                      { radius: isMobile ? 68 : 130, angle: 60 },
-                      { radius: isMobile ? 88 : 160, angle: 120 },
-                      { radius: isMobile ? 108 : 190, angle: 180 },
-                      { radius: isMobile ? 128 : 220, angle: 240 },
-                      { radius: isMobile ? 148 : 245, angle: 300 },
+                      { radius: isMobile ? 42 : 85, angle: 0 },
+                      { radius: isMobile ? 58 : 105, angle: 60 },
+                      { radius: isMobile ? 74 : 130, angle: 120 },
+                      { radius: isMobile ? 90 : 155, angle: 180 },
+                      { radius: isMobile ? 106 : 180, angle: 240 },
+                      { radius: isMobile ? 122 : 205, angle: 300 },
                     ];
                     const cfg = configs[index];
 
@@ -417,7 +417,7 @@ export default function Integrations() {
                             <img
                               src={item.logo}
                               alt={item.name}
-                              className={`${item.name === 'Teams' ? 'h-full w-full p-0.5' : 'h-4 w-4 sm:h-5 sm:w-5'} object-contain brightness-110 group-hover:brightness-125 transition-all`}
+                              className={`${item.name === 'Teams' ? 'h-[75%] w-[75%] p-0' : 'h-4 w-4 sm:h-5 sm:w-5'} object-contain brightness-110 group-hover:brightness-125 transition-all`}
                             />
                             <div className="absolute -inset-[1px] rounded-full bg-gradient-to-tr from-purple-500/0 via-purple-500/20 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </motion.div>
@@ -482,7 +482,7 @@ export default function Integrations() {
                       <img
                         src={item.logo}
                         alt={item.name}
-                        className={`${item.name === "Microsoft Teams" ? "w-8 h-8 sm:w-11 sm:h-11" : "w-5 h-5 sm:w-6 sm:h-6"} object-contain`}
+                        className={`${item.name === "Microsoft Teams" ? "w-8 h-8 sm:w-10 sm:h-10" : "w-5 h-5 sm:w-6 sm:h-6"} object-contain`}
                         style={{ filter: item.color === 'white' ? 'none' : '' }}
                       />
                     </div>

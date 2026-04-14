@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Check, MessageSquare, Hash, FileText, Reply, Users, Bot, Sparkles, Send } from "lucide-react";
+import { Check, MessageSquare, Hash, FileText, Reply, Users, Bot, Sparkles, Send, Kanban, Zap, Shield, Link as LinkIcon, Briefcase } from "lucide-react";
 import { FeatureCard, CTABanner } from "../../components/SubPageLayout";
 
 import FeatureCTA from "../../components/FeatureCTA";
@@ -107,7 +107,7 @@ export default function Chat() {
 
       <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
         {/* Hero Section */}
-        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-10 lg:pb-12">
+        <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-2 sm:pb-4 lg:pb-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
               {/* Left Content */}
@@ -151,11 +151,11 @@ export default function Chat() {
                       <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
                     </div>
                     <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
-                      Conversations that stay close to the work. 
+                      Conversations that stay close to the work.
                     </p>
                   </div>
 
-                   <div className="flex items-start gap-3.5 text-left">
+                  <div className="flex items-start gap-3.5 text-left">
                     <div className="mt-1 w-5 h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
                       <Check className="w-2.5 h-2.5 text-[#7e22ce] stroke-[4]" />
                     </div>
@@ -165,7 +165,7 @@ export default function Chat() {
                   </div>
 
 
-                  
+
                 </motion.div>
 
                 <FeatureStack items={["Threaded replies", "Direct messages", "Project channels", "File sharing"]} />
@@ -233,7 +233,7 @@ export default function Chat() {
                       <div className="flex flex-col">
                         <span className="text-[11px] font-black uppercase tracking-wide text-slate-500 mb-1 ml-1">Arjun</span>
                         <div className="bg-slate-900 border border-slate-800 text-slate-300 px-4 py-3 rounded-2xl rounded-bl-sm text-sm font-medium shadow-sm">
-                          On it — will check before EOD
+                          On it -will check before EOD
                         </div>
                       </div>
                     </motion.div>
@@ -271,7 +271,7 @@ export default function Chat() {
         </section>
 
         {/* Three Chat Modes Section */}
-        <section className="pt-4 lg:pt-8 pb-12 sm:pb-16 lg:pb-20 bg-white border-y border-slate-200/50 relative overflow-hidden z-0">
+        <section className="pt-2 lg:pt-4 pb-12 sm:pb-16 lg:pb-20 bg-white border-y border-slate-200/50 relative overflow-hidden z-0">
           {/* Subtle background glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-purple-500/5 to-transparent blur-3xl -z-10 pointer-events-none" />
 
@@ -319,12 +319,17 @@ export default function Chat() {
                 <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">Group Chat</h3>
                 <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">"Collaborate with your entire team in real time"</p>
                 <div className="relative z-10 space-y-2.5">
-                  {["Team discussions", "File sharing", "Mentions & threads", "Instant updates"].map((item, i) => (
+                  {[
+                    { text: "Team discussions", icon: Users },
+                    { text: "File sharing", icon: FileText },
+                    { text: "Mentions & threads", icon: Reply },
+                    { text: "Instant updates", icon: Zap }
+                  ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
                       <div className="w-4 h-4 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
-                        <Check className="w-[10px] h-[10px]" />
+                        <item.icon className="w-[10px] h-[10px]" />
                       </div>
-                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item}</span>
+                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item.text}</span>
                     </div>
                   ))}
                 </div>
@@ -340,12 +345,16 @@ export default function Chat() {
                 <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">Personal Chat</h3>
                 <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">"Quick 1:1 conversations without noise"</p>
                 <div className="relative z-10 space-y-2.5">
-                  {["Direct messaging", "Fast decision-making", "Private discussions"].map((item, i) => (
+                  {[
+                    { text: "Direct messaging", icon: Send },
+                    { text: "Fast decision-making", icon: Zap },
+                    { text: "Private discussions", icon: Shield }
+                  ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
                       <div className="w-4 h-4 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
-                        <Check className="w-[10px] h-[10px]" />
+                        <item.icon className="w-[10px] h-[10px]" />
                       </div>
-                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item}</span>
+                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item.text}</span>
                     </div>
                   ))}
                 </div>
@@ -356,17 +365,21 @@ export default function Chat() {
                 <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
 
                 <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white text-purple-600">
-                  <Hash className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <Kanban className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 mb-2.5 leading-tight">Project-Based Chat</h3>
                 <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">"Every project gets its own conversation space"</p>
                 <div className="relative z-10 space-y-2.5">
-                  {["Chat inside projects", "Context never lost", "Link tasks, files, updates"].map((item, i) => (
+                  {[
+                    { text: "Chat inside projects", icon: MessageSquare },
+                    { text: "Context never lost", icon: Sparkles },
+                    { text: "Link tasks, files, updates", icon: LinkIcon }
+                  ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
                       <div className="w-4 h-4 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
-                        <Check className="w-[10px] h-[10px]" />
+                        <item.icon className="w-[10px] h-[10px]" />
                       </div>
-                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item}</span>
+                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item.text}</span>
                     </div>
                   ))}
                 </div>
@@ -462,7 +475,7 @@ export default function Chat() {
                     className="relative h-[380px] w-fit p-[1.5px] rounded-3xl overflow-hidden group shadow-2xl shadow-purple-900/20"
                   >
                     {/* Animated Rainbow Border */}
-                    <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--border-angle),#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#9400d3,#ff0000)] animate-[spin-border_4s_linear_infinite]" />
+                    <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--border-angle),#7e22ce,#ec4899,#00ccff,#7e22ce)] animate-[spin-border_4s_linear_infinite]" />
 
                     {/* Image Wrapper without extra padding */}
                     <div className="relative h-full w-full bg-slate-950 rounded-[calc(1.5rem-1.5px)] flex items-center justify-center overflow-hidden z-10">

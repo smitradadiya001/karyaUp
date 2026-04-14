@@ -6,7 +6,8 @@
 .horizontal-scroll-section {
     position: relative;
     padding-top: clamp(40px, 8vh, 100px);
-    height: 100vh; /* Pinned area */
+    height: 100vh;
+    /* Pinned area */
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -15,7 +16,8 @@
 
 .h-scroll-container {
     padding-left: 10vw;
-    width: 200vw; /* Width needed to scroll across */
+    width: 200vw;
+    /* Width needed to scroll across */
 }
 
 .h-track {
@@ -23,7 +25,8 @@
     gap: 80px;
     margin-top: clamp(20px, 6vh, 80px);
     width: max-content;
-    padding-right: 20vw; /* Ensures scroll distance works on ultra-wide viewports */
+    padding-right: 20vw;
+    /* Ensures scroll distance works on ultra-wide viewports */
 }
 
 .h-card {
@@ -52,7 +55,8 @@
     font-family: var(--font-head);
     font-size: 2rem;
     margin-bottom: 16px;
-    transform: translateZ(30px); /* 3D pop */
+    transform: translateZ(30px);
+    /* 3D pop */
 }
 
 .h-card p {
@@ -80,10 +84,11 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin-bottom: auto; /* Pushes text down */
+    margin-bottom: auto;
+    /* Pushes text down */
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     transform: translateZ(40px);
     transition: transform 0.4s;
 }
@@ -151,7 +156,12 @@
 }
 
 @keyframes ping {
-    75%, 100% { transform: scale(3); opacity: 0; }
+
+    75%,
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
 }
 
 .nn-node:hover {
@@ -159,20 +169,74 @@
     box-shadow: 0 0 40px var(--accent-2);
 }
 
-/* Node placement — 12 nodes spread across the canvas */
-.nn-node.n1  { top: 15%; left: 25%; }
-.nn-node.n2  { top: 48%; left: 50%; width: 30px; height: 30px; background: var(--accent-1); box-shadow: 0 0 34px var(--accent-1); }
-.nn-node.n2::after { border-color: var(--accent-1); }
-.nn-node.n3  { top: 75%; left: 18%; }
-.nn-node.n4  { top: 22%; left: 72%; }
-.nn-node.n5  { top: 82%; left: 78%; }
-.nn-node.n6  { top: 8%;  left: 55%; }
-.nn-node.n7  { top: 60%; left: 38%; }
-.nn-node.n8  { top: 38%; left: 15%; }
-.nn-node.n9  { top: 90%; left: 50%; }
-.nn-node.n10 { top: 30%; left: 85%; }
-.nn-node.n11 { top: 68%; left: 65%; }
-.nn-node.n12 { top: 55%; left: 82%; }
+/* Node placement -12 nodes spread across the canvas */
+.nn-node.n1 {
+    top: 15%;
+    left: 25%;
+}
+
+.nn-node.n2 {
+    top: 48%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background: var(--accent-1);
+    box-shadow: 0 0 34px var(--accent-1);
+}
+
+.nn-node.n2::after {
+    border-color: var(--accent-1);
+}
+
+.nn-node.n3 {
+    top: 75%;
+    left: 18%;
+}
+
+.nn-node.n4 {
+    top: 22%;
+    left: 72%;
+}
+
+.nn-node.n5 {
+    top: 82%;
+    left: 78%;
+}
+
+.nn-node.n6 {
+    top: 8%;
+    left: 55%;
+}
+
+.nn-node.n7 {
+    top: 60%;
+    left: 38%;
+}
+
+.nn-node.n8 {
+    top: 38%;
+    left: 15%;
+}
+
+.nn-node.n9 {
+    top: 90%;
+    left: 50%;
+}
+
+.nn-node.n10 {
+    top: 30%;
+    left: 85%;
+}
+
+.nn-node.n11 {
+    top: 68%;
+    left: 65%;
+}
+
+.nn-node.n12 {
+    top: 55%;
+    left: 82%;
+}
 
 /* ─── NODE HOVER POPUP CARDS ─── */
 .nn-popup {
@@ -190,7 +254,7 @@
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.6),
         0 0 30px rgba(0, 255, 204, 0.08),
-        inset 0 1px 0 rgba(255,255,255,0.06);
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
     padding: 0;
     pointer-events: none;
     opacity: 0;
@@ -220,11 +284,13 @@
     top: 50%;
     left: -7px;
     transform: translateY(-50%);
-    width: 0; height: 0;
+    width: 0;
+    height: 0;
     border-top: 7px solid transparent;
     border-bottom: 7px solid transparent;
     border-right: 7px solid rgba(0, 255, 204, 0.3);
 }
+
 .nn-popup.popup-left::before {
     left: auto;
     right: -7px;
@@ -259,9 +325,11 @@
 .nn-popup-screen::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 0; right: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     height: 40px;
-    background: linear-gradient(to bottom, transparent, rgba(10,10,20,0.9));
+    background: linear-gradient(to bottom, transparent, rgba(10, 10, 20, 0.9));
 }
 
 /* Label row */
@@ -279,7 +347,8 @@
 }
 
 .nn-popup-dot {
-    width: 7px; height: 7px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--accent-2);
     box-shadow: 0 0 6px currentColor;
@@ -291,7 +360,7 @@
 .nn-popup-desc {
     padding: 4px 14px 14px;
     font-size: 0.78rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     line-height: 1.55;
     margin: 0;
 }
@@ -328,15 +397,25 @@
 }
 
 .chat-header {
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
     padding: 16px 24px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.chat-dots { display: flex; gap: 6px; margin-right: 16px; }
-.chat-dots span { width: 10px; height: 10px; border-radius: 50%; background: #444; }
+.chat-dots {
+    display: flex;
+    gap: 6px;
+    margin-right: 16px;
+}
+
+.chat-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #444;
+}
 
 .chat-title {
     font-family: var(--font-head);
@@ -372,8 +451,8 @@
 
 .msg-kai {
     align-self: flex-start;
-    background: linear-gradient(135deg, rgba(0,255,204,0.1) 0%, rgba(0,255,204,0.02) 100%);
-    border: 1px solid rgba(0,255,204,0.2);
+    background: linear-gradient(135deg, rgba(0, 255, 204, 0.1) 0%, rgba(0, 255, 204, 0.02) 100%);
+    border: 1px solid rgba(0, 255, 204, 0.2);
     border-bottom-left-radius: 4px;
 }
 
@@ -385,17 +464,31 @@
 }
 
 .typing-dot {
-    width: 6px; height: 6px;
+    width: 6px;
+    height: 6px;
     background: var(--accent-1);
     border-radius: 50%;
     animation: jump 1.5s infinite;
 }
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
 
 @keyframes jump {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 
@@ -403,8 +496,8 @@
 .marquee-section {
     padding: 60px 0;
     background: var(--bg-color);
-    border-top: 1px solid rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
     position: relative;
     z-index: 24;
@@ -432,7 +525,7 @@
     font-size: 4rem;
     font-weight: 900;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
     text-transform: uppercase;
     white-space: nowrap;
     padding: 0 40px;
@@ -440,12 +533,19 @@
 }
 
 .marquee-track:hover .marquee-item {
-    -webkit-text-stroke: 1px rgba(255,255,255,0.6);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
 }
 
 @keyframes scrollMarquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); } /* Scrolls precisely half since we duplicated content */
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+
+    /* Scrolls precisely half since we duplicated content */
 }
 
 
@@ -468,9 +568,9 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -495,9 +595,10 @@
 }
 
 .agent-avatar:hover {
-    transform: scale(1.2) translateY(-10px) !important; /* Override inline GSAP if needed, though better handled in JS */
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255,0,85,0.4);
-    border-color: rgba(255,255,255,0.4);
+    transform: scale(1.2) translateY(-10px) !important;
+    /* Override inline GSAP if needed, though better handled in JS */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 0, 85, 0.4);
+    border-color: rgba(255, 255, 255, 0.4);
     z-index: 100;
 }
 
@@ -506,8 +607,36 @@
 }
 
 /* Pseudo-random grid scatter */
-.av-1 { top: 20%; left: 15%; animation: floatY 7s ease-in-out infinite alternate; }
-.av-2 { top: 25%; right: 20%; animation: floatY 8s ease-in-out infinite alternate-reverse; width: 120px; height: 120px;}
-.av-3 { top: 50%; left: 40%; animation: floatY 6s ease-in-out infinite alternate; width: 140px; height: 140px;}
-.av-4 { bottom: 20%; left: 25%; animation: floatY 9s ease-in-out infinite alternate-reverse; }
-.av-5 { bottom: 25%; right: 15%; animation: floatY 5s ease-in-out infinite alternate; }
+.av-1 {
+    top: 20%;
+    left: 15%;
+    animation: floatY 7s ease-in-out infinite alternate;
+}
+
+.av-2 {
+    top: 25%;
+    right: 20%;
+    animation: floatY 8s ease-in-out infinite alternate-reverse;
+    width: 120px;
+    height: 120px;
+}
+
+.av-3 {
+    top: 50%;
+    left: 40%;
+    animation: floatY 6s ease-in-out infinite alternate;
+    width: 140px;
+    height: 140px;
+}
+
+.av-4 {
+    bottom: 20%;
+    left: 25%;
+    animation: floatY 9s ease-in-out infinite alternate-reverse;
+}
+
+.av-5 {
+    bottom: 25%;
+    right: 15%;
+    animation: floatY 5s ease-in-out infinite alternate;
+}

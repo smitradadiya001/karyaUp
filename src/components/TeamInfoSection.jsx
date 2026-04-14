@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Users, ShieldCheck, UserPlus, Search } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-/* 3D tilt card — light theme */
+/* 3D tilt card -light theme */
 const TiltCard = ({ children, className }) => {
   const ref = useRef(null);
   const rawX = useMotionValue(0);
@@ -14,7 +14,7 @@ const TiltCard = ({ children, className }) => {
   const handleMouseMove = (e) => {
     const rect = ref.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;   // -1 … 1
-    const y = ((e.clientY - rect.top)  / rect.height) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
     rawX.set(x);
     rawY.set(y);
   };
@@ -52,7 +52,7 @@ export default function TeamInfoSection() {
     {
       title: "Role-Based Access",
       desc: "Assign Admin, Manager, or Member roles with full control.",
-      icon: Search,
+      icon: ShieldCheck,
       color: "fuchsia"
     },
     {
@@ -70,7 +70,7 @@ export default function TeamInfoSection() {
   ];
 
   const getColorClasses = (color) => {
-    switch(color) {
+    switch (color) {
       case 'purple': return 'bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white shadow-purple-200/50';
       case 'emerald': return 'bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white shadow-emerald-200/50';
       case 'blue': return 'bg-blue-100 text-blue-600 group-hover:bg-blue-500 group-hover:text-white shadow-blue-200/50';
@@ -103,7 +103,7 @@ export default function TeamInfoSection() {
             className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.05] mb-6 tracking-normal"
           >
             Your Team.{" "}Organized.<br className="hidden sm:block" />
-            <motion.span 
+            <motion.span
               className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
               animate={{ backgroundPosition: ["0% center", "-200% center"] }}
               transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
@@ -119,7 +119,7 @@ export default function TeamInfoSection() {
             transition={{ delay: 0.15 }}
             className="text-base sm:text-lg lg:text-xl text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto"
           >
-            Manage roles, control access, and keep everyone aligned — all from one
+            Manage roles, control access, and keep everyone aligned -all from one
             unified workspace designed for growing teams.
           </motion.p>
         </div>

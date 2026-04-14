@@ -131,121 +131,12 @@ export default function ProductDevelopment() {
     "SECURE DEPLOY": { icon: ShieldCheck, color: "#4c1d95" },
     "DEV ROUTING": { icon: BrainCircuit, color: "#4c1d95" },
   }
-  const FeatureStack = ({ items = [], interval = 2500 }) => {
-    const [index, setIndex] = useState(0);
-    const [hovered, setHovered] = useState(false);
-
-    useEffect(() => {
-      if (items.length === 0 || hovered) return;
-      const timer = setInterval(() => {
-        setIndex((prev) => (prev + 1) % items.length);
-      }, interval);
-      return () => clearInterval(timer);
-    }, [items.length, interval, hovered]);
-
-    const visibleItems = useMemo(() => {
-      if (items.length === 0) return [];
-      return [0, 1, 2].map((offset) => {
-        const itemIndex = (index + offset) % items.length;
-        const rawItem = items[itemIndex];
-
-        // Normalize item to object
-        let itemObj = typeof rawItem === "string" ? { label: rawItem } : { ...rawItem };
-
-        // Apply defaults for icons/colors if missing
-        if (!itemObj.icon || !itemObj.iconColor) {
-          const mapped = DEFAULT_ICON_MAP[itemObj.label] || { icon: Check, color: "#000000" };
-          itemObj.icon = itemObj.icon || mapped.icon;
-          itemObj.iconColor = itemObj.iconColor || mapped.color;
-        }
-
-        return { offset, item: itemObj };
-      });
-    }, [items, index]);
-
-    if (items.length === 0) return null;
-
-    return (
-      <div
-        className="relative w-full max-w-[240px] sm:max-w-[320px] mt-6 lg:mt-8 overflow-visible mx-auto lg:mx-0"
-        style={{
-          height: "80px",
-        }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <AnimatePresence mode="popLayout">
-          {visibleItems.map(({ offset, item }) => {
-            const Icon = item.icon;
-            const color = item.iconColor;
-
-            return (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 15, scale: 0.9 }}
-                animate={
-                  hovered
-                    ? {
-                      opacity: 1,
-                      scale: 1,
-                      y: offset * 54, // Clear separation between cards
-                      zIndex: 10 - offset,
-                    }
-                    : {
-                      opacity: offset === 0 ? 1 : offset === 1 ? 0.45 : 0.2,
-                      scale: 1 - offset * 0.035,
-                      y: offset * 11,
-                      zIndex: 10 - offset,
-                    }
-                }
-                exit={{
-                  opacity: 0,
-                  y: -10,
-                  scale: 0.95,
-                  transition: { duration: 0.5, ease: "easeOut" },
-                }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: hovered ? offset * 0.05 : offset * 0.02,
-                }}
-                className="absolute top-0 left-0 w-full px-4 sm:px-4 py-1.5 sm:py-2 rounded-xl flex items-center justify-center gap-3"
-                style={{
-                  background:
-                    offset === 0
-                      ? "linear-gradient(135deg, rgba(226, 232, 240, 0.15) 0%, rgba(203, 213, 225, 0.08) 100%)"
-                      : "linear-gradient(135deg, rgba(226, 232, 240, 0.06) 0%, rgba(203, 213, 225, 0.03) 100%)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1.2px solid rgba(0, 0, 0, 0.25)",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
-                }}
-              >
-                {/* Icon box with colorful icon */}
-                <div className="flex-shrink-0 w-6 h-6 sm:w-6.5 sm:h-6.5 rounded-md border border-black/5 bg-white/25 flex items-center justify-center">
-                  <Icon
-                    className="w-3 h-3 sm:w-3.5 sm:h-3.5"
-                    style={{ color: color }}
-                    strokeWidth={2.5}
-                  />
-                </div>
-
-                {/* Precise Small Uppercase Text */}
-                <span className="text-[10px] sm:text-[11.5px] font-black tracking-widest text-black uppercase">
-                  {item.label}
-                </span>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
-    );
-  };
+  
   return (
     <div className="bg-white font-sans overflow-x-hidden">
       {/* ================= HERO SECTION ================= */}
 
-      <section className="py-28 px-6">
+      <section className="py-22 px-6">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
             <span className="inline-block px-2 py-1.5 rounded-full bg-purple-50 text-[11px] font-black uppercase tracking-widest text-purple-600 mb-4 border border-purple-100">
@@ -277,6 +168,17 @@ export default function ProductDevelopment() {
               </div>
             </div>
 
+            <div className="mt-5 space-y-3 max-w-lg w-full">
+              <div className="flex items-start gap-3">
+                <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center shrink-0">
+                  <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
+                </div>
+                <p className="text-sm sm:text-base text-slate-600 font-medium">Turn ideas into impactful products with intelligent 
+                  <br />
+                  development workflows. </p>
+              </div>
+            </div>
+
             <FeatureStack
               items={[
                 { label: "CODE EXPLORE", icon: BrainCircuit },
@@ -305,19 +207,19 @@ export default function ProductDevelopment() {
 
       {/* ================= KARYAUP WORKSPACE FEATURES ================= */}
 
-      <section className="py-6 bg-white relative overflow-hidden"> {/* Increased py-10 to py-20 for better breathing room */}
+      <section className="py-3 bg-white relative overflow-hidden"> {/* Increased py-10 to py-20 for better breathing room */}
         {/* Glows */}
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-white rounded-full blur-[120px] opacity-60 pointer-events-none" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-white rounded-full blur-[120px] opacity-60 pointer-events-none" />
 
         {/* Changed max-w-7xl to max-w-6xl to keep content more focused/reduced width */}
         <div className="max-w-5xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16 max-w-7xl mx-auto">
+          <div className="text-center mb-16 max-w-5xl mx-auto">
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }} // Changed animate to whileInView so it triggers when user scrolls
               viewport={{ once: true }}
-              className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-6"
+              className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-3"
             >
               The Ultimate Workspace for <br />
               <motion.span
@@ -329,7 +231,7 @@ export default function ProductDevelopment() {
               </motion.span>
             </motion.h1>
 
-            <p className="text-[1rem] text-slate-600 font-medium leading-relaxed">
+            <p className="mb-3 text-[1rem] text-slate-600 font-medium leading-relaxed">
               Eliminate context switching.
               <br />
               Plan sprints, track bugs, write technical docs,
@@ -346,8 +248,8 @@ export default function ProductDevelopment() {
                 title: "Connected Tasks",
                 desc: "Link GitHub PRs, commits, and branches directly to tasks.",
                 bgColor: "bg-purple-100 text-purple-600",
-                hoverBg: "group-hover:bg-purple-600",
-                borderColor: "group-hover:border-blue-200"
+                hoverBg: "group-hover:bg-purple-600"
+                
               },
               {
                 icon: <Rocket size={24} />,
@@ -399,7 +301,7 @@ export default function ProductDevelopment() {
                 className="h-full"
               >
 
-                <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-white p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
+                <TiltCard className="bg-white border border-slate-200 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-white p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
 
                   <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:text-white ${feature.bgColor} ${feature.hoverBg}`}>
                     {feature.icon}

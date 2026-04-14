@@ -34,20 +34,20 @@ export default function KaryaUpSyncSlider({ slides = [], className = "" }) {
   if (!realLen) return null;
 
   return (
-    <section className={`py-12 md:py-24 px-4 sm:px-6 bg-white overflow-hidden ${className}`}>
+    <section className={`py-10 md:py-6 px-4 sm:px-6 bg-white overflow-hidden ${className}`}>
       <div className="max-w-[95rem] mx-auto">
 
         {/* --- HEADER --- */}
-        <div className="max-w-4xl mx-auto mb-12 md:mb-20 text-center">
+        <div className="max-w-4xl mx-auto mb-2 md:mb-6 text-center py-6">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-2"
+            className="text-3xl sm:text-4xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.3] mb-3"
           >
             Boost productivity with<br />
             <motion.span
-              className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-500 to-purple-700 bg-[length:200%_auto]"
+              className="mb-3 inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-500 to-purple-700 bg-[length:200%_auto]"
               animate={{ backgroundPosition: ["0% center", "-200% center"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
@@ -96,7 +96,7 @@ export default function KaryaUpSyncSlider({ slides = [], className = "" }) {
 
           {/* RIGHT SIDE: IMAGE SLIDER (Order 1 on mobile) */}
           <div className="order-1 lg:order-2 lg:col-span-8">
-            <div className="relative w-full rounded-3xl md:rounded-[2.5rem] overflow-hidden bg-slate-50 aspect-[4/3] md:aspect-video lg:aspect-auto lg:h-[480px]">
+            <div className="relative w-full rounded-3xl md:rounded-[2.5rem] overflow-hidden bg-slate-50 aspect-[4/3] md:aspect-video lg:aspect-auto lg:h-[410px]">
 
               <motion.div
                 className="flex h-full w-full"

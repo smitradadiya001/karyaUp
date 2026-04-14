@@ -26,7 +26,7 @@ export default function TeamRoleShowcase() {
   return (
     <section className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header Section */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <motion.div
@@ -56,11 +56,10 @@ export default function TeamRoleShowcase() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2.5 px-6 py-3 rounded-2xl font-black text-sm transition-all duration-300 ${
-                activeTab === tab.id 
-                ? "bg-purple-600 text-white shadow-xl shadow-purple-200" 
-                : "bg-slate-50 text-slate-500 hover:bg-slate-100"
-              }`}
+              className={`flex items-center gap-2.5 px-6 py-3 rounded-2xl font-black text-sm transition-all duration-300 ${activeTab === tab.id
+                  ? "bg-purple-600 text-white shadow-xl shadow-purple-200"
+                  : "bg-slate-50 text-slate-500 hover:bg-slate-100"
+                }`}
             >
               <tab.icon className="w-4 h-4" />
               {tab.label}
@@ -89,18 +88,17 @@ export default function TeamRoleShowcase() {
                     <span className="text-purple-600">aligned by intent.</span>
                   </h3>
                   <p className="text-slate-500 font-medium leading-relaxed mb-8">
-                    Don't just add emails — define ownership from day one. Select from custom roles that mirror your company's actual structure.
+                    Don't just add emails -define ownership from day one. Select from custom roles that mirror your company's actual structure.
                   </p>
                   <div className="space-y-4">
                     {roles.map((role) => (
                       <button
                         key={role.id}
                         onClick={() => setSelectedRole(role)}
-                        className={`w-full flex items-center gap-4 p-4 rounded-3xl border transition-all duration-300 ${
-                          selectedRole.id === role.id 
-                          ? "bg-white border-purple-200 shadow-lg scale-[1.02]" 
-                          : "bg-white/50 border-transparent hover:border-slate-200"
-                        }`}
+                        className={`w-full flex items-center gap-4 p-4 rounded-3xl border transition-all duration-300 ${selectedRole.id === role.id
+                            ? "bg-white border-purple-200 shadow-lg scale-[1.02]"
+                            : "bg-white/50 border-transparent hover:border-slate-200"
+                          }`}
                       >
                         <div className={`w-10 h-10 rounded-xl ${role.light} flex items-center justify-center`}>
                           <role.icon className={`w-5 h-5 ${role.text}`} />
@@ -183,11 +181,10 @@ export default function TeamRoleShowcase() {
                         <button
                           key={r}
                           onClick={() => setDemoRole(r)}
-                          className={`px-5 py-2.5 rounded-2xl font-black text-xs transition-all ${
-                            demoRole === r 
-                            ? "bg-purple-600 text-white shadow-lg shadow-purple-100" 
-                            : "bg-slate-50 text-slate-400 hover:bg-slate-100"
-                          }`}
+                          className={`px-5 py-2.5 rounded-2xl font-black text-xs transition-all ${demoRole === r
+                              ? "bg-purple-600 text-white shadow-lg shadow-purple-100"
+                              : "bg-slate-50 text-slate-400 hover:bg-slate-100"
+                            }`}
                         >
                           {r}
                         </button>
@@ -200,11 +197,10 @@ export default function TeamRoleShowcase() {
                           key={demoRole}
                           initial={{ opacity: 0, y: 5 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-normal ${
-                            demoRole === "Administrator" ? "bg-indigo-100 text-indigo-600" :
-                            demoRole === "Manager" ? "bg-purple-100 text-purple-600" :
-                            "bg-blue-100 text-blue-600"
-                          }`}
+                          className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-normal ${demoRole === "Administrator" ? "bg-indigo-100 text-indigo-600" :
+                              demoRole === "Manager" ? "bg-purple-100 text-purple-600" :
+                                "bg-blue-100 text-blue-600"
+                            }`}
                         >
                           {demoRole}
                         </motion.span>
@@ -237,11 +233,10 @@ export default function TeamRoleShowcase() {
                       <button
                         key={r}
                         onClick={() => setFilterRole(r)}
-                        className={`w-full text-left px-5 py-3 rounded-2xl font-black text-sm transition-all ${
-                          filterRole === r 
-                          ? "bg-white border border-emerald-200 text-emerald-600 shadow-xl shadow-emerald-900/5 translate-x-2" 
-                          : "text-slate-400 hover:text-slate-600"
-                        }`}
+                        className={`w-full text-left px-5 py-3 rounded-2xl font-black text-sm transition-all ${filterRole === r
+                            ? "bg-white border border-emerald-200 text-emerald-600 shadow-xl shadow-emerald-900/5 translate-x-2"
+                            : "text-slate-400 hover:text-slate-600"
+                          }`}
                       >
                         {r}
                       </button>

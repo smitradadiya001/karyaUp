@@ -40,7 +40,7 @@ export default function PageHero({
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50/80 backdrop-blur-sm border border-purple-100 text-purple-600 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] shadow-sm mb-6"
             >
-              {pillText || "PAGE — EXPLORE FEATURES"}
+              {pillText || "PAGE -EXPLORE FEATURES"}
             </motion.div>
 
             <motion.h1

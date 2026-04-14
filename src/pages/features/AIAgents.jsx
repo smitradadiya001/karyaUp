@@ -16,7 +16,7 @@ export default function AIAgents() {
     <>
       <Helmet>
         <title>Super Agents | Karyaup</title>
-        <meta name="description" content="Meet Super Agents — Maximize human productivity with custom AI teammates." />
+        <meta name="description" content="Meet Super Agents -Maximize human productivity with custom AI teammates." />
       </Helmet>
 
       <div style={{ width: "100%", height: "100vh", overflow: "hidden", margin: 0, padding: 0 }}>

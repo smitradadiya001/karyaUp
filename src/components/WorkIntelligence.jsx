@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useVelocity } from 'framer-motion';
 import { Network, LineChart, Zap, ArrowRight, Database, BrainCircuit, Rocket } from 'lucide-react';
 
-/* 3D tilt card — corner under cursor dips IN */
+/* 3D tilt card -corner under cursor dips IN */
 const TiltCard = ({ children, className }) => {
   const ref = useRef(null);
   const rawX = useMotionValue(0);

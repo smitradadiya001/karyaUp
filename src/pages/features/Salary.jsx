@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useVelocity, useTransform } from "framer-motion";
 import NumberFlow from "@number-flow/react";
 import {
   BriefcaseBusiness,
@@ -74,6 +74,7 @@ const profitInsights = [
 
 export default function Salary() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isHoveredSection, setIsHoveredSection] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -81,6 +82,57 @@ export default function Salary() {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  // Mouse tracking logic for custom cursor
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Chained springs for snake effect
+  const trailConfig = [
+    { stiffness: 250, damping: 25 },
+    { stiffness: 200, damping: 22 },
+    { stiffness: 150, damping: 18 },
+    { stiffness: 100, damping: 15 },
+    { stiffness: 80, damping: 12 },
+  ];
+
+  const s1x = useSpring(mouseX, trailConfig[0]);
+  const s1y = useSpring(mouseY, trailConfig[0]);
+  const s2x = useSpring(s1x, trailConfig[1]);
+  const s2y = useSpring(s1y, trailConfig[1]);
+  const s3x = useSpring(s2x, trailConfig[2]);
+  const s3y = useSpring(s2y, trailConfig[2]);
+  const s4x = useSpring(s3x, trailConfig[3]);
+  const s4y = useSpring(s3y, trailConfig[3]);
+  const s5x = useSpring(s4x, trailConfig[4]);
+  const s5y = useSpring(s4y, trailConfig[4]);
+
+  const velX = useVelocity(mouseX);
+  const velY = useVelocity(mouseY);
+  const velocity = useTransform([velX, velY], ([vx, vy]) =>
+    Math.sqrt(vx * vx + vy * vy),
+  );
+
+  // Create a spring-smoothed opacity that reacts to movement
+  const movementOpacity = useSpring(
+    useTransform(velocity, [0, 50, 300], [0, 0, 1]),
+    { stiffness: 60, damping: 20 },
+  );
+
+  const segments = [
+    { x: s1x, y: s1y, size: 160, opacity: 0.8, blur: 18 },
+    { x: s2x, y: s2y, size: 130, opacity: 0.7, blur: 22 },
+    { x: s3x, y: s3y, size: 100, opacity: 0.6, blur: 28 },
+    { x: s4x, y: s4y, size: 80, opacity: 0.5, blur: 34 },
+    { x: s5x, y: s5y, size: 60, opacity: 0.35, blur: 40 },
+  ];
+
+  const handleMouseMove = (e) => {
+    if (isMobile) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
 
   return (
     <>
@@ -144,7 +196,7 @@ export default function Salary() {
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
                 >
-                  PAYROLL — AUTOMATE YOUR SALARY
+                  PAYROLL -AUTOMATE YOUR SALARY
                 </motion.div>
                 <motion.h1
                   initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
@@ -315,131 +367,189 @@ export default function Salary() {
               </p>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-              className="mt-8 grid gap-4 sm:gap-5 xl:grid-cols-[0.84fr_1.16fr]"
+            <div
+              onMouseMove={handleMouseMove}
+              onMouseEnter={() => setIsHoveredSection(true)}
+              onMouseLeave={() => setIsHoveredSection(false)}
+              className={`relative overflow-hidden rounded-[2.5rem] border border-white/5 bg-black shadow-[0_30px_90px_-45px_rgba(15,23,42,0.45)] mt-8 p-4 sm:p-6 lg:p-8 ${isHoveredSection ? "md:cursor-none" : ""}`}
             >
-              <div className="rounded-[1.75rem] sm:rounded-[2rem] border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 sm:p-6 text-white shadow-[0_28px_70px_-40px_rgba(15,23,42,0.65)]">
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.16em] sm:tracking-[0.18em] text-emerald-300">
-                  <TrendingUp className="h-3.5 w-3.5" />
-                  Leadership view
-                </div>
-                <h3 className="mt-4 text-[1.75rem] sm:text-3xl font-black tracking-tight leading-[1.08]">
-                  Understand Which Projects
-                  <span className="block text-purple-300"> Actually Make Money</span>
-                </h3>
-                <p className="mt-3 max-w-md text-sm font-medium leading-relaxed text-slate-300">
-                  Bring billing, real spend, and salary allocation into one dashboard.
-                </p>
+              {/* Snake Trail Effect */}
+              {!isMobile && segments.map((seg, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute pointer-events-none z-[100] rounded-full mix-blend-screen"
+                  style={{
+                    width: seg.size,
+                    height: seg.size,
+                    left: seg.x,
+                    top: seg.y,
+                    x: "-50%",
+                    y: "-50%",
+                    opacity: useTransform([movementOpacity], ([v]) =>
+                      isHoveredSection ? (i === 0 ? seg.opacity : v * seg.opacity) : 0,
+                    ),
+                    scale: isHoveredSection ? 1 : 0,
+                    background: `radial-gradient(circle, rgba(192, 38, 211, 0.9) 0%, rgba(168, 85, 247, 0) 70%)`,
+                    filter: `blur(${seg.blur}px)`,
+                  }}
+                />
+              ))}
 
-                <div className="mt-5 grid gap-3">
-                  {profitInsights.map((item) => (
-                    <div key={item.title} className="rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
-                      <div className="text-sm font-black text-white">{item.title}</div>
-                      <div className="mt-1.5 text-sm leading-relaxed text-slate-300">{item.desc}</div>
-                    </div>
-                  ))}
-                </div>
+              {/* Lead Cursor Glow */}
+              {!isMobile && (
+                <motion.div
+                  className="absolute w-80 h-80 pointer-events-none z-[90] rounded-full mix-blend-screen"
+                  style={{
+                    left: s1x,
+                    top: s1y,
+                    x: "-50%",
+                    y: "-50%",
+                    opacity: isHoveredSection ? 0.45 : 0,
+                    scale: isHoveredSection ? 1 : 0,
+                    background:
+                      "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%)",
+                    filter: "blur(50px)",
+                  }}
+                />
+              )}
 
+              {/* Attendance-style background radial glows */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(168,85,247,0.38),transparent_48%)] pointer-events-none" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(236,72,153,0.12),transparent_40%)] pointer-events-none" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(126,34,206,0.14),transparent_35%)] pointer-events-none" />
 
-              </div>
-
-              <div className="rounded-[1.75rem] sm:rounded-[2rem] border border-slate-200 bg-white p-4 sm:p-6 shadow-[0_22px_60px_-15px_rgba(0,0,0,0.06)] relative overflow-hidden pointer-events-none select-none">
-
-                {/* ── Integrated Header ── */}
-                <div className="mb-5 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
-                  <h3 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">Profit measure (Boss only)</h3>
-                  <div className="h-9 w-full sm:w-auto px-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-[11px] font-black text-slate-600 gap-2">
-                    <Download className="w-3.5 h-3.5" />
-                    Download CSV
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                className="grid gap-6 sm:gap-8 xl:grid-cols-[0.84fr_1.16fr] relative z-10"
+              >
+                <div className="relative flex flex-col justify-center">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.16em] sm:tracking-[0.18em] text-emerald-300 w-fit">
+                    <TrendingUp className="h-3.5 w-3.5" />
+                    Leadership view
                   </div>
+                  <h3 className="mt-4 text-[1.75rem] sm:text-3xl font-black tracking-tight leading-[1.08] text-white">
+                    Understand Which Projects
+                    <span className="mt-1 sm:mt-2 block bg-gradient-to-r from-[#7e22ce] via-fuchsia-400 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent">
+                      Actually Make Money
+                    </span>
+                  </h3>
+                  <p className="mt-3 max-w-md text-sm font-medium leading-relaxed text-slate-400">
+                    Bring billing, real spend, and salary allocation into one dashboard.
+                  </p>
+
+                  <div className="mt-5 grid gap-3">
+                    {profitInsights.map((item) => (
+                      <div key={item.title} className="rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
+                        <div className="text-sm font-black text-white">{item.title}</div>
+                        <div className="mt-1.5 text-sm leading-relaxed text-slate-400">{item.desc}</div>
+                      </div>
+                    ))}
+                  </div>
+
+
                 </div>
 
-                {/* ── Filters Grid ── */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-5 sm:mb-6">
-                  {[
-                    { label: "Project", value: "KaryaUp" },
-                    { label: "Time range", value: "This month" },
-                    { label: "Filter by member", value: "All members" }
-                  ].map((item) => (
-                    <div key={item.label} className="space-y-1.5">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">{item.label}</label>
-                      <div className="h-10 rounded-xl border border-slate-200 bg-slate-50/80 flex items-center justify-between px-3 text-xs font-bold text-slate-800">
-                        {item.value}
-                        <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                <div className="rounded-[1.75rem] sm:rounded-[2rem] border border-slate-200 bg-white p-4 sm:p-6 shadow-[0_22px_60px_-15px_rgba(0,0,0,0.06)] relative overflow-hidden pointer-events-none select-none">
+
+                  {/* ── Integrated Header ── */}
+                  <div className="mb-5 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+                    <h3 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">Profit measure (Boss only)</h3>
+                    <div className="h-9 w-full sm:w-auto px-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-[11px] font-black text-slate-600 gap-2">
+                      <Download className="w-3.5 h-3.5" />
+                      Download CSV
+                    </div>
+                  </div>
+
+                  {/* ── Filters Grid ── */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-5 sm:mb-6">
+                    {[
+                      { label: "Project", value: "KaryaUp" },
+                      { label: "Time range", value: "This month" },
+                      { label: "Filter by member", value: "All members" }
+                    ].map((item) => (
+                      <div key={item.label} className="space-y-1.5">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">{item.label}</label>
+                        <div className="h-10 rounded-xl border border-slate-200 bg-slate-50/80 flex items-center justify-between px-3 text-xs font-bold text-slate-800">
+                          {item.value}
+                          <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* ── Financial Inputs ── */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-6">
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Project billing amount</label>
+                      <div className="h-12 rounded-xl border-2 border-[#7e22ce] bg-white flex items-center justify-between px-4 text-sm font-black text-slate-900 shadow-lg shadow-purple-600/5">
+                        0
+                        <div className="flex flex-col -space-y-1 ml-2">
+                          <ChevronDown className="w-3 h-3 rotate-180 text-slate-400" />
+                          <ChevronDown className="w-3 h-3 text-slate-400" />
+                        </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-
-                {/* ── Financial Inputs ── */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-6">
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Project billing amount</label>
-                    <div className="h-12 rounded-xl border-2 border-[#7e22ce] bg-white flex items-center justify-between px-4 text-sm font-black text-slate-900 shadow-lg shadow-purple-600/5">
-                      0
-                      <div className="flex flex-col -space-y-1 ml-2">
-                        <ChevronDown className="w-3 h-3 rotate-180 text-slate-400" />
-                        <ChevronDown className="w-3 h-3 text-slate-400" />
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Other actual cost</label>
+                      <div className="h-12 rounded-xl border border-slate-200 bg-slate-50 flex items-center px-4 text-sm font-black text-slate-900">
+                        0
                       </div>
                     </div>
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Other actual cost</label>
-                    <div className="h-12 rounded-xl border border-slate-200 bg-slate-50 flex items-center px-4 text-sm font-black text-slate-900">
-                      0
+
+                  {/* ── Rates Section ── */}
+                  <div className="mb-5 sm:mb-6">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-2.5">Member salaries</label>
+                    <div className="p-4 rounded-[1.25rem] sm:rounded-[1.5rem] border border-dashed border-slate-200 bg-slate-50/30 text-[11px] font-medium text-slate-400 leading-relaxed text-center">
+                      No member rates configured yet. Add rates from the Team tab.
                     </div>
                   </div>
-                </div>
 
-                {/* ── Rates Section ── */}
-                <div className="mb-5 sm:mb-6">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-2.5">Member salaries</label>
-                  <div className="p-4 rounded-[1.25rem] sm:rounded-[1.5rem] border border-dashed border-slate-200 bg-slate-50/30 text-[11px] font-medium text-slate-400 leading-relaxed text-center">
-                    No member rates configured yet. Add rates from the Team tab.
+                  {/* ── Profitability Summary ── */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-5 sm:pt-6 border-t border-slate-100">
+                    {[
+                      { label: "Total salary cost", val: "0.00" },
+                      { label: "Other actual cost", val: "0.00" },
+                      { label: "Total cost", val: "0.00" },
+                      { label: "Profit", val: "—", primary: true }
+                    ].map((item) => (
+                      <div key={item.label} className="space-y-1.5">
+                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 leading-none">{item.label}</div>
+                        <div className={`text-[1.1rem] font-black ${item.primary ? 'text-slate-400 tracking-tighter' : 'text-slate-900'}`}>{item.val}</div>
+                      </div>
+                    ))}
                   </div>
-                </div>
 
-                {/* ── Profitability Summary ── */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-5 sm:pt-6 border-t border-slate-100">
-                  {[
-                    { label: "Total salary cost", val: "0.00" },
-                    { label: "Other actual cost", val: "0.00" },
-                    { label: "Total cost", val: "0.00" },
-                    { label: "Profit", val: "—", primary: true }
-                  ].map((item) => (
-                    <div key={item.label} className="space-y-1.5">
-                      <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 leading-none">{item.label}</div>
-                      <div className={`text-[1.1rem] font-black ${item.primary ? 'text-slate-400 tracking-tighter' : 'text-slate-900'}`}>{item.val}</div>
+                  {/* ── Dashboard Action ── */}
+                  <div className="mt-5 sm:mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="h-11 w-full sm:w-auto px-8 rounded-2xl bg-purple-600 text-white font-black text-xs flex items-center justify-center shadow-xl shadow-purple-600/20">
+                      Save configuration
                     </div>
-                  ))}
-                </div>
-
-                {/* ── Dashboard Action ── */}
-                <div className="mt-5 sm:mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="h-11 w-full sm:w-auto px-8 rounded-2xl bg-purple-600 text-white font-black text-xs flex items-center justify-center shadow-xl shadow-purple-600/20">
-                    Save configuration
+                    <div className="text-[10px] font-bold text-slate-400 flex items-center justify-center sm:justify-start gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                      Live Preview
+                    </div>
                   </div>
-                  <div className="text-[10px] font-bold text-slate-400 flex items-center justify-center sm:justify-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-                    Live Preview
-                  </div>
-                </div>
 
-                {/* Polish Overlay */}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/20 to-transparent pointer-events-none" />
-              </div>
-            </motion.div>
+                  {/* Polish Overlay */}
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/20 to-transparent pointer-events-none" />
+                </div>
+              </motion.div>
+            </div>
           </div>
         </section>
 
         <FeatureCTA
           title={<>Salary That Stays <br /> Clear Every Month</>}
           description="Automate payroll and track profit without spreadsheet confusion."
-          buttonText="Get Started. It's FREE"
+          highlights={[
+            "Automated payroll generation in one click",
+            "Visual profit analysis per project"
+          ]}
+          buttonText="Streamline Payroll Now"
           image={featureSalary}
           imageAlt="KaryaUp salary dashboard"
           containerClassName="mt-0"

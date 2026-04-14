@@ -342,495 +342,511 @@ const Navbar = () => {
   const linkBase =
     `text-base font-semibold tracking-wide transition-all ${isOverlayLightNav ? "text-white hover:text-white/80" : "text-slate-700 hover:text-[#7e22ce]"}`;
   const linkActive = "text-[#7e22ce]";
+  const handleLogoClick = (e) => {
+    closeAllMenus();
+
+    if (location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
-    <nav
-      className={`fixed w-full flex flex-col z-50 transition-all duration-300 ${isPlatformOpen || isFeaturesOpen || isSolutionsOpen || isResourcesOpen
-        ? "bg-white md:shadow-md border-b border-gray-100"
-        : isOpen
-          ? "bg-white border-b border-slate-100"
-          : isScrolled
-            ? "bg-white md:bg-white/70 md:backdrop-blur-md md:shadow-sm md:border-b md:border-slate-200/70"
-            : "bg-transparent border-b border-transparent shadow-none backdrop-blur-0"
-        }`}
-    >
-      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isScrolled || isIframeDark ? 'max-h-0 opacity-0' : 'max-h-[60px] opacity-100'}`}>
-      <Link 
-        to="/features/ai-agents" 
-        className="flex w-full items-center justify-center py-2 text-[13px] font-semibold tracking-wide transition-colors bg-white text-slate-900 hover:bg-slate-50 border-b border-slate-100 px-4"
+    <>
+      <nav
+        className={`fixed w-full flex flex-col z-50 transition-all duration-300 ${isPlatformOpen || isFeaturesOpen || isSolutionsOpen || isResourcesOpen
+          ? "bg-white md:shadow-md border-b border-gray-100"
+          : isOpen
+            ? "bg-white border-b border-slate-100"
+            : isScrolled
+              ? "bg-white md:bg-white/70 md:backdrop-blur-md md:shadow-sm md:border-b md:border-slate-200/70"
+              : "bg-transparent border-b border-transparent shadow-none backdrop-blur-0"
+          }`}
       >
-        <span className="font-bold">Meet KAI Agent™</span>
-        <span className="hidden md:inline"> — Maximize human productivity with custom AI teammates</span>
-        <span className="ml-1 md:ml-1 text-inherit opacity-70 group-hover:opacity-100 inline-flex items-center"></span>
-      </Link>
-      </div>
+        <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isScrolled || isIframeDark ? 'max-h-0 opacity-0' : 'max-h-[60px] opacity-100'}`}>
+          <Link
+            to="/features/ai-agents"
+            className="flex w-full items-center justify-center py-2 text-[13px] font-semibold tracking-wide transition-colors bg-white text-slate-900 hover:bg-slate-50 border-b border-slate-100 px-4"
+          >
+            <span className="font-bold">Meet KAI Agent™</span>
+            <span className="hidden md:inline"> -Maximize human productivity with custom AI teammates</span>
+            <span className="ml-1 md:ml-1 text-inherit opacity-70 group-hover:opacity-100 inline-flex items-center"></span>
+          </Link>
+        </div>
 
-      <div className="max-w-full mx-auto px-4 lg:px-4 py-3 w-full">
-        <div className="flex items-center">
-          <div className="flex-none flex items-center">
-            <div
-              className="relative"
-              onMouseEnter={() => setIsLogoHovered(true)}
-              onMouseLeave={() => setIsLogoHovered(false)}
-            >
-              <Link to="/" onClick={closeAllMenus} className="flex items-center group">
-                <img
-                  src={logo}
-                  alt="KaryaUp Logo"
-                  width="160"
-                  height="44"
-                  loading="eager"
-                  className={`h-11 w-auto group-hover:scale-105 transition-transform duration-300 ${isOverlayLightNav ? "brightness-0 invert" : ""}`}
-                />
-              </Link>
+        <div className="max-w-full mx-auto px-4 lg:px-4 py-3 w-full">
+          <div className="flex items-center">
+            <div className="flex-none flex items-center">
+              <div
+                className="relative"
+                onMouseEnter={() => setIsLogoHovered(true)}
+                onMouseLeave={() => setIsLogoHovered(false)}
+              >
+                <Link
+                  to="/#hero-section"
+                  onClick={handleLogoClick}
+                  className="flex items-center group"
+                >
+                  <img
+                    src={logo}
+                    alt="KaryaUp Logo"
+                    width="160"
+                    height="44"
+                    loading="eager"
+                    className={`h-11 w-auto group-hover:scale-105 transition-transform duration-300 ${isOverlayLightNav ? "brightness-0 invert" : ""}`}
+                  />
+                </Link>
 
-              <AnimatePresence>
-                {isLogoHovered && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute top-full left-0 mt-2 z-50 pointer-events-none"
-                  >
-                    <div className="bg-slate-900 border border-slate-800 shadow-2xl rounded-xl px-3 py-2 w-auto min-w-[180px] max-w-[280px] backdrop-blur-md">
-                      <div className="absolute -top-1 w-2 h-2 bg-slate-900 border-t border-l border-slate-800 rotate-45 left-6" />
-                      <p className="text-[13px] font-medium text-white leading-snug">
-                        <span className="text-purple-400 font-bold tracking-normal block mb-0.5">KaryaUp</span>
-                        From Sanskrit word<br /> <span className="italic opacity-90">“कार्य   ”</span> meaning action <br /> or work.
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                <AnimatePresence>
+                  {isLogoHovered && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute top-full left-0 mt-2 z-50 pointer-events-none"
+                    >
+                      <div className="bg-slate-900 border border-slate-800 shadow-2xl rounded-xl px-3 py-2 w-auto min-w-[180px] max-w-[280px] backdrop-blur-md">
+                        <div className="absolute -top-1 w-2 h-2 bg-slate-900 border-t border-l border-slate-800 rotate-45 left-6" />
+                        <p className="text-[13px] font-medium text-white leading-snug">
+                          <span className="text-purple-400 font-bold tracking-normal block mb-0.5">KaryaUp</span>
+                          From Sanskrit word<br /> <span className="italic opacity-90">“कार्य   ”</span> meaning action <br /> or work.
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
-          </div>
 
-          <div className="hidden md:flex flex-1"></div>
+            <div className="hidden md:flex flex-1"></div>
 
-          <div className="hidden md:flex md:justify-center flex-none">
-            <div className="flex items-center space-x-10">
-              <div
-                className="flex items-center h-full py-2"
-                onMouseEnter={handlePlatformMouseEnter}
-                onMouseLeave={handlePlatformMouseLeave}
-              >
+            <div className="hidden md:flex md:justify-center flex-none">
+              <div className="flex items-center space-x-10">
                 <div
-                  className={`${linkBase} flex items-center gap-1 cursor-default`}
+                  className="flex items-center h-full py-2"
+                  onMouseEnter={handlePlatformMouseEnter}
+                  onMouseLeave={handlePlatformMouseLeave}
                 >
-                  Platform
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isPlatformOpen ? "rotate-180" : ""}`} />
-                </div>
-
-                {isPlatformOpen && (
-                  <div className={megaMenuPanelClass}>
-                    <div className="w-full flex">
-                      <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
-                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Core Workspace</p>
-                        {platformMegaSections.core.map((item) => (
-                          <Link
-                            key={item.to}
-                            to={item.to}
-                            onClick={closeAllMenus}
-                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
-                          >
-                            <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-purple-600"} />
-                            <div>
-                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
-                              <p className="text-xs text-slate-400">{item.description || item.sublabel}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="flex-1 bg-slate-50 px-8 py-3 flex flex-col border-r border-slate-200">
-                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Leadership Views</p>
-                        {platformMegaSections.manage.map((item) => (
-                          <Link
-                            key={item.to}
-                            to={item.to}
-                            onClick={closeAllMenus}
-                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
-                          >
-                            <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-purple-600"} />
-                            <div>
-                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
-                              <p className="text-xs text-slate-400">{item.description || item.sublabel}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
+                  <div
+                    className={`${linkBase} flex items-center gap-1 cursor-default`}
+                  >
+                    Platform
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isPlatformOpen ? "rotate-180" : ""}`} />
                   </div>
-                )}
-              </div>
 
-              <div
-                className="flex items-center h-full py-2"
-                onMouseEnter={handleFeaturesMouseEnter}
-                onMouseLeave={handleFeaturesMouseLeave}
-              >
-                <div
-                  className={`${linkBase} flex items-center gap-1 cursor-default`}
-                >
-                  Features
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isFeaturesOpen ? "rotate-180" : ""}`} />
-                </div>
-
-                {isFeaturesOpen && (
-                  <div className={megaMenuPanelClass}>
-                    <div className="grid w-full grid-cols-5">
-                      {featuresMegaSections.map((section, index) => (
-                        <div
-                          key={section.heading}
-                          className={`px-7 py-3 flex flex-col min-h-[240px] ${index % 2 === 0 ? "bg-white" : "bg-slate-50"
-                            } ${index !== featuresMegaSections.length - 1 ? "border-r border-slate-200/80" : ""}`}
-                        >
-                          <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-3">
-                            {section.heading}
-                          </p>
-                          <div className="flex flex-col gap-1">
-                            {section.items.map((item) => (
-                              <Link
-                                key={item.to}
-                                to={item.to}
-                                onClick={closeAllMenus}
-                                className={`group flex items-center gap-3 py-1.5 px-3 rounded-xl transition-all ${"hover:bg-white hover:shadow-md"
-                                  }`}
-                              >
-                                <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-slate-600"} />
-                                <div className="flex flex-col">
-                                  <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">
-                                    {item.label}
-                                  </p>
-                                  <p className="text-xs text-slate-400 whitespace-nowrap">
-                                    {item.label === "Tasks" && "Tasks and ownership"}
-                                    {item.label === "Dashboards" && "Live performance view"}
-                                    {item.label === "Gantt" && "Timeline planning"}
-                                    {item.label === "Chat" && "Work chat in context"}
-                                    {item.label === "Notifications" && "Instant updates"}
-                                    {item.label === "Team" && "Members and roles"}
-                                    {item.label === "Attendance" && "Daily time logs"}
-                                    {item.label === "Leave" && "Time-off requests"}
-                                    {item.label === "Salary" && "Payroll and payouts"}
-                                    {item.label === "Calendar" && "Schedules and meetings"}
-                                    {item.label === "Automations" && "Rule-based workflows"}
-                                    {item.label === "Integrations" && "Connected tools"}
-                                    {item.label === "Watch demo" && "Product walkthrough"}
-                                  </p>
-                                </div>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div
-                className="flex items-center h-full py-2"
-                onMouseEnter={handleSolutionsMouseEnter}
-                onMouseLeave={handleSolutionsMouseLeave}
-              >
-                <div
-                  className={`${linkBase} flex items-center gap-1 cursor-default`}
-                >
-                  Solutions
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isSolutionsOpen ? "rotate-180" : ""}`} />
-                </div>
-
-                {isSolutionsOpen && (
-                  <div className={megaMenuPanelClass}>
-                    <div className="w-full flex">
-                      {/* Left Panel – By Team */}
-                      <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
-                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">By Team</p>
-                        {solutionsMegaSections.byTeam.map((item) => (
-                          <Link
-                            key={item.to}
-                            to={item.to}
-                            onClick={closeAllMenus}
-                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
-                          >
-                            <item.icon size={18} strokeWidth={2} className={item.iconColor} />
-                            <div>
-                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
-                              <p className="text-xs text-slate-400">{item.sublabel}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-
-                      {/* Middle Panel – By Company Size */}
-                      <div className="flex-1 bg-slate-50 px-8 py-3 flex flex-col border-r border-slate-200">
-                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">By Company Size</p>
-                        {solutionsMegaSections.bySize.map((item) => (
-                          <Link
-                            key={item.to}
-                            to={item.to}
-                            onClick={closeAllMenus}
-                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
-                          >
-                            <item.icon size={18} strokeWidth={2} className={item.iconColor} />
-                            <div>
-                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
-                              <p className="text-xs text-slate-400">{item.sublabel}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-
-                      {/* Right Panel – Templates */}
-                      <div className="flex-1 bg-white px-10 py-3">
-                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Popular Templates</p>
-                        <div className="flex flex-col gap-1">
-                          {solutionsMegaSections.templates.map((item) => (
+                  {isPlatformOpen && (
+                    <div className={megaMenuPanelClass}>
+                      <div className="w-full flex">
+                        <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
+                          <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Core Workspace</p>
+                          {platformMegaSections.core.map((item) => (
                             <Link
                               key={item.to}
                               to={item.to}
                               onClick={closeAllMenus}
-                              className="group flex items-center gap-4 p-4 rounded-2xl border border-transparent hover:border-purple-100 hover:bg-white hover:shadow-md transition-all"
+                              className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
                             >
-                              <div className="w-10 h-10 rounded-xl bg-slate-50 shadow-sm border border-slate-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                                <item.icon size={20} strokeWidth={2} className={item.iconColor} />
-                              </div>
+                              <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-purple-600"} />
                               <div>
-                                <p className="font-bold text-slate-900 text-[15px] group-hover:text-purple-700 transition-colors">{item.label}</p>
-                                <p className="text-[13px] text-slate-500">{item.description}</p>
+                                <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                                <p className="text-xs text-slate-400">{item.description || item.sublabel}</p>
                               </div>
-                              <ArrowRight size={16} className="ml-auto text-slate-300 group-hover:text-purple-500 group-hover:translate-x-1 transition-all" />
+                            </Link>
+                          ))}
+                        </div>
+                        <div className="flex-1 bg-slate-50 px-8 py-3 flex flex-col border-r border-slate-200">
+                          <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Leadership Views</p>
+                          {platformMegaSections.manage.map((item) => (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              onClick={closeAllMenus}
+                              className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                            >
+                              <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-purple-600"} />
+                              <div>
+                                <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                                <p className="text-xs text-slate-400">{item.description || item.sublabel}</p>
+                              </div>
                             </Link>
                           ))}
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
-
-              <NavLink
-                to="/pricing"
-                onClick={closeAllMenus}
-                className={({ isActive }) =>
-                  `${linkBase} ${isActive ? linkActive : ""}`
-                }
-              >
-                Pricing
-              </NavLink>
-              <div
-                className="flex items-center h-full py-2"
-                onMouseEnter={handleResourcesMouseEnter}
-                onMouseLeave={handleResourcesMouseLeave}
-              >
-                <div
-                  className={`${linkBase} flex items-center gap-1 cursor-default`}
-                >
-                  Resources
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isResourcesOpen ? "rotate-180" : ""}`} />
+                  )}
                 </div>
 
-                {isResourcesOpen && (
-                  <div className={megaMenuPanelClass}>
-                    <div className="w-full flex">
-                      <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
-                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Read & Learn</p>
-                        {resourcesMegaSections.slice(0, 2).map((item) => (
-                          <Link
-                            key={item.to}
-                            to={item.to}
-                            onClick={closeAllMenus}
-                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
-                          >
-                            <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-indigo-600"} />
-                            <div>
-                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
-                              <p className="text-xs text-slate-400">{item.description}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="flex-1 bg-slate-50 px-8 py-3 flex flex-col border-r border-slate-200">
-                        <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Watch & Connect</p>
-                        {resourcesMegaSections.slice(2).map((item) => (
-                          <Link
-                            key={item.to}
-                            to={item.to}
-                            onClick={closeAllMenus}
-                            className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
-                          >
-                            <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-indigo-600"} />
-                            <div>
-                              <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
-                              <p className="text-xs text-slate-400">{item.description}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
+                <div
+                  className="flex items-center h-full py-2"
+                  onMouseEnter={handleFeaturesMouseEnter}
+                  onMouseLeave={handleFeaturesMouseLeave}
+                >
+                  <div
+                    className={`${linkBase} flex items-center gap-1 cursor-default`}
+                  >
+                    Features
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isFeaturesOpen ? "rotate-180" : ""}`} />
                   </div>
-                )}
-              </div>
-            </div>
-          </div>
 
-          <div className="hidden md:flex flex-1"></div>
-
-          <div className="flex-none hidden md:flex items-center space-x-4">
-            <a
-              href={authUrl}
-              onClick={closeAllMenus}
-              className={`group flex items-center gap-2 font-semibold tracking-wide transition-all ${isOverlayLightNav ? "text-white hover:text-white/80" : "text-slate-700 hover:text-[#7e22ce]"}`}
-            >
-              <LogIn size={16} className={`${isOverlayLightNav ? "text-white" : "text-slate-500"} group-hover:-translate-x-0.5 group-hover:text-[#7e22ce] transition-all`} />
-              <span className="text-[14px]">Log in</span>
-            </a>
-            <StartWorkspaceButton href={authUrl} onClick={closeAllMenus} />
-          </div>
-
-          <div className="ml-auto md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded-lg transition-colors ${isOpen || !isOverlayLightNav ? "text-slate-900 hover:bg-gray-100" : "text-white hover:bg-white/10"}`}
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col"
-          >
-            {/* ClickUp Style Internal Header */}
-            <div className="flex items-center justify-between px-4 py-4 border-b border-slate-100 bg-white flex-shrink-0">
-              <Link to="/" onClick={closeAllMenus} className="flex items-center group">
-                <img
-                  src={logo}
-                  alt="KaryaUp Logo"
-                  width="130"
-                  height="36"
-                  className="h-9 w-auto"
-                />
-              </Link>
-              <button
-                onClick={closeAllMenus}
-                className="p-2 rounded-lg text-slate-900 hover:bg-slate-100 transition-colors"
-                aria-label="Close menu"
-              >
-                <X size={26} strokeWidth={2.5} />
-              </button>
-            </div>
-
-            {/* Scrollable Menu Content */}
-            <div 
-              data-lenis-prevent="true"
-              className="flex-1 overflow-y-auto overscroll-contain px-4 py-6 bg-white"
-            >
-              <div className="space-y-4">
-                {navItems.map((item) => (
-                  item.to ? (
-                    <NavLink
-                      key={item.to}
-                      to={item.to}
-                      onClick={closeAllMenus}
-                      className={({ isActive }) =>
-                        `block rounded-2xl px-5 py-4 text-[17px] font-bold tracking-wide transition-all ${isActive
-                          ? "bg-primary/10 text-primary shadow-sm"
-                          : "text-slate-800 hover:bg-slate-50 border border-transparent hover:border-slate-100"
-                        }`
-                      }
-                    >
-                      {item.label}
-                    </NavLink>
-                  ) : (
-                    <div
-                      key={item.label}
-                      className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_4px_20px_-12px_rgba(15,23,42,0.12)]"
-                    >
-                      <button
-                        type="button"
-                        onClick={() => setMobileOpenSection((prev) => prev === item.label ? null : item.label)}
-                        className="w-full flex items-center justify-between px-5 py-5 text-[17px] font-bold text-slate-800 tracking-wide"
-                      >
-                        <span>{item.label}</span>
-                        <ChevronDown
-                          className={`w-5 h-5 ml-4 shrink-0 transition-transform duration-300 ${mobileOpenSection === item.label ? "rotate-180" : ""}`}
-                        />
-                      </button>
-                      <AnimatePresence>
-                        {mobileOpenSection === item.label && (
-                          <motion.div 
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="px-3 pb-4 overflow-hidden"
+                  {isFeaturesOpen && (
+                    <div className={megaMenuPanelClass}>
+                      <div className="grid w-full grid-cols-5">
+                        {featuresMegaSections.map((section, index) => (
+                          <div
+                            key={section.heading}
+                            className={`px-7 py-3 flex flex-col min-h-[240px] ${index % 2 === 0 ? "bg-white" : "bg-slate-50"
+                              } ${index !== featuresMegaSections.length - 1 ? "border-r border-slate-200/80" : ""}`}
                           >
-                            <div className="rounded-2xl bg-slate-50 border border-slate-100 overflow-hidden">
-                              {(mobileMenuSections[item.label] || []).map((subItem) => (
+                            <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-3">
+                              {section.heading}
+                            </p>
+                            <div className="flex flex-col gap-1">
+                              {section.items.map((item) => (
                                 <Link
-                                  key={subItem.to}
-                                  to={subItem.to}
+                                  key={item.to}
+                                  to={item.to}
                                   onClick={closeAllMenus}
-                                  className="flex items-start gap-4 px-4 py-4 text-[15px] hover:bg-white transition-all border-b border-slate-100/50 last:border-b-0"
+                                  className={`group flex items-center gap-3 py-1.5 px-3 rounded-xl transition-all ${"hover:bg-white hover:shadow-md"
+                                    }`}
                                 >
-                                  {subItem.icon && (
-                                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center shrink-0">
-                                      <subItem.icon
-                                        size={20}
-                                        strokeWidth={2}
-                                        className={subItem.iconColor || "text-purple-600"}
-                                      />
-                                    </div>
-                                  )}
-                                  <div className="flex flex-col text-left justify-center">
-                                    <span className="font-bold text-slate-900 leading-tight">{subItem.label}</span>
-                                    { (subItem.sublabel || subItem.description) && (
-                                      <span className="text-[12px] text-slate-500 mt-0.5 line-clamp-1">
-                                        {subItem.sublabel || subItem.description}
-                                      </span>
-                                    )}
+                                  <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-slate-600"} />
+                                  <div className="flex flex-col">
+                                    <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">
+                                      {item.label}
+                                    </p>
+                                    <p className="text-xs text-slate-400 whitespace-nowrap">
+                                      {item.label === "Tasks" && "Tasks and ownership"}
+                                      {item.label === "Dashboards" && "Live performance view"}
+                                      {item.label === "Gantt" && "Timeline planning"}
+                                      {item.label === "Chat" && "Work chat in context"}
+                                      {item.label === "Notifications" && "Instant updates"}
+                                      {item.label === "Team" && "Members and roles"}
+                                      {item.label === "Attendance" && "Daily time logs"}
+                                      {item.label === "Leave" && "Time-off requests"}
+                                      {item.label === "Salary" && "Payroll and payouts"}
+                                      {item.label === "Calendar" && "Schedules and meetings"}
+                                      {item.label === "Automations" && "Rule-based workflows"}
+                                      {item.label === "Integrations" && "Connected tools"}
+                                      {item.label === "Watch demo" && "Product walkthrough"}
+                                    </p>
                                   </div>
                                 </Link>
                               ))}
                             </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  )
-                ))}
-              </div>
+                  )}
+                </div>
 
-              {/* Bottom Actions */}
-              <div className="mt-8 pt-8 border-t border-slate-100 flex flex-col gap-4 pb-12">
-                <a
-                  href={authUrl}
-                  onClick={closeAllMenus}
-                  className="w-full flex justify-center items-center gap-2 rounded-2xl border border-slate-200 bg-white py-4 text-[16px] font-bold text-slate-900 hover:bg-slate-50 transition-all shadow-sm"
+                <div
+                  className="flex items-center h-full py-2"
+                  onMouseEnter={handleSolutionsMouseEnter}
+                  onMouseLeave={handleSolutionsMouseLeave}
                 >
-                  <LogIn size={20} /> Log in
-                </a>
-                <div className="flex justify-center w-full group">
-                  <StartWorkspaceButton
-                    href={authUrl}
-                    onClick={closeAllMenus}
-                    size="lg"
-                  />
+                  <div
+                    className={`${linkBase} flex items-center gap-1 cursor-default`}
+                  >
+                    Solutions
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isSolutionsOpen ? "rotate-180" : ""}`} />
+                  </div>
+
+                  {isSolutionsOpen && (
+                    <div className={megaMenuPanelClass}>
+                      <div className="w-full flex">
+                        {/* Left Panel – By Team */}
+                        <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
+                          <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">By Team</p>
+                          {solutionsMegaSections.byTeam.map((item) => (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              onClick={closeAllMenus}
+                              className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                            >
+                              <item.icon size={18} strokeWidth={2} className={item.iconColor} />
+                              <div>
+                                <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                                <p className="text-xs text-slate-400">{item.sublabel}</p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+
+                        {/* Middle Panel – By Company Size */}
+                        <div className="flex-1 bg-slate-50 px-8 py-3 flex flex-col border-r border-slate-200">
+                          <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">By Company Size</p>
+                          {solutionsMegaSections.bySize.map((item) => (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              onClick={closeAllMenus}
+                              className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                            >
+                              <item.icon size={18} strokeWidth={2} className={item.iconColor} />
+                              <div>
+                                <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                                <p className="text-xs text-slate-400">{item.sublabel}</p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+
+                        {/* Right Panel – Templates */}
+                        <div className="flex-1 bg-white px-10 py-3">
+                          <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Popular Templates</p>
+                          <div className="flex flex-col gap-1">
+                            {solutionsMegaSections.templates.map((item) => (
+                              <Link
+                                key={item.to}
+                                to={item.to}
+                                onClick={closeAllMenus}
+                                className="group flex items-center gap-4 p-4 rounded-2xl border border-transparent hover:border-purple-100 hover:bg-white hover:shadow-md transition-all"
+                              >
+                                <div className="w-10 h-10 rounded-xl bg-slate-50 shadow-sm border border-slate-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                                  <item.icon size={20} strokeWidth={2} className={item.iconColor} />
+                                </div>
+                                <div>
+                                  <p className="font-bold text-slate-900 text-[15px] group-hover:text-purple-700 transition-colors">{item.label}</p>
+                                  <p className="text-[13px] text-slate-500">{item.description}</p>
+                                </div>
+                                <ArrowRight size={16} className="ml-auto text-slate-300 group-hover:text-purple-500 group-hover:translate-x-1 transition-all" />
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <NavLink
+                  to="/pricing"
+                  onClick={closeAllMenus}
+                  className={({ isActive }) =>
+                    `${linkBase} ${isActive ? linkActive : ""}`
+                  }
+                >
+                  Pricing
+                </NavLink>
+                <div
+                  className="flex items-center h-full py-2"
+                  onMouseEnter={handleResourcesMouseEnter}
+                  onMouseLeave={handleResourcesMouseLeave}
+                >
+                  <div
+                    className={`${linkBase} flex items-center gap-1 cursor-default`}
+                  >
+                    Resources
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isResourcesOpen ? "rotate-180" : ""}`} />
+                  </div>
+
+                  {isResourcesOpen && (
+                    <div className={megaMenuPanelClass}>
+                      <div className="w-full flex">
+                        <div className="flex-1 bg-white px-8 py-3 flex flex-col border-r border-slate-100">
+                          <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Read & Learn</p>
+                          {resourcesMegaSections.slice(0, 2).map((item) => (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              onClick={closeAllMenus}
+                              className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                            >
+                              <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-indigo-600"} />
+                              <div>
+                                <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                                <p className="text-xs text-slate-400">{item.description}</p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                        <div className="flex-1 bg-slate-50 px-8 py-3 flex flex-col border-r border-slate-200">
+                          <p className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2">Watch & Connect</p>
+                          {resourcesMegaSections.slice(2).map((item) => (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              onClick={closeAllMenus}
+                              className="group flex items-center gap-3 py-1 px-3 rounded-xl hover:bg-white hover:shadow-md transition-all"
+                            >
+                              <item.icon size={18} strokeWidth={2} className={item.iconColor || "text-indigo-600"} />
+                              <div>
+                                <p className="text-sm font-semibold text-slate-800 group-hover:text-purple-700 transition-colors">{item.label}</p>
+                                <p className="text-xs text-slate-400">{item.description}</p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+
+            <div className="hidden md:flex flex-1"></div>
+
+            <div className="flex-none hidden md:flex items-center space-x-4">
+              <a
+                href={authUrl}
+                onClick={closeAllMenus}
+                className={`group flex items-center gap-2 font-semibold tracking-wide transition-all ${isOverlayLightNav ? "text-white hover:text-white/80" : "text-slate-700 hover:text-[#7e22ce]"}`}
+              >
+                <LogIn size={16} className={`${isOverlayLightNav ? "text-white" : "text-slate-500"} group-hover:-translate-x-0.5 group-hover:text-[#7e22ce] transition-all`} />
+                <span className="text-[14px]">Log in</span>
+              </a>
+              <StartWorkspaceButton href={authUrl} onClick={closeAllMenus} />
+            </div>
+
+            <div className="ml-auto md:hidden">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className={`p-2 rounded-lg transition-colors ${isOpen || !isOverlayLightNav ? "text-slate-900 hover:bg-gray-100" : "text-white hover:bg-white/10"}`}
+              >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col"
+            >
+              {/* ClickUp Style Internal Header */}
+              <div className="flex items-center justify-between px-4 py-4 border-b border-slate-100 bg-white flex-shrink-0">
+                <Link to="/#hero-section" onClick={handleLogoClick} className="flex items-center group">
+                  <img
+                    src={logo}
+                    alt="KaryaUp Logo"
+                    width="130"
+                    height="36"
+                    className="h-9 w-auto"
+                  />
+                </Link>
+                <button
+                  onClick={closeAllMenus}
+                  className="p-2 rounded-lg text-slate-900 hover:bg-slate-100 transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X size={26} strokeWidth={2.5} />
+                </button>
+              </div>
+
+              {/* Scrollable Menu Content */}
+              <div
+                data-lenis-prevent="true"
+                className="flex-1 overflow-y-auto overscroll-contain px-4 py-6 bg-white"
+              >
+                <div className="space-y-4">
+                  {navItems.map((item) => (
+                    item.to ? (
+                      <NavLink
+                        key={item.to}
+                        to={item.to}
+                        onClick={closeAllMenus}
+                        className={({ isActive }) =>
+                          `block rounded-[1.5rem] px-5 py-5 text-[17px] font-bold tracking-wide transition-all ${isActive
+                            ? "bg-purple-50 text-purple-700 border border-purple-200 shadow-sm"
+                            : "text-slate-800 bg-white border border-slate-200 shadow-[0_4px_20px_-12px_rgba(15,23,42,0.12)]"
+                          }`
+                        }
+                      >
+                        {item.label}
+                      </NavLink>
+                    ) : (
+                      <div
+                        key={item.label}
+                        className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_4px_20px_-12px_rgba(15,23,42,0.12)]"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setMobileOpenSection((prev) => prev === item.label ? null : item.label)}
+                          className="w-full flex items-center justify-between px-5 py-5 text-[17px] font-bold text-slate-800 tracking-wide"
+                        >
+                          <span>{item.label}</span>
+                          <ChevronDown
+                            className={`w-5 h-5 ml-4 shrink-0 transition-transform duration-300 ${mobileOpenSection === item.label ? "rotate-180" : ""}`}
+                          />
+                        </button>
+                        <AnimatePresence>
+                          {mobileOpenSection === item.label && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              className="px-3 pb-4 overflow-hidden"
+                            >
+                              <div className="rounded-2xl bg-slate-50 border border-slate-100 overflow-hidden">
+                                {(mobileMenuSections[item.label] || []).map((subItem) => (
+                                  <Link
+                                    key={subItem.to}
+                                    to={subItem.to}
+                                    onClick={closeAllMenus}
+                                    className="flex items-start gap-4 px-4 py-4 text-[15px] hover:bg-white transition-all border-b border-slate-100/50 last:border-b-0"
+                                  >
+                                    {subItem.icon && (
+                                      <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center shrink-0">
+                                        <subItem.icon
+                                          size={20}
+                                          strokeWidth={2}
+                                          className={subItem.iconColor || "text-purple-600"}
+                                        />
+                                      </div>
+                                    )}
+                                    <div className="flex flex-col text-left justify-center">
+                                      <span className="font-bold text-slate-900 leading-tight">{subItem.label}</span>
+                                      {(subItem.sublabel || subItem.description) && (
+                                        <span className="text-[12px] text-slate-500 mt-0.5 line-clamp-1">
+                                          {subItem.sublabel || subItem.description}
+                                        </span>
+                                      )}
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    )
+                  ))}
+                </div>
+
+                {/* Bottom Actions */}
+                <div className="mt-8 pt-8 border-t border-slate-100 flex flex-col gap-4 pb-12">
+                  <a
+                    href={authUrl}
+                    onClick={closeAllMenus}
+                    className="w-full flex justify-center items-center gap-2 rounded-2xl border border-slate-200 bg-white py-4 text-[16px] font-bold text-slate-900 hover:bg-slate-50 transition-all shadow-sm"
+                  >
+                    <LogIn size={20} /> Log in
+                  </a>
+                  <div className="flex justify-center w-full group">
+                    <StartWorkspaceButton
+                      href={authUrl}
+                      onClick={closeAllMenus}
+                      size="lg"
+                    />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 };
+
+
 
 export default Navbar;

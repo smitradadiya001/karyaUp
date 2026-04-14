@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-/** Matches Team Collaboration / Notifications-style feature cards — icon fills with brand color on hover */
+/** Matches Team Collaboration / Notifications-style feature cards -icon fills with brand color on hover */
 function getCollabIconColorClasses(color) {
   switch (color) {
     case "purple":
@@ -52,27 +52,23 @@ export default function CollabTiltCard({ item, delay = 0, variant = "default" })
         className="h-full"
       >
         <article
-          className={`group relative h-full rounded-[1.75rem] sm:rounded-[2rem] border border-slate-200 bg-white ${
-            isCompact ? "p-6 sm:p-7" : "p-7 sm:p-8"
-          } shadow-xl shadow-slate-200/40 cursor-default transition-all duration-300 hover:shadow-2xl ${
-            item.color === "fuchsia"
+          className={`group relative h-full rounded-[1.75rem] sm:rounded-[2rem] border border-slate-200 bg-white ${isCompact ? "p-6 sm:p-7" : "p-7 sm:p-8"
+            } shadow-xl shadow-slate-200/40 cursor-default transition-all duration-300 hover:shadow-2xl ${item.color === "fuchsia"
               ? "hover:border-fuchsia-300/60 hover:shadow-fuchsia-900/10"
               : "hover:border-purple-300 hover:shadow-purple-900/15"
-          }`}
+            }`}
           style={{ transform: "translateZ(0)" }}
         >
           <div
-            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center ${
-              isCompact ? "mb-4 sm:mb-5" : "mb-5 sm:mb-6"
-            } transition-all duration-300 group-hover:shadow-md group-hover:scale-110 ${getCollabIconColorClasses(item.color)}`}
+            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center ${isCompact ? "mb-4 sm:mb-5" : "mb-5 sm:mb-6"
+              } transition-all duration-300 group-hover:shadow-md group-hover:scale-110 ${getCollabIconColorClasses(item.color)}`}
             style={{ transform: "translateZ(24px)" }}
           >
             <Icon className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.25} />
           </div>
           <h3
-            className={`text-lg sm:text-xl font-black text-slate-900 ${
-              isCompact ? "mb-1 min-h-[3.5rem] sm:min-h-[4.1rem]" : "mb-2.5"
-            } leading-tight`}
+            className={`text-lg sm:text-xl font-black text-slate-900 ${isCompact ? "mb-1 min-h-[3.5rem] sm:min-h-[4.1rem]" : "mb-2.5"
+              } leading-tight`}
             style={{ transform: "translateZ(12px)" }}
           >
             {item.title}
