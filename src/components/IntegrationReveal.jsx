@@ -30,6 +30,14 @@ export default function IntegrationReveal({ className = "" }) {
   const animFrameRef = useRef(null);
   const targetRef = useRef(50);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Mouse tracking logic for custom cursor
   const mouseX = useMotionValue(0);
@@ -152,8 +160,8 @@ export default function IntegrationReveal({ className = "" }) {
       >
         <div className="absolute inset-0 flex items-center justify-center">
             {/* Left Labels */}
-            <div className="absolute left-0 sm:left-6 lg:left-20 top-1/2 -translate-y-1/2 z-10">
-              <div className="flex flex-col items-end gap-6 md:gap-8 relative pr-4 md:pr-0">
+            <div className="absolute left-2 sm:left-6 lg:left-20 top-1/2 -translate-y-1/2 z-10">
+              <div className="flex flex-col items-end gap-5 md:gap-8 relative pr-2 md:pr-0">
                 {leftLabels.map((label, i) => (
                   <div key={label} className="flex items-center gap-3">
                     <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-purple-400 shadow-[0_0_12px_rgba(168,85,247,0.95)] flex-shrink-0 order-3" />
@@ -161,7 +169,7 @@ export default function IntegrationReveal({ className = "" }) {
                       className="h-px bg-gradient-to-l from-purple-500/40 to-transparent hidden md:block order-2"
                       style={{ width: `40px` }}
                     />
-                    <span className="text-white/70 font-black text-[10px] md:text-xs tracking-[0.2em] uppercase whitespace-nowrap order-1">
+                    <span className="text-white/70 font-black text-[9px] md:text-xs tracking-[0.15em] md:tracking-[0.2em] uppercase whitespace-nowrap order-1">
                       {label}
                     </span>
                   </div>
@@ -169,20 +177,20 @@ export default function IntegrationReveal({ className = "" }) {
               </div>
             </div>
 
-            <div className="flex flex-col items-center gap-3 pr-8 sm:pr-32 relative z-0">
+            <div className={`flex flex-col items-center gap-2 md:gap-3 pr-4 sm:pr-32 relative z-0 transition-transform duration-300 ${isMobile ? "scale-[0.85] origin-right" : ""}`}>
               {integrations.map((item, i) => (
                 <div
                   key={item.name}
                   className="flex items-center gap-3"
                   style={{ animation: `integSlideInLeft 0.6s ease-out ${i * 0.08}s both` }}
                 >
-                  <div className="flex items-center gap-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 py-2 hover:bg-white/10 transition-all duration-300 min-w-[140px]">
+                  <div className="flex items-center gap-2 md:gap-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-2 py-1.5 md:px-4 md:py-2 hover:bg-white/10 transition-all duration-300 min-w-[110px] md:min-w-[140px]">
                     <img 
                       src={item.icon} 
                       alt={item.name} 
-                      className={`w-6 h-6 object-contain ${item.name === 'Teams' ? '[mix-blend-mode:plus-lighter] filter contrast-125' : ''}`} 
+                      className={`w-5 h-5 md:w-6 md:h-6 object-contain ${item.name === 'Teams' ? '[mix-blend-mode:plus-lighter] filter contrast-125' : ''}`} 
                     />
-                    <span className="text-white/80 font-bold text-xs tracking-wider uppercase">
+                    <span className="text-white/80 font-bold text-[10px] md:text-xs tracking-wider uppercase">
                       {item.name}
                     </span>
                   </div>
@@ -208,13 +216,16 @@ export default function IntegrationReveal({ className = "" }) {
                 <img
                   src={logo}
                   alt="KaryaUp"
-                  className="w-40 md:w-64 drop-shadow-[0_0_40px_rgba(139,92,246,0.5)]"
-                  style={{ animation: "integPulseGlow 3s ease-in-out infinite" }}
+                  className="w-32 md:w-64 drop-shadow-[0_0_40px_rgba(139,92,246,0.5)] transition-all duration-300"
+                  style={{ 
+                    animation: "integPulseGlow 3s ease-in-out infinite",
+                    transform: isMobile ? "scale(0.8)" : "none"
+                  }}
                 />
               </div>
 
-              <div className="absolute right-0 sm:right-6 lg:right-20 top-1/2 -translate-y-1/2">
-                <div className="flex flex-col gap-6 md:gap-8 relative pr-4 md:pr-0">
+              <div className="absolute right-2 sm:right-6 lg:right-20 top-1/2 -translate-y-1/2">
+                <div className="flex flex-col gap-5 md:gap-8 relative pl-2 md:pl-0">
                   {rightLabels.map((label, i) => (
                     <div key={label} className="flex items-center gap-3">
                       <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-purple-400 shadow-[0_0_12px_rgba(168,85,247,0.95)] flex-shrink-0" />
@@ -222,7 +233,7 @@ export default function IntegrationReveal({ className = "" }) {
                         className="h-px bg-gradient-to-r from-purple-500/40 to-transparent hidden md:block"
                         style={{ width: `40px` }}
                       />
-                      <span className="text-white/70 font-black text-[10px] md:text-xs tracking-[0.2em] uppercase whitespace-nowrap">
+                      <span className="text-white/70 font-black text-[9px] md:text-xs tracking-[0.15em] md:tracking-[0.2em] uppercase whitespace-nowrap">
                         {label}
                       </span>
                     </div>
