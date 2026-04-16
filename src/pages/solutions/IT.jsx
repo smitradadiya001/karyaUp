@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef, useState, useEffect, useMemo, isStackOpen } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { BrainCircuit, MessageSquare, Zap, Search, ShieldCheck, Brain, Network, Check } from "lucide-react";
 import dashboardImage from "../../assets/dashboard2.webp";
@@ -90,43 +90,63 @@ export default function IT() {
 
       {/* ================= HERO SECTION ================= */}
 
-      <section className="py-22 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-center lg:text-left">
-            <span className="inline-block px-2 py-1.5 rounded-full bg-purple-50 text-[11px] font-black uppercase tracking-widest text-purple-600 mb-3 border border-purple-100">
-              Cloud Operations
-            </span>
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1"
-            >
-              The Everything App<br />
-              <motion.span
-                className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-500 to-purple-700 bg-[length:200%_auto]"
-                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+      <section className="relative pt-26 sm:pt-30 lg:pt-34 pb-8 sm:pb-16 lg:pb-20 px-4 sm:px-6 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
+          <div
+            className={`grid lg:grid-cols-2 items-center transition-all duration-300 ${isStackOpen ? "gap-10" : "gap-0"
+              }`}
+            style={{ transition: "gap 0.32s ease" }}
+          >
+            <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+              <motion.div
+                initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
               >
-                for IT PMO Teams
-              </motion.span>
-            </motion.h1>
-            <div className="mt-5 space-y-3 max-w-lg w-full">
-              <div className="flex items-start gap-2">
-                <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center shrink-0">
-                  <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
-                </div>
-                <p className="text-sm sm:text-base text-slate-600 font-medium"> Manage IT projects, service requests in one place <br />all connected by AI.</p>
-              </div>
-            </div>
+                  IT - Cloud Operations
+              </motion.div>
 
-            <div className="mt-5 space-y-3 max-w-lg w-full">
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center shrink-0">
-                  <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
-                </div>
-                <p className="text-sm sm:text-base text-slate-600 font-medium"> Streamline IT support, systems, and workflows <br />in one unified platform.</p>
-              </div>
-            </div>
+              <motion.h1
+                initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                // className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
+                className="text-3xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1"
+              >
+                The Everything App
+                <span className="block">
+
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  >
+                    for IT PMO Teams
+                  </motion.span>
+                </span>
+              </motion.h1>
+              <motion.div
+                initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 max-w-lg w-full"
+              >
+                {[
+                  { text: " Manage IT projects, service requests in one place all connected by AI", icon: Check },
+                  { text: " Streamline IT support, systems, and workflows in one unified platform.", icon: Check }
+
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 text-left">
+                    <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
          
             <FeatureStack
               items={[
@@ -136,20 +156,14 @@ export default function IT() {
               ]}
             />
           </div>
-          <motion.div
-            initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-            className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
-          >
-            <div className="relative overflow-hidden  shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white mt-[-30px] lg:mt-[-5px]">
+          <div className="pt-6 relative w-full max-w-[540px] mx-auto lg:max-w-none overflow-hidden rounded-[10px]">
               <img
                 src={dashboardImage}
-                alt="KaryaUp task management"
-                className="w-full h-[250px] sm:h-[300px] md:h-[280px] lg:h-[380px] xl:h-[350px] object-cover object-left-top bg-white transition-all duration-300"
+                alt="Dashboard"
+                className="w-full h-auto rounded-[10px] shadow-2xl"
               />
             </div>
-          </motion.div>
+            </div> 
         </div>
       </section>
 
@@ -321,7 +335,7 @@ export default function IT() {
       {/* ================= CTA SECTION ================= */}
       <div className="py-10">
         <FeatureCTA
-          title="Tasks that connect to everything you do"
+         title={<>Tasks That Connect To <br /> Everything You Do</>}
           description="Work Smarter with tasks that can live in your whiteboards, chat, calendar - anywhere you work"
           image={dashboardImage}
           imageAlt="KaryaUp dashboard"

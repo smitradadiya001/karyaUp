@@ -2,6 +2,7 @@ import React from 'react';
 import FeatureCTA from "../../components/FeatureCTA";
 import TeamHero from "../../components/TeamHero";
 import TeamInfoSection from "../../components/TeamInfoSection";
+import TeamHierarchySection from "../../components/TeamHierarchySection";
 import TeamImg from "../../assets/Team.webp";
 import { Helmet } from "react-helmet-async";
 
@@ -56,6 +57,9 @@ export default function Team() {
 
       {/* Team Info Section */}
       <TeamInfoSection />
+
+      {/* Team Control System Section */}
+      <TeamHierarchySection />
 
       {/* Feature CTA Section */}
       <FeatureCTA

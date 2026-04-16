@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
-import React, { useRef, useState, useEffect, useMemo } from "react";
+ import { Helmet } from "react-helmet-async";
+import React, { useRef, useState, useEffect, useMemo, isStackOpen } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import {
   Zap,
@@ -20,8 +20,8 @@ import MetricStorySlider from "../../components/MetricStorySlider";
 
 const getColorClasses = (colorName) => {
   const colors = {
-    purple: "bg-purple-50 text-purple-600 border-2 border-purple-200 group-hover:bg-purple-600 group-hover:text-white",
-    fuchsia: "bg-fuchsia-50 text-fuchsia-600 border-2 border-fuchsia-200 group-hover:bg-fuchsia-600 group-hover:text-white",
+    purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
+    fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
   };
   return colors[colorName] || colors.purple;
 };
@@ -66,6 +66,10 @@ const TiltCard = ({ children, className }) => {
 };
 
 export default function Operations() {
+
+  const sectionSpacing = "py-12 sm:py-16 lg:py-20";
+  const [isMobile, setIsMobile] = useState(false);
+  const [isShieldHovered, setIsShieldHovered] = useState(false);
   const workflowSteps = [
     { label: "Intake", desc: "AI categorizes incoming requests.", icon: Zap, color: "purple" },
     { label: "Assign", desc: "Logic-based task distribution.", icon: Users, color: "fuchsia" },
@@ -84,40 +88,65 @@ export default function Operations() {
       <Helmet><title>Operations | Karyaup</title></Helmet>
 
       {/* HERO SECTION */}
-      <section className="pb-10 py-25 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-center lg:text-left">
-            <span className="inline-block px-2 py-1.5 rounded-full bg-purple-50 text-[11px] font-black uppercase tracking-widest text-purple-600 mb-3 border border-purple-100">
-              Operational Excellence
-            </span>
-            <h1 className="text-4xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1">
-              The Everything<br />
-              <motion.span 
-                className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-500 to-purple-700 bg-[length:200%_auto]"
-                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              >
-                App for Operations
-              </motion.span>
-            </h1>
-            <div className="mt-3 space-y-1 max-w-lg w-full">
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
-                  <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
-                </div>
-                <p className="text-sm sm:text-base text-slate-600 font-medium">Analyze profitability across teams, and clients <br />with KaryaUp.</p>
-              </div>
-            </div>
 
-            <div className="mt-3 space-y-3 max-w-lg w-full">
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
-                  <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
-                </div>
-                <p className="text-sm sm:text-base text-slate-600 font-medium">Run smarter operations with complete visibility <br />and control</p>
-              </div>
-            </div>
-            {/* <FeatureStack items={[{ label: "SMART ALLOCATE", icon: BrainCircuit, color: "purple" }, { label: "VELOCITY TRACK", icon: Zap, color: "fuchsia" }, { label: "WORKLOAD FIND", icon: Search, color: "purple" }]} /> */}
+      <section className="relative pt-26 sm:pt-30 lg:pt-34 pb-8 sm:pb-16 lg:pb-20 px-4 sm:px-6 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
+          <div
+            className={`grid lg:grid-cols-2 items-center transition-all duration-300 ${isStackOpen ? "gap-10" : "gap-0"
+              }`}
+            style={{ transition: "gap 0.32s ease" }}
+          >
+            <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+              <motion.div
+                initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
+              >
+                Operations - Operational Excellence
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                // className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
+                className="text-3xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1"
+              >
+                The Everything 
+                <span className="block">
+
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  >
+                    App for Operations
+                  </motion.span>
+                </span>
+              </motion.h1>
+              <motion.div
+                initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 max-w-lg w-full"
+              >
+                {[
+                  { text: "Analyze profitability across teams, and clients with KaryaUp.", icon: Check },
+                  { text: "Run smarter operations with complete visibility and control ", icon: Check }
+
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 text-left">
+                    <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+           
             <FeatureStack
               items={[
                 { label: "SMART ALLOCATE", icon: BrainCircuit },
@@ -127,9 +156,14 @@ export default function Operations() {
               ]}
             />
           </div>
-          <div className="relative w-full max-w-[540px] mx-auto">
-            <img src={dashboardImage} className="w-full rounded-2xl shadow-2xl shadow-purple-900/10" alt="Dashboard" />
-          </div>
+          <div className="pt-6 relative w-full max-w-[540px] mx-auto lg:max-w-none overflow-hidden rounded-[10px]">
+              <img
+                src={dashboardImage}
+                alt="Dashboard"
+                className="w-full h-auto rounded-[10px] shadow-2xl"
+              />
+            </div>
+            </div>
         </div>
       </section>
 
@@ -146,15 +180,15 @@ export default function Operations() {
               Workflows
             </motion.span>
           </h2>
-          <p className="text-[1rem] text-slate-600 font-bold">Define the logic once, let KaryaUp handle the execution.</p>
+          <p className="text-[1rem] text-slate-600 font-bold">Define the logic once, <br /> KaryaUp handle the execution.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {workflowSteps.map((step, i) => (
             /* Removed 'border border-slate-200' and added 'shadow-sm' */
-            <TiltCard key={i} className="bg-white p-8 rounded-[2.5rem] h-full group shadow-sm hover:shadow-md transition-shadow">
+            <TiltCard key={i} className="bg-white p-8 rounded-[2.5rem] lg:hover:border-purple-300 h-full group shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center gap-4 mb-6">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${getColorClasses(step.color)}`}>
+                <div className={`w-14 h-14 lg:hover:border-purple-300 rounded-2xl flex items-center justify-center transition-all ${getColorClasses(step.color)}`}>
                   <step.icon size={24} strokeWidth={2.5} />
                 </div>
                 <h4 className="font-black text-slate-900 text-2xl tracking-tight">{step.label}</h4>
@@ -201,7 +235,7 @@ export default function Operations() {
       />
 
       <div className="py-20">
-        <FeatureCTA title="Tasks that connect to everything you do" image={dashboardImage} containerClassName="max-w-7xl mx-auto px-6" />
+        <FeatureCTA title={<>Tasks That Connect To <br /> Everything You Do</>} image={dashboardImage} containerClassName="max-w-7xl mx-auto px-6" />
       </div>
     </div>
   );

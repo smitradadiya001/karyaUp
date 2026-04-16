@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, CheckCircle2 } from "lucide-react";
+import { Play, CheckCircle2, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
-
 // ── Data ───────────────────────────────────────────────────────────────────────
 const INTRO_SENTENCES = [
   "Plan The Karya.",
@@ -21,8 +21,8 @@ const SUMMARY_ITEMS = [
 
 // Main headline words: line1 then line2
 const MAIN_LINE1 = "The Platform To Run Your";
-const MAIN_LINE2 = "Entire Company";
-
+const MAIN_LINE2_PREFIX = "Entire";
+const MAIN_LINE2_ROTATING_WORDS = ["Company", "Vision", "Company", "Vision"];
 // ── Timing (ms) ────────────────────────────────────────────────────────────────
 const INTRO_CHAR_DELAY = 60;   // Slowed down from 45ms
 const SENTENCE_HOLD = 850;   // intro: hold after full sentence
@@ -39,6 +39,7 @@ function useIntroSequence() {
   const [introVisible, setIntroVisible] = useState(0);
   const [summaryVisible, setSummaryVisible] = useState(0);
   const [mainVisible, setMainVisible] = useState(0);
+  const [rotatingWordIdx, setRotatingWordIdx] = useState(0);
 
   // ── Intro: reveal char by char, cycle sentences ──
   useEffect(() => {
@@ -81,19 +82,32 @@ function useIntroSequence() {
   // ── Main: reveal headline chars one by one ──
   useEffect(() => {
     if (phase !== "main") return;
-    const totalMainChars = MAIN_LINE1.length + 1 + MAIN_LINE2.length;
+    const totalMainChars = MAIN_LINE1.length + 1 + MAIN_LINE2_PREFIX.length + 1 + MAIN_LINE2_ROTATING_WORDS[0].length;
     if (mainVisible < totalMainChars) {
       const t = setTimeout(() => setMainVisible((v) => v + 1), MAIN_CHAR_DELAY);
       return () => clearTimeout(t);
     }
   }, [phase, mainVisible]);
 
-  return { phase, sentenceIdx, introVisible, summaryVisible, mainVisible };
+  // Type and rotate the second headline word after the main line finishes typing.
+  useEffect(() => {
+    if (phase !== "main") return;
+    const totalMainChars = MAIN_LINE1.length + 1 + MAIN_LINE2_PREFIX.length + 1 + MAIN_LINE2_ROTATING_WORDS[0].length;
+    if (mainVisible < totalMainChars) return;
+
+    const t = setInterval(() => {
+      setRotatingWordIdx((idx) => (idx + 1) % MAIN_LINE2_ROTATING_WORDS.length);
+    }, 2800);
+
+    return () => clearInterval(t);
+  }, [phase, mainVisible]);
+
+  return { phase, sentenceIdx, introVisible, summaryVisible, mainVisible, rotatingWordIdx };
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 const Hero = () => {
-  const { phase, sentenceIdx, introVisible, summaryVisible, mainVisible } = useIntroSequence();
+  const { phase, sentenceIdx, introVisible, summaryVisible, mainVisible, rotatingWordIdx } = useIntroSequence();
 
   return (
     <section
@@ -262,34 +276,106 @@ const Hero = () => {
 
                     {/* Line 2 – gradient */}
                     <div className="flex items-center justify-center flex-wrap gap-x-3 sm:gap-x-4">
-                      {MAIN_LINE2.split(" ").map((word, wIdx, arr) => {
-                        const startOffset = MAIN_LINE1.length + 1;
-                        const wordStartIdx = startOffset + arr.slice(0, wIdx).join(" ").length + (wIdx > 0 ? 1 : 0);
-
-                        return (
-                          <span
-                            key={`l2-${wIdx}`}
-                            className="inline-block py-1 text-[2.9rem] sm:text-[2.75rem] lg:text-[4.25rem] font-black tracking-normal leading-[1.08] drop-shadow-[0_10px_32px_rgba(15,23,42,0.34)] whitespace-nowrap"
+                      <span className="inline-block py-1 text-[2.9rem] sm:text-[2.75rem] lg:text-[4.25rem] font-black tracking-normal leading-[1.08] drop-shadow-[0_10px_32px_rgba(15,23,42,0.34)] text-white whitespace-nowrap">
+                        {MAIN_LINE2_PREFIX.split("").map((char, cIdx) => (
+                          <motion.span
+                            key={`prefix-${cIdx}`}
+                            initial={{ opacity: 0 }}
+                            animate={(MAIN_LINE1.length + 1 + cIdx) < mainVisible ? { opacity: 1 } : { opacity: 0 }}
+                            transition={{ duration: 0.15, ease: "easeOut" }}
                           >
-                            <motion.span
-                              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                            >
-                              {word.split("").map((char, cIdx) => (
+                            {char}
+                          </motion.span>
+                        ))}
+                      </span>
+
+                      <span className="inline-flex items-center justify-center mx-1 sm:mx-3 relative">
+                        <AnimatePresence>
+                          {MAIN_LINE2_ROTATING_WORDS[rotatingWordIdx] === "Vision" && (
+                            <>
+                              {[
+                                // Stars strictly ABOVE and around the word "Vision"
+                                { top: "-15%", left: "5%", color: "#3b82f6", size: 6, delay: 0 },
+                                { top: "-25%", left: "20%", color: "#ec4899", size: 8, delay: 0.1 },
+                                { top: "-10%", left: "40%", color: "#a855f7", size: 5, delay: 0.3 },
+                                { top: "-20%", left: "55%", color: "#f97316", size: 7, delay: 0.2 },
+                                { top: "-5%", left: "15%", color: "#3b82f6", size: 6, delay: 0.4 },
+                                { top: "-18%", left: "35%", color: "#ec4899", size: 9, delay: 0.1 },
+                                // On/Inside Edge
+                                { top: "10%", left: "12%", color: "#a855f7", size: 5, delay: 0.3 },
+                                { top: "85%", left: "5%", color: "#f97316", size: 6, delay: 0.5 },
+                                { top: "92%", left: "25%", color: "#3b82f6", size: 7, delay: 0.1 },
+                                { top: "80%", left: "45%", color: "#ec4899", size: 5, delay: 0.3 },
+                                { top: "15%", left: "50%", color: "#a855f7", size: 8, delay: 0.4 },
+                                { top: "88%", left: "10%", color: "#f97316", size: 6, delay: 0.2 },
+                                // Left Side Concentration
+                                { top: "30%", left: "-2%", color: "#3b82f6", size: 5, delay: 0.3 },
+                                { top: "60%", left: "0%", color: "#ec4899", size: 7, delay: 0.2 },
+                                { top: "40%", left: "8%", color: "#a855f7", size: 6, delay: 0.4 },
+                                { top: "70%", left: "15%", color: "#f97316", size: 5, delay: 0.1 },
+                                // Center Concentration (on top)
+                                { top: "50%", left: "30%", color: "#3b82f6", size: 5, delay: 0.6 },
+                                { top: "20%", left: "60%", color: "#ec4899", size: 6, delay: 0.2 },
+                                { top: "70%", left: "50%", color: "#a855f7", size: 4, delay: 0.4 },
+                                { top: "45%", left: "35%", color: "#f97316", size: 7, delay: 0.1 },
+                              ].map((star, i) => (
+                                <motion.div
+                                  key={`star-${i}`}
+                                  initial={{ opacity: 0, scale: 0, rotate: 0 }}
+                                  animate={{ opacity: [0, 1, 0.5, 1], scale: [0, 1, 0.8, 1.2], rotate: [0, 90, 180, 270] }}
+                                  exit={{ opacity: 0, scale: 0, transition: { duration: 0.4 } }}
+                                  transition={{ duration: 4, repeat: Infinity, repeatType: "reverse", delay: star.delay }}
+                                  className="absolute pointer-events-none z-0"
+                                  style={{ top: star.top, left: star.left, right: star.right, color: star.color, filter: `drop-shadow(0 0 6px ${star.color})` }}
+                                >
+                                  <Sparkles size={star.size} fill="currentColor" strokeWidth={0} />
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                        </AnimatePresence>
+
+                        <AnimatePresence mode="wait">
+                          <motion.span
+                            key={MAIN_LINE2_ROTATING_WORDS[rotatingWordIdx]}
+                            initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
+                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, y: -15, filter: "blur(4px)" }}
+                            transition={{ duration: 0.35, ease: "easeOut" }}
+                            className="inline-block py-1 text-[2.9rem] sm:text-[2.75rem] lg:text-[4.25rem] font-black tracking-normal leading-[1.08] drop-shadow-[0_10px_32px_rgba(15,23,42,0.34)] whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] relative z-10"
+                            style={{ minWidth: "7.5ch", textAlign: "left" }}
+                          >
+                            {MAIN_LINE2_ROTATING_WORDS[rotatingWordIdx].split("").map((char, cIdx) => {
+                              const startOffset = MAIN_LINE1.length + 1 + MAIN_LINE2_PREFIX.length + 1;
+                              if (rotatingWordIdx === 0) {
+                                return (
+                                  <motion.span
+                                    key={cIdx}
+                                    initial={{ opacity: 0 }}
+                                    animate={(startOffset + cIdx) < mainVisible ? { opacity: 1 } : { opacity: 0 }}
+                                    transition={{ duration: 0.15 }}
+                                    className="inline-block"
+                                  >
+                                    {char}
+                                  </motion.span>
+                                );
+                              }
+
+                              return (
                                 <motion.span
                                   key={cIdx}
                                   initial={{ opacity: 0 }}
-                                  animate={(wordStartIdx + cIdx) < mainVisible ? { opacity: 1 } : { opacity: 0 }}
-                                  transition={{ duration: 0.15, ease: "easeOut" }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ delay: cIdx * 0.08, duration: 0.15 }}
+                                  className="inline-block"
                                 >
                                   {char}
                                 </motion.span>
-                              ))}
-                            </motion.span>
-                          </span>
-                        );
-                      })}
+                              );
+                            })}
+                          </motion.span>
+                        </AnimatePresence>
+                      </span>
                     </div>
                   </motion.div>
                 )}
@@ -300,7 +386,7 @@ const Hero = () => {
             {/* ── STATIC CONTENT – always visible ── */}
 
             {/* Sub-text */}
-             
+
 
             {/* CTA buttons */}
             <motion.div
@@ -344,7 +430,7 @@ const Hero = () => {
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 stroke-[2.5]" />
                 <p className="flex items-center">
                   Setup in minutes
-                  <span className="ml-2 inline-flex items-center justify-center bg-white/10 border border-white/15 text-white px-2 py-0.5 text-xs rounded-md font-black italic backdrop-blur-sm">
+                  <span className="ml-2 inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-black italic text-white backdrop-blur-sm transition-colors duration-300 hover:border-[#7e22ce] hover:bg-white/15">
                     &lt; 2 minutes
                   </span>
                 </p>
@@ -359,3 +445,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

@@ -626,7 +626,7 @@ export default function BossDashboard() {
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
               >
-                GLOBAL WORKSPACE STATUS
+               Boss Dashboard - Global Workspace Status
               </motion.div>
 
               <motion.h1
@@ -880,7 +880,7 @@ export default function BossDashboard() {
       </section>
 
       <FeatureCTA
-        title="Tasks that connect to everything you do"
+          title={<>Tasks That Connect To <br /> Everything You Do</>}
         description="Work smarter with tasks that can live in your whiteboards, chat, and calendar — anywhere you work."
         image={dashboardImage}
         containerClassName="mb-10"

@@ -496,7 +496,7 @@ export default function ProfitTracking() {
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
               >
-                Revenue Growth
+               Profit Tracking - Revenue Growth
               </motion.div>
 
               <motion.h1
@@ -707,7 +707,7 @@ export default function ProfitTracking() {
               transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-2 drop-shadow-sm"
             >
-              Task Management that
+              Task Management 
               <br />
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
@@ -752,7 +752,8 @@ export default function ProfitTracking() {
       </section>
 
       <FeatureCTA
-        title="Revenue that connects to your workflow"
+        title={<> Revenue that connects<br /> to your workflow</>}
+        // title="Revenue that connects to your workflow"
         description="Stop jumping between apps. See your profits right where you manage your tasks and teams."
         image={dashboardImage}
         containerClassName="mt-10 mb-10"

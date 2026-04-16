@@ -39,49 +39,6 @@ export default function IntegrationReveal({ className = "" }) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Mouse tracking logic for custom cursor
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Chained springs for snake effect
-  const trailConfig = [
-    { stiffness: 250, damping: 25 },
-    { stiffness: 200, damping: 22 },
-    { stiffness: 150, damping: 18 },
-    { stiffness: 100, damping: 15 },
-    { stiffness: 80, damping: 12 },
-  ];
-
-  const s1x = useSpring(mouseX, trailConfig[0]);
-  const s1y = useSpring(mouseY, trailConfig[0]);
-  const s2x = useSpring(s1x, trailConfig[1]);
-  const s2y = useSpring(s1y, trailConfig[1]);
-  const s3x = useSpring(s2x, trailConfig[2]);
-  const s3y = useSpring(s2y, trailConfig[2]);
-  const s4x = useSpring(s3x, trailConfig[3]);
-  const s4y = useSpring(s3y, trailConfig[3]);
-  const s5x = useSpring(s4x, trailConfig[4]);
-  const s5y = useSpring(s4y, trailConfig[4]);
-
-  const velX = useVelocity(mouseX);
-  const velY = useVelocity(mouseY);
-  const velocity = useTransform([velX, velY], ([vx, vy]) =>
-    Math.sqrt(vx * vx + vy * vy)
-  );
-
-  const movementOpacity = useSpring(
-    useTransform(velocity, [0, 50, 300], [0, 0, 1]),
-    { stiffness: 60, damping: 20 }
-  );
-
-  const segments = [
-    { x: s1x, y: s1y, size: 160, opacity: 0.8, blur: 18 },
-    { x: s2x, y: s2y, size: 130, opacity: 0.7, blur: 22 },
-    { x: s3x, y: s3y, size: 100, opacity: 0.6, blur: 28 },
-    { x: s4x, y: s4y, size: 80, opacity: 0.5, blur: 34 },
-    { x: s5x, y: s5y, size: 60, opacity: 0.35, blur: 40 },
-  ];
-
   const handleMouseMove = useCallback((e) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -89,11 +46,7 @@ export default function IntegrationReveal({ className = "" }) {
     // Slider Logic
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     targetRef.current = Math.max(15, Math.min(85, x));
-
-    // Cursor Logic
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-  }, [mouseX, mouseY]);
+  }, []);
 
   const handleMouseLeave = useCallback(() => {
     targetRef.current = 50;
@@ -125,33 +78,12 @@ export default function IntegrationReveal({ className = "" }) {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full select-none overflow-hidden rounded-2xl bg-[#020617] ${isHovered ? "cursor-none" : ""} ${className}`}
+      className={`cursor-none relative w-full select-none overflow-hidden rounded-2xl bg-[#020617] ${className}`}
       style={{ minHeight: "200px" }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Snake Trail Effect — RESTORED */}
-      {segments.map((seg, i) => (
-        <motion.div
-          key={i}
-          className="absolute pointer-events-none z-[100] rounded-full mix-blend-screen"
-          style={{
-            width: seg.size,
-            height: seg.size,
-            left: seg.x,
-            top: seg.y,
-            x: "-50%",
-            y: "-50%",
-            opacity: useTransform([movementOpacity], ([v]) =>
-              isHovered ? (i === 0 ? seg.opacity : v * seg.opacity) : 0
-            ),
-            scale: isHovered ? 1 : 0,
-            background: `radial-gradient(circle, rgba(192, 38, 211, 0.9) 0%, rgba(168, 85, 247, 0) 70%)`,
-            filter: `blur(${seg.blur}px)`,
-          }}
-        />
-      ))}
 
       {/* LEFT SIDE — Integration icons */}
       <div
@@ -243,8 +175,11 @@ export default function IntegrationReveal({ className = "" }) {
             </div>
       </div>
 
-      {/* Divider — Brighter with Bubbles */}
-      <div
+      {/* Divider — Brighter with Bubbles — Only visible on hover */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
         className="absolute top-0 bottom-0 z-20 pointer-events-none"
         style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}
       >
@@ -274,7 +209,7 @@ export default function IntegrationReveal({ className = "" }) {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-purple-500/30 border border-purple-400/60 backdrop-blur-sm flex items-center justify-center">
           <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_10px_white]" />
         </div>
-      </div>
+      </motion.div>
 
       <style>{`
         @keyframes integSlideInLeft {

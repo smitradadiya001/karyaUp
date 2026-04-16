@@ -223,22 +223,43 @@ const LightShield3D = () => (
 
 const getColorClasses = (color) => {
   const colorMap = {
-    purple:
-      "bg-purple-100 text-purple-600 lg:group-hover:bg-purple-600 lg:group-hover:text-white",
-    fuchsia:
-      "bg-fuchsia-100 text-fuchsia-600 lg:group-hover:bg-fuchsia-600 lg:group-hover:text-white",
-    emerald:
-      "bg-emerald-100 text-emerald-600 lg:group-hover:bg-emerald-600 lg:group-hover:text-white",
-    orange:
-      "bg-orange-100 text-orange-600 lg:group-hover:bg-orange-600 lg:group-hover:text-white",
-    blue: "bg-blue-100 text-blue-600 lg:group-hover:bg-blue-600 lg:group-hover:text-white",
-    pink: "bg-pink-100 text-pink-600 lg:group-hover:bg-pink-600 lg:group-hover:text-white",
+    purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
+    fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
+    emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
+    orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
+    blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-100 group-hover:text-white",
+    indigo: "bg-indigo-100 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white",
+    pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white"
   };
-  return (
-    colorMap[color] ||
-    "bg-slate-100 text-slate-600 lg:group-hover:bg-slate-600 lg:group-hover:text-white"
-  );
+  return colorMap[color] || "bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
 };
+const aiFeatures = [
+  {
+    icon: <Sparkles className="w-5 h-5" />,
+    title: "Contextual Memory",
+    desc: "Our AI learns your project history and team habits, providing suggestions that actually make sense for your specific workflow.",
+    color: "purple"
+  },
+  {
+    icon: <BrainCircuit className="w-5 h-5" />,
+    title: "Autonomous Agents",
+    desc: "Deploy specialized AI agents to draft reports, update statuses before they impact your delivery.",
+    color: "fuchsia"
+  },
+  {
+    icon: <Search className="w-5 h-5" />,
+    title: "Smart Workspace",
+    desc: "A single environment where documentation, task management live together no more tab-hopping fatigue.",
+    color: "purple"
+  },
+  {
+    icon: <Zap className="w-5 h-5" />,
+    title: "Automated Standups",
+    desc: "Eliminate time-consuming meetings. AI automatically aggregates daily progress, links efforts to budget utilization",
+    color: "fuchsia"
+  }
+];
+
 
 function Card({ data, type }) {
   const isRed = type === "red";
@@ -578,8 +599,8 @@ export default function ProjectManagement() {
                 className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 max-w-lg w-full"
               >
                 {[
-                  { text: "Every piece of work, owned and visible.", icon: Eye },
-                  { text: "Turn conversations into tasks with a single click.", icon: MessagesSquare }
+                  { text: "Every piece of work, owned and visible.", icon: Check },
+                  { text: "Turn conversations into tasks with a single click.", icon: Check }
 
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3 text-left">
@@ -948,12 +969,11 @@ export default function ProjectManagement() {
               viewport={{ once: true }}
               className="text-lg text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed"
             >
-              Stop managing tools and start leading growth.
-              <br />
-              KaryaUp merges your project context with autonomous
+              KaryaUp AI merges project context with autonomous action to free your team for high-impact work.
             </motion.p>
           </div>
 
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-fuchsia-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <div className="mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
             {aiFeatures.map((feature, i) => (
               <TiltCard
@@ -970,10 +990,11 @@ export default function ProjectManagement() {
               </TiltCard>
             ))}
           </div>
+      
         </div>
       </section>
       <FeatureCTA
-        title="Tasks That Connect To Everything You Do"
+        title={<>Tasks That Connect To <br /> Everything You Do</>}
         description="Work smarter with tasks that can live in your whiteboards, chat, and calendar."
         image={dashboardImage}
         imageOuterClassName="relative w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[560px] mx-auto lg:mx-auto translate-x-0"

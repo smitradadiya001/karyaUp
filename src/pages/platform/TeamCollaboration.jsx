@@ -528,7 +528,7 @@ export default function TeamCollaboration() {
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
               >
-                One Team, One Goal
+              Team Collaboration - One Team, One Goal
               </motion.div>
 
               <motion.h1
@@ -736,29 +736,26 @@ export default function TeamCollaboration() {
 
       {/* INTEGRATION GRID */}
       <section style={{ padding: "20px 20px 20px", background: "white", textAlign: "center", overflow: "hidden" }}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          style={{ marginBottom: 30 }}
-        >
-          <h2 style={{ fontSize: "clamp(36px, 6vw, 52px)", fontWeight: 500, color: "#0f172a", letterSpacing: "-2px", lineHeight: 1, margin: "0 auto 4px" }}>
-            Connects with your
-          </h2>
-          <motion.span
-            style={{ display: "block", fontSize: "clamp(36px, 6vw, 52px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.1, background: "linear-gradient(90deg, #7C3AED, #d946ef, #7C3AED)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
-            animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+      <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center text-2xl min-[420px]:text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 leading-[1.06] sm:leading-[1.1] tracking-normal mb-8 lg:mb-12 text-balance max-w-[min(100%,40rem)] mx-auto px-2"
           >
-            Entire Stack
-          </motion.span>
-          <p style={{ marginTop: 5, fontSize: 13, color: "#64748b", fontWeight: 500, maxWidth: 480, margin: "20px auto 0", lineHeight: 1.2 }}>
+            <span className="text-slate-900">{"Connect\u00A0with  your"}</span>
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
+              {" "}Entire Stack
+            </motion.span>
+          </motion.h2>
+          {/* <p style={{ marginTop: 1, fontSize: 13, color: "#64748b", fontWeight: 500, maxWidth: 480, margin: "20px auto 0", lineHeight: 1.2 }}>
             Plug KaryaUp into the tools your team
             <br />
             already loves no migration needed.
-          </p>
-        </motion.div>
+          </p> */}
 
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20, maxWidth: 920, margin: "0 auto 40px" }}>
           {integrations.map((tool, i) => (
@@ -775,7 +772,7 @@ export default function TeamCollaboration() {
       </section>
 
       <FeatureCTA
-        title="Collaboration that scales"
+        title={<>Collaboration that scales</>}
         description="Empower your team with a platform designed for the speed of modern business."
         image={dashboardImage}
       />

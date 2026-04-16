@@ -1319,7 +1319,7 @@ export default function Pricing() {
           </section>
 
           {/* ── Premium CTA ── */}
-          <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative">
+          <section className="py-8 sm:py-10 lg:py-10 px-4 sm:px-6 lg:px-8 relative">
             <motion.div
               onMouseMove={handleCtaMouseMove}
               onMouseEnter={() => setIsHoveredCta(true)}

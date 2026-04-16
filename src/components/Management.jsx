@@ -13,7 +13,7 @@ const Management = () => {
     ];
 
     return (
-        <section className="!py-0 bg-white overflow-hidden relative px-2 sm:px-6">
+        <section className="py-0 bg-white overflow-hidden relative px-2 sm:px-6">
             <div className="max-w-[1440px] mx-auto px-1 sm:px-6 lg:px-12">
                 <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-24">
                     {/* Text and Features Side (40% Width) - Condensed */}

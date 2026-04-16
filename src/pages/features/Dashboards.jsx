@@ -258,7 +258,7 @@ export default function Dashboards() {
         </section>
 
         {/* Role-Based Dashboards Section */}
-        <section ref={container} className="bg-white pt-2 lg:pt-4 pb-4 sm:pb-16 lg:pb-20 overflow-hidden">
+        <section ref={container} className="bg-white pt-2 lg:pt-4 pb-4 sm:pb-12 lg:pb-5 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12 text-center">
             <motion.div
               initial={{ opacity: 0, x: isMobile ? 0 : -30 }}

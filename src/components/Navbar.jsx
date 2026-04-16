@@ -366,10 +366,15 @@ const Navbar = () => {
         <div className={`overflow-hidden bg-white border-none shadow-none transition-all duration-300 ease-in-out ${isScrolled || isIframeDark ? 'max-h-0 opacity-0' : 'max-h-[60px] opacity-100'}`}>
           <Link
             to="/features/ai-agents"
-            className="flex w-full items-center justify-center py-2 text-[13px] font-semibold tracking-wide transition-colors bg-white text-slate-900 hover:bg-slate-50 border-none shadow-none outline-none ring-0 px-4"
+            className="group flex w-full items-center justify-center py-2 text-[13px] font-semibold tracking-wide transition-colors bg-white text-slate-900 hover:bg-slate-50 border-none shadow-none outline-none ring-0 px-4"
           >
             <span className="font-bold">Meet KAI Agent</span>
-            <span className="hidden md:inline"> -Boost human efficiency with tailored AI assistants</span>
+            <span className="hidden md:inline">
+              {" "}
+              -<span className="transition-all duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#7e22ce] group-hover:via-fuchsia-500 group-hover:to-[#7e22ce]">
+                Boost human efficiency with tailored AI assistants
+              </span>
+            </span>
             <span className="ml-1 md:ml-1 text-inherit opacity-70 group-hover:opacity-100 inline-flex items-center"></span>
           </Link>
         </div>

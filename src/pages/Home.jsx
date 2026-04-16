@@ -38,8 +38,8 @@ export default function Home() {
         <Hero />
         <TrustedBy />
 
-        <div className="home-mobile-optimize [&>section]:!pt-4 [&>section]:!pb-4 sm:[&>section]:!pt-10 sm:[&>section]:!pb-10 lg:[&>section]:!pt-4 lg:[&>section]:!pb-4 text-center sm:text-left">
-         
+        <div className="home-mobile-optimize [&>section]:!pt-4 [&>section]:!pb-4 sm:[&>section]:!pt-10 sm:[&>section]:!pb-10 lg:[&>section]:!pt-10 lg:[&>section]:!pb-10 text-center sm:text-left">
+
           <AllInOne />
 
           <Suspense fallback={<div className="h-40 flex items-center justify-center"><Loader /></div>}>
@@ -47,12 +47,15 @@ export default function Home() {
             <WorkIntelligence />
             <FeatureOverview />
             <TeamsSection />
-             <ScatteredWork />
+            <ScatteredWork />
+            </Suspense>
+           
             <DataImport />
-            <Management />
-            <FinalCTA />
-          </Suspense>
-        </div>
+        <Management />
+           </div>
+            <FinalCTA  />
+          
+       
       </div>
     </>
   );

@@ -1,5 +1,5 @@
- import { Helmet } from "react-helmet-async";
-import React, { useRef, useState, useEffect, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
+import React, { useRef, useState, useEffect, useMemo, isStackOpen } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import dashboardImage from "../../assets/dashboard2.webp";
 import planImage from "../../assets/Gantt.webp";
@@ -62,10 +62,10 @@ const getColorClasses = (color) => {
 export default function Startup() {
 
   const DEFAULT_ICON_MAP = {
-    "SMART EXECUTE" : { icon: BrainCircuit, color: "#4c1d95" },
-    "VISION ALIGN"  : { icon: Zap, color: "#4c1d95" },
-    "RAPID INSIGHT" : { icon: Search, color: "#4c1d95" },
-}
+    "SMART EXECUTE": { icon: BrainCircuit, color: "#4c1d95" },
+    "VISION ALIGN": { icon: Zap, color: "#4c1d95" },
+    "RAPID INSIGHT": { icon: Search, color: "#4c1d95" },
+  }
 
   const sectionSpacing = "py-12 sm:py-16 lg:py-20";
   const [isMobile, setIsMobile] = useState(false);
@@ -86,67 +86,80 @@ export default function Startup() {
 
       {/* ================= HERO SECTION ================= */}
 
-      <section className="py-22 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-center lg:text-left">
-            <span className="inline-block px-2 py-1.5 rounded-full bg-purple-50 text-[11px] font-black uppercase tracking-widest text-purple-600 mb-3 border border-purple-100">
-            Founder Intelligence
-            </span>
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-3"
-            >
-              The Everything App<br />
-              <motion.span
-                className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-500 to-purple-700 bg-[length:200%_auto]"
-                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              >
-                for Startup Work
-              </motion.span>
-            </motion.h1>
-
-            <div className="mt-5 space-y-3 max-w-lg w-full">
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center shrink-0">
-                  <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
-                </div>
-                <p className="text-sm sm:text-base text-slate-600 font-medium">Your Startup Journey, Powered by KaryaUp.</p>
-              </div>
-            </div>
-
-            <div className="mt-4 space-y-3 max-w-lg w-full">
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-4 h-4 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center shrink-0">
-                  <Check className="w-2.5 h-2.5 text-purple-700 stroke-[4]" />
-                </div>
-                <p className="text-sm sm:text-base text-slate-600 font-medium">The all-in-one workspace designed to help <br />founders gap between vision and execution</p>
-              </div>
-            </div>
-          
-            <FeatureStack
-              items={[
-                { label: "SMART EXECUTE", icon: BrainCircuit },
-                { label: "VISION ALIGN", icon: Zap },
-                { label: "RAPID INSIGHT", icon: Search }
-              ]}
-            />
-          </div>
-          <motion.div
-            initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-            className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
+      <section className="relative pt-26 sm:pt-30 lg:pt-34 pb-8 sm:pb-16 lg:pb-20 px-4 sm:px-6 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
+          <div
+            className={`grid lg:grid-cols-2 items-center transition-all duration-300 ${isStackOpen ? "gap-10" : "gap-0"
+              }`}
+            style={{ transition: "gap 0.32s ease" }}
           >
-            <div className="relative overflow-hidden  shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white mt-[-30px] lg:mt-[-40px]">
-              <img
-                src={dashboardImage}
-                alt="KaryaUp task management"
-                className="w-full h-[250px] sm:h-[300px] md:h-[280px] lg:h-[380px] xl:h-[350px] object-cover object-left-top bg-white transition-all duration-300"
+            <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+              <motion.div
+                initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
+              >
+               Startup - Founder Intelligence
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                // className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
+                className="text-3xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1"
+              >
+                The Everything App
+                <span className="block">
+
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  >
+                    for Startup Work
+                  </motion.span>
+                </span>
+              </motion.h1>
+              <motion.div
+                initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 max-w-lg w-full"
+              >
+                {[
+                  { text: " Your Startup Journey, Powered by KaryaUp.", icon: Check },
+                  { text: "The all-in-one workspace designed to help founders gap between vision and execution", icon: Check }
+
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 text-left">
+                    <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                    </div>
+                    <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+
+              <FeatureStack
+                items={[
+                  { label: "SMART EXECUTE", icon: BrainCircuit },
+                  { label: "VISION ALIGN", icon: Zap },
+                  { label: "RAPID INSIGHT", icon: Search }
+                ]}
               />
             </div>
-          </motion.div>
+            <div className="pt-6 relative w-full max-w-[540px] mx-auto lg:max-w-none overflow-hidden rounded-[10px]">
+              <img
+                src={dashboardImage}
+                alt="Dashboard"
+                className="w-full h-auto rounded-[10px] shadow-2xl"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -222,7 +235,7 @@ export default function Startup() {
                 <img src={dashboardImage} alt="KaryaUp Project Scale Layout" className="w-full h-auto object-cover opacity-90" />
               </div>
 
-              
+
             </motion.div>
           </div>
 
@@ -264,79 +277,74 @@ export default function Startup() {
       </section>
 
       {/* ================= STARTUP GROWTH JOURNEY SECTION ================= */}
-     {/* ================= STARTUP GROWTH JOURNEY SECTION ================= */}
-<section className="w-full py-5 lg:px-5 bg-white">
-  <div className="max-w-9xl mx-auto text-center mb-16">
-    <motion.h1
-      initial={{ opacity: 0, y: 40, x: -10 }}
-      animate={{ opacity: 1, y: 0, x: 0 }}
-      transition={{
-        type: "spring",
-        damping: 25,
-        stiffness: 100,
-        delay: 0.1
-      }}
-      className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-3 drop-shadow-sm"
-    >
-      Your Startup Journey <br />
-      <motion.span
-        className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-        animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-      >
-        Powered by KaryaUp
-      </motion.span>
-    </motion.h1>
+      {/* ================= STARTUP GROWTH JOURNEY SECTION ================= */}
+      <section className="w-full py-5 lg:px-5 bg-white">
+        <div className="max-w-9xl mx-auto text-center mb-16">
+          <motion.h1
+            initial={{ opacity: 0, y: 40, x: -10 }}
+            animate={{ opacity: 1, y: 0, x: 0 }}
+            transition={{
+              type: "spring",
+              damping: 25,
+              stiffness: 100,
+              delay: 0.1
+            }}
+            className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-3 drop-shadow-sm"
+          >
+            Your Startup Journey <br />
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
+              Powered by KaryaUp
+            </motion.span>
+          </motion.h1>
 
-    <p className="text-[1rem] text-gray-600 max-w-2xl mx-auto">
-      From idea to unicorn, KaryaUp gives startups the 
-      <br />
-      tools to plan, execute, and scale all in one platform.
-    </p>
-  </div>
-
-  <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.8, delay: 0.3 }}
-    className="grid md:grid-cols-4 gap-8 px-4"
-  >
-    {[
-      { title: "Ideation", desc: "Capture ideas, collaborate with co-founders, and align vision.", icon: Lightbulb, color: "fuchsia" },
-      { title: "Launch", desc: "Plan sprints, track tasks, and deliver your MVP faster.", icon: Rocket, color: "purple" },
-      { title: "Growth", desc: "Automate workflows, manage sales pipelines, and expand your reach.", icon: TrendingUp, color: "fuchsia" },
-      { title: "Scale", desc: "Build hierarchies, manage complex projects, and grow into a unicorn.", icon: Sparkles, color: "purple" },
-    ].map((feature, idx) => {
-      const Icon = feature.icon;
-      return (
-        <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
-          
-          {/* HEADER ROW: Icon and Title side-by-side */}
-          <div className="flex items-center gap-4 mb-5 sm:mb-3">
-            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 flex-shrink-0 ${getColorClasses(feature.color)}`}>
-              <Icon size={20} strokeWidth={2.5} />
-            </div>
-            <h3 className="text-lg sm:text-xl font-black text-slate-900 leading-tight">
-              {feature.title}
-            </h3>
-          </div>
-
-          <p className="text-slate-600 text-sm font-medium leading-relaxed">
-            {feature.desc}
+          <p className="text-[1rem] text-gray-600 max-w-2xl mx-auto">
+            From idea to unicorn, KaryaUp gives startups the
+            <br />
+            tools to plan, execute, and scale all in one platform.
           </p>
-        </TiltCard>
-      );
-    })}
-  </motion.div>
-</section>
-      <FeatureCTA
-        title={
-          <>
-            Tasks that connect to everything you do
+        </div>
 
-          </>
-        }
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="grid md:grid-cols-4 gap-8 px-4"
+        >
+          {[
+            { title: "Ideation", desc: "Capture ideas, collaborate with co-founders, and align vision.", icon: Lightbulb, color: "fuchsia" },
+            { title: "Launch", desc: "Plan sprints, track tasks, and deliver your MVP faster.", icon: Rocket, color: "purple" },
+            { title: "Growth", desc: "Automate workflows, manage sales pipelines, and expand your reach.", icon: TrendingUp, color: "fuchsia" },
+            { title: "Scale", desc: "Build hierarchies, manage complex projects, and grow into a unicorn.", icon: Sparkles, color: "purple" },
+          ].map((feature, idx) => {
+            const Icon = feature.icon;
+            return (
+              <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
+
+                {/* HEADER ROW: Icon and Title side-by-side */}
+                <div className="flex items-center gap-4 mb-5 sm:mb-3">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 flex-shrink-0 ${getColorClasses(feature.color)}`}>
+                    <Icon size={20} strokeWidth={2.5} />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 leading-tight">
+                    {feature.title}
+                  </h3>
+                </div>
+
+                <p className="text-slate-600 text-sm font-medium leading-relaxed">
+                  {feature.desc}
+                </p>
+              </TiltCard>
+            );
+          })}
+        </motion.div>
+      </section>
+      <FeatureCTA
+        title={<>Tasks That Connect To <br /> Everything You Do</>}
         description="Work Smater with tasks that can live in your whiteboaards,chat,calendar - anywhere you work"
         image={dashboardImage}
         imageAlt="KaryaUp dashboard"

@@ -109,7 +109,7 @@ const FinalCTA = () => {
               <span className="block md:inline">Stop switching tools. Start moving move.</span>
               <span className="block md:inline">
                 <span className="text-slate-900 font-black">
-               <br/>   Execution speed <span className="text-[#7e22ce] sm:inline">{speed.toFixed(1)}x faster</span>.
+                  <br />   Execution speed <span className="text-[#7e22ce] sm:inline">{speed.toFixed(1)}x faster</span>.
                 </span>
               </span>
             </p>

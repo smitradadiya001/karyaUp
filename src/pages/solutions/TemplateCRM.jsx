@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef, useEffect, useMemo, isStackOpen } from "react";
 import FeatureCTA from '../../components/FeatureCTA';
 import FeatureStack from "../../components/FeatureStack";
 import dashboardImage from "../../assets/lead.webp";
@@ -184,30 +184,32 @@ export default function TemplateCRM() {
 
       {/* --- HERO SECTION --- */}
 
-      <section className="relative pt-25 pb-20 px-6 overflow-hidden bg-white">
+      <section className="relative pt-26 sm:pt-30 lg:pt-34 pb-8 sm:pb-16 lg:pb-20 px-4 sm:px-6 overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
-
-            {/* Left */}
+          <div
+            className={`grid lg:grid-cols-2 items-center transition-all duration-300 ${isStackOpen ? "gap-10" : "gap-0"
+              }`}
+            style={{ transition: "gap 0.32s ease" }}
+          >
             <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
               <motion.div
                 initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-1"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
               >
-                Revenue Intelligence
+                Template CRM - Revenue Intelligence
               </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                className="mt-4 sm:mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.06]"
+                className="text-3xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1"
               >
-              Close more Deals with
+                Close more Deals with
                 <span className="block">
-                  {" "}
+
                   <motion.span
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                     animate={{ backgroundPosition: ["0% center", "-200% center"] }}
@@ -222,60 +224,33 @@ export default function TemplateCRM() {
                 initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                className="mt-5 sm:mt-5 space-y-3 sm:space-y-4 max-w-lg w-full"
+                className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 max-w-lg w-full"
               >
                 {[
-                  "KaryaUp CRM unifies your pipeline, contacts, and communication into a single, AI driven interface."
-                ].map((text, i) => (
+                  { text: "KaryaUp CRM unifies your contacts, and communication into a single, AI driven interface", icon: Check },
+                  { text: "Turn every interaction into growth with a smarter, connected CRM.", icon: Check }
+
+                ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3 text-left">
                     <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
+                      <item.icon className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
                     </div>
                     <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
-                      {text}
+                      {item.text}
                     </p>
                   </div>
                 ))}
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-                className="mt-5 sm:mt-5 space-y-3 sm:space-y-4 max-w-lg w-full"
-              >
-                {[
-                  "Turn every interaction into growth with a smarter, connected CRM."
-                ].map((text, i) => (
-                  <div key={i} className="flex items-start gap-3 text-left">
-                    <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#7e22ce] stroke-[4]" />
-                    </div>
-                    <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium leading-relaxed">
-                      {text}
-                    </p>
-                  </div>
-                ))}
-              </motion.div>
-
               <FeatureStack items={["DEAL ROUTING", "PIPELINE SYNC", "CONTACT FIND"]} />
             </div>
 
-            {/* Right – Image */}
-            <motion.div
-              initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-              className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
-            >
-              <div className="relative overflow-hidden  shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white mt-[-10px] lg:mt-[-10px]">
-                <img
-                  src={dashboardImage}
-                  alt="KaryaUp task management"
-                  className="w-full h-[250px] sm:h-[300px] md:h-[280px] lg:h-[380px] xl:h-[350px] object-cover object-left-top bg-white transition-all duration-300"
-                />
-              </div>
-            </motion.div>
+            <div className="pt-6 relative w-full max-w-[540px] mx-auto lg:max-w-none overflow-hidden rounded-[10px]">
+              <img
+                src={dashboardImage}
+                alt="Dashboard"
+                className="w-full h-auto rounded-[10px] shadow-2xl"
+              />
+            </div>
           </div>
         </div>
       </section>

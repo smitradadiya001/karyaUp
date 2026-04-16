@@ -246,7 +246,7 @@ export default function Leave() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden pt-2 lg:pt-4 pb-0 sm:pb-4 lg:pb-0">
+        <section className="relative overflow-hidden pt-2 lg:pt-4 pb-10 sm:pb-10 lg:pb-10">
           <div className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[980px] -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-100/80 via-fuchsia-100/60 to-transparent blur-[130px]" />
 
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -407,7 +407,7 @@ export default function Leave() {
           description="Handle requests, approvals, and balances without extra follow-up."
           image={leaveImg}
           imageAlt="KaryaUp leave management dashboard"
-          containerClassName="mt-0"
+          containerClassName="mt-16 lg:mt-14 mb-8"
           paddingClassName="p-3 lg:p-4 lg:py-6"
           imageClassName="w-full max-w-[640px]"
           imageOuterClassName="relative w-[92%] lg:w-[82%] translate-x-0 lg:translate-x-2"
