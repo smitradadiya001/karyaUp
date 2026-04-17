@@ -805,7 +805,7 @@ export default function Blog() {
                     />
                     <div
                       className="absolute inset-0 pointer-events-none"
-                      style={{ clipPath: 'inset(0 75% 0 0)' }}
+                      style={{ clipPath: "inset(0 75% 0 0)" }}
                     >
                       <img
                         src={logo}
@@ -822,7 +822,8 @@ export default function Blog() {
                   Get the Tuesday Drop
                 </h2>
                 <p className="mt-4 text-[13px] sm:text-sm font-medium text-slate-400 max-w-xs">
-                  Get one sharp, useful idea your team can act on before the week is out. No spam, always free.
+                  Get one sharp, useful idea your team can act on before the
+                  week is out. No spam, always free.
                 </p>
               </div>
               {/* Right Form */}

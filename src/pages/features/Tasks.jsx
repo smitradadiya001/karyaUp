@@ -1,6 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion as Motion, useAnimationFrame, useMotionValue } from "framer-motion";
-import { Check, Sparkles, Activity, Eye, MessageSquare, Filter, CheckCircle2, Users } from "lucide-react";
+import {
+  motion as Motion,
+  useAnimationFrame,
+  useMotionValue,
+} from "framer-motion";
+import {
+  Check,
+  Sparkles,
+  Activity,
+  Eye,
+  MessageSquare,
+  Filter,
+  CheckCircle2,
+  Users,
+} from "lucide-react";
 import Task2 from "../../assets/Task.webp";
 import AgentAssign from "../../assets/Agent-Assign.webp";
 import GrowthGraph from "../../components/GrowthGraph";
@@ -11,14 +24,39 @@ import FeatureStack from "../../components/FeatureStack";
 export default function Tasks() {
   const [isMobile, setIsMobile] = useState(false);
   const listContainerRef = useRef(null);
-  
+
   // Define task list items once to reuse for infinite scroll doubling
   const taskListItems = [
-    { title: "Finalize landing page wireframe", owner: "Aisha", due: "Wed", pr: "High" },
-    { title: "Implement landing page sections", owner: "Rahul", due: "Thu", pr: "High" },
-    { title: "QA + cross-browser checks", owner: "Priya", due: "Fri", pr: "High" },
-    { title: "Publish & verify analytics", owner: "Rahul", due: "Fri", pr: "Normal" },
-    { title: "Update marketing copy", owner: "Sneha", due: "Mon", pr: "Normal" },
+    {
+      title: "Finalize landing page wireframe",
+      owner: "Aisha",
+      due: "Wed",
+      pr: "High",
+    },
+    {
+      title: "Implement landing page sections",
+      owner: "Rahul",
+      due: "Thu",
+      pr: "High",
+    },
+    {
+      title: "QA + cross-browser checks",
+      owner: "Priya",
+      due: "Fri",
+      pr: "High",
+    },
+    {
+      title: "Publish & verify analytics",
+      owner: "Rahul",
+      due: "Fri",
+      pr: "Normal",
+    },
+    {
+      title: "Update marketing copy",
+      owner: "Sneha",
+      due: "Mon",
+      pr: "Normal",
+    },
     { title: "Review SEO performance", owner: "Aisha", due: "Tue", pr: "High" },
   ];
 
@@ -43,7 +81,8 @@ export default function Tasks() {
 
       const containerCenter = container.top + container.height / 2;
       const itemCenter = item.top + item.height / 2;
-      const normalizedDistance = (itemCenter - containerCenter) / (container.height / 2);
+      const normalizedDistance =
+        (itemCenter - containerCenter) / (container.height / 2);
       const clamped = Math.max(-1, Math.min(1, normalizedDistance));
 
       rotateX.set(clamped * -45);
@@ -56,11 +95,17 @@ export default function Tasks() {
         <Motion.div
           className="rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2 sm:gap-3 bg-white shadow-sm"
           animate={{
-            borderColor: t.pr === "High" ? "rgba(248, 113, 113, 0.38)" : "rgba(134, 239, 172, 0.42)",
+            borderColor:
+              t.pr === "High"
+                ? "rgba(248, 113, 113, 0.38)"
+                : "rgba(134, 239, 172, 0.42)",
           }}
           transition={{ duration: 0.25, ease: "easeOut" }}
           whileHover={{
-            borderColor: t.pr === "High" ? "rgba(248, 113, 113, 0.52)" : "rgba(74, 222, 128, 0.58)",
+            borderColor:
+              t.pr === "High"
+                ? "rgba(248, 113, 113, 0.52)"
+                : "rgba(74, 222, 128, 0.58)",
           }}
           style={{
             rotateX,
@@ -75,17 +120,29 @@ export default function Tasks() {
             <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4" />
           </span>
           <div className="min-w-0 flex-1 w-full sm:w-auto">
-            <div className="font-black text-slate-900 text-xs sm:text-sm break-words leading-snug">{t.title}</div>
+            <div className="font-black text-slate-900 text-xs sm:text-sm break-words leading-snug">
+              {t.title}
+            </div>
             <div className="mt-0.5 text-[10px] sm:text-xs font-semibold text-slate-500 flex flex-wrap gap-x-2 sm:gap-x-3 gap-y-0.5">
-              <span>Owner: <span className="text-slate-700">{t.owner}</span></span>
-              <span>Due: <span className="text-slate-700">{t.due}</span></span>
+              <span>
+                Owner: <span className="text-slate-700">{t.owner}</span>
+              </span>
+              <span>
+                Due: <span className="text-slate-700">{t.due}</span>
+              </span>
             </div>
           </div>
           <span
             className="ml-auto sm:ml-0 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.12em] px-2 py-1 rounded-full border flex-shrink-0"
             style={{
-              borderColor: t.pr === "High" ? "rgba(239,68,68,0.35)" : "rgba(148,163,184,0.45)",
-              background: t.pr === "High" ? "rgba(239,68,68,0.08)" : "rgba(148,163,184,0.10)",
+              borderColor:
+                t.pr === "High"
+                  ? "rgba(239,68,68,0.35)"
+                  : "rgba(148,163,184,0.45)",
+              background:
+                t.pr === "High"
+                  ? "rgba(239,68,68,0.08)"
+                  : "rgba(148,163,184,0.10)",
               color: t.pr === "High" ? "rgb(185,28,28)" : "rgb(71,85,105)",
             }}
           >
@@ -107,7 +164,7 @@ export default function Tasks() {
     <>
       <Helmet>
         {/* Primary Title (Chrome Tab) */}
-        <title>Task Management  | Karyaup</title>
+        <title>Task Management | Karyaup</title>
 
         {/* SEO Meta */}
         <meta
@@ -124,7 +181,10 @@ export default function Tasks() {
 
         {/* Open Graph (Social Sharing) */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Task Management Features | Karyaup" />
+        <meta
+          property="og:title"
+          content="Task Management Features | Karyaup"
+        />
         <meta
           property="og:description"
           content="Organize, assign, and track tasks efficiently with Karyaup."
@@ -132,26 +192,25 @@ export default function Tasks() {
         <meta property="og:url" content="https://karyaup.com/features/tasks" />
         <meta property="og:site_name" content="Karyaup" />
 
-
         {/* Twitter Meta */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Task Management Features | Karyaup" />
+        <meta
+          name="twitter:title"
+          content="Task Management Features | Karyaup"
+        />
         <meta
           name="twitter:description"
           content="Smart task management tools to boost team productivity."
         />
 
-
         {/* Canonical URL */}
         <link rel="canonical" href="https://karyaup.com/features/tasks" />
       </Helmet>
       <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
-
         {/* ── Hero ── */}
         <section className="relative pt-4 sm:pt-6 lg:pt-4 pb-8 sm:pb-4 lg:pb-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center lg:items-start">
-
               {/* Left */}
               <div className="text-center lg:text-left flex flex-col items-center lg:items-start lg:self-start px-1 sm:px-0">
                 <Motion.div
@@ -166,32 +225,60 @@ export default function Tasks() {
                 <Motion.h1
                   initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-                  className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] sm:ml-0 max-[390px]:text-[1.55rem] max-[390px]:leading-[0.95] max-[390px]:tracking-[-0.04em]"
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.08,
+                  }}
+                  className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] sm:ml-0 max-[390px]:text-[1.55rem] max-[390px]:leading-[0.95] max-[390px]:tracking-[-0.04em] whitespace-nowrap"
                 >
-                  Task Management
-                  <span className="block sm:inline max-[390px]:block max-[390px]:-mt-2">
-                    <Motion.span
-                      className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] whitespace-nowrap max-[390px]:whitespace-normal"
-                      animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                    >
-                     That Saves Time
-                    </Motion.span>
-                  </span>
+                  <span className="whitespace-nowrap">Task Management</span>
                 </Motion.h1>
+                <Motion.h2
+                  initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.1,
+                  }}
+                  className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] sm:ml-0 max-[390px]:text-[1.55rem] max-[390px]:leading-[0.95] max-[390px]:tracking-[-0.04em] whitespace-nowrap"
+                >
+                  <Motion.span
+                    className="inline text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] whitespace-nowrap"
+                    animate={{
+                      backgroundPosition: ["0% center", "-200% center"],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  >
+                    That Saves Time
+                  </Motion.span>
+                </Motion.h2>
 
                 <Motion.div
                   initial={{ opacity: 0, y: isMobile ? 0 : 18 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                  transition={{
+                    duration: 0.65,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.18,
+                  }}
                   className="mt-5 sm:mt-6 w-full max-w-lg flex flex-col items-center lg:items-start"
                 >
                   <div className="space-y-3 sm:space-y-4 w-fit">
                     {[
-                      { text: "Every piece of work, owned and visible.", icon: Check },
-                      { text: "Turn conversations into tasks with a single click.", icon: Check }
-
+                      {
+                        text: "Every piece of work, owned and visible.",
+                        icon: Check,
+                      },
+                      {
+                        text: "Turn conversations into tasks with a single click.",
+                        icon: Check,
+                      },
                     ].map((item, i) => (
                       <div key={i} className="flex items-start gap-3 text-left">
                         <div className="mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
@@ -205,14 +292,20 @@ export default function Tasks() {
                   </div>
                 </Motion.div>
 
-                <FeatureStack items={["Assignees", "Due dates", "Priorities", "Sub-tasks"]} />
+                <FeatureStack
+                  items={["Assignees", "Due dates", "Priorities", "Sub-tasks"]}
+                />
               </div>
 
               {/* Right – Image */}
               <Motion.div
                 initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                transition={{
+                  duration: 0.75,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0.18,
+                }}
                 className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:self-start lg:-mr-12 xl:-mr-24"
               >
                 <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white">
@@ -245,23 +338,29 @@ export default function Tasks() {
                     AI Agent for Tasks
                   </div>
                   <h2 className="mt-2 sm:mt-5 text-[1.8rem] leading-[1] sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal sm:leading-[1.05]">
-                   Build Faster.{" "}
-                    <br className="hidden sm:block" />
+                    Build Faster. <br className="hidden sm:block" />
                     <Motion.span
                       className="inline text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] whitespace-nowrap"
-                      animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                      animate={{
+                        backgroundPosition: ["0% center", "-200% center"],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                     >
-                       Automate Smarter.
+                      Automate Smarter.
                     </Motion.span>
                   </h2>
                   <p className="mt-2 text-sm sm:text-base text-slate-600 font-medium max-w-3xl mx-auto lg:mx-0 leading-relaxed">
-                    Our integrated AI agent transforms your prompts into structured tasks, assigns owners, and tracks progress automatically—all within your workspace.
+                    Our integrated AI agent transforms your prompts into
+                    structured tasks, assigns owners, and tracks progress
+                    automatically—all within your workspace.
                   </p>
 
                   {/* Two-col layout */}
                   <div className="mt-6 sm:mt-7 grid lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-stretch justify-items-center lg:justify-items-stretch">
-
                     {/* Prompt panel / image */}
                     <div className="lg:col-span-5 flex items-center justify-center w-full">
                       <div className="relative h-[250px] sm:h-[300px] lg:h-[360px] w-fit max-w-full p-[2.5px] rounded-[1.25rem] sm:rounded-3xl overflow-hidden group mx-auto">
@@ -283,13 +382,19 @@ export default function Tasks() {
                           <div className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-500">
                             Generated tasks
                           </div>
-                          <div className="text-[10px] sm:text-xs font-semibold text-slate-400">Auto-assigned · Auto-dated</div>
+                          <div className="text-[10px] sm:text-xs font-semibold text-slate-400">
+                            Auto-assigned · Auto-dated
+                          </div>
                         </div>
-                        <div ref={listContainerRef} className="p-3 sm:p-4 overflow-hidden flex-1 relative bg-slate-50/30"
+                        <div
+                          ref={listContainerRef}
+                          className="p-3 sm:p-4 overflow-hidden flex-1 relative bg-slate-50/30"
                           style={{
-                            maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-                            perspective: "1000px"
-                          }}>
+                            maskImage:
+                              "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                            perspective: "1000px",
+                          }}
+                        >
                           <Motion.div
                             animate={{ y: ["0%", "-50%"] }}
                             transition={{
@@ -302,14 +407,21 @@ export default function Tasks() {
                             className="grid gap-2 sm:gap-3"
                             style={{ transformStyle: "preserve-3d" }}
                           >
-                            {[...taskListItems, ...taskListItems].map((t, i) => (
-                              <BarrelItem key={`${t.title}-${i}`} t={t} containerRef={listContainerRef} />
-                            ))}
+                            {[...taskListItems, ...taskListItems].map(
+                              (t, i) => (
+                                <BarrelItem
+                                  key={`${t.title}-${i}`}
+                                  t={t}
+                                  containerRef={listContainerRef}
+                                />
+                              ),
+                            )}
                           </Motion.div>
                         </div>
                         <div className="px-4 py-3 sm:py-4 relative z-10 bg-white/95 backdrop-blur-sm border-t border-slate-100 shadow-[0_-4px_15px_-5px_rgba(0,0,0,0.05)]">
                           <div className="text-[10px] sm:text-xs font-semibold text-slate-500">
-                            The agent can also update statuses, reassign owners, and add subtasks from a single prompt.
+                            The agent can also update statuses, reassign owners,
+                            and add subtasks from a single prompt.
                           </div>
                         </div>
                       </div>
@@ -321,13 +433,10 @@ export default function Tasks() {
           </div>
         </section>
 
-
-
         {/* 🔥 Visual Analytics - Restored Section */}
         <section className="pt-12 sm:pt-10 lg:pt-20 pb-12 sm:pb-20 lg:pb-24 bg-slate-50/50 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-24 items-center">
-
               {/* Left – Animated Graph */}
               <Motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -359,37 +468,59 @@ export default function Tasks() {
                   Turn Task Into <br className="hidden lg:block" />
                   <Motion.span
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                    animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    animate={{
+                      backgroundPosition: ["0% center", "-200% center"],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                   >
                     Actionable Insights.
                   </Motion.span>
                 </h2>
 
-
                 <div className="mt-8 space-y-4 w-full max-w-md">
                   {[
-                    { text: "Custom filters for members, status, and priority", icon: Check },
-                    { text: "Real-time completion and trend tracking", icon: Check },
-                    { text: "Visual work distribution across your whole team", icon: Check }
+                    {
+                      text: "Custom filters for members, status, and priority",
+                      icon: Check,
+                    },
+                    {
+                      text: "Real-time completion and trend tracking",
+                      icon: Check,
+                    },
+                    {
+                      text: "Visual work distribution across your whole team",
+                      icon: Check,
+                    },
                   ].map((item) => (
-                    <div key={item.text} className="flex items-center gap-4 text-left">
+                    <div
+                      key={item.text}
+                      className="flex items-center gap-4 text-left"
+                    >
                       <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center flex-shrink-0">
                         <item.icon className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-[#7e22ce] stroke-[4]" />
                       </div>
-                      <span className="text-sm sm:text-base text-slate-700 font-bold leading-tight">{item.text}</span>
+                      <span className="text-sm sm:text-base text-slate-700 font-bold leading-tight">
+                        {item.text}
+                      </span>
                     </div>
                   ))}
                 </div>
               </Motion.div>
-
             </div>
           </div>
         </section>
 
         {/* ── Feature CTA ── */}
         <FeatureCTA
-          title={<>Tasks That Connect To <br /> Everything You Do</>}
+          title={
+            <>
+              Tasks That Connect To <br /> Everything You Do
+            </>
+          }
           description="Work smarter with tasks that can live in your whiteboards, chat, calendar—anywhere you work."
           image={Task2}
           imageAlt="KaryaUp Task Interface"
@@ -399,5 +530,3 @@ export default function Tasks() {
     </>
   );
 }
-
-

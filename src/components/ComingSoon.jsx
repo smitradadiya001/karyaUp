@@ -84,7 +84,7 @@ export default function ComingSoon() {
             dominantBaseline="middle"
             className={`handwriting-text ${animate ? "animate" : ""}`}
           >
-            Coming soon..
+            Coming soon...
           </text>
 
           {/* Filled text revealed left-to-right */}

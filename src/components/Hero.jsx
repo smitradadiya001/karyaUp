@@ -238,16 +238,15 @@ const Hero = () => {
                                 : { opacity: 0, scale: 0.3 }
                             }
                             transition={{ duration: 0.2 }}
-                            className="inline-flex items-center justify-center shrink-0"
+                            className="inline-flex items-center justify-center shrink-0 mx-1 sm:mx-2"
                             aria-hidden="true"
                           >
                             <span
-                              className="block rounded-full bg-white"
+                              className="rounded-none bg-white"
                               style={{
-                                width: "clamp(6px,1vw,14px)",
-                                height: "clamp(6px,1vw,14px)",
-                                transform: "translateY(4px)",
-                                boxShadow: "0 0 10px 2px rgba(255,255,255,0.5)",
+                                width: "4px",
+                                height: "clamp(32px, 5vw, 52px)",
+                                boxShadow: "0 0 8px 1px rgba(255,255,255,0.4)",
                               }}
                             />
                           </motion.span>

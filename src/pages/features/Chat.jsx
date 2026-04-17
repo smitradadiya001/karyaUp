@@ -1,6 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion as Motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Check, MessageSquare, FileText, Reply, Users, Bot, Sparkles, Send, Kanban, Zap, Shield, Link as LinkIcon, Briefcase } from "lucide-react";
+import {
+  motion as Motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import {
+  Check,
+  MessageSquare,
+  FileText,
+  Reply,
+  Users,
+  Bot,
+  Sparkles,
+  Send,
+  Kanban,
+  Zap,
+  Shield,
+  Link as LinkIcon,
+  Briefcase,
+} from "lucide-react";
 import { FeatureCard, CTABanner } from "../../components/SubPageLayout";
 
 import FeatureCTA from "../../components/FeatureCTA";
@@ -24,8 +43,14 @@ export default function Chat() {
     const rawX = useMotionValue(0);
     const rawY = useMotionValue(0);
 
-    const rotateX = useSpring(useTransform(rawY, [-1, 1], [10, -10]), { stiffness: 300, damping: 30 });
-    const rotateY = useSpring(useTransform(rawX, [-1, 1], [-10, 10]), { stiffness: 300, damping: 30 });
+    const rotateX = useSpring(useTransform(rawY, [-1, 1], [10, -10]), {
+      stiffness: 300,
+      damping: 30,
+    });
+    const rotateY = useSpring(useTransform(rawX, [-1, 1], [-10, 10]), {
+      stiffness: 300,
+      damping: 30,
+    });
 
     const handleMouseMove = (e) => {
       if (isMobile) return;
@@ -47,12 +72,26 @@ export default function Chat() {
         ref={ref}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={isMobile ? {} : { rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
+        style={
+          isMobile
+            ? {}
+            : {
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+                transformPerspective: 1000,
+              }
+        }
         whileHover={isMobile ? {} : { scale: 1.02 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={className}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        tabIndex={0}
+        className={`${className} active:border-purple-300 active:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-400/30`}
       >
-        <div style={isMobile ? {} : { transform: 'translateZ(20px)' }} className="h-full flex flex-col">
+        <div
+          style={isMobile ? {} : { transform: "translateZ(20px)" }}
+          className="h-full flex flex-col"
+        >
           {children}
         </div>
       </Motion.div>
@@ -92,17 +131,11 @@ export default function Chat() {
           content="Chat inside projects and tasks with real-time collaboration and AI-powered assistance."
         />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://karyaup.com/features/chat"
-        />
+        <meta property="og:url" content="https://karyaup.com/features/chat" />
         <meta property="og:site_name" content="Karyaup" />
 
         {/* Canonical URL */}
-        <link
-          rel="canonical"
-          href="https://karyaup.com/features/chat"
-        />
+        <link rel="canonical" href="https://karyaup.com/features/chat" />
       </Helmet>
 
       <div className="min-h-screen bg-white pt-24 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 text-slate-900">
@@ -116,7 +149,7 @@ export default function Chat() {
                   initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest shadow-sm"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-black uppercase tracking-widest "
                 >
                   CHAT — COLLABORATE IN REAL-TIME
                 </Motion.div>
@@ -124,7 +157,11 @@ export default function Chat() {
                 <Motion.h1
                   initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.08,
+                  }}
                   className="mt-2 sm:mt-5 text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]"
                 >
                   Where Conversations
@@ -132,8 +169,14 @@ export default function Chat() {
                     Turn Into{" "}
                     <Motion.span
                       className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                      animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                      animate={{
+                        backgroundPosition: ["0% center", "-200% center"],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                     >
                       Action
                     </Motion.span>
@@ -143,7 +186,11 @@ export default function Chat() {
                 <Motion.div
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                  transition={{
+                    duration: 0.65,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.18,
+                  }}
                   className="mt-5 sm:mt-6 space-y-4 max-w-2xl w-full mx-auto lg:mx-0"
                 >
                   <div className="flex items-start gap-3.5 text-left">
@@ -163,9 +210,6 @@ export default function Chat() {
                       Chat directly inside projects, tasks, and teams
                     </p>
                   </div>
-
-
-
                 </Motion.div>
 
                 <FeatureStack
@@ -182,25 +226,37 @@ export default function Chat() {
               <Motion.div
                 initial={{ opacity: 0, x: isMobile ? 0 : 60 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                transition={{
+                  duration: 0.75,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0.18,
+                }}
                 className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
               >
                 {/* Chat Card */}
-                <div className="relative border border-purple-900/30 rounded-3xl shadow-2xl shadow-purple-900/20 bg-slate-950 overflow-hidden flex flex-col h-[400px] sm:h-[450px]">
+                <div className="relative border border-purple-900/30 rounded-3xl bg-slate-950 overflow-hidden flex flex-col h-[400px] sm:h-[450px]">
                   {/* Glow blobs */}
                   <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/15 rounded-full blur-[60px] pointer-events-none" />
                   <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-600/15 rounded-full blur-[60px] pointer-events-none" />
 
                   {/* Header */}
-                  <div className="px-5 py-4 bg-slate-900/60 backdrop-blur-md border-b border-purple-900/40 flex items-center justify-between shadow-sm z-10">
+                  <div className="px-5 py-4 bg-slate-900/60 backdrop-blur-md border-b border-purple-900/40 flex items-center justify-between z-10">
                     <div className="flex items-center gap-2">
                       {/* Group Logo Avatar Stack */}
                       <div className="flex -space-x-2 mr-1">
-                        <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-[9px] font-black text-white ring-2 ring-slate-900 z-30">P</div>
-                        <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-[9px] font-black text-white ring-2 ring-slate-900 z-20">A</div>
-                        <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[9px] font-black text-white ring-2 ring-slate-900 z-10">S</div>
+                        <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-[9px] font-black text-white ring-2 ring-slate-900 z-30">
+                          P
+                        </div>
+                        <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-[9px] font-black text-white ring-2 ring-slate-900 z-20">
+                          A
+                        </div>
+                        <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[9px] font-black text-white ring-2 ring-slate-900 z-10">
+                          S
+                        </div>
                       </div>
-                      <div className="font-black text-white tracking-tight">Project Alpha</div>
+                      <div className="font-black text-white tracking-tight">
+                        Project Alpha
+                      </div>
                     </div>
                     <div className="flex items-center gap-2">
                       {/* Active members indicator removed as requested */}
@@ -217,8 +273,10 @@ export default function Chat() {
                       className="flex gap-3 items-end justify-end relative z-10"
                     >
                       <div className="flex flex-col items-end">
-                        <span className="text-[11px] font-black uppercase tracking-wide text-slate-500 mb-1 mr-1">Priya</span>
-                        <div className="bg-gradient-to-r from-purple-600 to-fuchsia-600 border border-purple-500/20 text-white px-4 py-3 rounded-2xl rounded-br-sm text-sm font-medium shadow-[0_0_20px_rgba(217,70,239,0.3)]">
+                        <span className="text-[11px] font-black uppercase tracking-wide text-slate-500 mb-1 mr-1">
+                          Priya
+                        </span>
+                        <div className="bg-gradient-to-r from-purple-600 to-fuchsia-600 border border-purple-500/20 text-white px-4 py-3 rounded-2xl rounded-br-sm text-sm font-medium]">
                           Designs are ready for review, dropping link below
                         </div>
                       </div>
@@ -238,7 +296,9 @@ export default function Chat() {
                         A
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-[11px] font-black uppercase tracking-wide text-slate-500 mb-1 ml-1">Arjun</span>
+                        <span className="text-[11px] font-black uppercase tracking-wide text-slate-500 mb-1 ml-1">
+                          Arjun
+                        </span>
                         <div className="bg-slate-900 border border-slate-800 text-slate-300 px-4 py-3 rounded-2xl rounded-bl-sm text-sm font-medium shadow-sm">
                           On it -will check before EOD
                         </div>
@@ -256,7 +316,9 @@ export default function Chat() {
                         S
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-[11px] font-black uppercase tracking-wide text-slate-500 mb-1 ml-1">Sara</span>
+                        <span className="text-[11px] font-black uppercase tracking-wide text-slate-500 mb-1 ml-1">
+                          Sara
+                        </span>
                         <div className="bg-slate-900 border border-slate-800 text-slate-300 px-4 py-3 rounded-2xl rounded-bl-sm text-sm font-medium shadow-sm">
                           QA flagged one issue, created a task already
                         </div>
@@ -267,10 +329,11 @@ export default function Chat() {
                   {/* Input Area (Static representation) */}
                   <div className="p-4 bg-slate-900/60 backdrop-blur-md border-t border-purple-900/40 mt-auto z-10">
                     <div className="h-10 w-full bg-slate-800/80 border border-slate-700 rounded-full flex items-center px-4 animate-pulse">
-                      <span className="text-xs text-slate-400 font-black uppercase tracking-wide">Message Project Alpha...</span>
+                      <span className="text-xs text-slate-400 font-black uppercase tracking-wide">
+                        Message Project Alpha...
+                      </span>
                     </div>
                   </div>
-
                 </div>
               </Motion.div>
             </div>
@@ -281,8 +344,6 @@ export default function Chat() {
         <section className="pt-2 lg:pt-4 pb-12 sm:pb-16 lg:pb-20 bg-white border-y border-slate-200/50 relative overflow-hidden z-0">
           {/* Subtle background glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-purple-500/5 to-transparent blur-3xl -z-10 pointer-events-none" />
-
-
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 lg:mb-12">
@@ -295,7 +356,9 @@ export default function Chat() {
                 Chat Designed For <br className="hidden sm:block" />
                 <Motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                  animate={{
+                    backgroundPosition: ["0% center", "-200% center"],
+                  }}
                   transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
                 >
                   Every Scenario
@@ -308,110 +371,121 @@ export default function Chat() {
                 transition={{ delay: 0.1 }}
                 className="text-base sm:text-lg text-slate-600 font-medium"
               >
-                Whether you're blasting an update to the company or hashing out a quick design detail privately, we have a space for it.
+                Whether you're blasting an update to the company or hashing out
+                a quick design detail privately, we have a space for it.
               </Motion.p>
             </div>
 
             <div
               className="grid lg:grid-cols-3 gap-6 lg:gap-8 relative z-10 max-w-6xl mx-auto"
-              style={{ perspective: '1200px' }}
+              style={{ perspective: "1200px" }}
             >
               {/* 1. Group Chat */}
-              <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
+              <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 focus-within:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 focus-within:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-full transition-colors transition-shadow duration-300 group outline-none">
                 <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
 
                 <div className="flex items-center gap-4 mb-5 sm:mb-6">
-                  <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white text-purple-600">
+                  <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white group-focus-within:bg-[#7e22ce] group-focus-within:text-white group-active:bg-[#7e22ce] group-active:text-white text-purple-600">
                     <Users className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 leading-tight">Group Chat</h3>
+                  <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 leading-tight">
+                    Group Chat
+                  </h3>
                 </div>
-                <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">"Collaborate with your entire team in real time"</p>
+                <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">
+                  "Collaborate with your entire team in real time"
+                </p>
                 <div className="relative z-10 space-y-2.5">
                   {[
                     { text: "Team discussions", icon: Users },
                     { text: "File sharing", icon: FileText },
                     { text: "Mentions & threads", icon: Reply },
-
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
                       <div className="w-4 h-4 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
                         <item.icon className="w-[10px] h-[10px]" />
                       </div>
-                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item.text}</span>
+                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">
+                        {item.text}
+                      </span>
                     </div>
                   ))}
                 </div>
               </TiltCard>
 
               {/* 2. Personal Chat */}
-              <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
+              <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 focus-within:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 focus-within:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-full transition-colors transition-shadow duration-300 group outline-none">
                 <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
 
                 <div className="flex items-center gap-4 mb-5 sm:mb-6">
-                  <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white text-purple-600">
+                  <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white group-focus-within:bg-[#7e22ce] group-focus-within:text-white group-active:bg-[#7e22ce] group-active:text-white text-purple-600">
                     <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 leading-tight">Personal Chat</h3>
+                  <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 leading-tight">
+                    Personal Chat
+                  </h3>
                 </div>
-                <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">"Quick 1:1 conversations without noise"</p>
+                <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">
+                  "Quick 1:1 conversations without noise"
+                </p>
                 <div className="relative z-10 space-y-2.5">
                   {[
                     { text: "Direct messaging", icon: Send },
                     { text: "Fast decision-making", icon: Zap },
-                    { text: "Private discussions", icon: Shield }
+                    { text: "Private discussions", icon: Shield },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
                       <div className="w-4 h-4 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
                         <item.icon className="w-[10px] h-[10px]" />
                       </div>
-                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item.text}</span>
+                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">
+                        {item.text}
+                      </span>
                     </div>
                   ))}
                 </div>
               </TiltCard>
 
               {/* 3. Project-Based Chat */}
-              <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
+              <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 focus-within:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 focus-within:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-full transition-colors transition-shadow duration-300 group outline-none">
                 <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-3xl -mr-8 -mt-8 pointer-events-none" />
 
                 <div className="flex items-center gap-4 mb-5 sm:mb-6">
-                  <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white text-purple-600">
+                  <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-[#7e22ce] group-hover:text-white group-focus-within:bg-[#7e22ce] group-focus-within:text-white group-active:bg-[#7e22ce] group-active:text-white text-purple-600">
                     <Kanban className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 leading-tight">Project-Based Chat</h3>
+                  <h3 className="relative z-10 text-lg sm:text-xl font-black text-slate-900 leading-tight">
+                    Project-Based Chat
+                  </h3>
                 </div>
-                <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">"Every project gets its own conversation space"</p>
+                <p className="relative z-10 text-slate-600 text-sm font-medium leading-relaxed mb-4 min-h-0 sm:min-h-[40px]">
+                  "Every project gets its own conversation space"
+                </p>
                 <div className="relative z-10 space-y-2.5">
                   {[
                     { text: "Chat inside projects", icon: MessageSquare },
                     { text: "Context never lost", icon: Sparkles },
-                    { text: "Link tasks, files, updates", icon: LinkIcon }
+                    { text: "Link tasks, files, updates", icon: LinkIcon },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
                       <div className="w-4 h-4 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
                         <item.icon className="w-[10px] h-[10px]" />
                       </div>
-                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">{item.text}</span>
+                      <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-wide">
+                        {item.text}
+                      </span>
                     </div>
                   ))}
                 </div>
               </TiltCard>
-
             </div>
           </div>
         </section>
 
-
-
-
-
-
-
         {/* AI Agent Section */}
-        <section className={`${sectionSpacing} relative bg-slate-950 overflow-hidden w-full`}>
-
-
+        <section
+          className={`${sectionSpacing} relative bg-slate-950 overflow-hidden w-full`}
+        >
           {/* Floating Violet Orbs */}
           <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-600/20 blur-[130px] rounded-full mix-blend-screen pointer-events-none" />
           <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-fuchsia-600/15 blur-[130px] rounded-full mix-blend-screen pointer-events-none" />
@@ -419,7 +493,6 @@ export default function Chat() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-5xl mx-auto relative">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
                 {/* AI Text Left */}
                 <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
                   <Motion.div
@@ -428,9 +501,7 @@ export default function Chat() {
                     viewport={{ once: true }}
                     className="badge-glass-multicolor"
                   >
-                    <div>
-                      KaryaUp AI
-                    </div>
+                    <div>KaryaUp AI</div>
                   </Motion.div>
 
                   <Motion.h2
@@ -452,7 +523,8 @@ export default function Chat() {
                     transition={{ delay: 0.1 }}
                     className="text-base sm:text-lg text-slate-400 font-medium mb-6 leading-relaxed max-w-xl"
                   >
-                    Don't just chat—execute. Ask the AI agent to summarize unread threads, extract action items.
+                    Don't just chat—execute. Ask the AI agent to summarize
+                    unread threads, extract action items.
                   </Motion.p>
 
                   {/* Feature bullets */}
@@ -468,11 +540,16 @@ export default function Chat() {
                       "Auto-create tasks from action items",
                       "Draft context-aware replies",
                     ].map((item, i) => (
-                      <div key={i} className="flex items-start sm:items-center gap-3 text-left">
+                      <div
+                        key={i}
+                        className="flex items-start sm:items-center gap-3 text-left"
+                      >
                         <div className="w-6 h-6 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
                           <Check className="w-3.5 h-3.5 text-fuchsia-400" />
                         </div>
-                        <span className="text-slate-300 font-medium leading-snug">{item}</span>
+                        <span className="text-slate-300 font-medium leading-snug">
+                          {item}
+                        </span>
                       </div>
                     ))}
                   </Motion.div>
@@ -507,7 +584,11 @@ export default function Chat() {
 
         {/* Feature CTA Section */}
         <FeatureCTA
-          title={<>Chat That Connects <br /> To  Your Project</>}
+          title={
+            <>
+              Chat That Connects <br /> To Your Project
+            </>
+          }
           description="Communicate seamlessly within your tasks, documents, and workflows so you never lose context."
           image={chatImg}
           imageAlt="KaryaUp Chat Interface"
@@ -520,4 +601,3 @@ export default function Chat() {
     </>
   );
 }
-
