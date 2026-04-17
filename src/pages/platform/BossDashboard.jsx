@@ -46,6 +46,15 @@ const TiltCard = ({ children, className }) => {
     rawY.set(y);
   };
 
+  const handleTouchMove = (e) => {
+    if (!ref.current || e.touches.length === 0) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
   const handleMouseLeave = () => {
     rawX.set(0);
     rawY.set(0);
@@ -56,6 +65,8 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }} // Fixed for Mobile
@@ -565,15 +576,15 @@ export default function BossDashboard() {
 
   const getColorClasses = (color) => {
     const colorMap = {
-      purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
-      fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
-      emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
-      orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
-      blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-100 group-hover:text-white",
-      indigo: "bg-indigo-100 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white",
-      pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white"
+      purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white",
+      fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white group-active:bg-fuchsia-600 group-active:text-white",
+      emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white group-active:bg-emerald-600 group-active:text-white",
+      orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-active:bg-orange-600 group-active:text-white",
+      blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-100 group-hover:text-white group-active:bg-blue-600 group-active:text-white",
+      indigo: "bg-indigo-100 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white group-active:bg-indigo-600 group-active:text-white",
+      pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white group-active:bg-pink-600 group-active:text-white"
     };
-    return colorMap[color] || "bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
+    return colorMap[color] || "bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white group-active:bg-slate-600 group-active:text-white";
   };
   const aiFeatures = [
     {
@@ -624,7 +635,7 @@ export default function BossDashboard() {
                 initial={{ opacity: 0, y: isMobile ? 0 : 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[09px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[08px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
               >
                 Boss Dashboard - GLOBAL WORKSPACE STATUS
               </motion.div>
@@ -855,7 +866,7 @@ export default function BossDashboard() {
             {aiFeatures.map((feature, i) => (
               <TiltCard
                 key={i}
-                className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-fulltransition-colors transition-shadow duration-300 group">
+                className="bg-white border border-slate-200 hover:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl active:shadow-2xl hover:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-fulltransition-colors transition-shadow duration-300 group">
               
                 <div className="flex items-center gap-4 mb-3">
                   <div className={`w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center transition-all duration-500 border border-transparent group-hover:scale-110 ${getColorClasses(feature.color)}`}>

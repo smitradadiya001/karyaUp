@@ -38,6 +38,15 @@ const TiltCard = ({ children, className }) => {
     rawY.set(y);
   };
 
+  const handleTouchMove = (e) => {
+    if (!ref.current || e.touches.length === 0) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
   const handleMouseLeave = () => {
     rawX.set(0);
     rawY.set(0);
@@ -48,6 +57,8 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
       whileHover={{ scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -62,14 +73,14 @@ const TiltCard = ({ children, className }) => {
 
 const getColorClasses = (color) => {
   const colorMap = {
-    purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
-    fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
-    emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
-    orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
-    blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
-    pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white"
+    purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white",
+    fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white group-active:bg-fuchsia-600 group-active:text-white",
+    emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white group-active:bg-emerald-600 group-active:text-white",
+    orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-active:bg-orange-600 group-active:text-white",
+    blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-active:bg-blue-600 group-active:text-white",
+    pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white group-active:bg-pink-600 group-active:text-white"
   };
-  return colorMap[color] || "bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
+  return colorMap[color] || "bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white group-active:bg-slate-600 group-active:text-white";
 };
 
 export default function HR() {
@@ -218,7 +229,7 @@ export default function HR() {
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               >
-                Simplified with KaryaUp
+                Simplified with KARYAUP
               </motion.span>
             </motion.h1>
           </div>
@@ -227,7 +238,7 @@ export default function HR() {
             {workflowCards.map((feature, idx) => {
               const Icon = feature.icon;
               return (
-                <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-fulltransition-colors transition-shadow duration-300 group">
+                <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl active:shadow-2xl hover:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-fulltransition-colors transition-shadow duration-300 group">
                   <div className="flex items-center gap-4 mb-5 sm:mb-6">
                     <div className={`w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:shadow-md group-hover:scale-110 ${getColorClasses(feature.color)}`}>
                       <Icon size={20} strokeWidth={2.5} />

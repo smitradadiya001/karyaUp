@@ -25,6 +25,15 @@ const TiltCard = ({ children, className }) => {
     rawY.set(y);
   };
 
+  const handleTouchMove = (e) => {
+    if (!ref.current || e.touches.length === 0) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
   const handleMouseLeave = () => {
     rawX.set(0);
     rawY.set(0);
@@ -35,6 +44,8 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
       whileHover={{ scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -49,14 +60,14 @@ const TiltCard = ({ children, className }) => {
 
 const getColorClasses = (color) => {
   const colorMap = {
-    purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
-    fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
-    emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
-    orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
-    blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
-    pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white"
+    purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white",
+    fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white group-active:bg-fuchsia-600 group-active:text-white",
+    emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white group-active:bg-emerald-600 group-active:text-white",
+    orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-active:bg-orange-600 group-active:text-white",
+    blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-active:bg-blue-600 group-active:text-white",
+    pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white group-active:bg-pink-600 group-active:text-white"
   };
-  return colorMap[color] || "bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
+  return colorMap[color] || "bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white group-active:bg-slate-600 group-active:text-white";
 };
 const features = [
   { title: "Intelligent Task Routing", desc: "Automatically assign tasks to the right team members based on capacity and skill sets." },
@@ -75,7 +86,7 @@ export default function Enterprise() {
 
   const sectionSpacing = "py-12 sm:py-16 lg:py-20";
   const [isMobile, setIsMobile] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(0);
+  const [activeFeature, setActiveFeature] = useState(null);
 
   return (
     <div className="bg-white font-sans overflow-hidden min-h-screen">
@@ -211,7 +222,7 @@ export default function Enterprise() {
           ].map((feature, idx) => {
             const Icon = feature.icon;
             return (
-              <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-fulltransition-colors transition-shadow duration-300 group">
+              <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl active:shadow-2xl hover:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-fulltransition-colors transition-shadow duration-300 group">
 
                 {/* LOGO AND HEADING SIDE-BY-SIDE */}
                 <div className="flex items-center gap-2 mb-3 sm:mb-4">
@@ -296,15 +307,18 @@ export default function Enterprise() {
 
             {/* Feature List — numbered steps with connecting lines */}
             <div className="flex flex-col">
-              {features.map((item, i) => (
+              {features.map((item, i) => {
+                const isActive = activeFeature === i;
+                const activeColor = i === 1 ? "#d946ef" : "#7c3aed";
+                return (
                 <div key={i} className="flex items-stretch gap-5">
 
                   {/* Left column: number circle + connecting line */}
                   <div className="flex flex-col items-center flex-shrink-0">
                     <motion.div
                       animate={
-                        activeFeature === i
-                          ? { backgroundColor: "#7c3aed", color: "#ffffff", scale: 1.1 }
+                        isActive
+                          ? { backgroundColor: activeColor, color: "#ffffff", scale: 1.1 }
                           : { backgroundColor: "#f3f4f6", color: "#9ca3af", scale: 1 }
                       }
                       transition={{ duration: 0.3 }}
@@ -317,8 +331,8 @@ export default function Enterprise() {
                     {i < features.length - 1 && (
                       <motion.div
                         animate={
-                          activeFeature === i
-                            ? { backgroundColor: "#7c3aed", opacity: 0.35 }
+                          isActive
+                            ? { backgroundColor: activeColor, opacity: 0.35 }
                             : { backgroundColor: "#e5e7eb", opacity: 1 }
                         }
                         transition={{ duration: 0.3 }}
@@ -330,7 +344,9 @@ export default function Enterprise() {
                   {/* Right column: feature card */}
                   <motion.div
                     onMouseEnter={() => setActiveFeature(i)}
-                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${activeFeature === i
+                    onMouseLeave={() => setActiveFeature(null)}
+                    onTouchStart={() => setActiveFeature(i)}
+                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${isActive
                       ? "bg-white border-slate-200 shadow-xl shadow-purple-500/5 translate-x-2"
                       : "bg-transparent border-transparent opacity-60 hover:opacity-100"
                       }`}
@@ -339,7 +355,7 @@ export default function Enterprise() {
                       {item.title}
                     </h3>
                     <AnimatePresence>
-                      {activeFeature === i && (
+                      {isActive && (
                         <motion.p
                           initial={{ height: 0, opacity: 0, marginTop: 0 }}
                           animate={{ height: "auto", opacity: 1, marginTop: 8 }}
@@ -353,7 +369,7 @@ export default function Enterprise() {
                   </motion.div>
 
                 </div>
-              ))}
+              )})}
             </div>
 
           </div>

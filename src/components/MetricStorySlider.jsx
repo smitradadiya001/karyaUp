@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function KaryaUpSyncSlider({ slides = [], className = "" }) {
   const [active, setActive] = useState(0);
@@ -38,15 +38,15 @@ export default function KaryaUpSyncSlider({ slides = [], className = "" }) {
       <div className="max-w-[95rem] mx-auto">
         
         {/* --- BRANDED HEADER --- */}
-        <div className="max-w-4xl mx-auto mb-9 text-center">
-          <h2 className="mt-1 text-3xl sm:text-5xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1]">
+        <div className="max-w-4xl mx-auto mb-10 text-center px-2">
+          <h2 className="mt-1 pb-2 text-3xl sm:text-5xl md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.18]">
             Boost productivity with<br />
             <motion.span
               className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-500 to-purple-700 bg-[length:200%_auto]"
               animate={{ backgroundPosition: ["0% center", "-200% center"] }}
               transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
             >
-              KaryaUp AI Workspace
+              KARYAUP AI Workspace
             </motion.span>
           </h2>
         </div>
@@ -87,37 +87,30 @@ export default function KaryaUpSyncSlider({ slides = [], className = "" }) {
           {/* RIGHT SIDE: IMAGE SLIDER (Horizontal Loop) */}
           <div className="order-1 lg:order-2 lg:col-span-8">
             <div className="relative w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-slate-50 aspect-[4/3] md:aspect-video shadow-2xl border border-slate-100">
-              
-              <div className="flex h-full w-full">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.6, ease: "circOut" }}
-                    className="relative w-full h-full p-4 md:p-8 flex-shrink-0"
-                  >
+              <motion.div
+                animate={{ x: `-${active * 100}%` }}
+                transition={{ duration: 0.75, ease: [0.22, 0.61, 0.36, 1] }}
+                className="flex h-full w-full"
+              >
+                {slides.map((slide, i) => (
+                  <div key={i} className="relative w-full h-full p-4 md:p-8 shrink-0">
                     <div className="relative w-full h-full bg-white rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-inner">
-                      {/* Story Text */}
-                      <div className="absolute top-1 left-6 md:top-2 md:left-10 z-20">
-                        <h3 className="text-purple-900 text-[1.56rem] md:text-[1.65rem] font-bold max-w-sm">
-                          {slides[active].storyTitle}
+                      <img
+                        src={slide.image}
+                        alt={slide.storyTitle || "KaryaUp AI Workspace"}
+                        className="w-full h-full object-cover object-top"
+                      />
+
+                      {/* Bottom overlay subtitle */}
+                      <div className="absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4 md:p-6">
+                        <h3 className="text-white text-lg md:text-2xl font-bold max-w-2xl leading-snug drop-shadow-sm">
+                          {slide.storyTitle}
                         </h3>
                       </div>
-
-                      {/* Workspace Image Preview */}
-                      <div className="absolute inset-0 z-10 p-2 pt-20 md:pt-20">
-                        <img
-                          src={slides[active].image}
-                          alt="KaryaUp AI Workspace"
-                          className="w-full h-full object-cover object-top rounded-2xl"
-                        />
-                      </div>
                     </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+                  </div>
+                ))}
+              </motion.div>
 
               {/* Navigation Indicators */}
               <div className="absolute bottom-6 right-8 z-30 flex gap-2">

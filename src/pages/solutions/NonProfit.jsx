@@ -39,16 +39,28 @@ const TiltCard = ({ children, className }) => {
   const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), { stiffness: 300, damping: 30 });
   const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), { stiffness: 300, damping: 30 });
 
-  const handleMouseMove = (e) => {
+  const processInput = (clientX, clientY) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;   // -1 … 1
-    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    
+    // Calculate position relative to center (-1 to 1)
+    const x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((clientY - rect.top) / rect.height) * 2 - 1;
+    
     rawX.set(x);
     rawY.set(y);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseMove = (e) => processInput(e.clientX, e.clientY);
+
+  const handleTouchMove = (e) => {
+    // Prevents page scrolling while tilting the card
+    if (e.touches.length > 0) {
+      processInput(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleReset = () => {
     rawX.set(0);
     rawY.set(0);
   };
@@ -57,13 +69,25 @@ const TiltCard = ({ children, className }) => {
     <motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
+      onMouseLeave={handleReset}
+      // Mobile Support
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleReset}
+      style={{ 
+        rotateX, 
+        rotateY, 
+        transformStyle: 'preserve-3d', 
+        perspective: 1000 // Moved to standard style property
+      }}
       whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       className={className}
     >
-      <div style={{ transform: 'translateZ(30px)' }} className="h-full flex flex-col">
+      <div 
+        style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d' }} 
+        className="h-full flex flex-col"
+      >
         {children}
       </div>
     </motion.div>
@@ -72,14 +96,14 @@ const TiltCard = ({ children, className }) => {
 
 const getColorClasses = (color) => {
   const colorMap = {
-    purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
-    fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
-    blue: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
-    pink: "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white",
-    emerald: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
-    orange: "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
+    purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white",
+    fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white group-active:bg-fuchsia-600 group-active:text-white",
+    blue: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-active:bg-blue-600 group-active:text-white",
+    pink: "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white group-active:bg-pink-600 group-active:text-white",
+    emerald: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white group-active:bg-emerald-600 group-active:text-white",
+    orange: "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-active:bg-orange-600 group-active:text-white",
   };
-  return colorMap[color] || "bg-slate-50 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
+  return colorMap[color] || "bg-slate-50 text-slate-600 group-hover:bg-slate-600 group-hover:text-white group-active:bg-slate-600 group-active:text-white";
 };
 const ImpactCard = ({ icon: Icon, title, description }) => (
   <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
@@ -100,7 +124,7 @@ export default function NonProfit() {
   }
   const sectionSpacing = "py-12 sm:py-16 lg:py-20";
   const [isMobile, setIsMobile] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(0);
+  const [activeFeature, setActiveFeature] = useState(null);
 
   const whyItWorksFeatures = [
     {
@@ -203,7 +227,7 @@ export default function NonProfit() {
                     animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   >
-                    with Karyaup.
+                    with KARYAUP.
                   </motion.span>
                 </span>
               </motion.h1>
@@ -302,15 +326,18 @@ export default function NonProfit() {
 
             {/* Feature List -numbered steps with connecting lines */}
             <div className="flex flex-col">
-              {whyItWorksFeatures.map((item, i) => (
+              {whyItWorksFeatures.map((item, i) => {
+                const isActive = activeFeature === i;
+                const activeColor = i === 1 ? "#d946ef" : "#7c3aed";
+                return (
                 <div key={i} className="flex items-stretch gap-5">
 
                   {/* Left column: number circle + connecting line */}
                   <div className="flex flex-col items-center flex-shrink-0">
                     <motion.div
                       animate={
-                        activeFeature === i
-                          ? { backgroundColor: "#7c3aed", color: "#ffffff", scale: 1.1 }
+                        isActive
+                          ? { backgroundColor: activeColor, color: "#ffffff", scale: 1.1 }
                           : { backgroundColor: "#f3f4f6", color: "#9ca3af", scale: 1 }
                       }
                       transition={{ duration: 0.3 }}
@@ -323,8 +350,8 @@ export default function NonProfit() {
                     {i < whyItWorksFeatures.length - 1 && (
                       <motion.div
                         animate={
-                          activeFeature === i
-                            ? { backgroundColor: "#7c3aed", opacity: 0.35 }
+                          isActive
+                            ? { backgroundColor: activeColor, opacity: 0.35 }
                             : { backgroundColor: "#e5e7eb", opacity: 1 }
                         }
                         transition={{ duration: 0.3 }}
@@ -336,7 +363,9 @@ export default function NonProfit() {
                   {/* Right column: feature card */}
                   <motion.div
                     onMouseEnter={() => setActiveFeature(i)}
-                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${activeFeature === i
+                    onMouseLeave={() => setActiveFeature(null)}
+                    onTouchStart={() => setActiveFeature(i)}
+                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${isActive
                       ? "bg-white border-slate-200 shadow-xl shadow-purple-500/5 translate-x-2"
                       : "bg-transparent border-transparent opacity-60 hover:opacity-100"
                       }`}
@@ -345,7 +374,7 @@ export default function NonProfit() {
                       {item.title}
                     </h3>
                     <AnimatePresence>
-                      {activeFeature === i && (
+                      {isActive && (
                         <motion.p
                           initial={{ height: 0, opacity: 0, marginTop: 0 }}
                           animate={{ height: "auto", opacity: 1, marginTop: 8 }}
@@ -359,7 +388,7 @@ export default function NonProfit() {
                   </motion.div>
 
                 </div>
-              ))}
+              )})}
             </div>
 
           </div>
@@ -404,15 +433,8 @@ export default function NonProfit() {
               const Icon = feature.icon;
               return (
                 <TiltCard
-                  key={idx}
-                  className="
-          group relative h-full p-7 sm:p-8 rounded-[2rem] bg-white cursor-default 
-          border border-slate-200 shadow-xl shadow-slate-200/40 
-          transition-all duration-300
-          hover:border-purple-300 hover:shadow-2xl hover:shadow-purple-900/15
-          active:border-purple-300
-        "
-                >
+                key={idx}
+                className="bg-white border border-slate-200 hover:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl active:shadow-2xl hover:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-fulltransition-colors transition-shadow duration-300 group">
                   {/* --- FLEX CONTAINER: LOGO & TITLE SIDE-BY-SIDE --- */}
                   <div className="flex items-center gap-4 mb-5 sm:mb-6">
                     <div className={`

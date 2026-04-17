@@ -20,7 +20,7 @@ const SpinningLogo3D = lazy(() => import("../../components/SpinningLogo3D"));
 
 const MsTeamsLogoSVG = ({ size = 40 }) => (
   <svg
-    xmlns="data:image/png;base64,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"
+    xmlns="https://th.bing.com/th/id/OIP.v6GYa9pPZGSaDDimKXqkCwHaHa?w=178&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
     viewBox="0 0 48 48" // Keep viewBoxconsistent
     width={size}
     height={size}
@@ -735,7 +735,7 @@ export default function TeamCollaboration() {
       </section>
 
       {/* INTEGRATION GRID */}
-      <section style={{ padding: "20px 20px 20px", background: "white", textAlign: "center", overflow: "hidden" }}>
+      <section style={{ padding: "100px 60px 20px", background: "white", textAlign: "center", overflow: "hidden" }}>
       <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -1,4 +1,4 @@
- import { useRef, useEffect, useMemo, useState } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -89,24 +89,31 @@ const TiltCard = ({ children, className }) => {
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), {
-    stiffness: 300,
-    damping: 30,
-  });
-  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), {
-    stiffness: 300,
-    damping: 30,
-  });
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), { stiffness: 300, damping: 30 });
 
-  const handleMouseMove = (e) => {
+  const processInput = (clientX, clientY) => {
+    if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    
+    // Calculate position relative to center (-1 to 1)
+    const x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((clientY - rect.top) / rect.height) * 2 - 1;
+    
     rawX.set(x);
     rawY.set(y);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseMove = (e) => processInput(e.clientX, e.clientY);
+
+  const handleTouchMove = (e) => {
+    // Prevents page scrolling while tilting the card
+    if (e.touches.length > 0) {
+      processInput(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleReset = () => {
     rawX.set(0);
     rawY.set(0);
   };
@@ -115,20 +122,23 @@ const TiltCard = ({ children, className }) => {
     <motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-        transformPerspective: 1000,
+      onMouseLeave={handleReset}
+      // Mobile Support
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleReset}
+      style={{ 
+        rotateX, 
+        rotateY, 
+        transformStyle: 'preserve-3d', 
+        perspective: 1000 // Moved to standard style property
       }}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       className={className}
     >
-      <div
-        style={{ transform: "translateZ(30px)" }}
+      <div 
+        style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d' }} 
         className="h-full flex flex-col"
       >
         {children}
@@ -406,7 +416,7 @@ export default function ProjectManagement() {
   }, []);
 
   const [isShieldHovered, setIsShieldHovered] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(0);
+  const [activeFeature, setActiveFeature] = useState(null);
 
   const [activeId, setActiveId] = useState(null);
 
@@ -796,15 +806,18 @@ export default function ProjectManagement() {
 
             {/* Feature List — numbered steps with connecting lines */}
             <div className="flex flex-col">
-              {features.map((item, i) => (
+              {features.map((item, i) => {
+                const isActive = activeFeature === i;
+                const activeColor = i === 1 ? "#d946ef" : "#7c3aed";
+                return (
                 <div key={i} className="flex items-stretch gap-5">
 
                   {/* Left column: number circle + connecting line */}
                   <div className="flex flex-col items-center flex-shrink-0">
                     <motion.div
                       animate={
-                        activeFeature === i
-                          ? { backgroundColor: "#7c3aed", color: "#ffffff", scale: 1.1 }
+                        isActive
+                          ? { backgroundColor: activeColor, color: "#ffffff", scale: 1.1 }
                           : { backgroundColor: "#f3f4f6", color: "#9ca3af", scale: 1 }
                       }
                       transition={{ duration: 0.3 }}
@@ -817,8 +830,8 @@ export default function ProjectManagement() {
                     {i < features.length - 1 && (
                       <motion.div
                         animate={
-                          activeFeature === i
-                            ? { backgroundColor: "#7c3aed", opacity: 0.35 }
+                          isActive
+                            ? { backgroundColor: activeColor, opacity: 0.35 }
                             : { backgroundColor: "#e5e7eb", opacity: 1 }
                         }
                         transition={{ duration: 0.3 }}
@@ -830,7 +843,9 @@ export default function ProjectManagement() {
                   {/* Right column: feature card */}
                   <motion.div
                     onMouseEnter={() => setActiveFeature(i)}
-                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${activeFeature === i
+                    onMouseLeave={() => setActiveFeature(null)}
+                    onTouchStart={() => setActiveFeature(i)}
+                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${isActive
                       ? "bg-white border-slate-200 shadow-xl shadow-purple-500/5 translate-x-2"
                       : "bg-transparent border-transparent opacity-60 hover:opacity-100"
                       }`}
@@ -839,7 +854,7 @@ export default function ProjectManagement() {
                       {item.title}
                     </h3>
                     <AnimatePresence>
-                      {activeFeature === i && (
+                      {isActive && (
                         <motion.p
                           initial={{ height: 0, opacity: 0, marginTop: 0 }}
                           animate={{ height: "auto", opacity: 1, marginTop: 8 }}
@@ -853,7 +868,7 @@ export default function ProjectManagement() {
                   </motion.div>
 
                 </div>
-              ))}
+              )})}
             </div>
 
           </div>

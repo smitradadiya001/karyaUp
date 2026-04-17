@@ -20,8 +20,8 @@ import MetricStorySlider from "../../components/MetricStorySlider";
 
 const getColorClasses = (colorName) => {
   const colors = {
-    purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
-    fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
+    purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white",
+    fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white group-active:bg-fuchsia-600 group-active:text-white",
   };
   return colors[colorName] || colors.purple;
 };
@@ -43,6 +43,15 @@ const TiltCard = ({ children, className }) => {
     rawY.set(y);
   };
 
+  const handleTouchMove = (e) => {
+    if (!ref.current || e.touches.length === 0) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
   const handleMouseLeave = () => {
     rawX.set(0);
     rawY.set(0);
@@ -53,6 +62,8 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
       whileHover={{ scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -187,9 +198,9 @@ export default function Operations() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {workflowSteps.map((step, i) => (
            
-            <TiltCard key={i} className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-fulltransition-colors transition-shadow duration-300 group">
+            <TiltCard key={i} className="bg-white border border-slate-200 hover:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl active:shadow-2xl hover:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-fulltransition-colors transition-shadow duration-300 group">
               <div className="flex items-center gap-4 mb-6">
-                <div className={`w-14 h-14 lg:hover:border-purple-300 rounded-2xl flex items-center justify-center transition-all ${getColorClasses(step.color)}`}>
+                <div className={`w-14 h-14 lg:hover:border-purple-300 active:border-purple-300 rounded-2xl flex items-center justify-center transition-all ${getColorClasses(step.color)}`}>
                   <step.icon size={24} strokeWidth={2.5} />
                 </div>
                 <h4 className="font-black text-slate-900 text-2xl tracking-tight">{step.label}</h4>
@@ -236,7 +247,7 @@ export default function Operations() {
       />
 
       <div className="py-20">
-        <FeatureCTA title={<>Tasks That Connect To <br /> Everything You Do</>} image={dashboardImage} containerClassName="max-w-7xl mx-auto px-6" />
+        <FeatureCTA title={<>Tasks That Connect <br /> To Everything You Do</>} description="Work smarter with unified tasks." image={dashboardImage} containerClassName="max-w-7xl mx-auto px-6" />
       </div>
     </div>
   );

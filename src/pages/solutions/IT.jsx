@@ -13,14 +13,14 @@ import MetricStorySlider from "../../components/MetricStorySlider";
 
 const getColorClasses = (colorName) => {
   const colors = {
-    purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
-    fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
-    emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
-    orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
-    blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
-    pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white"
+    purple: "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white",
+    fuchsia: "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white group-active:bg-fuchsia-600 group-active:text-white",
+    emerald: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white group-active:bg-emerald-600 group-active:text-white",
+    orange: "bg-orange-100 text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-active:bg-orange-600 group-active:text-white",
+    blue: "bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-active:bg-blue-600 group-active:text-white",
+    pink: "bg-pink-100 text-pink-600 group-hover:bg-pink-600 group-hover:text-white group-active:bg-pink-600 group-active:text-white"
   };
-  return colors[colorName] || "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white";
+  return colors[colorName] || "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white";
 };
 
 const TiltCard = ({ children, className }) => {
@@ -40,6 +40,15 @@ const TiltCard = ({ children, className }) => {
     rawY.set(y);
   };
 
+  const handleTouchMove = (e) => {
+    if (!ref.current || e.touches.length === 0) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
   const handleMouseLeave = () => {
     rawX.set(0);
     rawY.set(0);
@@ -50,6 +59,8 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
       whileHover={{ scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -72,6 +83,22 @@ export default function IT() {
 
   const sectionSpacing = "py-12 sm:py-16 lg:py-20";
   const [isMobile, setIsMobile] = useState(false);
+  const [timelineActiveFeature, setTimelineActiveFeature] = useState(1);
+
+  const timelineFeatures = [
+    {
+      title: "Reorganize phases instantly",
+      desc: "Update dependencies and timelines on the fly with a responsive planning interface.",
+    },
+    {
+      title: "Unified department timelines",
+      desc: "View engineering, security, and operations milestones together in one roadmap.",
+    },
+    {
+      title: "Connected project flow",
+      desc: "Link tasks across projects so every status change updates downstream work automatically.",
+    },
+  ];
 
   return (
     <div className="bg-white font-sans overflow-x-hidden selection:bg-purple-100">
@@ -220,7 +247,7 @@ export default function IT() {
               return (
                 <TiltCard
                   key={i}
-                  className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-fulltransition-colors transition-shadow duration-300 group">
+                  className="bg-white border border-slate-200 hover:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl active:shadow-2xl hover:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-fulltransition-colors transition-shadow duration-300 group">
                 
                   {/* --- Header: Logo and Title side-by-side --- */}
                   <div className="flex items-center gap-4 mb-6">
@@ -244,16 +271,16 @@ export default function IT() {
       </section>
 
       {/* ================= TIMELINE CONTROL SECTION ================= */}
-      <section className="py-8 px-6 pb-10 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-2 leading-[1.1]">
+      <section className="w-full py-8 pb-12 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 max-w-3xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-3"
+            >
               Effortless <br />
-
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
@@ -261,39 +288,85 @@ export default function IT() {
               >
                 Timeline Control
               </motion.span>
-              {/* <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Timeline Control</span> */}
-            </h2>
-            <p className="text-[1rem] text-slate-600 mb-5 font-medium">
-              KaryaUp’s AI-powered Gantt charts act 
-              <br />
-              as a living roadmap for your projects.
+            </motion.h2>
+            <p className="text-lg text-slate-600 font-medium leading-relaxed">
+              KaryaUp&apos;s AI-powered Gantt charts act as a living roadmap for your projects.
             </p>
-            <div className="space-y-4">
-              {[
-                "Reorganize phases instantly with a responsive interface.",
-                "View multiple department timelines in one consolidated view.",
-                "Link tasks to safely update the entire project flow."
-              ].map((text, i) => (
-                <div key={i} className="flex items-center gap-4">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 bg-purple-100 border border-purple-200 text-purple-700">
-                    <Check className="w-5 h-5 stroke-[4]" />
-                  </div>
-                  <span className="font-bold text-slate-800 text-lg leading-snug">{text}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="rounded-[2.5rem] overflow-hidden shadow-1xl border border-white bg-purple-100 p-1">
-              <img src={planImage} alt="IT Plan" className="w-full h-auto rounded-[2.1rem] opacity-90" />
+          <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative order-2 lg:order-1"
+            >
+              <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-purple-100 bg-purple-50 p-1.5">
+                <img src={planImage} alt="IT Plan" className="w-full h-auto rounded-[2.1rem]" />
+              </div>
+            </motion.div>
+
+            <div className="flex flex-col order-1 lg:order-2">
+              {timelineFeatures.map((item, i) => {
+                const isActive = timelineActiveFeature === i;
+                const activeColor = i === 1 ? "#d946ef" : "#7c3aed";
+                return (
+                  <div key={i} className="flex items-stretch gap-5">
+                    <div className="flex flex-col items-center flex-shrink-0">
+                      <motion.div
+                        animate={
+                          isActive
+                            ? { backgroundColor: activeColor, color: "#ffffff", scale: 1.1 }
+                            : { backgroundColor: "#f3f4f6", color: "#9ca3af", scale: 1 }
+                        }
+                        transition={{ duration: 0.3 }}
+                        className="w-11 h-11 rounded-full flex items-center justify-center text-base font-bold shrink-0 z-10"
+                      >
+                        {i + 1}
+                      </motion.div>
+
+                      {i < timelineFeatures.length - 1 && (
+                        <motion.div
+                          animate={
+                            isActive
+                              ? { backgroundColor: activeColor, opacity: 0.35 }
+                              : { backgroundColor: "#e5e7eb", opacity: 1 }
+                          }
+                          transition={{ duration: 0.3 }}
+                          className="w-0.5 flex-1 my-1 min-h-8"
+                        />
+                      )}
+                    </div>
+
+                    <motion.div
+                      onMouseEnter={() => setTimelineActiveFeature(i)}
+                      onTouchStart={() => setTimelineActiveFeature(i)}
+                      className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${isActive
+                        ? "bg-white border-slate-200 shadow-xl shadow-purple-500/5 translate-x-2"
+                        : "bg-transparent border-transparent opacity-60 hover:opacity-100"
+                        }`}
+                    >
+                      <h3 className="text-xl font-bold text-slate-900 leading-none">
+                        {item.title}
+                      </h3>
+                      <AnimatePresence>
+                        {isActive && (
+                          <motion.p
+                            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                            animate={{ height: "auto", opacity: 1, marginTop: 8 }}
+                            exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                            className="text-slate-500 font-medium text-sm leading-relaxed overflow-hidden"
+                          >
+                            {item.desc}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  </div>
+                );
+              })}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

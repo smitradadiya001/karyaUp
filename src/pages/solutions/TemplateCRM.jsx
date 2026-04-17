@@ -56,6 +56,15 @@ const TiltCard = ({ children, className }) => {
     rawY.set(y);
   };
 
+  const handleTouchMove = (e) => {
+    if (!ref.current || e.touches.length === 0) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
   const handleMouseLeave = () => {
     rawX.set(0);
     rawY.set(0);
@@ -66,6 +75,8 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
       style={{
         rotateX,
         rotateY,
@@ -132,7 +143,7 @@ export default function TemplateCRM() {
   //   { icon: Calendar, title: "Smart Scheduling", desc: "Automatically finds meeting times by analyzing your team and prospect availability.", color: "fuchsia" },
   //   { icon: Zap, title: "Urgency Prioritization", desc: "Tasks are dynamically re-ordered based on deal health and closing proximity.", color: "purple" },
   // ];
-  const [activeFeature, setActiveFeature] = useState('universal');
+  const [activeFeature, setActiveFeature] = useState(null);
 
   const features = [
     {
@@ -157,14 +168,14 @@ export default function TemplateCRM() {
   // REMOVED group-hover CLASSES TO KEEP COLORS STATIC
   const getColorClasses = (color) => {
     const classes = {
-      purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
-      fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
-      blue: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
-      pink: "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white",
-      emerald: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
-      orange: "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
+      purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white",
+      fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white group-active:bg-fuchsia-600 group-active:text-white",
+      blue: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-active:bg-blue-600 group-active:text-white",
+      pink: "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white group-active:bg-pink-600 group-active:text-white",
+      emerald: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white group-active:bg-emerald-600 group-active:text-white",
+      orange: "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-active:bg-orange-600 group-active:text-white",
     };
-    return classes[color] || "bg-slate-50 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
+    return classes[color] || "bg-slate-50 text-slate-600 group-hover:bg-slate-600 group-hover:text-white group-active:bg-slate-600 group-active:text-white";
   };
 
   return (
@@ -288,7 +299,7 @@ export default function TemplateCRM() {
       {aiFeatures.map((feat, i) => (
         <TiltCard 
           key={i} 
-          className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-fulltransition-colors transition-shadow duration-300 group">
+          className="bg-white border border-slate-200 hover:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl active:shadow-2xl hover:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-fulltransition-colors transition-shadow duration-300 group">
       
           {/* --- FLEX CONTAINER: LOGO & TITLE SIDE-BY-SIDE --- */}
           <div className="flex items-center gap-4 mb-5 sm:mb-6">
@@ -371,13 +382,14 @@ export default function TemplateCRM() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-3"
               >
-                Centralize Your Workflow<br />
+                Centralize Your <br />
+                <span className="block">Workflow</span>
                 <motion.span
                   className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
                   animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 >
-                  with KaryaUp AI.
+                  with KARYAUP AI.
                 </motion.span>
               </motion.h1>
 
@@ -392,8 +404,8 @@ export default function TemplateCRM() {
               <div className="flex flex-col order-1 lg:order-2 w-full max-w-[min(100%,400px)] sm:max-w-[440px] lg:max-w-[460px] mx-auto lg:mx-0 lg:justify-self-start">
               {features.map((item, i) => {
                 const isActive = activeFeature === i;
-                const isPast = activeFeature > i;
-                const isLineActive = activeFeature > i;
+                const activeColor = i === 1 ? "#D946EF" : "#7E22CE";
+                const activeBorderColor = i === 1 ? "rgba(217,70,239,0.26)" : "rgba(126,34,206,0.26)";
 
                 // Gap from circle edge to row boundary:
                 //   collapsed row ≈ 52px  → center=26, radius=22, gap=4
@@ -411,19 +423,21 @@ export default function TemplateCRM() {
                     <div
                       className="flex items-center gap-5 mb-4 last:mb-0"
                       onMouseEnter={() => setActiveFeature(i)}
+                      onMouseLeave={() => setActiveFeature(null)}
+                      onTouchStart={() => setActiveFeature(i)}
                     >
                       {/* Number Circle — no ring so line can touch */}
                       <motion.div
                         animate={{
                           scale: isActive ? 1.1 : 1,
                           backgroundColor:
-                            isActive || isPast ? "#7E22CE" : "#f1f5f9",
+                            isActive ? activeColor : "#f1f5f9",
                         }}
                         transition={{ duration: 0.3 }}
                         className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 shadow-md z-10"
                       >
                         <span
-                          className={`font-black text-base leading-none ${isActive || isPast ? "text-white" : "text-slate-400"}`}
+                          className={`font-black text-base leading-none ${isActive ? "text-white" : "text-slate-400"}`}
                         >
                           {i + 1}
                         </span>
@@ -433,8 +447,8 @@ export default function TemplateCRM() {
                       <motion.div
                         animate={{
                           borderColor: isActive
-                            ? "rgba(126,34,206,0.25)"
-                            : "rgba(226,232,240,1)",
+                            ? activeBorderColor
+                            : "rgba(0,0,0,0)",
                           boxShadow: isActive
                             ? "0 4px 20px rgba(0,0,0,0.08)"
                             : "0 1px 4px rgba(0,0,0,0.04)",
@@ -478,8 +492,8 @@ export default function TemplateCRM() {
                         <div className="w-11 flex justify-center">
                           <motion.div
                             animate={{
-                              backgroundColor: isLineActive
-                                ? "#7E22CE"
+                              backgroundColor: isActive
+                                ? activeColor
                                 : "#e2e8f0",
                             }}
                             transition={{ duration: 0.4 }}

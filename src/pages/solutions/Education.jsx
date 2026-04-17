@@ -29,6 +29,15 @@ const TiltCard = ({ children, className }) => {
     rawY.set(y);
   };
 
+  const handleTouchMove = (e) => {
+    if (!ref.current || e.touches.length === 0) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
   const handleMouseLeave = () => {
     rawX.set(0);
     rawY.set(0);
@@ -39,6 +48,8 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
       whileHover={{ scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -73,14 +84,14 @@ const MarqueeRow = ({ text, direction, isShieldHovered }) => {
 
 const getColorClasses = (color) => {
   const colorMap = {
-    purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white",
-    fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white",
-    blue: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white",
-    pink: "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white",
-    emerald: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
-    orange: "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white",
+    purple: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white",
+    fuchsia: "bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white group-active:bg-fuchsia-600 group-active:text-white",
+    blue: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-active:bg-blue-600 group-active:text-white",
+    pink: "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white group-active:bg-pink-600 group-active:text-white",
+    emerald: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white group-active:bg-emerald-600 group-active:text-white",
+    orange: "bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-active:bg-orange-600 group-active:text-white",
   };
-  return colorMap[color] || "bg-slate-50 text-slate-600 group-hover:bg-slate-600 group-hover:text-white";
+  return colorMap[color] || "bg-slate-50 text-slate-600 group-hover:bg-slate-600 group-hover:text-white group-active:bg-slate-600 group-active:text-white";
 };
 
 const CheckIcon = () => (
@@ -230,6 +241,7 @@ export default function Education() {
   const sectionSpacing = "py-12 sm:py-16 lg:py-20";
   const [isMobile, setIsMobile] = useState(false);
 
+
   const [isShieldHovered, setIsShieldHovered] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0); // For Task Workspace
 
@@ -247,6 +259,21 @@ export default function Education() {
     { title: "Automated report generation", tag: "Labor" },
     { title: "AI-powered timeline tracking", tag: "Growth" },
     { title: "Real-time resource analytics", tag: "Scale" },
+  ];
+
+  const workflowFeatures = [
+    {
+      title: "Intelligent Task Routing",
+      desc: "Automatically assign tasks to the right team members based on capacity and skill sets.",
+    },
+    {
+      title: "Real-time Collaboration",
+      desc: "Comment, tag, and securely share files within each task layer for instant approvals.",
+    },
+    {
+      title: "Visual Progress Tracking",
+      desc: "Customizable boards and instant metric dashboards keep your delivery on speed.",
+    },
   ];
 
   return (
@@ -330,7 +357,124 @@ export default function Education() {
         </div>
       </section>
 
-      {/* ================= GLASS-EFFECT EDUCATION LIFECYCLE ================= */}
+      {/* ================= EDUCATION WORKFLOW SECTION ================= */}
+      <section className="w-full py-7 pb-15 relative overflow-hidden bg-white">
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-white rounded-full blur-[120px] opacity-40 animate-pulse" />
+        <div className="absolute bottom-1/4 -right-20 w-80 h-80 opacity-40 animate-pulse" />
+
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-3"
+            >
+              Supercharge your <br />
+              <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                Daily Workflows
+              </motion.span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-lg text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed"
+            >
+              Centralize communication, assign dynamic tasks, and execute flawlessly with enterprise grade AI execution.
+            </motion.p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative group"
+            >
+              <div className="relative rounded-[2.5rem] p-2 bg-gradient-to-br from-purple-500/10 to-fuchsia-500/10 border border-slate-100 shadow-2xl">
+                <img
+                  src={dashboardImage}
+                  alt="Workspace Preview"
+                  className="relative z-10 w-full h-auto rounded-[2rem] border border-white/50 shadow-sm transition-transform duration-500 group-hover:scale-[1.01]"
+                />
+              </div>
+            </motion.div>
+
+            <div className="flex flex-col">
+              {workflowFeatures.map((item, i) => {
+                const isActive = activeFeature === i;
+                const activeColor = i === 1 ? "#d946ef" : "#7c3aed";
+                return (
+                <div key={i} className="flex items-stretch gap-5">
+
+                  {/* Left column: number circle + connecting line */}
+                  <div className="flex flex-col items-center flex-shrink-0">
+                    <motion.div
+                      animate={
+                        isActive
+                          ? { backgroundColor: activeColor, color: "#ffffff", scale: 1.1 }
+                          : { backgroundColor: "#f3f4f6", color: "#9ca3af", scale: 1 }
+                      }
+                      transition={{ duration: 0.3 }}
+                      className="w-11 h-11 rounded-full flex items-center justify-center text-base font-bold shrink-0 z-10"
+                    >
+                      {i + 1}
+                    </motion.div>
+
+                    {/* Connecting line — hidden after last item */}
+                    {i < workflowFeatures.length - 1 && (
+                      <motion.div
+                        animate={
+                          isActive
+                            ? { backgroundColor: activeColor, opacity: 0.35 }
+                            : { backgroundColor: "#e5e7eb", opacity: 1 }
+                        }
+                        transition={{ duration: 0.3 }}
+                        className="w-0.5 flex-1 my-1 min-h-8"
+                      />
+                    )}
+                  </div>
+
+                  {/* Right column: feature card */}
+                  <motion.div
+                    onMouseEnter={() => setActiveFeature(i)}
+                    onMouseLeave={() => setActiveFeature(null)}
+                    onTouchStart={() => setActiveFeature(i)}
+                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${isActive
+                      ? "bg-white border-slate-200 shadow-xl shadow-purple-500/5 translate-x-2"
+                      : "bg-transparent border-transparent opacity-60 hover:opacity-100"
+                      }`}
+                  >
+                    <h3 className="text-xl font-bold text-slate-900 leading-none">
+                      {item.title}
+                    </h3>
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.p
+                          initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                          animate={{ height: "auto", opacity: 1, marginTop: 8 }}
+                          exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                          className="text-slate-500 font-medium text-sm leading-relaxed overflow-hidden"
+                        >
+                          {item.desc}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+
+                </div>
+              )})}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <section className="w-full py-5 relative overflow-hidden bg-white">
         {/* Animated Background Glows for Glass Effect */}
         <div className="absolute top-1/4 -left-20 w-80 h-80 bg-white rounded-full blur-[120px] opacity-40 animate-pulse" />
@@ -365,7 +509,7 @@ export default function Education() {
             ].map((feature, idx) => {
               const Icon = feature.icon;
               return (
-                <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-fulltransition-colors transition-shadow duration-300 group">
+                <TiltCard key={idx} className="bg-white border border-slate-200 hover:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl active:shadow-2xl hover:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-fulltransition-colors transition-shadow duration-300 group">
 
                   {/* HEADER SECTION: Icon and Title aligned horizontally */}
                   <div className="flex items-center gap-4 mb-5 sm:mb-6">
@@ -386,7 +530,7 @@ export default function Education() {
           </div>
         </div>
       </section>
-
+        
       {/* ================= FINAL CTA ================= */}
       <FeatureCTA
         title={<>Tasks That Connect To <br /> Everything You Do</>}

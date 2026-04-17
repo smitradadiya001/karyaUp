@@ -29,6 +29,15 @@ const TiltCard = ({ children, className }) => {
     rawY.set(y);
   };
 
+  const handleTouchMove = (e) => {
+    if (!ref.current || e.touches.length === 0) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
   const handleMouseLeave = () => {
     rawX.set(0);
     rawY.set(0);
@@ -39,6 +48,8 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }}
       whileHover={{ scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -274,7 +285,7 @@ export default function ProductDevelopment() {
                 title: "Infinite Custom Views",
                 desc: "Visualize your product roadmap via Gantt, execute daily tasks in Kanban.",
                 bgColor: "bg-purple-100 text-purple-600",
-                hoverBg: "group-hover:bg-purple-600",
+                hoverBg: "group-hover:bg-purple-600 group-active:bg-purple-600",
                 borderColor: "group-hover:border-fuchsia-200"
               },
               {
@@ -290,7 +301,7 @@ export default function ProductDevelopment() {
                 title: "Integrated Docs & Wikis",
                 desc: "Create beautiful technical documentation and natively.",
                 bgColor: "bg-purple-100 text-purple-600",
-                hoverBg: "group-hover:bg-purple-600",
+                hoverBg: "group-hover:bg-purple-600 group-active:bg-purple-600",
                 borderColor: "group-hover:border-orange-200"
               },
               {
@@ -298,7 +309,7 @@ export default function ProductDevelopment() {
                 title: "AI Project Manager",
                 desc: "Let's KaryaUp AI generate subtasks summarize long threads.",
                 bgColor: "bg-fuchsia-100 text-fuchsia-600",
-                hoverBg: "group-hover:bg-fuchsia-600",
+                hoverBg: "group-hover:bg-fuchsia-600 group-active:bg-fuchsia-600",
                 borderColor: "group-hover:border-pink-200"
               }
             ].map((feature, i) => (
@@ -311,13 +322,13 @@ export default function ProductDevelopment() {
                 className="h-full"
               >
 
-                <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-fulltransition-colors transition-shadow duration-300 group">
+                <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 active:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl active:shadow-2xl hover:shadow-purple-900/15 active:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-pointer h-fulltransition-colors transition-shadow duration-300 group">
 
                   <div className="flex items-center gap-4 mb-5 sm:mb-6">
                     <div className={`
             w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center 
             transition-all duration-300 shrink-0
-            group-hover:shadow-md group-hover:scale-110 group-hover:text-white 
+            group-hover:shadow-md group-hover:scale-110 group-hover:text-white group-active:shadow-md group-active:scale-110 group-active:text-white
             ${feature.bgColor} ${feature.hoverBg}
           `}>
                       {feature.icon}
