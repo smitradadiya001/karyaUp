@@ -22,10 +22,10 @@ export default function GeoFenceSection() {
               </div>
               
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-[1.1] tracking-tight text-slate-900 mb-4">
-                Punch In Only Where
+                Punch In Only
                 <br />
                 <span className="bg-gradient-to-r from-[#7e22ce] via-fuchsia-400 to-[#7e22ce] bg-[length:200%_auto] bg-clip-text text-transparent">
-                  It Matters.
+                  Where It Matters.
                 </span>
               </h2>
             </div>
@@ -35,17 +35,17 @@ export default function GeoFenceSection() {
             <div className="space-y-6">
               {[
                 {
-                  icon: <MapPin className="h-5 w-5" />,
+                  icon: MapPin,
                   title: "Geo-Fenced Attendance",
                   desc: "Restrict punch-in access within a 100-meter radius of your office.",
                 },
                 {
-                  icon: <Lock className="h-5 w-5" />,
+                  icon: Lock,
                   title: "Prevents Fake Check-ins",
                   desc: "No more marking attendance from home or unauthorized locations.",
                 },
                 {
-                  icon: <Zap className="h-5 w-5" />,
+                  icon: Zap,
                   title: "Real-Time Location Validation",
                   desc: "Instantly verifies employee location during punch-in.",
                 },
@@ -56,16 +56,16 @@ export default function GeoFenceSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
                   viewport={{ once: true }}
-                  className="flex gap-4 items-start"
+                  className="group flex gap-4 items-start"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-100 border border-purple-200 text-[#7e22ce]">
-                    {item.icon}
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-100 border border-purple-200 text-[#7e22ce] transition-all duration-300 group-hover:bg-[#7e22ce] group-hover:text-white group-hover:border-[#7e22ce] group-active:bg-[#7e22ce] group-active:text-white group-active:border-[#7e22ce]">
+                    <item.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="text-base font-black text-slate-900">
+                    <h3 className="text-base font-black text-slate-900 transition-colors duration-300 group-hover:text-[#7e22ce]">
                       {item.title}
                     </h3>
-                    <p className="mt-1 text-sm font-medium text-slate-400 leading-relaxed">
+                    <p className="mt-1 text-sm font-medium text-slate-400 leading-relaxed transition-colors duration-300 group-hover:text-slate-600">
                       {item.desc}
                     </p>
                   </div>

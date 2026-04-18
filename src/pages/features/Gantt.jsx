@@ -286,7 +286,7 @@ export default function Gantt() {
                 }}
                 className="relative w-full max-w-[480px] sm:max-w-[540px] mx-auto lg:max-w-none lg:mx-0 lg:-mr-12 xl:-mr-24"
               >
-                <div className="relative overflow-hidden border border-slate-200/80 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl shadow-slate-900/10 bg-white">
+                <div className="relative overflow-hidden w-full h-full">
                   <img
                     src={ganttImg}
                     alt="KaryaUp Gantt Chart"
@@ -301,9 +301,9 @@ export default function Gantt() {
         {/* Sticky Sections Container */}
         <section
           ref={container}
-          className="bg-white pt-1 lg:pt-2 pb-5 sm:pb-10 lg:pb-10 overflow-hidden"
+          className="bg-white pt-3 lg:pt-4 pb-10 sm:pb-15 lg:pb-18 overflow-hidden"
         >
-          <div className="sticky-sections-container relative h-auto max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 shadow-2xl">
+          <div className="sticky-sections-container relative h-auto max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 ">
             {ganttSections.map((item, i) => (
               <div
                 key={i}
@@ -324,7 +324,7 @@ export default function Gantt() {
                         ease: "linear",
                       }}
                     >
-                      How They Work
+                      How Gantt Work
                     </motion.span>
                   </h2>
                 </div>
@@ -363,16 +363,13 @@ export default function Gantt() {
                   </div>
 
                   {/* Image Side */}
-                  <div className="flex-[0.52] lg:flex-1 p-4 pt-2 sm:p-6 lg:p-10 bg-slate-50/40 flex items-start lg:items-center justify-center w-full overflow-hidden">
+                  <div className="flex-[0.52] lg:flex-1 p-4 pt-2 sm:p-6 lg:p-10 flex items-start lg:items-center justify-center w-full overflow-hidden">
                     <div className="w-full h-full flex items-start lg:items-center justify-center relative">
-                      {/* Decorative background element */}
-                      <div className="absolute inset-0 bg-gradient-to-tr from-purple-100/50 to-transparent blur-3xl rounded-full" />
-
                       <img
                         src={item.image}
                         alt={item.title}
                         className={cn(
-                          "relative object-contain rounded-2xl shadow-2xl shadow-slate-900/30 ring-1 ring-black/5",
+                          "relative object-contain",
                           i === ganttSections.length - 1
                             ? "max-h-[60%] w-[60%]"
                             : "max-h-full w-full",

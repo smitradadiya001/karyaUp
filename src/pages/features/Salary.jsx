@@ -193,11 +193,11 @@ export default function Salary() {
   const getColorClasses = (color) => {
     switch (color) {
       case "purple":
-        return "bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white shadow-purple-200/50";
+        return "bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white group-active:bg-[#7e22ce] group-active:text-white shadow-purple-200/50";
       case "fuchsia":
-        return "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-500 group-hover:text-white shadow-fuchsia-200/50";
+        return "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-500 group-hover:text-white group-active:bg-fuchsia-500 group-active:text-white shadow-fuchsia-200/50";
       default:
-        return "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white shadow-purple-200/50";
+        return "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white shadow-purple-200/50";
     }
   };
 
@@ -760,7 +760,7 @@ export default function Salary() {
                   <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
                     <div className="flex items-center gap-4 mb-5 sm:mb-6">
                       <div
-                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 shrink-0 ${getColorClasses(feature.color)}`}
+                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-active:shadow-md group-active:scale-110 shrink-0 ${getColorClasses(feature.color)}`}
                       >
                         <Icon size={20} strokeWidth={2.5} />
                       </div>
@@ -800,5 +800,4 @@ export default function Salary() {
     </>
   );
 }
-
 

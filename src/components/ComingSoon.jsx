@@ -23,7 +23,7 @@ export default function ComingSoon() {
           font-size: 180px;
           font-weight: 700;
           fill: transparent;
-          stroke: url(#purpleGradient);
+          stroke: url(#gradientText);
           stroke-width: 2;
           stroke-linecap: round;
           stroke-linejoin: round;
@@ -48,10 +48,10 @@ export default function ComingSoon() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#c084fc" />
-              <stop offset="50%" stopColor="#a855f7" />
-              <stop offset="100%" stopColor="#6b21a8" />
+            <linearGradient id="gradientText" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#7e22ce" />
+              <stop offset="50%" stopColor="#ec4899" />
+              <stop offset="100%" stopColor="#7e22ce" />
             </linearGradient>
             <mask id="revealMask">
               <rect
@@ -98,10 +98,10 @@ export default function ComingSoon() {
               fontFamily: "'Caveat', cursive",
               fontSize: "180px",
               fontWeight: 700,
-              fill: "url(#purpleGradient)",
+              fill: "url(#gradientText)",
             }}
           >
-            Coming soon..
+            Coming soon...
           </text>
         </svg>
       </div>

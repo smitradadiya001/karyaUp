@@ -73,11 +73,11 @@ export default function TeamInfoSection() {
 
   const getColorClasses = (color) => {
     switch (color) {
-      case 'purple': return 'bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white shadow-purple-200/50';
-      case 'emerald': return 'bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white shadow-emerald-200/50';
-      case 'blue': return 'bg-blue-100 text-blue-600 group-hover:bg-blue-500 group-hover:text-white shadow-blue-200/50';
-      case 'fuchsia': return 'bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-500 group-hover:text-white shadow-fuchsia-200/50';
-      default: return 'bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white shadow-purple-200/50';
+      case 'purple': return 'bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white group-active:bg-[#7e22ce] group-active:text-white shadow-purple-200/50';
+      case 'emerald': return 'bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white group-active:bg-emerald-500 group-active:text-white shadow-emerald-200/50';
+      case 'blue': return 'bg-blue-100 text-blue-600 group-hover:bg-blue-500 group-hover:text-white group-active:bg-blue-500 group-active:text-white shadow-blue-200/50';
+      case 'fuchsia': return 'bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-500 group-hover:text-white group-active:bg-fuchsia-500 group-active:text-white shadow-fuchsia-200/50';
+      default: return 'bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white shadow-purple-200/50';
     }
   };
 
@@ -142,7 +142,7 @@ export default function TeamInfoSection() {
                 transition={{ delay: 0.15 + i * 0.1 }}
                 className="h-full"
               >
-                <TiltCard className="bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
+                <TiltCard className="bg-white/50 backdrop-blur-xl border border-slate-200/60 hover:border-[#7e22ce] hover:bg-white/70 shadow-[0_18px_50px_rgba(15,23,42,0.06)] hover:shadow-[0_24px_70px_rgba(126,34,206,0.12)] p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 group">
                   <div className="flex items-center gap-4 mb-5 sm:mb-6">
                     <div className={`w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 ${getColorClasses(feature.color)}`}>
                       <Icon size={20} strokeWidth={2.5} />

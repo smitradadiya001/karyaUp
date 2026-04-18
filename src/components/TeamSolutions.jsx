@@ -36,6 +36,7 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -194,7 +195,7 @@ const FeatureIcon = ({ icon }) => {
   const Feature = icon;
 
   return (
-    <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 bg-[#f5f3ff] border border-[#e9d5ff] group-hover:bg-purple-200 group-hover:border-[#a855f7] shadow-sm">
+    <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 bg-[#f5f3ff] border border-[#e9d5ff] group-hover:bg-purple-100 group-hover:border-purple-300 shadow-sm">
       <Feature
         size={18}
         className="text-[#a855f7] transition-colors duration-300 group-hover:text-purple-700"
@@ -274,16 +275,26 @@ const TeamSolutions = () => {
   return (
     <section
       ref={container}
-      className="pb-8 sm:pb-10 px-2 sm:px-6 bg-[white] overflow-hidden pt-4 sm:pt-10"
+      className="py-1.5 sm:py-6 sm:pb-10 px-2 sm:px-0 bg-white overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-1 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center mb-4 sm:mb-8">
           <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-gray-900 leading-[1.05] tracking-normal mb-3">
             Built For Teams That <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]">
-              Move Fast
-            </span>
+             <motion.span
+                                className="inline text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] whitespace-nowrap"
+                                animate={{
+                                  backgroundPosition: ["0% center", "-200% center"],
+                                }}
+                                transition={{
+                                  duration: 4,
+                                  repeat: Infinity,
+                                  ease: "linear",
+                                }}
+                              >
+                              Move Fast
+                              </motion.span>
           </h2>
           <p className="text-gray-500 text-sm sm:text-lg font-medium">
             Your key workflows, powered by KaryaUp Agents.
@@ -292,24 +303,26 @@ const TeamSolutions = () => {
 
         {/* Sticky scrolling sections container */}
         {/* Sticky scrolling sections container */}
-        <div className="teamsolutions-sticky-container relative h-[600px] sm:h-[640px] lg:h-[500px] w-full mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-100 shadow-sm bg-gradient-to-br from-[#ffffff] via-[#faf8ff] to-[#f3e8ff]">
+        <div className="teamsolutions-sticky-container relative h-[68vh] sm:h-[75vh] lg:h-[75vh] w-full mx-auto rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden border border-gray-100 shadow-sm bg-gradient-to-br from-[#ffffff] via-[#faf8ff] to-[#f3e8ff]">
           {teams.map((active, i) => (
             <div
               key={active.id}
               ref={(el) => (sectionRefs.current[i] = el)}
-              className="absolute inset-0 w-full h-full bg-gradient-to-br from-white via-[#faf8ff] to-[#f3e8ff] flex flex-col items-center justify-start lg:justify-center pt-0 lg:pt-0 rounded-2xl sm:rounded-3xl transition-all duration-300"
+              className="absolute inset-0 w-full h-full bg-gradient-to-br from-white via-[#faf8ff] to-[#f3e8ff] flex flex-col items-center justify-start lg:justify-center pt-2 lg:pt-0"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-12 items-start lg:items-center px-4 pt-1 sm:pt-2 pb-4 sm:p-6 lg:p-8 w-full h-auto max-h-full">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 sm:gap-12 items-start lg:items-center p-3 sm:p-10 w-full h-full max-h-full">
                 {/* Left side */}
                 <div className="relative lg:pr-10 flex flex-col items-center lg:items-start text-center lg:text-left h-auto lg:h-full justify-start lg:justify-center mb-0">
                   <div className="relative z-10 w-full flex flex-col items-center lg:items-start pt-0 lg:pt-0">
-                    <h3 className="flex flex-row flex-nowrap items-center justify-center lg:justify-start gap-x-2 gap-y-0 px-1 sm:px-0 pb-2 sm:pb-3 text-[1.35rem] sm:text-2xl md:text-[2.25rem] font-black text-gray-900 leading-none sm:leading-[1.2] mb-1 sm:mb-4 whitespace-nowrap max-w-full overflow-visible tracking-normal">
+                    <h3 className="flex flex-row items-center justify-center gap-x-2 px-1 sm:px-0 pb-2 sm:pb-3 text-xl sm:text-3xl md:text-[2.5rem] font-black text-gray-900 leading-[1.4] sm:leading-[1.2] mb-1.5 sm:mb-4 whitespace-nowrap max-w-full overflow-visible tracking-normal">
                       <span
-                        className={`${active.title === "Workflow" ? "tracking-wider" : ""}`}
+                        className={
+                          active.title === "Workflow" ? "tracking-wider" : ""
+                        }
                       >
                         {active.title}
                       </span>
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] italic pb-1">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] italic">
                         {active.titleHighlight}
                       </span>
                     </h3>
@@ -358,7 +371,7 @@ const TeamSolutions = () => {
                   {active.features.map((feature, idx) => (
                     <div
                       key={`${active.id}-${idx}`}
-                      className="flex flex-row items-center justify-start text-left gap-3 sm:gap-4 bg-white/60 hover:bg-white rounded-xl sm:rounded-2xl px-4 py-2 sm:px-5 sm:py-0 transition-all duration-300 cursor-default border-2 border-transparent hover:border-[#e9d5ff] shadow-sm !m-0 h-[4.5rem] sm:h-[5.25rem] !w-full min-w-[260px]"
+                      className="flex flex-row items-center justify-start text-left gap-3 sm:gap-4 bg-white/60 hover:bg-white rounded-xl sm:rounded-2xl px-4 py-2 sm:px-5 sm:py-0 transition-all duration-300 cursor-pointer border border-gray-100 hover:border-[#7e22ce] focus:border-[#a855f7] active:border-[#a855f7] focus:outline-none hover:shadow-lg hover:shadow-purple-500/10 hover:ring-1 hover:ring-[#7e22ce]/10 group h-[4.5rem] sm:h-[5.25rem] !w-full min-w-[260px] shadow-sm !m-0"
                     >
                       <FeatureIcon color={feature.color} icon={feature.icon} />
                       <span className="text-[11px] sm:text-sm font-bold text-gray-700 transition-colors group-hover:text-purple-900 leading-tight w-full break-normal text-left block">

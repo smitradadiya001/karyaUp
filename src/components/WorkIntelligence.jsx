@@ -1,6 +1,21 @@
-import React, { useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useVelocity, useScroll } from 'framer-motion';
-import { Network, LineChart, Zap, ArrowRight, Database, BrainCircuit, Rocket } from 'lucide-react';
+import React, { useRef, useState } from "react";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useVelocity,
+  useScroll,
+} from "framer-motion";
+import {
+  Network,
+  LineChart,
+  Zap,
+  ArrowRight,
+  Database,
+  BrainCircuit,
+  Rocket,
+} from "lucide-react";
 
 const Motion = motion;
 
@@ -10,12 +25,18 @@ const TiltCard = ({ children, className }) => {
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), { stiffness: 300, damping: 30 });
-  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), { stiffness: 300, damping: 30 });
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), {
+    stiffness: 300,
+    damping: 30,
+  });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), {
+    stiffness: 300,
+    damping: 30,
+  });
 
   const handleMouseMove = (e) => {
     const rect = ref.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;   // -1 … 1
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1; // -1 … 1
     const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
     rawX.set(x);
     rawY.set(y);
@@ -31,15 +52,18 @@ const TiltCard = ({ children, className }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 800 }}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+        transformPerspective: 800,
+      }}
       whileHover={{ scale: 1.03 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={className}
     >
       {/* inner content lifted slightly toward viewer */}
-      <div style={{ transform: 'translateZ(20px)' }}>
-        {children}
-      </div>
+      <div style={{ transform: "translateZ(20px)" }}>{children}</div>
     </motion.div>
   );
 };
@@ -47,18 +71,18 @@ const TiltCard = ({ children, className }) => {
 const cards = [
   {
     icon: <Network className="text-purple-400" size={26} />,
-    title: 'Track patterns',
-    desc: 'Across projects, teams, and timelines to find bottlenecks.',
+    title: "Track patterns",
+    desc: "Across projects, teams, and timelines to find bottlenecks.",
   },
   {
     icon: <LineChart className="text-purple-400" size={26} />,
-    title: 'Identify delays',
-    desc: 'Before they happen with predictive analytics and insights.',
+    title: "Identify delays",
+    desc: "Before they happen with predictive analytics and insights.",
   },
   {
     icon: <Zap className="text-purple-400" size={26} />,
-    title: 'Understand performance',
-    desc: 'Without manual reports getting in the way of your work.',
+    title: "Understand performance",
+    desc: "Without manual reports getting in the way of your work.",
   },
 ];
 
@@ -72,9 +96,9 @@ const WorkIntelligence = () => {
 
   const { scrollYProgress } = useScroll({
     target: flowRef,
-    offset: ['start end', 'end start'],
+    offset: ["start end", "end start"],
   });
-  const mobileSweepX = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+  const mobileSweepX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   // Chained springs for snake effect
   const trailConfig = [
@@ -108,11 +132,21 @@ const WorkIntelligence = () => {
     { stiffness: 60, damping: 20 },
   );
 
-  const seg1Opacity = useTransform(movementOpacity, () => (isHovered ? 0.8 : 0));
-  const seg2Opacity = useTransform(movementOpacity, (v) => (isHovered ? v * 0.7 : 0));
-  const seg3Opacity = useTransform(movementOpacity, (v) => (isHovered ? v * 0.6 : 0));
-  const seg4Opacity = useTransform(movementOpacity, (v) => (isHovered ? v * 0.5 : 0));
-  const seg5Opacity = useTransform(movementOpacity, (v) => (isHovered ? v * 0.35 : 0));
+  const seg1Opacity = useTransform(movementOpacity, () =>
+    isHovered ? 0.8 : 0,
+  );
+  const seg2Opacity = useTransform(movementOpacity, (v) =>
+    isHovered ? v * 0.7 : 0,
+  );
+  const seg3Opacity = useTransform(movementOpacity, (v) =>
+    isHovered ? v * 0.6 : 0,
+  );
+  const seg4Opacity = useTransform(movementOpacity, (v) =>
+    isHovered ? v * 0.5 : 0,
+  );
+  const seg5Opacity = useTransform(movementOpacity, (v) =>
+    isHovered ? v * 0.35 : 0,
+  );
 
   const segments = [
     { x: s1x, y: s1y, size: 160, opacity: 0.8, blur: 18 },
@@ -132,14 +166,13 @@ const WorkIntelligence = () => {
     /* outer: full-width bg so the page doesn't break; inner: constrained card */
     <section className="py-1.5 sm:py-6 sm:pb-10 bg-white relative px-2 sm:px-0">
       <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
-
         {/* ── The constrained, rounded section ── */}
         <div
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className={`bg-slate-950 rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden border border-purple-900/30 relative px-3 sm:px-12 py-5 sm:py-14 ${isHovered ? "cursor-none" : ""}`}>
-
+          className={`bg-slate-950 rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden border border-purple-900/30 relative px-3 sm:px-12 py-5 sm:py-14 ${isHovered ? "cursor-none" : ""}`}
+        >
           {/* Snake Trail Effect */}
           {segments.map((seg, i) => (
             <motion.div
@@ -152,7 +185,13 @@ const WorkIntelligence = () => {
                 top: seg.y,
                 x: "-50%",
                 y: "-50%",
-                opacity: [seg1Opacity, seg2Opacity, seg3Opacity, seg4Opacity, seg5Opacity][i],
+                opacity: [
+                  seg1Opacity,
+                  seg2Opacity,
+                  seg3Opacity,
+                  seg4Opacity,
+                  seg5Opacity,
+                ][i],
                 scale: isHovered ? 1 : 0,
                 background: `radial-gradient(circle, rgba(168, 85, 247, 0.9) 0%, rgba(168, 85, 247, 0) 70%)`,
                 filter: `blur(${seg.blur}px)`,
@@ -216,15 +255,17 @@ const WorkIntelligence = () => {
               transition={{ delay: 0.15 }}
               className="text-base sm:text-lg text-slate-400 font-medium leading-relaxed"
             >
-              Most tools store data.{' '}
-              <span className="text-white font-bold">KaryaUp turns it into decisions.</span>
+              Most tools store data.{" "}
+              <span className="text-white font-bold">
+                KaryaUp turns it into decisions.
+              </span>
             </motion.p>
           </div>
 
           {/* 3 tilt cards */}
           <div
             className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10 relative z-10"
-            style={{ perspective: '1200px' }}
+            style={{ perspective: "1200px" }}
           >
             {cards.map((card, i) => (
               <motion.div
@@ -234,7 +275,9 @@ const WorkIntelligence = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.15 + i * 0.1 }}
               >
-                <TiltCard className="bg-slate-900 border border-slate-800 hover:border-purple-500 p-4 sm:p-7 rounded-2xl cursor-default h-full transition-colors duration-300 text-left w-full">
+                <TiltCard
+                  className={`bg-slate-900 border border-slate-800 hover:border-purple-500 p-4 sm:p-7 rounded-2xl cursor-default h-full transition-colors duration-300 text-left w-full ${i === 1 ? "sm:min-h-0" : ""}`}
+                >
                   <div className="flex flex-row sm:flex-col items-center sm:items-start justify-start gap-4 sm:gap-0 w-full text-left">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-950 rounded-xl flex items-center justify-center border border-slate-800 mb-0 sm:mb-5 shrink-0">
                       {card.icon}
@@ -262,16 +305,31 @@ const WorkIntelligence = () => {
             {/* The flow path line */}
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-0 text-[13px] sm:text-sm font-bold text-white relative z-10 max-w-5xl mx-auto px-1 sm:px-6">
-
               {/* Box 1: Raw Activity */}
               <motion.div
                 animate={{
-                  borderColor: ["rgba(168,85,247,0.2)", "rgba(255,255,255,1)", "rgba(168,85,247,0.2)"],
-                  backgroundColor: ["rgba(88,28,135,0.2)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.2)"],
-                  boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 50px rgba(217,70,239,0.8)", "0 0 0px rgba(168,85,247,0)"],
-                  scale: [1, 1.15, 1]
+                  borderColor: [
+                    "rgba(168,85,247,0.2)",
+                    "rgba(255,255,255,1)",
+                    "rgba(168,85,247,0.2)",
+                  ],
+                  backgroundColor: [
+                    "rgba(88,28,135,0.2)",
+                    "rgba(217,70,239,0.7)",
+                    "rgba(88,28,135,0.2)",
+                  ],
+                  boxShadow: [
+                    "0 0 0px rgba(168,85,247,0)",
+                    "0 0 50px rgba(217,70,239,0.8)",
+                    "0 0 0px rgba(168,85,247,0)",
+                  ],
+                  scale: [1, 1.15, 1],
                 }}
-                transition={{ duration: 5, repeat: Infinity, times: [0, 0.1, 0.2] }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  times: [0, 0.1, 0.2],
+                }}
                 className="flex items-center justify-center gap-2 bg-purple-900/20 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 w-full sm:w-auto z-10"
               >
                 <Database size={16} className="text-purple-400" />
@@ -284,7 +342,11 @@ const WorkIntelligence = () => {
                   style={{ x: mobileSweepX }}
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white"
                 >
-                  <ArrowRight size={16} strokeWidth={3} className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                  <ArrowRight
+                    size={16}
+                    strokeWidth={3}
+                    className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                  />
                 </motion.div>
               </div>
               <div className="hidden sm:flex flex-1 items-center justify-center h-10 relative overflow-visible">
@@ -299,23 +361,43 @@ const WorkIntelligence = () => {
                     duration: 2.5,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    repeatDelay: 2.5
+                    repeatDelay: 2.5,
                   }}
                   className="absolute text-white"
                 >
-                  <ArrowRight size={24} strokeWidth={3} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                  <ArrowRight
+                    size={24}
+                    strokeWidth={3}
+                    className="drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                  />
                 </motion.div>
               </div>
 
               {/* Box 2: Clear Insight */}
               <motion.div
                 animate={{
-                  borderColor: ["rgba(168,85,247,0.4)", "rgba(255,255,255,1)", "rgba(168,85,247,0.4)"],
-                  backgroundColor: ["rgba(88,28,135,0.4)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.4)"],
-                  boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 60px rgba(217,70,239,0.9)", "0 0 0px rgba(168,85,247,0)"],
-                  scale: [1, 1.15, 1]
+                  borderColor: [
+                    "rgba(168,85,247,0.4)",
+                    "rgba(255,255,255,1)",
+                    "rgba(168,85,247,0.4)",
+                  ],
+                  backgroundColor: [
+                    "rgba(88,28,135,0.4)",
+                    "rgba(217,70,239,0.7)",
+                    "rgba(88,28,135,0.4)",
+                  ],
+                  boxShadow: [
+                    "0 0 0px rgba(168,85,247,0)",
+                    "0 0 60px rgba(217,70,239,0.9)",
+                    "0 0 0px rgba(168,85,247,0)",
+                  ],
+                  scale: [1, 1.15, 1],
                 }}
-                transition={{ duration: 5, repeat: Infinity, times: [0.4, 0.5, 0.6] }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  times: [0.4, 0.5, 0.6],
+                }}
                 className="flex items-center justify-center gap-2 bg-purple-900/40 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/40 backdrop-blur-md hover:border-purple-500/60 transition-all duration-300 w-full sm:w-auto z-10"
               >
                 <BrainCircuit size={16} className="text-purple-300" />
@@ -328,7 +410,11 @@ const WorkIntelligence = () => {
                   style={{ x: mobileSweepX }}
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white"
                 >
-                  <ArrowRight size={16} strokeWidth={3} className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                  <ArrowRight
+                    size={16}
+                    strokeWidth={3}
+                    className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                  />
                 </motion.div>
               </div>
               <div className="hidden sm:flex flex-1 items-center justify-center h-10 relative overflow-visible">
@@ -344,29 +430,48 @@ const WorkIntelligence = () => {
                     delay: 2.5,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    repeatDelay: 2.5
+                    repeatDelay: 2.5,
                   }}
                   className="absolute text-white"
                 >
-                  <ArrowRight size={24} strokeWidth={3} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                  <ArrowRight
+                    size={24}
+                    strokeWidth={3}
+                    className="drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                  />
                 </motion.div>
               </div>
 
               {/* Box 3: Faster Decisions */}
               <motion.div
                 animate={{
-                  borderColor: ["rgba(168,85,247,0.4)", "rgba(255,255,255,1)", "rgba(168,85,247,0.4)"],
-                  backgroundColor: ["rgba(88,28,135,0.4)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.4)"],
-                  boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 60px rgba(217,70,239,0.9)", "0 0 0px rgba(168,85,247,0)"],
-                  scale: [1, 1.15, 1]
+                  borderColor: [
+                    "rgba(168,85,247,0.4)",
+                    "rgba(255,255,255,1)",
+                    "rgba(168,85,247,0.4)",
+                  ],
+                  backgroundColor: [
+                    "rgba(88,28,135,0.4)",
+                    "rgba(217,70,239,0.7)",
+                    "rgba(88,28,135,0.4)",
+                  ],
+                  boxShadow: [
+                    "0 0 0px rgba(168,85,247,0)",
+                    "0 0 60px rgba(217,70,239,0.9)",
+                    "0 0 0px rgba(168,85,247,0)",
+                  ],
+                  scale: [1, 1.15, 1],
                 }}
-                transition={{ duration: 5, repeat: Infinity, times: [0.8, 0.9, 1] }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  times: [0.8, 0.9, 1],
+                }}
                 className="flex items-center justify-center gap-2 bg-purple-900/40 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/40 backdrop-blur-md hover:border-purple-500/60 transition-all duration-300 w-full sm:w-auto z-10"
               >
                 <Rocket size={16} className="text-white" />
                 <span>Faster Decisions</span>
               </motion.div>
-
             </div>
           </Motion.div>
         </div>

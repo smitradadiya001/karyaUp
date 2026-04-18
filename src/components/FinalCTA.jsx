@@ -17,7 +17,7 @@ const FinalCTA = () => {
   }, []);
 
   return (
-    <section className="py-1.5 sm:py-0 mb-8 sm:mb-10 lg:mb-12 bg-white relative overflow-hidden font-sans">
+    <section className="py-1.5 sm:py-0 mb-8 sm:mb-10 lg:mb-12 bg-white relative overflow-visible font-sans">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* The Centric Hub (Glass Card) */}
@@ -25,9 +25,9 @@ const FinalCTA = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-2 sm:mt-4 lg:mt-6 bg-[linear-gradient(180deg,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.65)_100%)] backdrop-blur-3xl border border-slate-200/60 rounded-[2rem] sm:rounded-[3rem] px-3.5 py-4.5 sm:px-9 sm:py-8 shadow-[0_32px_120px_-20px_rgba(30,41,59,0.08)] relative overflow-hidden"
+          className="mt-2 sm:mt-4 lg:mt-6 bg-[linear-gradient(180deg,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.65)_100%)] backdrop-blur-3xl border border-slate-200/60 rounded-[2rem] sm:rounded-[3rem] px-3.5 py-5 sm:px-9 sm:py-8 shadow-[0_32px_120px_-20px_rgba(30,41,59,0.08)] relative"
         >
-          <div className="absolute inset-0 pointer-events-none opacity-30">
+          <div className="absolute inset-0 overflow-hidden rounded-[inherit] pointer-events-none opacity-30">
             <svg className="h-full w-full" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
               <Motion.path
                 d="M-60 180C160 120 280 90 470 180C690 285 860 360 1260 240"
@@ -54,10 +54,10 @@ const FinalCTA = () => {
 
 
             {/* Main Value Prop */}
-            <h2 className="mx-auto max-w-[11ch] md:max-w-none text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05] mb-2 sm:mb-3 sm:leading-[1.05]">
+            <h2 className="mx-auto max-w-[11ch] md:max-w-none text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.15] sm:leading-[1.05] mb-3 sm:mb-4 pb-1 sm:pb-0">
               <span className="md:hidden block">Run Your Entire</span>
             <Motion.span
-              className="md:hidden block text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:400%_auto]"
+              className="md:hidden block leading-[1.15] text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:400%_auto]"
               animate={{ backgroundPosition: ["0% center", "-400% center"] }}
               transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
             >
@@ -73,12 +73,10 @@ const FinalCTA = () => {
             </Motion.span>
           </h2>
 
-            <p className="text-base sm:text-xl text-slate-500 font-medium max-w-[20rem] sm:max-w-xl mx-auto mb-4 sm:mb-5 leading-relaxed">
-              <span className="block md:inline">Stop switching tools. Start moving move.</span>
-              <span className="block md:inline">
-                <span className="text-slate-900 font-black">
-                  <br />   Execution speed <span className="text-[#7e22ce] sm:inline">{speed.toFixed(1)}x faster</span>.
-                </span>
+            <p className="text-base sm:text-xl text-slate-500 font-medium max-w-[22rem] sm:max-w-xl mx-auto mb-5 sm:mb-6 leading-[1.55]">
+              <span className="block">Stop switching tools. Start moving move.</span>
+              <span className="mt-1 block text-slate-900 font-black">
+                Execution speed <span className="text-[#7e22ce] sm:inline">{speed.toFixed(1)}x faster</span>.
               </span>
             </p>
 

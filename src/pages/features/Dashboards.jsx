@@ -256,8 +256,8 @@ export default function Dashboards() {
         </section>
 
         {/* Role-Based Dashboards Section */}
-        <section ref={container} className="bg-white pt-2 lg:pt-4 pb-4 sm:pb-12 lg:pb-5 overflow-hidden">
-          <div className="sticky-sections-container relative h-auto max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 mb-4 sm:mb-24">
+        <section ref={container} className="bg-white pt-2 lg:pt-4 pb-8 sm:pb-12 lg:pb-5 overflow-hidden">
+          <div className="sticky-sections-container relative h-auto max-w-6xl mx-auto rounded-xl sm:rounded-3xl overflow-hidden border border-slate-200/60 mb-8 sm:mb-24">
             {dashboardSections.map((item, i) => (
               <div
                 key={i}
@@ -341,8 +341,9 @@ export default function Dashboards() {
           description="Monitor your entire business from a single source of truth—whether you're tracking sales, projects, or team performance."
           image={dashboardImg2}
           imageAlt="KaryaUp Dashboard Interface"
-          containerClassName="mt-0"
+          containerClassName="mt-10 sm:mt-0"
           shellClassName="shadow-none"
+          titleClassName="text-xl sm:text-2xl lg:text-[1.75rem] font-black text-white leading-[1.1] mb-2 tracking-tight"
         />
       </div>
     </ReactLenis>

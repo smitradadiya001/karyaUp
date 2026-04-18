@@ -7,6 +7,7 @@ import {
 } from "framer-motion";
 import {
   Check,
+  X,
   MessageSquare,
   FileText,
   Reply,
@@ -52,11 +53,14 @@ export default function Chat() {
       damping: 30,
     });
 
+    const getCoords = (rect, clientX, clientY) => ({
+      x: ((clientX - rect.left) / rect.width) * 2 - 1,
+      y: ((clientY - rect.top) / rect.height) * 2 - 1,
+    });
+
     const handleMouseMove = (e) => {
       if (isMobile) return;
-      const rect = ref.current.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+      const { x, y } = getCoords(ref.current.getBoundingClientRect(), e.clientX, e.clientY);
       rawX.set(x);
       rawY.set(y);
     };
@@ -67,31 +71,46 @@ export default function Chat() {
       rawY.set(0);
     };
 
+    const handleTouchStart = (e) => {
+      const touch = e.touches[0];
+      const { x, y } = getCoords(ref.current.getBoundingClientRect(), touch.clientX, touch.clientY);
+      rawX.set(x);
+      rawY.set(y);
+    };
+
+    const handleTouchMove = (e) => {
+      const touch = e.touches[0];
+      const { x, y } = getCoords(ref.current.getBoundingClientRect(), touch.clientX, touch.clientY);
+      rawX.set(x);
+      rawY.set(y);
+    };
+
+    const handleTouchEnd = () => {
+      rawX.set(0);
+      rawY.set(0);
+    };
+
     return (
       <Motion.div
         ref={ref}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={
-          isMobile
-            ? {}
-            : {
-                rotateX,
-                rotateY,
-                transformStyle: "preserve-3d",
-                transformPerspective: 1000,
-              }
-        }
-        whileHover={isMobile ? {} : { scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+          transformPerspective: 1000,
+        }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.97 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         tabIndex={0}
         className={`${className} active:border-purple-300 active:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-400/30`}
       >
-        <div
-          style={isMobile ? {} : { transform: "translateZ(20px)" }}
-          className="h-full flex flex-col"
-        >
+        <div style={{ transform: "translateZ(20px)" }} className="h-full flex flex-col">
           {children}
         </div>
       </Motion.div>
@@ -341,9 +360,9 @@ export default function Chat() {
         </section>
 
         {/* Three Chat Modes Section */}
-        <section className="pt-2 lg:pt-4 pb-12 sm:pb-16 lg:pb-20 bg-white border-y border-slate-200/50 relative overflow-hidden z-0">
+        <section className="pt-2 lg:pt-4 pb-12 sm:pb-16 lg:pb-20 bg-white relative overflow-hidden z-0">
           {/* Subtle background glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-purple-500/5 to-transparent blur-3xl -z-10 pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px]  blur-3xl -z-10 pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 lg:mb-12">
@@ -508,11 +527,14 @@ export default function Chat() {
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-white leading-[1.12] sm:leading-[1.05] mb-4 tracking-normal"
+                    className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-white leading-[1.08] sm:leading-[1.05] mb-4 tracking-normal lg:max-w-none"
                   >
-                    Your Personal <br className="hidden sm:block" />
-                    <span className="inline-block pb-1 text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]">
-                      Agent In Every Chat
+                    <span className="block lg:whitespace-nowrap">Your Personal Agent </span>
+                    <span className="block lg:whitespace-nowrap">
+                     {" "}
+                      <span className="inline-block pb-1 text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]">
+                      In Every Chat
+                      </span>
                     </span>
                   </Motion.h2>
 
@@ -582,6 +604,95 @@ export default function Chat() {
           </div>
         </section>
 
+        <section className="pt-6 sm:pt-10 lg:pt-16 pb-12 sm:pb-10 lg:pb-12 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-14">
+              <Motion.h2
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black leading-[1.02] tracking-normal text-slate-900"
+              >
+                Stop Meeting Chaos,
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]">
+                  Start A Better Chat Flow
+                </span>
+              </Motion.h2>
+              <Motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                className="mt-4 text-base sm:text-lg lg:text-xl text-slate-600 font-medium max-w-3xl mx-auto leading-relaxed"
+              >
+                Keep conversations, summaries, and action items connected in one place so your team moves faster without context switching.
+              </Motion.p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden border border-slate-200 bg-white shadow-[0_24px_80px_-30px_rgba(15,23,42,0.12)]">
+              <div className="p-6 sm:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-slate-200 bg-slate-50/70">
+                <div className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-rose-600 mb-5">
+                  <span className="h-2 w-2 rounded-full bg-rose-500" />
+                  Before AI-Powered Chat
+                </div>
+                <div className="space-y-4">
+                  {[
+                    "App-switching between Slack, Zoom, and email.",
+                    "Manual notes, summaries, and follow-ups.",
+                    "Decisions buried across disconnected threads.",
+                    "Action items lost after the meeting ends.",
+                  ].map((item) => (
+                  <div
+                      key={item}
+                      className="group flex items-start gap-3 text-left"
+                    >
+                      <div className="mt-1 shrink-0 rounded-full p-[1.5px] bg-rose-200 transition-all duration-300 group-hover:bg-rose-500 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(244,63,94,0.35)]">
+                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-rose-50 text-rose-500 transition-all duration-300 group-hover:bg-white group-hover:text-rose-600">
+                          <X className="h-3.5 w-3.5 stroke-[3.5] transition-transform duration-300 group-hover:scale-110" />
+                        </div>
+                      </div>
+                      <p className="text-sm sm:text-base lg:text-lg font-medium leading-relaxed text-slate-600">
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-6 sm:p-8 lg:p-12 bg-white">
+                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-emerald-700 mb-5">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                  With AI-Powered Chat
+                </div>
+                <div className="space-y-4">
+                  {[
+                    "Your team and work stay connected in one place.",
+                    "AI summaries and action items appear instantly.",
+                    "Every conversation stays tied to the project context.",
+                    "Decisions become searchable and easy to revisit.",
+                  ].map((item) => (
+                  <div
+                      key={item}
+                      className="group flex items-start gap-3 text-left"
+                    >
+                      <div className="mt-1 shrink-0 rounded-full p-[1.5px] bg-emerald-200 transition-all duration-300 group-hover:bg-emerald-500 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 transition-all duration-300 group-hover:bg-white group-hover:text-emerald-700">
+                          <Check className="w-3 h-3 stroke-[4] transition-transform duration-300 group-hover:scale-110" />
+                        </div>
+                      </div>
+                      <p className="text-sm sm:text-base lg:text-lg font-medium leading-relaxed text-slate-600">
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Feature CTA Section */}
         <FeatureCTA
           title={
@@ -593,7 +704,7 @@ export default function Chat() {
           image={chatImg}
           imageAlt="KaryaUp Chat Interface"
           imageClassName="w-full rounded-[calc(1.5rem-1.5px)] bg-slate-950 overflow-hidden"
-          containerClassName="mt-12 sm:mt-16 lg:mt-20"
+          containerClassName="mt-8 sm:mt-12 lg:mt-14"
           paddingClassName="p-3 pt-6 sm:p-4 lg:p-4 lg:py-6"
           imageFrameClassName="p-[1.5px] rounded-3xl bg-[conic-gradient(from_var(--border-angle),#7e22ce,#ec4899,#00ccff,#7e22ce)] shadow-[0_0_40px_rgba(126,34,206,0.25)]"
         />

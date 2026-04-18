@@ -79,11 +79,11 @@ export default function Notifications() {
 
   const getColorClasses = (color) => {
     switch (color) {
-      case 'purple': return 'bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white shadow-purple-200/50';
-      case 'emerald': return 'bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white shadow-emerald-200/50';
-      case 'blue': return 'bg-blue-100 text-blue-600 group-hover:bg-blue-500 group-hover:text-white shadow-blue-200/50';
-      case 'fuchsia': return 'bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-500 group-hover:text-white shadow-fuchsia-200/50';
-      default: return 'bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white shadow-purple-200/50';
+      case 'purple': return 'bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white group-active:bg-[#7e22ce] group-active:text-white shadow-purple-200/50';
+      case 'emerald': return 'bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white group-active:bg-emerald-500 group-active:text-white shadow-emerald-200/50';
+      case 'blue': return 'bg-blue-100 text-blue-600 group-hover:bg-blue-500 group-hover:text-white group-active:bg-blue-500 group-active:text-white shadow-blue-200/50';
+      case 'fuchsia': return 'bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-500 group-hover:text-white group-active:bg-fuchsia-500 group-active:text-white shadow-fuchsia-200/50';
+      default: return 'bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white shadow-purple-200/50';
     }
   };
 

@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useVelocity,
+} from "framer-motion";
 import {
   Search,
   ArrowRight,
@@ -39,6 +46,31 @@ import { Helmet } from "react-helmet-async";
 import MovingPurpleRing from "../../components/MovingPurpleRing";
 
 const EASING = [0.2, 0.8, 0.2, 1];
+
+const TrailSegment = ({ seg, index, isHovered, movementOpacity }) => {
+  const opacity = useTransform(movementOpacity, (v) =>
+    isHovered ? (index === 0 ? seg.opacity : v * seg.opacity) : 0,
+  );
+
+  return (
+    <motion.div
+      className="absolute pointer-events-none z-[100] rounded-full mix-blend-screen"
+      style={{
+        width: seg.size,
+        height: seg.size,
+        left: seg.x,
+        top: seg.y,
+        x: "-50%",
+        y: "-50%",
+        opacity,
+        scale: isHovered ? 1 : 0,
+        background:
+          "radial-gradient(circle, rgba(192, 38, 211, 0.9) 0%, rgba(168, 85, 247, 0) 70%)",
+        filter: `blur(${seg.blur}px)`,
+      }}
+    />
+  );
+};
 
 const articles = [
   {
@@ -470,6 +502,42 @@ const ArticleDetail = ({ article, onBack, onOpenArticle }) => {
 
 export default function Blog() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isCtaHovered, setIsCtaHovered] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const trailConfig = [
+    { stiffness: 250, damping: 25 },
+    { stiffness: 200, damping: 22 },
+    { stiffness: 150, damping: 18 },
+    { stiffness: 100, damping: 15 },
+    { stiffness: 80, damping: 12 },
+  ];
+  const s1x = useSpring(mouseX, trailConfig[0]);
+  const s1y = useSpring(mouseY, trailConfig[0]);
+  const s2x = useSpring(s1x, trailConfig[1]);
+  const s2y = useSpring(s1y, trailConfig[1]);
+  const s3x = useSpring(s2x, trailConfig[2]);
+  const s3y = useSpring(s2y, trailConfig[2]);
+  const s4x = useSpring(s3x, trailConfig[3]);
+  const s4y = useSpring(s3y, trailConfig[3]);
+  const s5x = useSpring(s4x, trailConfig[4]);
+  const s5y = useSpring(s4y, trailConfig[4]);
+  const velX = useVelocity(mouseX);
+  const velY = useVelocity(mouseY);
+  const velocity = useTransform([velX, velY], ([vx, vy]) =>
+    Math.sqrt(vx * vx + vy * vy),
+  );
+  const movementOpacity = useSpring(
+    useTransform(velocity, [0, 50, 300], [0, 0, 1]),
+    { stiffness: 60, damping: 20 },
+  );
+  const segments = [
+    { x: s1x, y: s1y, size: 160, opacity: 0.8, blur: 18 },
+    { x: s2x, y: s2y, size: 130, opacity: 0.7, blur: 22 },
+    { x: s3x, y: s3y, size: 100, opacity: 0.6, blur: 28 },
+    { x: s4x, y: s4y, size: 80, opacity: 0.5, blur: 34 },
+    { x: s5x, y: s5y, size: 60, opacity: 0.35, blur: 40 },
+  ];
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -547,6 +615,12 @@ export default function Blog() {
 
   const handleSearch = () => {
     setAppliedSearch(searchQuery);
+  };
+
+  const handleNewsletterMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
   };
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -729,7 +803,7 @@ export default function Blog() {
           </div>
         </section>
         {/* Articles feed -card grid */}
-        <section className="relative bg-gradient-to-b from-slate-50/50 via-white to-violet-50/25 pt-10 pb-16 sm:pb-20 lg:pb-24 min-h-[600px]">
+        <section className="relative bg-gradient-to-b from-slate-50/50 via-white to-violet-50/25 pt-10 pb-14 sm:pb-18 lg:pb-16 min-h-[600px]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="relative isolate flex flex-col gap-5 pb-16 pt-2 sm:gap-6 md:gap-7 md:pb-20">
               <AnimatePresence mode="popLayout" initial={false}>
@@ -782,8 +856,38 @@ export default function Blog() {
         </section>
 
         {/* Premium Dark Newsletter Section - FeatureCTA Style */}
-        <section className="pt-2 pb-8 sm:pt-4 sm:pb-10 lg:pt-4 lg:pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 group">
-          <div className="relative rounded-[2rem] sm:rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch border border-white/5 p-5 sm:p-6 lg:p-10">
+        <section className="pt-0 pb-8 sm:pt-2 sm:pb-10 lg:pt-0 lg:pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 group">
+          <div
+            onMouseMove={handleNewsletterMouseMove}
+            onMouseEnter={() => setIsCtaHovered(true)}
+            onMouseLeave={() => setIsCtaHovered(false)}
+            className={`relative rounded-[2rem] sm:rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden bg-black flex flex-col lg:flex-row items-stretch border border-white/5 p-5 sm:p-6 lg:p-10 ${isCtaHovered ? "cursor-none" : ""}`}
+          >
+            {segments.map((seg, i) => (
+              <TrailSegment
+                key={i}
+                seg={seg}
+                index={i}
+                isHovered={isCtaHovered}
+                movementOpacity={movementOpacity}
+              />
+            ))}
+
+            <motion.div
+              className="absolute w-80 h-80 pointer-events-none z-[90] rounded-full mix-blend-screen"
+              style={{
+                left: s1x,
+                top: s1y,
+                x: "-50%",
+                y: "-50%",
+                opacity: isCtaHovered ? 0.45 : 0,
+                scale: isCtaHovered ? 1 : 0,
+                background:
+                  "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%)",
+                filter: "blur(50px)",
+              }}
+            />
+
             {/* Ambient Background Gradients */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(126,34,206,0.25),transparent_50%)] pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(99,91,255,0.15),transparent_40%)] pointer-events-none" />
@@ -818,12 +922,18 @@ export default function Blog() {
                     </div>
                   </div>
                 </div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/5 text-[10px] font-black uppercase tracking-[0.18em] text-purple-200/95 mb-4 w-fit">
+                  Weekly ideas for better team work
+                </div>
                 <h2 className="text-xl sm:text-2xl lg:text-[1.75rem] font-black text-white leading-[1.1] mb-2 tracking-tight drop-shadow-lg">
                   Get the Tuesday Drop
                 </h2>
                 <p className="mt-4 text-[13px] sm:text-sm font-medium text-slate-400 max-w-xs">
                   Get one sharp, useful idea your team can act on before the
                   week is out. No spam, always free.
+                </p>
+                <p className="mt-4 text-[13px] sm:text-sm font-medium text-slate-500 max-w-sm leading-relaxed">
+                  Built for teams that want clearer communication, smarter workflows, and less noise in the week ahead.
                 </p>
               </div>
               {/* Right Form */}

@@ -21,19 +21,33 @@ export default function WatchDemo() {
     {
       title: "Unified Workspace",
       desc: "See how teams create, assign, and track work from a single source of truth.",
-      icon: Layout
+      icon: Layout,
+      color: "purple"
     },
     {
       title: "Connected Flows",
       desc: "Observe how communications and notifications stay tied to actual execution.",
-      icon: Monitor
+      icon: Monitor,
+      color: "fuchsia"
     },
     {
       title: "Advanced Control",
       desc: "Watch how leaders utilize automated dashboards and attendance tracking.",
-      icon: Smartphone
+      icon: Smartphone,
+      color: "purple"
     }
   ];
+
+  const getColorClasses = (color) => {
+    switch (color) {
+      case "purple":
+        return "bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white group-active:bg-[#7e22ce] group-active:text-white shadow-purple-200/50";
+      case "fuchsia":
+        return "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-500 group-hover:text-white group-active:bg-fuchsia-500 group-active:text-white shadow-fuchsia-200/50";
+      default:
+        return "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white shadow-purple-200/50";
+    }
+  };
 
   return (
     <>
@@ -163,15 +177,19 @@ export default function WatchDemo() {
                       key={i}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
+                      whileHover={{ y: -4, scale: 1.01 }}
+                      whileTap={{ y: 2, scale: 0.99 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.1 * i }}
-                      className="group bg-white border border-slate-200 p-8 rounded-[2rem] hover:border-purple-300 shadow-sm hover:shadow-xl hover:shadow-purple-900/5 transition-all duration-300 flex flex-col items-center text-center sm:items-start sm:text-left"
+                      className="group relative overflow-hidden bg-white/70 backdrop-blur-xl border border-slate-200/70 p-8 rounded-[2rem] hover:border-[#7e22ce] active:border-[#7e22ce] shadow-[0_18px_50px_rgba(15,23,42,0.06)] hover:shadow-[0_24px_70px_rgba(126,34,206,0.12)] transition-all duration-300 flex flex-col items-center text-center sm:items-start sm:text-left"
                     >
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                      <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.9),transparent_45%)] opacity-60 transition-opacity duration-300 group-hover:opacity-80 group-active:opacity-80" />
+                      <div className="pointer-events-none absolute inset-[1px] rounded-[1.9rem] border border-white/40 opacity-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-14px_26px_rgba(126,34,206,0.08)] transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-100" />
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 group-active:scale-110 ${getColorClasses(item.color)}`}>
                         <Icon size={22} strokeWidth={2.5} />
                       </div>
-                      <h3 className="text-xl font-black text-slate-900 mb-3">{item.title}</h3>
-                      <p className="text-slate-500 text-sm font-medium leading-relaxed">{item.desc}</p>
+                      <h3 className="text-xl font-black text-slate-900 mb-3 transition-colors duration-300 group-hover:text-[#7e22ce]">{item.title}</h3>
+                      <p className="text-slate-500 text-sm font-medium leading-relaxed transition-colors duration-300 group-hover:text-slate-600">{item.desc}</p>
                     </Motion.div>
                   );
                 })}
