@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     CheckSquare, BarChart3, Zap,
     LayoutDashboard, Clock,
@@ -13,6 +13,25 @@ import featureProjects from '../assets/project.webp';
 import automationImage from '../assets/automation1.webp';
 import calendarImage from '../assets/calender1.webp';
 import teamImage from '../assets/Team1.webp';
+
+import logo from '../assets/logo.webp';
+
+// Import apps for marquee
+import zapierIcon from '../assets/zapier.webp';
+import pagarbookIcon from '../assets/pagarbook.webp';
+import zoominfoIcon from '../assets/zoominfo.webp';
+import hubstaffIcon from '../assets/hubstaff.webp';
+import hubspotIcon from '../assets/hubspot.webp';
+
+const APPS_LIST = [
+    { name: "Zapier", icon: zapierIcon },
+    { name: "PagarBook", icon: pagarbookIcon },
+    { name: "HubSpot", icon: hubspotIcon },
+    { name: "ZoomInfo", icon: zoominfoIcon },
+    { name: "Hubstaff", icon: hubstaffIcon },
+];
+
+const LEAD_WORDS = ["Ask", "Search", "Find", "Query"];
 
 const MarqueeTile = ({ icon: Icon, label, isPaused }) => (
     <div
@@ -31,8 +50,152 @@ const MarqueeTile = ({ icon: Icon, label, isPaused }) => (
     </div>
 );
 
+// ClickUp-style Apps Marquee with 3-Stage Revolve
+const AppsMarquee = () => {
+    const [index, setIndex] = useState(0);
+    const [brandIndex, setBrandIndex] = useState(0);
+
+    const SLIDE_MS = 600;
+    const HOLD_MS = 1400;
+    const TICK_MS = SLIDE_MS + HOLD_MS;
+    const ICON_SIZE = 28;
+    const GAP = 16;
+    const STEP = ICON_SIZE + GAP;
+    const VISIBLE = 5;
+
+    useEffect(() => {
+        const t = setInterval(() => setIndex((i) => i + 1), TICK_MS);
+        return () => clearInterval(t);
+    }, []);
+
+    useEffect(() => {
+        const t = setInterval(() => setBrandIndex((i) => (i + 1) % 3), 2500);
+        return () => clearInterval(t);
+    }, []);
+
+    const brandingStates = [
+        { type: 'text', word: 'place' },
+        { type: 'text', word: 'platform' },
+        { type: 'logo', word: null }
+    ];
+
+    const revolveVariants = {
+        enter: { opacity: 0, rotateX: -90, y: 15 },
+        center: { opacity: 1, rotateX: 0, y: 0 },
+        exit: { opacity: 0, rotateX: 90, y: -15 }
+    };
+
+    return (
+        <div className="flex w-full items-center justify-center bg-white px-2 py-1 mb-2 select-none">
+            <style>
+                {`
+                    @keyframes stepLeft {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(var(--step)); }
+                    }
+
+                    .revolve-container {
+                        perspective: 1000px;
+                        height: 44px;
+                        display: inline-flex;
+                        align-items: center;
+                        vertical-align: middle;
+                    }
+                `}
+            </style>
+            <div className="flex items-center gap-1 sm:gap-2 text-lg font-black sm:text-xl lg:text-[1.85rem] tracking-tight">
+                {/* Static Prefix - Never Flips */}
+                <span className="whitespace-nowrap text-slate-500">
+                    All
+                </span>
+
+                {/* Marquee Window */}
+                <div
+                    className="relative h-7 sm:h-9 overflow-hidden"
+                    style={{
+                        width: `${STEP * (VISIBLE - 1)}px`,
+                    }}
+                >
+                    <div
+                        key={`row-${index}`}
+                        className="absolute top-0 left-0 flex h-full items-center"
+                        style={{
+                            gap: `${GAP}px`,
+                            animation: `stepLeft ${SLIDE_MS}ms cubic-bezier(0.65, 0, 0.35, 1) forwards`,
+                            ["--step"]: `-${STEP}px`,
+                        }}
+                    >
+                        {Array.from({ length: VISIBLE + 1 }).map((_, offset) => (
+                            <div key={offset} className="shrink-0">
+                                <img
+                                    src={APPS_LIST[(index + offset) % APPS_LIST.length].icon}
+                                    className="w-6 h-6 sm:w-7 sm:h-7 rounded-md object-contain grayscale-[20%] opacity-90"
+                                    alt="app"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Fixed "in" - Always Static */}
+                <span className="text-slate-500">in</span>
+
+                {/* Multi-layered Revolving Branding Suffix */}
+                <div className="revolve-container min-w-[100px] sm:min-w-[130px] overflow-visible">
+                    <AnimatePresence mode="wait">
+                        {brandingStates[brandIndex].type === 'text' ? (
+                            <motion.div
+                                key="text-layer"
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                variants={revolveVariants}
+                                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                                className="flex items-center gap-1 sm:gap-1.5"
+                            >
+                                <span className="text-slate-500">one</span>
+                                <div className="relative h-[44px] flex items-center min-w-[60px] sm:min-w-[90px]">
+                                    <AnimatePresence mode="wait">
+                                        <motion.span
+                                            key={brandingStates[brandIndex].word}
+                                            initial="enter"
+                                            animate="center"
+                                            exit="exit"
+                                            variants={revolveVariants}
+                                            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                                            className="text-slate-500 absolute left-0"
+                                        >
+                                            {brandingStates[brandIndex].word}
+                                        </motion.span>
+                                    </AnimatePresence>
+                                </div>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key="logo-layer"
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                variants={revolveVariants}
+                                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                                className="flex items-center"
+                            >
+                                <img
+                                    src={logo}
+                                    alt="KaryaUp"
+                                    className="h-9 w-auto object-contain"
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const FeatureCard = ({ title, image }) => (
-    <div className="w-full h-[185px] sm:h-[150px] lg:h-[240px] bg-white border border-gray-50 flex flex-col relative overflow-hidden group/card shadow-none transition-shadow duration-300">
+    <div className="pointer-events-auto w-full h-[185px] sm:h-[150px] lg:h-[240px] bg-white border border-gray-100 flex flex-col relative overflow-hidden group/card shadow-none transition-all duration-300 hover:border-[#7e22ce]/70 hover:shadow-[0_0_0_1px_rgba(126,34,206,0.35),0_12px_35px_rgba(126,34,206,0.12)] hover:z-10 cursor-pointer">
         <div className="w-full h-full overflow-hidden flex items-center justify-center">
             <img
                 src={image}
@@ -190,21 +353,11 @@ const AllInOne = () => {
                         <Zap className="w-3.5 h-3.5 text-[#7e22ce]" />
                         <span className="text-[10px] font-bold text-[#7e22ce] uppercase tracking-wider">Zero Friction Sync</span>
                     </div>
-                    <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.05]">
-                        Unify Your Tools Into 1<br />
-                        <motion.span
-                                           className="inline text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] whitespace-nowrap"
-                                           animate={{
-                                             backgroundPosition: ["0% center", "-200% center"],
-                                           }}
-                                           transition={{
-                                             duration: 4,
-                                             repeat: Infinity,
-                                             ease: "linear",
-                                           }}
-                                         >
-                                           That Saves Time
-                                         </motion.span>
+                    <h2 className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-slate-900 tracking-normal leading-[1.1] mb-8">
+                        Stop Switching Between Tools <br />
+                        <div className="mt-4">
+                            <AppsMarquee />
+                        </div>
                     </h2>
                 </motion.div>
             </div>

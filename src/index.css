@@ -280,15 +280,20 @@ body::-webkit-scrollbar {
 
   .badge-glass-multicolor-text {
     @apply transition-all duration-300;
-  }
-
-  .group:hover .badge-glass-multicolor-text {
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
     background-image: linear-gradient(to right, #7e22ce, #ec4899, #00ccff, #7e22ce);
     background-size: 200% auto;
     animation: gradient-move 4s linear infinite;
+  }
+
+  .group:hover .badge-glass-multicolor-text {
+    color: #0f172a;
+    background-image: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    animation: none;
   }
 }
 

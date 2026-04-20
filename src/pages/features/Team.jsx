@@ -68,8 +68,9 @@ export default function Team() {
         image={TeamImg}
         imageAlt="KaryaUp Team Management"
         containerClassName="mt-0"
-        imageOuterClassName="relative w-full translate-x-0 ml-auto"
-        imageClassName="w-[90%] lg:w-[100%] -translate-x-4 lg:translate-x-0 ml-auto"
+        sectionStyle={{ maxWidth: "72rem" }}
+        imageOuterClassName="relative w-full mx-auto lg:mx-0"
+        imageClassName="w-full max-w-[520px] mx-auto lg:mx-0"
       />
       </div>
       </>

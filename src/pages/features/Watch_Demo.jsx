@@ -1,11 +1,51 @@
-import React, { useState, useEffect } from "react";
-import { motion as Motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion as Motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Check, PlayCircle, Sparkles, MonitorPlay, Clock, Monitor, Smartphone, Layout } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import FeatureCTA from "../../components/FeatureCTA";
 import FeatureStack from "../../components/FeatureStack";
 import demoPreview from "../../assets/dashboard2.webp";
+
+const TiltCard = ({ children, className }) => {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(rawY, [-1, 1], [10, -10]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-10, 10]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    rawX.set(x);
+    rawY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
+
+  return (
+    <Motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d", transformPerspective: 1000 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      tabIndex={0}
+      className={`${className} active:border-purple-300 active:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-400/30`}
+    >
+      <div style={{ transform: "translateZ(20px)" }} className="h-full flex flex-col">
+        {children}
+      </div>
+    </Motion.div>
+  );
+};
 
 export default function WatchDemo() {
   const [isMobile, setIsMobile] = useState(false);
@@ -151,7 +191,7 @@ export default function WatchDemo() {
         {/* ── Demo Highlights Section ── */}
         <section className="pt-8 sm:pt-4 lg:pt-6 pb-12 sm:pb-16 lg:pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-6xl mx-auto border border-slate-200 rounded-[2.5rem] bg-slate-50/50 p-6 sm:p-12 lg:p-16">
+            <div className="max-w-6xl mx-auto  p-6 sm:p-12 lg:p-16">
               <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3.5 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-purple-700 shadow-sm mb-4">
                   <Sparkles className="w-3.5 h-3.5" />
@@ -169,7 +209,7 @@ export default function WatchDemo() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
                 {demoFlowItems.map((item, i) => {
                   const Icon = item.icon;
                   return (
@@ -181,15 +221,15 @@ export default function WatchDemo() {
                       whileTap={{ y: 2, scale: 0.99 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.1 * i }}
-                      className="group relative overflow-hidden bg-white/70 backdrop-blur-xl border border-slate-200/70 p-8 rounded-[2rem] hover:border-[#7e22ce] active:border-[#7e22ce] shadow-[0_18px_50px_rgba(15,23,42,0.06)] hover:shadow-[0_24px_70px_rgba(126,34,206,0.12)] transition-all duration-300 flex flex-col items-center text-center sm:items-start sm:text-left"
+                      className="h-full"
                     >
-                      <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.9),transparent_45%)] opacity-60 transition-opacity duration-300 group-hover:opacity-80 group-active:opacity-80" />
-                      <div className="pointer-events-none absolute inset-[1px] rounded-[1.9rem] border border-white/40 opacity-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-14px_26px_rgba(126,34,206,0.08)] transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-100" />
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 group-active:scale-110 ${getColorClasses(item.color)}`}>
-                        <Icon size={22} strokeWidth={2.5} />
-                      </div>
-                      <h3 className="text-xl font-black text-slate-900 mb-3 transition-colors duration-300 group-hover:text-[#7e22ce]">{item.title}</h3>
-                      <p className="text-slate-500 text-sm font-medium leading-relaxed transition-colors duration-300 group-hover:text-slate-600">{item.desc}</p>
+                      <TiltCard className="group relative overflow-hidden bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 flex flex-col items-center text-center sm:items-start sm:text-left">
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 ${getColorClasses(item.color)}`}>
+                          <Icon size={20} strokeWidth={2.5} />
+                        </div>
+                        <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-3 transition-colors duration-300 group-hover:text-[#7e22ce]">{item.title}</h3>
+                        <p className="text-slate-600 text-sm font-medium leading-relaxed">{item.desc}</p>
+                      </TiltCard>
                     </Motion.div>
                   );
                 })}

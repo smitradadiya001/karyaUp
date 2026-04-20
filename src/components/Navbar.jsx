@@ -10,6 +10,7 @@ import {
 import logo from "../assets/logo.webp";
 import KaryaUpBtn from "../assets/KaryaupBtn.png";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLoading } from "../context/LoadingContext";
 
 const MotionDiv = motion.div;
 const authUrl = "https://app.karyaup.com/auth";
@@ -196,6 +197,7 @@ const StartWorkspaceButton = ({ href, onClick, size = "sm" }) => {
 
 const Navbar = () => {
   const location = useLocation();
+  const { isPageLoading } = useLoading();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPlatformOpen, setIsPlatformOpen] = useState(false);
@@ -635,15 +637,19 @@ const Navbar = () => {
             <div className="hidden md:flex flex-1"></div>
 
             <div className="flex-none hidden md:flex items-center space-x-4">
-              <a
-                href={authUrl}
-                onClick={closeAllMenus}
-                className={`group flex items-center gap-2 font-semibold tracking-wide transition-all ${isOverlayLightNav ? "text-white hover:text-white/80" : "text-slate-700 hover:text-[#7e22ce]"}`}
-              >
-                <LogIn size={16} className={`${isOverlayLightNav ? "text-white" : "text-slate-500"} group-hover:-translate-x-0.5 group-hover:text-[#7e22ce] transition-all`} />
-                <span className="text-[14px]">Log in</span>
-              </a>
-              <StartWorkspaceButton href={authUrl} onClick={closeAllMenus} />
+              {!isPageLoading && (
+                <>
+                  <a
+                    href={authUrl}
+                    onClick={closeAllMenus}
+                    className={`group flex items-center gap-2 font-semibold tracking-wide transition-all ${isOverlayLightNav ? "text-white hover:text-white/80" : "text-slate-700 hover:text-[#7e22ce]"}`}
+                  >
+                    <LogIn size={16} className={`${isOverlayLightNav ? "text-white" : "text-slate-500"} group-hover:-translate-x-0.5 group-hover:text-[#7e22ce] transition-all`} />
+                    <span className="text-[14px]">Log in</span>
+                  </a>
+                  <StartWorkspaceButton href={authUrl} onClick={closeAllMenus} />
+                </>
+              )}
             </div>
 
             <div className="ml-auto md:hidden">

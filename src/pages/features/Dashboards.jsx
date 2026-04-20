@@ -342,6 +342,7 @@ export default function Dashboards() {
           image={dashboardImg2}
           imageAlt="KaryaUp Dashboard Interface"
           containerClassName="mt-10 sm:mt-0"
+          sectionStyle={{ maxWidth: "76rem" }}
           shellClassName="shadow-none"
           titleClassName="text-xl sm:text-2xl lg:text-[1.75rem] font-black text-white leading-[1.1] mb-2 tracking-tight"
         />

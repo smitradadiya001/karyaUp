@@ -393,6 +393,7 @@ export default function Gantt() {
           image={ganttImg}
           imageAlt="KaryaUp Gantt Timeline"
           containerClassName="mt-0"
+          sectionStyle={{ maxWidth: "76rem" }}
         />
       </div>
     </ReactLenis>

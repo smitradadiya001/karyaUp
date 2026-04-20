@@ -25,7 +25,7 @@ const FinalCTA = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-2 sm:mt-4 lg:mt-6 bg-[linear-gradient(180deg,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.65)_100%)] backdrop-blur-3xl border border-slate-200/60 rounded-[2rem] sm:rounded-[3rem] px-3.5 py-5 sm:px-9 sm:py-8 shadow-[0_32px_120px_-20px_rgba(30,41,59,0.08)] relative"
+          className="mt-2 sm:mt-4 lg:mt-6 bg-[linear-gradient(180deg,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.65)_100%)] backdrop-blur-3xl border border-[#7e22ce]/35 rounded-[2rem] sm:rounded-[3rem] px-3.5 py-5 sm:px-9 sm:py-8 relative transition-all duration-300 hover:border-[#7e22ce]/70"
         >
           <div className="absolute inset-0 overflow-hidden rounded-[inherit] pointer-events-none opacity-30">
             <svg className="h-full w-full" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,9 +124,6 @@ const FinalCTA = () => {
             </div>
 
           </div>
-
-          {/* Shimmer Overlay on card */}
-          <div className="absolute inset-0 border-[3px] border-white/40 rounded-[4rem] pointer-events-none" />
         </Motion.div>
       </div>
     </section>
