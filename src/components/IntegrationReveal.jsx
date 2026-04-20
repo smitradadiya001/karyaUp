@@ -60,28 +60,32 @@ export default function IntegrationReveal({ className = "" }) {
     let phase = 0; // for the sine wave
 
     const animate = () => {
-      if (!running) return;
+  if (!running) return;
 
-      if (isMobile || !isHovered) {
-        // Continuous smooth auto-sweep (Math.sin mapping -1 to 1)
-        phase += 0.035; // Increased animation speed
-        const autoSweepPos = 50 + Math.sin(phase) * 35; // Oscillation between 15 and 85
+  // ✅ Mobile → auto movement
+  if (isMobile) {
+    phase += 0.035;
+    const autoSweepPos = 50 + Math.sin(phase) * 35;
 
-        setSliderPos((prev) => {
-          const diff = autoSweepPos - prev;
-          return prev + diff * 0.1; // Smooth interpolation
-        });
-      } else {
-        // Follow Desktop Cursor
-        setSliderPos((prev) => {
-          const diff = targetRef.current - prev;
-          if (Math.abs(diff) < 0.3) return targetRef.current;
-          return prev + diff * 0.08;
-        });
-      }
+    setSliderPos((prev) => {
+      const diff = autoSweepPos - prev;
+      return prev + diff * 0.1;
+    });
+  }
 
-      animFrameRef.current = requestAnimationFrame(animate);
-    };
+  // ✅ Desktop → ONLY move when cursor is inside
+  else if (isHovered) {
+    setSliderPos((prev) => {
+      const diff = targetRef.current - prev;
+      if (Math.abs(diff) < 0.3) return targetRef.current;
+      return prev + diff * 0.08;
+    });
+  }
+
+  // ❌ No movement when not hovered (IMPORTANT)
+
+  animFrameRef.current = requestAnimationFrame(animate);
+};
 
     animFrameRef.current = requestAnimationFrame(animate);
 

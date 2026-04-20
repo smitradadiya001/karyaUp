@@ -39,7 +39,7 @@ export default function TeamHierarchySection() {
   return (
     <section className="relative overflow-hidden bg-white pt-10 sm:pt-14 lg:pt-18 pb-12 sm:pb-16 lg:pb-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] items-center">
+        <div className="grid gap-4 lg:gap-6 lg:grid-cols-[1fr_1fr] items-center">
 
           {/* Left Content - Preserved as requested */}
           <motion.div
@@ -47,7 +47,7 @@ export default function TeamHierarchySection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className="relative z-10 flex flex-col items-center lg:items-start lg:text-left lg:pl-4"
+            className="relative z-10 flex flex-col items-center lg:items-start lg:text-left lg:pl-10 lg:pr-1"
           >
             <div className="w-full px-0 py-0">
               <div className="flex flex-col items-center lg:items-start text-center lg:text-left mb-8">
@@ -102,12 +102,12 @@ export default function TeamHierarchySection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="flex justify-center items-center"
+            className="flex justify-center lg:justify-start items-center lg:pl-0"
           >
              <img 
                 src={AccessPanelImg} 
                 alt="Access Panel Interface" 
-                className="w-full h-auto max-h-[500px] object-contain"
+                className="w-full h-auto max-h-[500px] object-contain lg:-translate-x-2"
              />
           </motion.div>
 

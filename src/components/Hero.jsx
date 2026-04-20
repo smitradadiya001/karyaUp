@@ -284,7 +284,17 @@ const Hero = () => {
                       </span>
                     </h1>
                     <h1 className="text-[2.4rem] sm:text-[2.75rem] lg:text-[4.25rem] font-black tracking-normal leading-[1.08] drop-shadow-[0_10px_32px_rgba(15,23,42,0.34)]">
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]">
+                      <motion.span
+                                                                className="inline text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto] whitespace-nowrap"
+                                                                animate={{
+                                                                  backgroundPosition: ["0% center", "-200% center"],
+                                                                }}
+                                                                transition={{
+                                                                  duration: 4,
+                                                                  repeat: Infinity,
+                                                                  ease: "linear",
+                                                                }}
+                                                              >
                         {MAIN_SUFFIX.split("").map((char, idx) => {
                           const globalIdx = MAIN_PREFIX.length + idx;
                           return (
@@ -302,7 +312,7 @@ const Hero = () => {
                             </motion.span>
                           );
                         })}
-                      </span>
+                      </motion.span>
                     </h1>
                   </motion.div>
                 )}

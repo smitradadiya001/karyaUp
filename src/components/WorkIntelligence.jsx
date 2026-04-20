@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   motion,
   useMotionValue,
@@ -36,7 +36,7 @@ const TiltCard = ({ children, className }) => {
 
   const handleMouseMove = (e) => {
     const rect = ref.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1; // -1 … 1
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
     rawX.set(x);
     rawY.set(y);
@@ -62,7 +62,6 @@ const TiltCard = ({ children, className }) => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={className}
     >
-      {/* inner content lifted slightly toward viewer */}
       <div style={{ transform: "translateZ(20px)" }}>{children}</div>
     </motion.div>
   );
@@ -88,9 +87,21 @@ const cards = [
 
 const WorkIntelligence = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const flowRef = useRef(null);
 
-  // Mouse tracking logic for snake trail cursor
+  // Detect desktop (>= 768px) — only gate animations on desktop
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // On desktop, animations only run when hovered. On mobile, always run.
+  const desktopActive = !isDesktop || isHovered;
+
+  // Mouse tracking for snake trail cursor
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -98,6 +109,7 @@ const WorkIntelligence = () => {
     target: flowRef,
     offset: ["start end", "end start"],
   });
+  // Mobile: scroll-driven arrow sweep (unchanged)
   const mobileSweepX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   // Chained springs for snake effect
@@ -126,7 +138,6 @@ const WorkIntelligence = () => {
     Math.sqrt(vx * vx + vy * vy),
   );
 
-  // Create a spring-smoothed opacity that reacts to movement
   const movementOpacity = useSpring(
     useTransform(velocity, [0, 50, 300], [0, 0, 1]),
     { stiffness: 60, damping: 20 },
@@ -149,11 +160,11 @@ const WorkIntelligence = () => {
   );
 
   const segments = [
-    { x: s1x, y: s1y, size: 160, opacity: 0.8, blur: 18 },
-    { x: s2x, y: s2y, size: 130, opacity: 0.7, blur: 22 },
-    { x: s3x, y: s3y, size: 100, opacity: 0.6, blur: 28 },
-    { x: s4x, y: s4y, size: 80, opacity: 0.5, blur: 34 },
-    { x: s5x, y: s5y, size: 60, opacity: 0.35, blur: 40 },
+    { x: s1x, y: s1y, size: 160, blur: 18 },
+    { x: s2x, y: s2y, size: 130, blur: 22 },
+    { x: s3x, y: s3y, size: 100, blur: 28 },
+    { x: s4x, y: s4y, size: 80, blur: 34 },
+    { x: s5x, y: s5y, size: 60, blur: 40 },
   ];
 
   const handleMouseMove = (e) => {
@@ -162,8 +173,11 @@ const WorkIntelligence = () => {
     mouseY.set(e.clientY - rect.top);
   };
 
+  // Shared idle states for pill boxes (desktop not hovered)
+  const idlePill = { scale: 1, boxShadow: "0 0 0px rgba(168,85,247,0)" };
+  const idleTransition = { duration: 0.3 };
+
   return (
-    /* outer: full-width bg so the page doesn't break; inner: constrained card */
     <section className="py-1.5 sm:py-6 sm:pb-10 bg-white relative px-2 sm:px-0">
       <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
         {/* ── The constrained, rounded section ── */}
@@ -185,13 +199,7 @@ const WorkIntelligence = () => {
                 top: seg.y,
                 x: "-50%",
                 y: "-50%",
-                opacity: [
-                  seg1Opacity,
-                  seg2Opacity,
-                  seg3Opacity,
-                  seg4Opacity,
-                  seg5Opacity,
-                ][i],
+                opacity: [seg1Opacity, seg2Opacity, seg3Opacity, seg4Opacity, seg5Opacity][i],
                 scale: isHovered ? 1 : 0,
                 background: `radial-gradient(circle, rgba(168, 85, 247, 0.9) 0%, rgba(168, 85, 247, 0) 70%)`,
                 filter: `blur(${seg.blur}px)`,
@@ -209,8 +217,7 @@ const WorkIntelligence = () => {
               y: "-50%",
               opacity: isHovered ? 0.45 : 0,
               scale: isHovered ? 1 : 0,
-              background:
-                "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%)",
               filter: "blur(50px)",
             }}
           />
@@ -239,10 +246,19 @@ const WorkIntelligence = () => {
               className="text-3xl sm:text-[2.75rem] lg:text-[3.25rem] font-black text-white leading-[1.12] mb-3 tracking-normal"
             >
               <span className="block text-white">Your Company's</span>
+              {/* Gradient sweep — desktop: only on hover; mobile: always */}
               <motion.span
                 className="block pb-[0.08em] text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                animate={
+                  desktopActive
+                    ? { backgroundPosition: ["0% center", "-200% center"] }
+                    : { backgroundPosition: "0% center" }
+                }
+                transition={
+                  desktopActive
+                    ? { duration: 5, repeat: Infinity, ease: "linear" }
+                    : { duration: 0 }
+                }
               >
                 Work Intelligence
               </motion.span>
@@ -297,181 +313,145 @@ const WorkIntelligence = () => {
           {/* Flow strip */}
           <Motion.div
             ref={flowRef}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="relative z-10 bg-purple-900/20 border border-purple-500/20 rounded-2xl sm:rounded-full p-2.5 sm:p-5 overflow-hidden w-full lg:w-auto"
           >
-            {/* The flow path line */}
-
             <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-0 text-[13px] sm:text-sm font-bold text-white relative z-10 max-w-5xl mx-auto px-1 sm:px-6">
+
               {/* Box 1: Raw Activity */}
               <motion.div
-                animate={{
-                  borderColor: [
-                    "rgba(168,85,247,0.2)",
-                    "rgba(255,255,255,1)",
-                    "rgba(168,85,247,0.2)",
-                  ],
-                  backgroundColor: [
-                    "rgba(88,28,135,0.2)",
-                    "rgba(217,70,239,0.7)",
-                    "rgba(88,28,135,0.2)",
-                  ],
-                  boxShadow: [
-                    "0 0 0px rgba(168,85,247,0)",
-                    "0 0 50px rgba(217,70,239,0.8)",
-                    "0 0 0px rgba(168,85,247,0)",
-                  ],
-                  scale: [1, 1.15, 1],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  times: [0, 0.1, 0.2],
-                }}
+                animate={
+                  desktopActive
+                    ? {
+                        borderColor: ["rgba(168,85,247,0.2)", "rgba(255,255,255,1)", "rgba(168,85,247,0.2)"],
+                        backgroundColor: ["rgba(88,28,135,0.2)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.2)"],
+                        boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 50px rgba(217,70,239,0.8)", "0 0 0px rgba(168,85,247,0)"],
+                        scale: [1, 1.15, 1],
+                      }
+                    : idlePill
+                }
+                transition={
+                  desktopActive
+                    ? { duration: 5, repeat: Infinity, times: [0, 0.1, 0.2] }
+                    : idleTransition
+                }
                 className="flex items-center justify-center gap-2 bg-purple-900/20 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 w-full sm:w-auto z-10"
               >
                 <Database size={16} className="text-purple-400" />
                 <span>Raw Activity</span>
               </motion.div>
 
-              {/* Gap 1: Arrow 1 */}
+              {/* Gap 1 — mobile arrow (scroll-driven, unchanged) */}
               <div className="flex sm:hidden items-center justify-center h-6 relative w-full overflow-hidden">
                 <motion.div
                   style={{ x: mobileSweepX }}
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white"
                 >
-                  <ArrowRight
-                    size={16}
-                    strokeWidth={3}
-                    className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
-                  />
+                  <ArrowRight size={16} strokeWidth={3} className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
                 </motion.div>
               </div>
+
+              {/* Gap 1 — desktop arrow (hover only) */}
               <div className="hidden sm:flex flex-1 items-center justify-center h-10 relative overflow-visible">
                 <div className="absolute top-1/2 left-0 right-0 h-px bg-white/10 -translate-y-1/2 pointer-events-none z-0" />
                 <motion.div
                   initial={{ left: "-12px", opacity: 0 }}
-                  animate={{
-                    left: ["0%", "100%"],
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    repeatDelay: 2.5,
-                  }}
+                  animate={
+                    isHovered
+                      ? { left: ["0%", "100%"], opacity: [0, 1, 0] }
+                      : { left: "0%", opacity: 0 }
+                  }
+                  transition={
+                    isHovered
+                      ? { duration: 2.5, repeat: Infinity, ease: "easeInOut", repeatDelay: 2.5 }
+                      : { duration: 0 }
+                  }
                   className="absolute text-white"
                 >
-                  <ArrowRight
-                    size={24}
-                    strokeWidth={3}
-                    className="drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
-                  />
+                  <ArrowRight size={24} strokeWidth={3} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
                 </motion.div>
               </div>
 
               {/* Box 2: Clear Insight */}
               <motion.div
-                animate={{
-                  borderColor: [
-                    "rgba(168,85,247,0.4)",
-                    "rgba(255,255,255,1)",
-                    "rgba(168,85,247,0.4)",
-                  ],
-                  backgroundColor: [
-                    "rgba(88,28,135,0.4)",
-                    "rgba(217,70,239,0.7)",
-                    "rgba(88,28,135,0.4)",
-                  ],
-                  boxShadow: [
-                    "0 0 0px rgba(168,85,247,0)",
-                    "0 0 60px rgba(217,70,239,0.9)",
-                    "0 0 0px rgba(168,85,247,0)",
-                  ],
-                  scale: [1, 1.15, 1],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  times: [0.4, 0.5, 0.6],
-                }}
+                animate={
+                  desktopActive
+                    ? {
+                        borderColor: ["rgba(168,85,247,0.4)", "rgba(255,255,255,1)", "rgba(168,85,247,0.4)"],
+                        backgroundColor: ["rgba(88,28,135,0.4)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.4)"],
+                        boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 60px rgba(217,70,239,0.9)", "0 0 0px rgba(168,85,247,0)"],
+                        scale: [1, 1.15, 1],
+                      }
+                    : idlePill
+                }
+                transition={
+                  desktopActive
+                    ? { duration: 5, repeat: Infinity, times: [0.4, 0.5, 0.6] }
+                    : idleTransition
+                }
                 className="flex items-center justify-center gap-2 bg-purple-900/40 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/40 backdrop-blur-md hover:border-purple-500/60 transition-all duration-300 w-full sm:w-auto z-10"
               >
                 <BrainCircuit size={16} className="text-purple-300" />
                 <span>Clear Insight</span>
               </motion.div>
 
-              {/* Gap 2: Arrow 2 */}
+              {/* Gap 2 — mobile arrow (scroll-driven, unchanged) */}
               <div className="flex sm:hidden items-center justify-center h-6 relative w-full overflow-hidden">
                 <motion.div
                   style={{ x: mobileSweepX }}
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white"
                 >
-                  <ArrowRight
-                    size={16}
-                    strokeWidth={3}
-                    className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
-                  />
+                  <ArrowRight size={16} strokeWidth={3} className="rotate-90 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
                 </motion.div>
               </div>
+
+              {/* Gap 2 — desktop arrow (hover only) */}
               <div className="hidden sm:flex flex-1 items-center justify-center h-10 relative overflow-visible">
                 <div className="absolute top-1/2 left-0 right-0 h-px bg-white/10 -translate-y-1/2 pointer-events-none z-0" />
                 <motion.div
                   initial={{ left: "-12px", opacity: 0 }}
-                  animate={{
-                    left: ["0%", "100%"],
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    delay: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    repeatDelay: 2.5,
-                  }}
+                  animate={
+                    isHovered
+                      ? { left: ["0%", "100%"], opacity: [0, 1, 0] }
+                      : { left: "0%", opacity: 0 }
+                  }
+                  transition={
+                    isHovered
+                      ? { duration: 2.5, delay: 2.5, repeat: Infinity, ease: "easeInOut", repeatDelay: 2.5 }
+                      : { duration: 0 }
+                  }
                   className="absolute text-white"
                 >
-                  <ArrowRight
-                    size={24}
-                    strokeWidth={3}
-                    className="drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
-                  />
+                  <ArrowRight size={24} strokeWidth={3} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
                 </motion.div>
               </div>
 
               {/* Box 3: Faster Decisions */}
               <motion.div
-                animate={{
-                  borderColor: [
-                    "rgba(168,85,247,0.4)",
-                    "rgba(255,255,255,1)",
-                    "rgba(168,85,247,0.4)",
-                  ],
-                  backgroundColor: [
-                    "rgba(88,28,135,0.4)",
-                    "rgba(217,70,239,0.7)",
-                    "rgba(88,28,135,0.4)",
-                  ],
-                  boxShadow: [
-                    "0 0 0px rgba(168,85,247,0)",
-                    "0 0 60px rgba(217,70,239,0.9)",
-                    "0 0 0px rgba(168,85,247,0)",
-                  ],
-                  scale: [1, 1.15, 1],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  times: [0.8, 0.9, 1],
-                }}
+                animate={
+                  desktopActive
+                    ? {
+                        borderColor: ["rgba(168,85,247,0.4)", "rgba(255,255,255,1)", "rgba(168,85,247,0.4)"],
+                        backgroundColor: ["rgba(88,28,135,0.4)", "rgba(217,70,239,0.7)", "rgba(88,28,135,0.4)"],
+                        boxShadow: ["0 0 0px rgba(168,85,247,0)", "0 0 60px rgba(217,70,239,0.9)", "0 0 0px rgba(168,85,247,0)"],
+                        scale: [1, 1.15, 1],
+                      }
+                    : idlePill
+                }
+                transition={
+                  desktopActive
+                    ? { duration: 5, repeat: Infinity, times: [0.8, 0.9, 1] }
+                    : idleTransition
+                }
                 className="flex items-center justify-center gap-2 bg-purple-900/40 px-4 sm:px-8 py-2 sm:py-4 rounded-full border border-purple-500/40 backdrop-blur-md hover:border-purple-500/60 transition-all duration-300 w-full sm:w-auto z-10"
               >
                 <Rocket size={16} className="text-white" />
                 <span>Faster Decisions</span>
               </motion.div>
+
             </div>
           </Motion.div>
         </div>

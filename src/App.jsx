@@ -1,4 +1,5 @@
 import React, { lazy, Suspense, useEffect, useRef } from "react";
+import { LoadingProvider } from "./context/LoadingContext";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -101,6 +102,7 @@ function App() {
   }, []);
 
   return (
+    <LoadingProvider>
     <div className={`min-h-screen font-sans w-full max-w-full overflow-x-hidden ${isFeatureRoute ? "feature-route-mobile-gap" : ""}`}>
       <ScrollToTop />
       <Navbar />
@@ -178,6 +180,7 @@ function App() {
 
       <Footer />
     </div>
+    </LoadingProvider>
   );
 }
 

@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import loaderLogo from "../assets/Logo(2).png";
+import { useLoading } from "../context/LoadingContext";
 
 const Loader = () => {
+  const { setIsPageLoading } = useLoading();
+
+  useEffect(() => {
+    setIsPageLoading(true);
+    return () => {
+      setIsPageLoading(false);
+    };
+  }, [setIsPageLoading]);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-white px-4">
       <img

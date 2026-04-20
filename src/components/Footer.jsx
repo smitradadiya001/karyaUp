@@ -121,76 +121,30 @@ const Footer = () => {
         aria-hidden="true"
       >
         <div className="flex w-full max-w-[100vw] justify-center px-0 [perspective:min(100vw,600px)] sm:[perspective:min(120vw,1400px)] lg:[perspective:min(140vw,2400px)]">
-          <div className="origin-bottom max-sm:origin-[50%_100%] -translate-y-2 translate-x-0 max-sm:scale-[0.62] sm:origin-[78%_100%] sm:-translate-y-5 sm:translate-x-16 sm:scale-100 md:-translate-y-6 md:translate-x-[4.5rem] lg:-translate-y-8 lg:translate-x-24">
-            <div className="flex max-w-full origin-bottom max-sm:origin-[50%_100%] items-end justify-center gap-0 [transform:translate(0,4%)_scale(0.9)_rotateY(4deg)_skewY(-0.5deg)] [transform-style:preserve-3d] sm:origin-bottom sm:gap-px sm:[transform:translate(0,24%)_scale(1)_rotateY(12deg)_skewY(-2deg)] md:[transform:translate(0,28%)_scale(1.04)_rotateY(12deg)_skewY(-2deg)] lg:[transform:translate(0,32%)_scale(1.08)_rotateY(12deg)_skewY(-2deg)]">
-              <span
-                className="inline-block font-medium !font-['Anton',Impact,sans-serif] uppercase leading-none tracking-[-0.05em] antialiased text-slate-900/[0.04]"
+          <div className="origin-bottom max-sm:origin-[50%_100%] translate-x-0 sm:translate-x-16 sm:scale-100 md:translate-x-[4.5rem] lg:translate-x-24">
+            <div className="flex max-w-full origin-bottom max-sm:origin-[50%_100%] items-end justify-center gap-0 [transform:translate(0,35%)_scale(0.9)_rotateY(4deg)_skewY(-0.5deg)] [transform-style:preserve-3d] sm:origin-bottom sm:gap-px sm:[transform:translate(0,40%)_scale(1)_rotateY(12deg)_skewY(-2deg)] md:[transform:translate(0,45%)_scale(1.04)_rotateY(12deg)_skewY(-2deg)] lg:[transform:translate(0,50%)_scale(1.08)_rotateY(12deg)_skewY(-2deg)]">
+              <img
+                src={watermark}
+                alt="KaryaUp Watermark"
+                loading="lazy"
+                className="inline-block h-auto w-auto max-w-full antialiased grayscale brightness-[0.3] opacity-[0.14]"
                 style={{
-                  fontSize: "clamp(8.8rem, 19.4vw, 11.6rem)",
-                  transform: "translateZ(0px)",
+                  maxHeight: "clamp(40rem, 80vw, 56rem)",
+                  transform: "translateZ(100px)",
                 }}
-              >
-                K
-              </span>
-              <span
-                className="inline-block font-medium !font-['Anton',Impact,sans-serif] uppercase leading-none tracking-[-0.05em] antialiased text-slate-900/[0.04]"
-                style={{
-                  fontSize: "clamp(9.8rem, 21.56vw, 12.83rem)",
-                  transform: "translateZ(48px)",
-                }}
-              >
-                A
-              </span>
-              <span
-                className="inline-block font-medium !font-['Anton',Impact,sans-serif] uppercase leading-none tracking-[-0.05em] antialiased text-slate-900/[0.04]"
-                style={{
-                  fontSize: "clamp(10.8rem, 23.73vw, 14.06rem)",
-                  transform: "translateZ(96px)",
-                }}
-              >
-                R
-              </span>
-              <span
-                className="inline-block font-medium !font-['Anton',Impact,sans-serif] uppercase leading-none tracking-[-0.05em] antialiased text-slate-900/[0.04]"
-                style={{
-                  fontSize: "clamp(11.8rem, 25.9vw, 15.3rem)",
-                  transform: "translateZ(144px)",
-                }}
-              >
-                Y
-              </span>
-              <span
-                className="inline-block font-medium !font-['Anton',Impact,sans-serif] uppercase leading-none tracking-[-0.05em] antialiased text-slate-900/[0.04]"
-                style={{
-                  fontSize: "clamp(12.8rem, 28.06vw, 16.53rem)",
-                  transform: "translateZ(192px)",
-                }}
-              >
-                A
-              </span>
-              <span
-                className="inline-block font-medium !font-['Anton',Impact,sans-serif] uppercase leading-none tracking-[-0.05em] antialiased text-slate-900/[0.04]"
-                style={{
-                  fontSize: "clamp(13.8rem, 30.23vw, 17.76rem)",
-                  transform: "translateZ(240px)",
-                }}
-              >
-                U
-              </span>
-              <span
-                className="inline-block font-medium !font-['Anton',Impact,sans-serif] uppercase leading-none tracking-[-0.05em] antialiased text-slate-900/[0.04]"
-                style={{
-                  fontSize: "clamp(14.8rem, 32.4vw, 19rem)",
-                  transform: "translateZ(288px)",
-                }}
-              >
-                P
-              </span>
+              />
             </div>
           </div>
         </div>
       </div>
 
+      
+
+       
+
+
+
+{/* --------------------------------------------------------------------------- */}
       <div className="relative z-[2] mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
           {/* LEFT: Branding & Socials */}
