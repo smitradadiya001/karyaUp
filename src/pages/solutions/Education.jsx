@@ -262,7 +262,7 @@ export default function Education() {
     { title: "Real-time resource analytics", tag: "Scale" },
   ];
 
-  const workflowFeatures = [
+  const features = [
     {
       title: "Intelligent Task Routing",
       desc: "Automatically assign tasks to the right team members based on capacity and skill sets.",
@@ -359,16 +359,17 @@ export default function Education() {
       </section>
 
       {/* ================= EDUCATION WORKFLOW SECTION ================= */}
-      <section className="w-full py-7 pb-15 relative overflow-hidden bg-white">
-        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-white rounded-full blur-[120px] opacity-40 animate-pulse" />
-        <div className="absolute bottom-1/4 -right-20 w-80 h-80 opacity-40 animate-pulse" />
+      <section className="py-6 px-6 pb-7 bg-white relative overflow-hidden border-t border-slate-200">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-white" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-full bg-white" />
 
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="text-center mb-16 max-w-3xl mx-auto">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 relative z-10">
             <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-3"
+              initial={{ opacity: 0, y: 40, x: -10 }}
+              animate={{ opacity: 1, y: 0, x: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
+              className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-1 drop-shadow-sm"
             >
               Supercharge your <br />
               <motion.span
@@ -379,10 +380,9 @@ export default function Education() {
                 Daily Workflows
               </motion.span>
             </motion.h1>
-
             <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               className="text-lg text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed"
             >
@@ -390,7 +390,7 @@ export default function Education() {
             </motion.p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 xl:gap-15 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -407,13 +407,12 @@ export default function Education() {
             </motion.div>
 
             <div className="flex flex-col">
-              {workflowFeatures.map((item, i) => {
+              {features.map((item, i) => {
                 const isActive = activeFeature === i;
                 const activeColor = i === 1 ? "#d946ef" : "#7c3aed";
                 return (
                 <div key={i} className="flex items-stretch gap-5">
 
-                  {/* Left column: number circle + connecting line */}
                   <div className="flex flex-col items-center flex-shrink-0">
                     <motion.div
                       animate={
@@ -427,8 +426,7 @@ export default function Education() {
                       {i + 1}
                     </motion.div>
 
-                    {/* Connecting line — hidden after last item */}
-                    {i < workflowFeatures.length - 1 && (
+                    {i < features.length - 1 && (
                       <motion.div
                         animate={
                           isActive
@@ -441,7 +439,6 @@ export default function Education() {
                     )}
                   </div>
 
-                  {/* Right column: feature card */}
                   <motion.div
                     onMouseEnter={() => setActiveFeature(i)}
                     onMouseLeave={() => setActiveFeature(null)}
@@ -467,14 +464,13 @@ export default function Education() {
                       )}
                     </AnimatePresence>
                   </motion.div>
-
                 </div>
               )})}
             </div>
-
           </div>
         </div>
       </section>
+
 
       <section className="w-full py-5 relative overflow-hidden bg-white">
         {/* Animated Background Glows for Glass Effect */}

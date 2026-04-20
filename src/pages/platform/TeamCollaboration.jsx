@@ -2,7 +2,15 @@ import { Helmet } from "react-helmet-async";
 import { useRef, useEffect, useState, useMemo, isStackOpen } from "react";
 import { motion, AnimatePresence, useMotionValue, useAnimationFrame } from "framer-motion";
 import {
-  Check, BrainCircuit, Zap, Search, ShieldCheck, X, MessagesSquare, Eye
+  Check,
+  Zap,
+  Search,
+  ShieldCheck,
+  X,
+  Sparkles,
+  Globe2,
+  Layers,
+  ArrowUpRight,
 } from "lucide-react";
 import FeatureCTA from "../../components/FeatureCTA";
 import FeatureStack from "../../components/FeatureStack";
@@ -466,6 +474,20 @@ export default function TeamCollaboration() {
     },
   ];
 
+  const features = [
+    {
+      title: "Intelligent Task Routing",
+      desc: "Automatically assign tasks to the right team members based on capacity and skill sets.",
+    },
+    {
+      title: "Real-time Collaboration",
+      desc: "Comment, tag, and securely share files within each task layer for instant approvals.",
+    },
+    {
+      title: "Visual Progress Tracking",
+      desc: "Customizable boards and instant metric dashboards keep your delivery on speed.",
+    },
+  ];
 
   const DEFAULT_ICON_MAP = {
     "INSTANT CHAT": { icon: Zap, color: "#4c1d95" },
@@ -707,7 +729,7 @@ export default function TeamCollaboration() {
       </section>
 
       {/* INTEGRATION GRID */}
-      <section className="bg-white text-center overflow-hidden py-14 sm:py-20 px-4 sm:px-6 lg:px-14">
+      <section className="bg-white text-center overflow-hidden py-10 sm:py-10 px-4 sm:px-6 lg:px-14">
       <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -740,6 +762,118 @@ export default function TeamCollaboration() {
               delay={i * 0.06}
             />
           ))}
+        </div>
+      </section>
+
+      <section className="py-3 px-6 pb-3 bg-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-white" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-full bg-white" />
+
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 relative z-10">
+            <motion.h1
+              initial={{ opacity: 0, y: 40, x: -10 }}
+              animate={{ opacity: 1, y: 0, x: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 100, delay: 0.1 }}
+              className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-1 drop-shadow-sm"
+            >
+              Supercharge your <br />
+              <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+                animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                Daily Workflows
+              </motion.span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-lg text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed"
+            >
+              Centralize communication, assign dynamic tasks, and execute flawlessly with enterprise grade AI execution.
+            </motion.p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 xl:gap-15 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative group"
+            >
+              <div className="relative rounded-[2.5rem] p-2 bg-gradient-to-br from-purple-500/10 to-fuchsia-500/10 border border-slate-100 shadow-2xl">
+                <img
+                  src={dashboardImage}
+                  alt="Workspace Preview"
+                  className="relative z-10 w-full h-auto rounded-[2rem] border border-white/50 shadow-sm transition-transform duration-500 group-hover:scale-[1.01]"
+                />
+              </div>
+            </motion.div>
+
+            <div className="flex flex-col">
+              {features.map((item, i) => {
+                const isActive = activeFeature === i;
+                const activeColor = i === 1 ? "#d946ef" : "#7c3aed";
+                return (
+                <div key={i} className="flex items-stretch gap-5">
+
+                  <div className="flex flex-col items-center flex-shrink-0">
+                    <motion.div
+                      animate={
+                        isActive
+                          ? { backgroundColor: activeColor, color: "#ffffff", scale: 1.1 }
+                          : { backgroundColor: "#f3f4f6", color: "#9ca3af", scale: 1 }
+                      }
+                      transition={{ duration: 0.3 }}
+                      className="w-11 h-11 rounded-full flex items-center justify-center text-base font-bold shrink-0 z-10"
+                    >
+                      {i + 1}
+                    </motion.div>
+
+                    {i < features.length - 1 && (
+                      <motion.div
+                        animate={
+                          isActive
+                            ? { backgroundColor: activeColor, opacity: 0.35 }
+                            : { backgroundColor: "#e5e7eb", opacity: 1 }
+                        }
+                        transition={{ duration: 0.3 }}
+                        className="w-0.5 flex-1 my-1 min-h-8"
+                      />
+                    )}
+                  </div>
+
+                  <motion.div
+                    onMouseEnter={() => setActiveFeature(i)}
+                    onMouseLeave={() => setActiveFeature(null)}
+                    onTouchStart={() => setActiveFeature(i)}
+                    className={`relative p-6 rounded-[2rem] cursor-pointer transition-all duration-500 border flex-1 mb-4 ${isActive
+                      ? "bg-white border-slate-200 shadow-xl shadow-purple-500/5 translate-x-2"
+                      : "bg-transparent border-transparent opacity-60 hover:opacity-100"
+                      }`}
+                  >
+                    <h3 className="text-xl font-bold text-slate-900 leading-none">
+                      {item.title}
+                    </h3>
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.p
+                          initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                          animate={{ height: "auto", opacity: 1, marginTop: 8 }}
+                          exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                          className="text-slate-500 font-medium text-sm leading-relaxed overflow-hidden"
+                        >
+                          {item.desc}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                </div>
+              )})}
+            </div>
+          </div>
         </div>
       </section>
 

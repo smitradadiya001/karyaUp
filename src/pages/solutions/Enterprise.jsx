@@ -171,7 +171,7 @@ export default function Enterprise() {
                 ]}
               />
             </div>
-            <div className="pt-6 relative w-full max-w-[540px] mx-auto lg:max-w-none overflow-hidden rounded-[10px]">
+            <div className="pt-6 relative w-full lg:max-w-none overflow-hidden rounded-[10px] lg:ml-[-10px]">
               <img
                 src={dashboardImage}
                 alt="Dashboard"
@@ -200,10 +200,10 @@ export default function Enterprise() {
                 animate={{ backgroundPosition: ["0% center", "-200% center"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               >
-               Reliability & Scale
+                Reliability & Scale
               </motion.span>
             </span>
-          </motion.h1>   
+          </motion.h1>
           <p className="text-sm text-gray-600 max-w-2xl mx-auto">
             KaryaUp is trusted by global enterprises to deliver secure,
             and integrated solutions that empower teams.

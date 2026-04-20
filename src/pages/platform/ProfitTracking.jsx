@@ -452,25 +452,25 @@ export default function ProfitTracking() {
   const aiFeatures = [
     {
       title: "Live Margin Tracking",
-      desc: "Instantly visualize the profitability of every active sprint with real-time labor and resource cost offsets.",
+      desc: "Instantly visualize the profitability of every active sprint with real time resource cost offsets.",
       icon: <TrendingUp className="w-6 h-6" />,
       color: "purple"
     },
     {
       title: "Burn Rate Alerts",
-      desc: "Get autonomous notifications before a project exceeds its budget based on current velocity and spend.",
+      desc: "Get autonomous notifications before a project exceeds its budget based on current velocity.",
       icon: <AlertCircle className="w-6 h-6" />,
       color: "fuchsia"
     },
     {
       title: "Revenue Projection",
-      desc: "Use AI to simulate future revenue based on your current pipeline and historical resource win rates.",
+      desc: "Use AI to simulate future revenue based on your current historical resource win rates.",
       icon: <BarChart3 className="w-6 h-6" />,
       color: "purple"
     },
     {
       title: "Automated Auditing",
-      desc: "Automatically categorize project-related expenses and overheads using high-precision NLP scanning.",
+      desc: "Automatically categorize project related expenses using high precision scanning.",
       icon: <ReceiptIndianRupee className="w-6 h-6" />, // Or just 'Receipt'
       color: "fuchsia"
     }

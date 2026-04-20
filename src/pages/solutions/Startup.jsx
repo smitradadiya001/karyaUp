@@ -175,122 +175,121 @@ export default function Startup() {
         </div>
       </section>
 
-      {/* ================= ROADMAP SECTION ================= */}
-      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 bg-white border-b border-slate-200">
-        <div className="max-w-[90rem] mx-auto flex flex-col-reverse lg:flex-row items-stretch">
+      <section className="group/roadmap relative w-full bg-white border-b border-slate-200 overflow-hidden">
+  
+  {/* --- SECTION 1: MAIN WRAPPER --- */}
+  <div className="max-w-[140rem] mx-auto flex flex-col lg:flex-row items-stretch">
+    
+    {/* LEFT PART: TEXT CONTENT (Right & Bottom lines on hover) */}
+    <div className="group/text-box w-full lg:w-[47%] p-10 md:p-16 lg:p-24 flex flex-col justify-center border-r border-slate-200 relative">
+      
+      {/* RIGHT SIDE VERTICAL LINE - Grows Top to Bottom */}
+      <div className="absolute top-0 right-0 w-[1px] h-0 bg-[#7e22ce] z-20 transition-all duration-500 ease-in-out group-hover/text-box:h-full hidden lg:block" />
+      
+      {/* BOTTOM HORIZONTAL LINE - Grows Left to Right */}
+      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#7e22ce] z-20 transition-all duration-700 ease-in-out group-hover/text-box:w-full hidden lg:block" />
 
-          {/* Left: Text Container */}
-          <div className="w-full lg:w-[45%] p-10 md:p-10 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-slate-200">
-            <div>
+      <motion.h1
+        initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+        className="text-[3.25rem] md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1"
+      >
+        Connect Your
+        <span className="block">
+          <motion.span
+            className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+            animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          >
+            Roadmap for Daily work
+          </motion.span>
+        </span>
+      </motion.h1>
+      <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
+        Manage everything from product roadmaps to sales pipelines in a single place.
+      </p>
+    </div>
 
+    {/* RIGHT PART: IMAGE BOX (Left & Bottom lines on hover) */}
+    <div className="group/image-box w-full lg:w-[52%] p-8 bg-[#fafbfc] flex items-center justify-center relative overflow-hidden">
+      
+      {/* LEFT SIDE VERTICAL LINE - Grows Top to Bottom */}
+      <div className="absolute top-0 left-0 w-[1px] h-0 bg-[#7e22ce] z-20 transition-all duration-500 ease-in-out group-hover/image-box:h-full" />
 
-              <motion.h1
-                initial={{ opacity: 0, y: 40, x: -10 }}
-                animate={{ opacity: 1, y: 0, x: 0 }}
-                transition={{
-                  type: "spring",
-                  damping: 25,
-                  stiffness: 100,
-                  delay: 0.1
-                }}
-                className="text-4xl sm:text-4xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-2 drop-shadow-sm"
-              >
-                Connect Your  <br />
-                <motion.span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                >
-                  Roadmap for daily work
-                </motion.span>
-              </motion.h1>
-            </div>
-            <p className="text-lg text-slate-600 leading-relaxed mb-4 max-w-xl">
-              Manage everything from product roadmaps to sales pipelines in a single place with 10+ customizable views.
-            </p>
-            <div>
+      {/* BOTTOM HORIZONTAL LINE - Grows Left to Right */}
+      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#7e22ce] z-20 transition-all duration-700 ease-in-out group-hover/image-box:w-full" />
 
-            </div>
+      {/* THE IMAGE */}
+      <motion.img
+        whileHover={{ scale: 1.02 }}
+        src={planImage}
+        alt="Roadmap"
+        className="rounded-2xl shadow-xl relative z-10 transition-transform duration-500"
+      />
 
-          </div>
+      {/* Subtle purple glow effect */}
+      <div className="absolute inset-0 bg-[#7e22ce]/0 group-hover/image-box:bg-[#7e22ce]/5 transition-colors duration-500 pointer-events-none" />
+    </div>
 
-          {/* Right: Image Container */}
-          <div className="w-full lg:w-[55%] p-8 md:p-14 border-b lg:border-b-0 border-slate-200 flex items-center justify-center bg-[#fafbfc]">
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-              className="relative w-full shadow-[0_15px_40px_rgba(0,0,0,0.06)] rounded-2xl overflow-hidden border border-slate-100 bg-white group hover:scale-[1.02] transition-transform duration-500"
+  </div>
+</section>
+
+      {/* ================= SECTION 2: SCALE ================= */}
+      <section className="group/scale relative w-full bg-white border-b border-slate-200 overflow-hidden">
+  <div className="max-w-[140rem] mx-auto flex flex-col lg:flex-row items-stretch">
+    
+    {/* --- LEFT PART: IMAGE SIDE (Right & Bottom lines on hover) --- */}
+    <div className="group/scale-image w-full lg:w-[47%] p-8 border-r border-slate-200 bg-slate-50/30 flex items-center justify-center relative overflow-hidden">
+      
+      {/* RIGHT SIDE VERTICAL LINE - Grows Top to Bottom */}
+      <div className="absolute top-0 right-0 w-[1px] h-0 bg-[#7e22ce] z-20 transition-all duration-500 ease-in-out group-hover/scale-image:h-full hidden lg:block" />
+      
+      {/* BOTTOM HORIZONTAL LINE - Grows Left to Right */}
+      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#7e22ce] z-20 transition-all duration-700 ease-in-out group-hover/scale-image:w-full" />
+
+      <img src={dashboardImage} alt="Scale" className="rounded-2xl shadow-xl relative z-10 transition-transform duration-500 group-hover/scale-image:scale-[1.01]" />
+    </div>
+
+    {/* --- RIGHT PART: TEXT SIDE (Left & Bottom lines on hover) --- */}
+    <div className="group/scale-text relative w-full lg:w-[53%] p-10 md:p-16 lg:p-24 flex flex-col justify-center bg-white overflow-hidden">
+
+      {/* LEFT SIDE VERTICAL LINE - Grows Top to Bottom */}
+      <div className="absolute top-0 left-0 w-[1px] h-0 bg-[#7e22ce] z-20 transition-all duration-500 ease-in-out group-hover/scale-text:h-full" />
+      
+      {/* BOTTOM HORIZONTAL LINE - Grows Left to Right */}
+      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#7e22ce] z-20 transition-all duration-700 ease-in-out group-hover/scale-text:w-full" />
+      
+      <div className="relative z-10">
+        <motion.h1
+          initial={{ opacity: 0, y: isMobile ? 0 : 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+          className="text-[3.25rem] md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-tight mb-1"
+        >
+          Scale from
+          <span className="block">
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
+              animate={{ backgroundPosition: ["0% center", "-200% center"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
-              <img src={planImage} alt="KaryaUp Project Roadmap" className="w-full h-auto object-cover" />
-            </motion.div>
-          </div>
+              Startup to Unicorn
+            </motion.span>
+          </span>
+        </motion.h1>
+        
+        <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
+          Build the perfect organization that grows with your startup.
+        </p>
+      </div>
+    </div>
 
-        </div>
-      </section>
-
-      {/* ================= SCALE SECTION ================= */}
-      <section className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 bg-white border-b border-slate-200">
-        <div className="max-w-[90rem] mx-auto flex flex-col lg:flex-row items-stretch">
-
-          {/* Left: Image Container */}
-          <div className="w-full lg:w-[55%] p-8 md:p-14 lg:p-20 border-b lg:border-b-0 lg:border-r border-slate-200 flex items-center justify-center bg-slate-50/30">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-              className="relative w-full rounded-2xl"
-            >
-              <div className="w-full shadow-2xl rounded-2xl overflow-hidden border border-slate-200 bg-white group hover:scale-[1.02] transition-transform duration-500">
-                <img src={dashboardImage} alt="KaryaUp Project Scale Layout" className="w-full h-auto object-cover opacity-90" />
-              </div>
-
-
-            </motion.div>
-          </div>
-
-          {/* Right: Text Container */}
-          <div className="w-full lg:w-[67%] p-10 md:p-16 lg:p-24 flex flex-col justify-center">
-
-            <div>
-
-
-              <motion.h1
-                initial={{ opacity: 0, y: 40, x: -10 }}
-                animate={{ opacity: 1, y: 0, x: 0 }}
-                transition={{
-                  type: "spring",
-                  damping: 25,
-                  stiffness: 100,
-                  delay: 0.1
-                }}
-                className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-3 drop-shadow-sm"
-              >
-                Scale from <br />
-                <motion.span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-fuchsia-500 to-[#7e22ce] bg-[length:200%_auto]"
-                  animate={{ backgroundPosition: ["0% center", "-200% center"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                >
-                  Startup to Unicorn
-                </motion.span>
-              </motion.h1>
-            </div>
-            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
-              Build the perfect organization that grows with your startup. KaryaUp's Hierarchy makes it easy to expand your team.
-            </p>
-            <div>
-
-            </div>
-          </div>
-        </div>
-      </section>
+  </div>
+</section>
 
       {/* ================= STARTUP GROWTH JOURNEY SECTION ================= */}
-      {/* ================= STARTUP GROWTH JOURNEY SECTION ================= */}
-      <section className="w-full py-5 lg:px-5 bg-white">
+      <section className="w-full py-5 lg:px-18 bg-white">
         <div className="max-w-9xl mx-auto text-center mb-16">
           <motion.h1
             initial={{ opacity: 0, y: 40, x: -10 }}
