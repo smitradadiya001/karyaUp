@@ -55,7 +55,7 @@ const socialLinks = [
   },
   {
     label: "Facebook",
-    href: "#",
+    href: "https://www.facebook.com/profile.php?id=61567610617048",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -137,13 +137,13 @@ const Footer = () => {
         </div>
       </div>
 
-      
-
-       
 
 
 
-{/* --------------------------------------------------------------------------- */}
+
+
+
+      {/* --------------------------------------------------------------------------- */}
       <div className="relative z-[2] mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
           {/* LEFT: Branding & Socials */}

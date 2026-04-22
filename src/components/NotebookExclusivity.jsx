@@ -217,13 +217,12 @@ export default function NotebookExclusivity() {
             <span className="text-xs font-semibold tracking-[0.2em] bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent">
               {current.left.eyebrow}
             </span>
-            <h2 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight text-slate-900 leading-[1.05]">
+            <h2 className="mt-4 text-3xl md:text-[42px] font-bold tracking-tight text-slate-900 leading-[1.05]">
               {current.left.title.split(current.left.highlight).map((part, i, arr) => (
                 <span key={i}>
                   {part}
                   {i < arr.length - 1 && (
                     <>
-                      {current.left.highlight === "100" && <br className="hidden md:block" />}
                       <span className="bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent tabular-nums">
                         {current.left.highlight === "100" ? count : current.left.highlight}
                       </span>
@@ -356,13 +355,12 @@ export default function NotebookExclusivity() {
                       // Flipping left to right: show current left side content
                       <>
                         <span className="text-xs font-semibold tracking-[0.2em] bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent uppercase">{current.left.eyebrow}</span>
-                        <h2 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight text-slate-900 leading-[1.05]">
+                        <h2 className="mt-4 text-3xl md:text-[42px] font-bold tracking-tight text-slate-900 leading-[1.05]">
                           {current.left.title.split(current.left.highlight).map((part, i, arr) => (
                             <span key={i}>
                               {part}
                               {i < arr.length - 1 && (
                                 <>
-                                  {current.left.highlight === "100" && <br className="hidden md:block" />}
                                   <span className="bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent tabular-nums">
                                     {current.left.highlight === "100" ? count : current.left.highlight}
                                   </span>
@@ -423,13 +421,12 @@ export default function NotebookExclusivity() {
                       // Previous page left side content
                       <>
                         <span className="text-xs font-semibold tracking-[0.2em] bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent uppercase">{nextPage.left.eyebrow}</span>
-                        <h2 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight text-slate-900 leading-[1.05]">
+                        <h2 className="mt-4 text-3xl md:text-[42px] font-bold tracking-tight text-slate-900 leading-[1.05]">
                           {nextPage.left.title.split(nextPage.left.highlight).map((part, i, arr) => (
                             <span key={i}>
                               {part}
                               {i < arr.length - 1 && (
                                 <>
-                                  {nextPage.left.highlight === "100" && <br className="hidden md:block" />}
                                   <span className="bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent tabular-nums">
                                     {nextPage.left.highlight === "100" ? (page === 0 ? count : 100) : nextPage.left.highlight}
                                   </span>

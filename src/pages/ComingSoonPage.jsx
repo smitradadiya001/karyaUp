@@ -6,9 +6,9 @@ import logo from "../assets/Logo(2).png";
 import { Countdown } from "../components/Countdown";
 import { ApplicationForm } from "../components/ApplicationForm";
 import ComingSoon from "../components/ComingSoon";
-import InteractiveRays from "../components/InteractiveRays";
 import { XCircle, Layers, EyeOff, Shuffle, ArrowRight, Sparkles } from "lucide-react";
-import logo2 from "../assets/Logo(2).png";
+
+import logo2 from "../assets/Logo.webp";
 import osImage from "../assets/os.webp";
 import slackIcon from "../assets/slack.svg";
 import clickupIcon from "../assets/ClickUp.webp";
@@ -108,7 +108,7 @@ function SpotlightHero() {
         >
           <div 
             style={{
-              background: 'linear-gradient(to bottom, rgba(253, 224, 71, 0.5), transparent)',
+              background: 'linear-gradient(to bottom, rgba(168, 85, 247, 0.2), transparent)',
               clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
               filter: 'blur(70px)',
             }}
@@ -117,7 +117,7 @@ function SpotlightHero() {
         </motion.div>
         
         {/* Top intensity glow source */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-12 bg-yellow-200/40 blur-3xl rounded-full" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-12 bg-purple-100/30 blur-3xl rounded-full" />
       </div>
 
       {/* Subtle Interactive Gray Spotlight Effect (Mouse Glow) */}
@@ -125,20 +125,20 @@ function SpotlightHero() {
         className="pointer-events-none absolute inset-0 z-1"
         animate={{
           background: isHovering
-            ? `radial-gradient(350px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(15,23,42,0.03), transparent 70%)`
-            : 'radial-gradient(350px circle at 50% 40%, rgba(15,23,42,0.01), transparent 70%)',
+            ? `radial-gradient(350px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(126,34,206,0.04), transparent 70%)`
+            : 'radial-gradient(350px circle at 50% 40%, rgba(126,34,206,0.02), transparent 70%)',
         }}
         transition={{ duration: 0.1, ease: 'linear' }}
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-20 text-center">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-20 text-center pointer-events-none">
         {/* Countdown Badge */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mx-auto mb-10 w-fit"
+          className="mx-auto mb-10 w-fit pointer-events-auto"
         >
           <div className="backdrop-blur-sm bg-slate-50/50 border border-slate-200 px-5 py-2 rounded-full shadow-sm text-slate-900">
             <Countdown />
@@ -146,7 +146,7 @@ function SpotlightHero() {
         </motion.div>
 
         {/* Main Headline - Fixed clipping with pb-2 */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center pointer-events-auto">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -175,7 +175,7 @@ function SpotlightHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          className="mx-auto mt-10 max-w-2xl text-base font-medium leading-relaxed text-slate-500 sm:text-lg"
+          className="mx-auto mt-10 max-w-2xl text-base font-medium leading-relaxed text-slate-500 sm:text-lg pointer-events-auto"
         >
           KaryaUp is opening access to only 100 companies before public launch.
         </motion.p>
@@ -185,7 +185,7 @@ function SpotlightHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-12 flex flex-col items-center gap-6"
+          className="mt-12 flex flex-col items-center gap-6 pointer-events-auto"
         >
           <a
             href="#apply"
@@ -710,7 +710,6 @@ function ShiftCard() {
       {/* RIGHT — OS IMAGE */}
       <div className="relative z-10 mt-12 md:mt-0 flex items-center justify-center">
         <div className="relative group/img">
-          <div className="absolute -inset-4 z-20 pointer-events-none rounded-3xl bg-[radial-gradient(circle,transparent_50%,#0a0a0f_100%)] opacity-90" />
           
           <motion.img
             src={osImage}
@@ -718,7 +717,9 @@ function ShiftCard() {
             className="relative z-10 w-full max-w-[450px] rounded-3xl object-cover transition-all duration-1000 group-hover/img:brightness-125"
             style={{
               mixBlendMode: "screen",
-              filter: "contrast(1.4) brightness(1.1) saturate(1.1)",
+              filter: "contrast(1.6) brightness(1.2) saturate(1.2)",
+              WebkitMaskImage: "radial-gradient(circle at center, black 40%, transparent 95%)",
+              maskImage: "radial-gradient(circle at center, black 40%, transparent 95%)",
             }}
             whileHover={{ scale: 1.02, rotate: 1 }}
           />
@@ -729,6 +730,77 @@ function ShiftCard() {
     </div>
   );
 }
+
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/karyaup/",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
+      </svg>
+    ),
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61567610617048",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/karyaup_?igsh=cHczemR2dmRxdWhx",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        viewBox="0 0 24 24"
+      >
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      </svg>
+    ),
+  },
+  {
+    label: "X",
+    href: "#",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="15"
+        height="15"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
+];
 
 export default function ComingSoonPage() {
   return (
@@ -871,10 +943,26 @@ export default function ComingSoonPage() {
 
         {/* Footer */}
         <footer className="relative z-10 mx-auto max-w-7xl px-6 py-10">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row border-t border-slate-100 pt-8">
-            <img src={logo} alt="KaryaUp" className="h-8 w-auto" />
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row border-t border-slate-100 pt-8">
+            <img src={logo2} alt="KaryaUp" className="h-8 w-auto" />
+            
+            <div className="flex items-center gap-3">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-all hover:bg-purple-100 hover:text-purple-600"
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
+            
             <p className="text-xs font-medium text-slate-400">
-              © {new Date().getFullYear()} KaryaUp · Stay in the loop — follow us on social media.
+              © {new Date().getFullYear()} KaryaUp
             </p>
           </div>
         </footer>

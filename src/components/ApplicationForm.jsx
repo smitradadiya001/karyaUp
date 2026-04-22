@@ -71,11 +71,8 @@ export function ApplicationForm() {
       role: fd.get("role"),
     };
 
-    console.log("Submitting Data:", data);
-
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
-      console.warn("Validation Errors:", parsed.error.flatten().fieldErrors);
       const fieldErrors = {};
       parsed.error.issues.forEach((err) => {
         fieldErrors[err.path[0]] = err.message;
@@ -89,23 +86,18 @@ export function ApplicationForm() {
     setStatus("");
 
     try {
-     const templateParams = {
-  fullname: data.fullname,
-  workmail: data.workmail,
-  company_name: data.company_name,
-  company_type: data.company_type,
-  team_size: data.team_size,
-
-  // ✅ FIXED NAMES
-  challenge: data.challenge,
-  stack: data.stack.join(", "),
-
-  reason: data.reason,
-  onboarding: data.onboarding,
-  role: data.role,
-};
-
-      console.log("🚀 SENDING TO EMAILJS:", templateParams);
+      const templateParams = {
+        fullname: data.fullname,
+        workmail: data.workmail,
+        company_name: data.company_name,
+        company_type: data.company_type,
+        team_size: data.team_size,
+        challenge: data.challenge,
+        stack: data.stack.join(", "),
+        reason: data.reason,
+        onboarding: data.onboarding,
+        role: data.role,
+      };
 
       const serviceID = import.meta.env.VITE_EMAILJS_APPLICATION_SERVICE_ID;
       const templateID = import.meta.env.VITE_EMAILJS_APPLICATION_TEMPLATE_ID;
@@ -116,6 +108,7 @@ export function ApplicationForm() {
       setStatus("success");
       e.target.reset();
       setSelectedTools([]);
+      setCompanyType("");
     } catch (err) {
       console.error("EMAILJS ERROR:", err);
       setStatus("error");
@@ -125,198 +118,246 @@ export function ApplicationForm() {
   }
 
   const inputCls =
-    "w-full rounded-[0.95rem] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-[#7e22ce] focus:ring-4 focus:ring-purple-100 placeholder:text-slate-400";
+    "w-full rounded-[2px] border-2 border-[#e5e3df] bg-[#fafaf9] px-[16px] py-[12px] text-[15px] text-[#192e44] outline-none transition-all duration-300 focus:border-[#7e22ce] focus:bg-white focus:shadow-[0_0_0_4px_rgba(126,34,206,0.08),0_4px_16px_rgba(25,46,68,0.06)] placeholder:text-[#9ca3af] font-sans";
   
   const labelCls =
-    "mb-2 block text-sm font-bold text-slate-900 sm:text-[0.95rem]";
+    "mb-[8px] block text-[12px] font-bold uppercase tracking-[0.5px] text-[#192e44] font-sans";
 
-  const sectionHeadCls = 
-    "mt-10 mb-6 flex items-center gap-4 text-xs font-black uppercase tracking-[0.2em] text-[#7e22ce] border-b border-slate-200 pb-2 first:mt-0";
-
-  const errorCls = "mt-1.5 text-xs font-semibold text-rose-500";
+  const errorCls = "mt-1.5 text-xs font-semibold text-[#7e22ce]";
 
   return (
-    <div className="relative">
-      <form
-        onSubmit={onSubmit}
-        className="w-full mx-auto rounded-[1.6rem] border border-white/80 bg-[#f7f7f9] p-6 shadow-[0_20px_48px_-28px_rgba(15,23,42,0.18)] sm:p-12"
-      >
-        <div className="grid gap-6 sm:grid-cols-2">
-          {/* ESSENTIALS */}
-          <div className="sm:col-span-2">
-            <label className={labelCls}>Full Name</label>
-            <input name="fullname" placeholder="Enter your full name" className={inputCls} />
-            {errors.fullname && <p className={errorCls}>{errors.fullname}</p>}
+    <div className="mx-auto max-w-[720px] w-full overflow-hidden rounded-[2px] border-t-[4px] border-[#7e22ce] bg-white shadow-[0_20px_80px_rgba(25,46,68,0.08),0_2px_8px_rgba(25,46,68,0.04)]">
+      {/* Form Header */}
+      <div className="border-b border-[#e5e3df] bg-gradient-to-b from-[#fafaf9] to-white px-6 py-6 sm:px-12 text-center">
+        <div className="mb-3 flex flex-col items-center gap-2">
+          <div className="text-[12px] font-normal uppercase tracking-[2px] text-[#7e22ce] font-serif">
+            KaryaUp · Exclusive Access
           </div>
+        </div>
+        <h1 className="mb-1 text-[26px] sm:text-[30px] font-normal leading-tight tracking-[-0.3px] text-[#192e44] font-serif">
+          Request Early Access
+        </h1>
+        <p className="mx-auto max-w-md text-xs sm:text-sm leading-relaxed text-[#5a6672] font-sans">
+          Apply for one of the strictly limited 100 spots in our early adopter community.
+        </p>
+      </div>
 
-          <div>
-            <label className={labelCls}>Work Email</label>
-            <input name="workmail" type="email" placeholder="name@company.com" className={inputCls} />
-            {errors.workmail && <p className={errorCls}>{errors.workmail}</p>}
-          </div>
+      <form onSubmit={onSubmit} className="px-6 py-8 sm:px-12">
+        <div className="space-y-5">
+          {/* SECTION: Essentials */}
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div className="sm:col-span-2">
+              <label className={labelCls}>Full Name <span className="text-[#7e22ce]">*</span></label>
+              <input name="fullname" required placeholder="John Doe" className={inputCls} />
+              {errors.fullname && <p className={errorCls}>{errors.fullname}</p>}
+            </div>
 
-          <div>
-            <label className={labelCls}>Company Name</label>
-            <input name="company_name" placeholder="Enter company name" className={inputCls} />
-            {errors.company_name && <p className={errorCls}>{errors.company_name}</p>}
-          </div>
-
-          {/* COMPANY PROFILE */}
-          <div>
-            <label className={labelCls}>Company Type</label>
-            <select 
-              name="company_type" 
-              className={inputCls}
-              value={companyType}
-              onChange={(e) => setCompanyType(e.target.value)}
-            >
-              <option value="">Select Category</option>
-              <option value="Marketing Agency">Marketing Agency</option>
-              <option value="Startup">Startup</option>
-              <option value="Service Business">Service Business</option>
-              <option value="Product Company">Product Company</option>
-              <option value="Other">Other</option>
-            </select>
-            {errors.company_type && <p className={errorCls}>{errors.company_type}</p>}
-          </div>
-
-          {/* Custom Company Type - Shows when Other is selected */}
-          {companyType === "Other" && (
             <div>
-              <label className={labelCls}>Specify Company Type</label>
-              <input 
-                name="company_type_other" 
-                placeholder="Enter your company type" 
-                className={inputCls} 
-              />
-              {errors.company_type_other && <p className={errorCls}>{errors.company_type_other}</p>}
+              <label className={labelCls}>Work Email <span className="text-[#7e22ce]">*</span></label>
+              <input name="workmail" type="email" required placeholder="john.doe@example.com" className={inputCls} />
+              {errors.workmail && <p className={errorCls}>{errors.workmail}</p>}
             </div>
-          )}
 
-          <div>
-            <label className={labelCls}>Team Size</label>
-            <select name="team_size" className={inputCls}>
-              <option value="">Choose Scale</option>
-              <option value="1–5">1–5</option>
-              <option value="6–15">6–15</option>
-              <option value="16–50">16–50</option>
-              <option value="50+">50+</option>
-            </select>
-            {errors.team_size && <p className={errorCls}>{errors.team_size}</p>}
-          </div>
+            <div>
+              <label className={labelCls}>Company Name <span className="text-[#7e22ce]">*</span></label>
+              <input name="company_name" required placeholder="Enter company name" className={inputCls} />
+              {errors.company_name && <p className={errorCls}>{errors.company_name}</p>}
+            </div>
 
-          {/* PAIN POINT */}
-          <div className="sm:col-span-2">
-            <label className={labelCls}>What is your biggest challenge right now?</label>
-            <textarea 
-              name="challenge" 
-              rows={3} 
-              placeholder="What bottlenecks are holding your team back?" 
-              className={`${inputCls} resize-none`}
-            />
-            {errors.challenge && <p className={errorCls}>{errors.challenge}</p>}
-          </div>
-
-          {/* CURRENT STACK */}
-          <div className="sm:col-span-2">
-            <label className={labelCls}>Which tools are you currently using?</label>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {TOOLS.map((tool) => (
-                <button
-                  key={tool}
-                  type="button"
-                  onClick={() => toggleTool(tool)}
-                  className={`flex items-center justify-center rounded-xl border px-3 py-3 text-[11px] font-bold transition-all
-                  ${selectedTools.includes(tool)
-                    ? "border-[#7e22ce] bg-purple-50 text-[#7e22ce] shadow-inner ring-2 ring-purple-100"
-                    : "border-slate-200 bg-white text-slate-900 hover:border-purple-200 shadow-sm"
-                  }`}
+            <div>
+              <label className={labelCls}>Company Type <span className="text-[#7e22ce]">*</span></label>
+              <div className="relative">
+                <select 
+                  name="company_type" 
+                  required
+                  className={`${inputCls} appearance-none pr-12`}
+                  value={companyType}
+                  onChange={(e) => setCompanyType(e.target.value)}
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23192e44' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 18px center'
+                  }}
                 >
-                  {tool}
-                </button>
-              ))}
+                  <option value="">Select a category</option>
+                  <option value="Marketing Agency">Marketing Agency</option>
+                  <option value="Startup">Startup</option>
+                  <option value="Service Business">Service Business</option>
+                  <option value="Product Company">Product Company</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              {errors.company_type && <p className={errorCls}>{errors.company_type}</p>}
             </div>
-            {errors.stack && <p className={errorCls}>{errors.stack}</p>}
-          </div>
 
-          {/* INTENT QUALIFIER */}
-          <div className="sm:col-span-2">
-            <label className={labelCls}>Why do you want early access to KaryaUp?</label>
-            <textarea 
-              name="reason" 
-              rows={3} 
-              placeholder="How will KaryaUp help your business?" 
-              className={`${inputCls} resize-none`}
-            />
-            {errors.reason && <p className={errorCls}>{errors.reason}</p>}
-          </div>
+            {companyType === "Other" && (
+              <div>
+                <label className={labelCls}>Specify Type <span className="text-[#7e22ce]">*</span></label>
+                <input name="company_type_other" required placeholder="e.g. Legal Firm" className={inputCls} />
+                {errors.company_type_other && <p className={errorCls}>{errors.company_type_other}</p>}
+              </div>
+            )}
 
-          {/* COMMITMENT FILTER */}
-          <div className="sm:col-span-2">
-            <label className={labelCls}>Are you open to a 30-min onboarding call?</label>
-            <div className="flex gap-4">
-              {["Yes", "No"].map((opt) => (
-                <label key={opt} className="relative flex-1 cursor-pointer">
-                  <input type="radio" name="onboarding" value={opt} className="peer sr-only" />
-                  <div className="flex items-center justify-center rounded-xl border border-slate-200 bg-white py-3 text-sm font-bold text-slate-900 transition-all hover:bg-slate-50 shadow-sm peer-checked:border-[#7e22ce] peer-checked:bg-purple-50 peer-checked:text-[#7e22ce] peer-checked:ring-2 peer-checked:ring-purple-100">
-                    {opt}
-                  </div>
-                </label>
-              ))}
+            <div>
+              <label className={labelCls}>Team Size <span className="text-[#7e22ce]">*</span></label>
+              <div className="relative">
+                <select 
+                  name="team_size" 
+                  required 
+                  className={`${inputCls} appearance-none pr-12`}
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23192e44' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 18px center'
+                  }}
+                >
+                  <option value="">Choose scale</option>
+                  <option value="1–5">1–5</option>
+                  <option value="6–15">6–15</option>
+                  <option value="16–50">16–50</option>
+                  <option value="50+">50+</option>
+                </select>
+              </div>
+              {errors.team_size && <p className={errorCls}>{errors.team_size}</p>}
             </div>
-            {errors.onboarding && <p className={errorCls}>{errors.onboarding}</p>}
           </div>
 
-          {/* DECISION POWER */}
-          <div className="sm:col-span-2">
-            <label className={labelCls}>Your role in company</label>
-            <select name="role" className={inputCls}>
-              <option value="">Select Role</option>
-              <option value="Founder / Owner">Founder / Owner</option>
-              <option value="Manager">Manager</option>
-              <option value="Team Member">Team Member</option>
-            </select>
-            {errors.role && <p className={errorCls}>{errors.role}</p>}
+          {/* SECTION: Context */}
+          <div className="space-y-5">
+            <div className="h-px bg-gradient-to-r from-transparent via-[#e5e3df] to-transparent" />
+            
+            <div>
+              <label className={labelCls}>What is your biggest challenge right now? <span className="text-[#7e22ce]">*</span></label>
+              <textarea 
+                name="challenge" 
+                required
+                rows={3} 
+                placeholder="Briefly describe your current operational bottlenecks..." 
+                className={`${inputCls} min-h-[90px] resize-y leading-relaxed`}
+              />
+              {errors.challenge && <p className={errorCls}>{errors.challenge}</p>}
+            </div>
+
+            <div>
+              <label className={labelCls}>Which tools are you currently using? <span className="text-[#7e22ce]">*</span></label>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {TOOLS.map((tool) => (
+                  <button
+                    key={tool}
+                    type="button"
+                    onClick={() => toggleTool(tool)}
+                    className={`relative flex items-center justify-center overflow-hidden rounded-[2px] border-2 px-4 py-2 text-center text-[12px] font-medium transition-all duration-300 active:scale-[0.98]
+                    ${selectedTools.includes(tool)
+                      ? "border-[#7e22ce] bg-gradient-to-br from-[#192e44] to-[#1e3a52] text-white shadow-[0_6px_20px_rgba(126,34,206,0.15)]"
+                      : "border-[#e5e3df] bg-[#fafaf9] text-[#192e44] hover:border-[#7e22ce] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(126,34,206,0.08)]"
+                    }`}
+                  >
+                    <span className="relative z-10">{tool}</span>
+                  </button>
+                ))}
+              </div>
+              {errors.stack && <p className={errorCls}>{errors.stack}</p>}
+            </div>
+
+            <div>
+              <label className={labelCls}>Why do you want early access? <span className="text-[#7e22ce]">*</span></label>
+              <textarea 
+                name="reason" 
+                required
+                rows={3} 
+                placeholder="How will KaryaUp help your business scale?" 
+                className={`${inputCls} min-h-[90px] resize-y leading-relaxed`}
+              />
+              {errors.reason && <p className={errorCls}>{errors.reason}</p>}
+            </div>
+
+            <div>
+              <label className={labelCls}>Are you open to a 30-min onboarding call? <span className="text-[#7e22ce]">*</span></label>
+              <div className="grid grid-cols-2 gap-3">
+                {["Yes", "No"].map((opt) => (
+                  <label key={opt} className="relative cursor-pointer">
+                    <input type="radio" name="onboarding" value={opt} required className="peer sr-only" />
+                    <div className="flex items-center justify-center rounded-[2px] border-2 border-[#e5e3df] bg-[#fafaf9] py-2 text-[13px] font-medium text-[#192e44] transition-all duration-300 hover:border-[#7e22ce] hover:-translate-y-0.5 peer-checked:border-[#7e22ce] peer-checked:bg-gradient-to-br from-[#192e44] to-[#1e3a52] peer-checked:text-white peer-checked:shadow-[0_6px_20px_rgba(126,34,206,0.15)]">
+                      {opt}
+                    </div>
+                  </label>
+                ))}
+              </div>
+              {errors.onboarding && <p className={errorCls}>{errors.onboarding}</p>}
+            </div>
+
+            <div>
+              <label className={labelCls}>Your role in company <span className="text-[#7e22ce]">*</span></label>
+              <div className="relative">
+                <select 
+                  name="role" 
+                  required 
+                  className={`${inputCls} appearance-none pr-12`}
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23192e44' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 18px center'
+                  }}
+                >
+                  <option value="">Select your role</option>
+                  <option value="Founder / Owner">Founder / Owner</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Team Member">Team Member</option>
+                </select>
+              </div>
+              {errors.role && <p className={errorCls}>{errors.role}</p>}
+            </div>
           </div>
         </div>
 
         {/* SUBMIT */}
-        <div className="mt-14 flex flex-col items-center">
+        {/* SUBMIT & FEEDBACK */}
+        <div className="mt-10 flex flex-col items-center">
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`group relative z-10 flex h-[3.5em] w-full max-w-[18em] shrink-0 items-center justify-center overflow-hidden rounded-[30em] font-bold text-[15px] transition-all duration-300 active:scale-95 shadow-xl shadow-slate-200
-            ${isSubmitting ? "cursor-not-allowed opacity-70" : "cursor-pointer"}`}
+            className="group relative flex h-[3.8em] w-full max-w-[18em] items-center justify-center overflow-hidden rounded-full bg-transparent font-bold text-[16px] transition-all duration-300 active:scale-95 shadow-[0_20px_50px_rgba(126,34,206,0.3)] disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
           >
-            <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
-            <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
-            <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
+            {/* Background Layer */}
+            <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+            
+            {/* Hover white fill effect */}
+            <div className="absolute inset-0 z-0 origin-left scale-x-0 bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
+            
+            <span className={`relative z-10 flex items-center gap-2 transition-colors duration-300 ${isSubmitting ? 'text-black' : 'text-white group-hover:text-slate-900'}`}>
               {isSubmitting ? "Processing..." : (
                 <>
-                  Request Founder Access <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                  Apply for Early Access <ArrowRight size={20} className="transition-transform group-hover:translate-x-1.5" />
                 </>
               )}
             </span>
           </button>
 
-          {/* STATUS - Text only below button */}
-          <div className="mt-4 text-center text-sm font-semibold">
+          <AnimatePresence mode="wait">
             {status === "success" && (
-              <p className="text-emerald-600">
-                ✅ Application Received! We'll reach out soon.
-              </p>
+              <motion.p 
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="mt-6 max-w-sm text-center text-[13px] font-medium leading-relaxed text-[#166534]"
+              >
+                ✓ Your application has been received! We'll contact you within 24 hours.
+              </motion.p>
             )}
             {status === "error" && (
-              <p className="text-rose-600">
-                ❌ Submission failed. Check EmailJS config.
-              </p>
+              <motion.p 
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="mt-6 text-center text-[13px] font-medium text-rose-600"
+              >
+                Submission failed. Please try again.
+              </motion.p>
             )}
-          </div>
+          </AnimatePresence>
         </div>
-
-        {/* FOOTER */}
-       
       </form>
     </div>
   );
 }
+
