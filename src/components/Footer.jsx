@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.webp";
-import watermark from "../assets/karyaup-wm.webp";
+import watermark from "../assets/Karyaup-wm.svg";
 
 const footerColumns = [
   {
@@ -122,14 +122,13 @@ const Footer = () => {
       >
         <div className="flex w-full max-w-[100vw] justify-center px-0 [perspective:min(100vw,600px)] sm:[perspective:min(120vw,1400px)] lg:[perspective:min(140vw,2400px)]">
           <div className="origin-bottom max-sm:origin-[50%_100%] translate-x-0 sm:translate-x-16 sm:scale-100 md:translate-x-[4.5rem] lg:translate-x-24">
-            <div className="flex max-w-full origin-bottom max-sm:origin-[50%_100%] items-end justify-center gap-0 [transform:translate(0,35%)_scale(0.9)_rotateY(4deg)_skewY(-0.5deg)] [transform-style:preserve-3d] sm:origin-bottom sm:gap-px sm:[transform:translate(0,40%)_scale(1)_rotateY(12deg)_skewY(-2deg)] md:[transform:translate(0,45%)_scale(1.04)_rotateY(12deg)_skewY(-2deg)] lg:[transform:translate(0,50%)_scale(1.08)_rotateY(12deg)_skewY(-2deg)]">
+            <div className="flex max-w-full origin-bottom max-sm:origin-[50%_100%] items-end justify-center gap-0 [transform:translate(0,80%)_scale(2.2)_rotateY(4deg)_skewY(-0.5deg)] [transform-style:preserve-3d] sm:origin-bottom sm:gap-px sm:[transform:translate(0,90%)_scale(2.2)_rotateY(12deg)_skewY(-2deg)] md:[transform:translate(0,100%)_scale(2.5)_rotateY(12deg)_skewY(-2deg)] lg:[transform:translate(0,110%)_scale(2.8)_rotateY(12deg)_skewY(-2deg)]">
               <img
                 src={watermark}
                 alt="KaryaUp Watermark"
                 loading="lazy"
-                className="inline-block h-auto w-auto max-w-full antialiased grayscale brightness-[0.3] opacity-[0.14]"
+                className="inline-block h-auto w-full max-w-full antialiased brightness-0 opacity-[0.08]"
                 style={{
-                  maxHeight: "clamp(40rem, 80vw, 56rem)",
                   transform: "translateZ(100px)",
                 }}
               />

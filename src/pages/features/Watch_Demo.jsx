@@ -68,7 +68,7 @@ export default function WatchDemo() {
       title: "Connected Flows",
       desc: "Observe how communications and notifications stay tied to actual execution.",
       icon: Monitor,
-      color: "fuchsia"
+      color: "purple"
     },
     {
       title: "Advanced Control",
@@ -223,11 +223,13 @@ export default function WatchDemo() {
                       transition={{ delay: 0.1 * i }}
                       className="h-full"
                     >
-                      <TiltCard className="group relative overflow-hidden bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 flex flex-col items-center text-center sm:items-start sm:text-left">
-                        <div className={`w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl flex items-center justify-center mb-5 sm:mb-6 transition-all duration-300 group-hover:shadow-md group-hover:scale-110 ${getColorClasses(item.color)}`}>
-                          <Icon size={20} strokeWidth={2.5} />
+                      <TiltCard className="group relative overflow-hidden bg-white border border-slate-200 hover:border-purple-300 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 p-7 sm:p-8 rounded-[2rem] cursor-default h-full transition-colors transition-shadow duration-300 flex flex-col items-start text-left">
+                        <div className="flex items-center gap-4 mb-4 sm:mb-5">
+                          <div className={`w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 ${getColorClasses(item.color)}`}>
+                            <Icon size={20} strokeWidth={2.5} />
+                          </div>
+                          <h3 className="text-lg sm:text-xl font-black text-slate-900 transition-colors duration-300 group-hover:text-[#7e22ce]">{item.title}</h3>
                         </div>
-                        <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-3 transition-colors duration-300 group-hover:text-[#7e22ce]">{item.title}</h3>
                         <p className="text-slate-600 text-sm font-medium leading-relaxed">{item.desc}</p>
                       </TiltCard>
                     </Motion.div>

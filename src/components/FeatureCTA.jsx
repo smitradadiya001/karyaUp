@@ -53,6 +53,7 @@ export default function FeatureCTA({
   imageOuterClassName = "relative w-full max-w-[300px] sm:max-w-[460px] lg:max-w-none lg:w-full lg:max-w-[560px] mx-auto lg:mx-0 translate-x-0 lg:translate-x-6",
   imageSectionClassName = "flex-[1.5] xl:flex-[1.4] relative mt-2 lg:mt-0 flex items-center justify-center lg:justify-end p-2 lg:p-4 lg:pr-8",
   sectionStyle = undefined,
+  maxWidth = "max-w-7xl",
 }) {
   const [isMobile, setIsMobile] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -120,7 +121,7 @@ export default function FeatureCTA({
 
   return (
     <section
-      className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${containerClassName}`}
+      className={`${maxWidth} mx-auto px-4 sm:px-6 lg:px-8 ${containerClassName}`}
       style={sectionStyle}
     >
       <div

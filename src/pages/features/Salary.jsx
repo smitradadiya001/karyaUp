@@ -785,10 +785,7 @@ export default function Salary() {
             </>
           }
           description="Automate payroll and track profit without spreadsheet confusion."
-          highlights={[
-            "Automated payroll generation in one click",
-            "Visual profit analysis per project",
-          ]}
+        
           buttonText="Get Started It's Free"
           image={featureSalary}
           imageAlt="KaryaUp salary dashboard"

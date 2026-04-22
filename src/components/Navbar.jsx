@@ -323,7 +323,7 @@ const Navbar = () => {
         <div className={`overflow-hidden bg-white border-none shadow-none transition-all duration-300 ease-in-out ${isScrolled || isIframeDark ? 'max-h-0 opacity-0' : 'max-h-[60px] opacity-100'}`}>
           <Link
             to="/features/ai-agents"
-            className="group flex w-full items-center justify-center py-2 text-[13px] font-semibold tracking-wide transition-colors bg-white text-slate-900 hover:bg-slate-50 border-none shadow-none outline-none ring-0 px-4"
+            className="flex w-full items-center justify-center py-2 text-[13px] font-semibold tracking-wide transition-colors bg-white text-slate-900 border-none shadow-none outline-none ring-0 px-4"
           >
             <span className="badge-glass-multicolor-text font-bold md:hidden">
               Meet KAI Agent

@@ -407,6 +407,7 @@ export default function Attendance() {
           description="Register faces once, let employees punch in and punch out faster and  Boss Download CSV."
           image={attendanceImg}
           imageAlt="KaryaUp attendance dashboard"
+          maxWidth="max-w-6xl"
           containerClassName="mt-0"
           paddingClassName="p-3 lg:p-4 lg:py-6"
           imageClassName="w-full max-w-[940px] overflow-hidden rounded-[24px] sm:rounded-[18px]"

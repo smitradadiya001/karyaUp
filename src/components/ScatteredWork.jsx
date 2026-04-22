@@ -13,6 +13,7 @@ import IntegrationReveal from "./IntegrationReveal";
 
 export default function ScatteredWork() {
   const [isHovered, setIsHovered] = useState(false);
+  const [isOverReveal, setIsOverReveal] = useState(false);
   const darkCardRef = useRef(null);
 
   // Mouse tracking logic for snake trail cursor
@@ -120,9 +121,13 @@ export default function ScatteredWork() {
                 x: "-50%",
                 y: "-50%",
                 opacity: useTransform([movementOpacity], ([v]) =>
-                  isHovered ? (i === 0 ? seg.opacity : v * seg.opacity) : 0,
+                  isHovered && !isOverReveal
+                    ? i === 0
+                      ? seg.opacity
+                      : v * seg.opacity
+                    : 0,
                 ),
-                scale: isHovered ? 1 : 0,
+                scale: isHovered && !isOverReveal ? 1 : 0,
                 background: `radial-gradient(circle, rgba(168, 85, 247, 0.9) 0%, rgba(168, 85, 247, 0) 70%)`,
                 filter: `blur(${seg.blur}px)`,
               }}
@@ -137,8 +142,8 @@ export default function ScatteredWork() {
               top: s1y,
               x: "-50%",
               y: "-50%",
-              opacity: isHovered ? 0.45 : 0,
-              scale: isHovered ? 1 : 0,
+              opacity: isHovered && !isOverReveal ? 0.45 : 0,
+              scale: isHovered && !isOverReveal ? 1 : 0,
               background:
                 "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%)",
               filter: "blur(50px)",
@@ -216,8 +221,8 @@ export default function ScatteredWork() {
 
             {/* 3. IntegrationReveal (Mobile: 3rd, Desktop: Middle span) */}
             <div
-              onMouseEnter={() => setIsHovered(false)}
-              onMouseLeave={() => setIsHovered(true)}
+              onMouseEnter={() => setIsOverReveal(true)}
+              onMouseLeave={() => setIsOverReveal(false)}
               className="order-3 lg:order-3 lg:col-span-2 overflow-hidden"
             >
               <IntegrationReveal className="h-[260px] sm:h-[240px] lg:h-[280px] rounded-none !bg-transparent" />

@@ -5,11 +5,15 @@ import { motion } from "framer-motion";
 function getCollabIconColorClasses(color) {
   switch (color) {
     case "purple":
-      return "bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white group-active:bg-[#7e22ce] group-active:text-white";
+      return "bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white group-active:bg-[#7e22ce] group-active:text-white shadow-purple-200/50";
+    case "emerald":
+      return "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white group-active:bg-emerald-500 group-active:text-white shadow-emerald-200/50";
+    case "blue":
+      return "bg-blue-100 text-blue-600 group-hover:bg-blue-500 group-hover:text-white group-active:bg-blue-500 group-active:text-white shadow-blue-200/50";
     case "fuchsia":
-      return "bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white group-active:bg-[#7e22ce] group-active:text-white";
+      return "bg-fuchsia-100 text-fuchsia-600 group-hover:bg-fuchsia-500 group-hover:text-white group-active:bg-fuchsia-500 group-active:text-white shadow-fuchsia-200/50";
     default:
-      return "bg-purple-100 text-[#7e22ce] group-hover:bg-[#7e22ce] group-hover:text-white group-active:bg-[#7e22ce] group-active:text-white";
+      return "bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-active:bg-purple-600 group-active:text-white shadow-purple-200/50";
   }
 }
 
@@ -52,33 +56,43 @@ export default function CollabTiltCard({ item, delay = 0, variant = "default" })
         className="h-full"
       >
         <article
-          className={`group relative h-full rounded-[1.75rem] sm:rounded-[2rem] border border-slate-200 bg-white ${isCompact ? "p-6 sm:p-7" : "p-7 sm:p-8"
-            } ku-card-flat cursor-default transition-all duration-300 ${item.color === "fuchsia"
+          className={`group relative h-full rounded-[2rem] border border-slate-200 bg-white ${isCompact ? "p-6 sm:p-7" : "p-7 sm:p-8"
+            } shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-purple-900/15 cursor-default transition-all duration-300 ${item.color === "fuchsia"
               ? "hover:border-purple-300/60 active:border-purple-300/60"
               : "hover:border-purple-300 active:border-purple-300"
             }`}
           style={{ transform: "translateZ(0)" }}
         >
-          <div
-            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center ${isCompact ? "mb-4 sm:mb-5" : "mb-5 sm:mb-6"
-              } transition-all duration-300 group-hover:scale-110 group-active:scale-110 ${getCollabIconColorClasses(item.color)}`}
-            style={{ transform: "translateZ(24px)" }}
-          >
-            <Icon className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.25} />
+          <div className={`flex items-center gap-4 ${isCompact ? "mb-4 sm:mb-5" : "mb-5 sm:mb-6"}`}>
+            <div
+              className={`w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-md group-active:scale-110 ${getCollabIconColorClasses(item.color)}`}
+              style={{ transform: "translateZ(24px)" }}
+            >
+              <Icon className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.25} />
+            </div>
+            <h3
+              className="text-lg sm:text-xl font-black text-slate-900 leading-tight"
+              style={{ transform: "translateZ(12px)" }}
+            >
+              {item.title}
+            </h3>
           </div>
-          <h3
-            className={`text-lg sm:text-xl font-black text-slate-900 ${isCompact ? "mb-1 min-h-[3.5rem] sm:min-h-[4.1rem]" : "mb-2.5"
-              } leading-tight`}
-            style={{ transform: "translateZ(12px)" }}
-          >
-            {item.title}
-          </h3>
           <p
-            className={`text-slate-600 text-sm font-medium ${isCompact ? "leading-[1.45]" : "leading-relaxed"}`}
+            className={`text-slate-600 text-sm font-medium ${isCompact ? "leading-[1.45]" : "leading-relaxed"} ${item.points ? "mb-5" : ""}`}
             style={{ transform: "translateZ(8px)" }}
           >
             {item.desc}
           </p>
+          {item.points && (
+            <ul className="space-y-2.5" style={{ transform: "translateZ(6px)" }}>
+              {item.points.map((point, idx) => (
+                <li key={idx} className="flex items-start gap-2.5 text-[13px] font-medium text-slate-500 leading-snug">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-400/60" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          )}
         </article>
       </motion.div>
     </motion.div>

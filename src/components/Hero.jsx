@@ -108,17 +108,17 @@ const Hero = () => {
     >
       {/* Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <link rel="preload" as="image" href="/Hero_BG.webp" />
-        <img
-          src="/Hero_BG.webp"
-          alt=""
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="none"
+          className="absolute inset-0 h-full w-full object-cover scale-105"
           aria-hidden="true"
-          loading="eager"
-          width="1920"
-          height="1080"
-          fetchPriority="high"
-          className="absolute inset-0 h-full w-full scale-105 object-cover blur-[6px]"
-        />
+        >
+          <source src="/KU logo 1.0 (1).mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.2)_0%,rgba(15,23,42,0.12)_34%,rgba(15,23,42,0.22)_100%)]" />
       </div>
 

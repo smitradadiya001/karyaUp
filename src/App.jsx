@@ -25,6 +25,7 @@ const StartWorkspace = lazy(() => import("./pages/StartWorkspace"));
 const BookDemo = lazy(() => import("./pages/BookDemo"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const ComingSoonPage = lazy(() => import("./pages/ComingSoonPage"));
 
 // Platform
 const ProjectManagement = lazy(() => import("./pages/platform/ProjectManagement"));
@@ -103,83 +104,84 @@ function App() {
 
   return (
     <LoadingProvider>
-    <div className={`min-h-screen font-sans w-full max-w-full overflow-x-hidden ${isFeatureRoute ? "feature-route-mobile-gap" : ""}`}>
-      <ScrollToTop />
-      <Navbar />
+      <div className={`min-h-screen font-sans w-full max-w-full overflow-x-hidden ${isFeatureRoute ? "feature-route-mobile-gap" : ""}`}>
+        <ScrollToTop />
+        <Navbar />
 
-      <main className="w-full max-w-full overflow-x-hidden">
-        <Suspense
-       fallback={<Loader />}
-        >
-          <Routes>
-            {/* Main pages */}
-            <Route path="/" element={<Home />} />
-           
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/privacy-policy" element={<Privacy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/disclaimer" element={<Disclaimer />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/start" element={<StartWorkspace />} />
-            <Route path="/book-demo" element={<BookDemo />} />
-            <Route path="/contact-us" element={<ContactUs />} />
+        <main className="w-full max-w-full overflow-x-hidden">
+          <Suspense
+            fallback={<Loader />}
+          >
+            <Routes>
+              {/* Main pages */}
+              <Route path="/" element={<Home />} />
 
-            {/* Platform */}
-            <Route path="/platform/project-management" element={<ProjectManagement />} />
-            <Route path="/platform/time-tracking" element={<TimeTracking />} />
-            <Route path="/platform/team-collaboration" element={<TeamCollaboration />} />
-            <Route path="/platform/boss-dashboard" element={<BossDashboard />} />
-            <Route path="/platform/profit-tracking" element={<ProfitTracking />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/privacy-policy" element={<Privacy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/disclaimer" element={<Disclaimer />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/start" element={<StartWorkspace />} />
+              <Route path="/book-demo" element={<BookDemo />} />
+              <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/coming-soon" element={<ComingSoonPage />} />
 
-            {/* Features */}
-            <Route path="/features/tasks" element={<Tasks />} />
-            <Route path="/features/dashboards" element={<Dashboards />} />
-            <Route path="/features/gantt" element={<Gantt />} />
-            <Route path="/features/chat" element={<Chat />} />
-            <Route path="/features/notifications" element={<Notifications />} />
-            <Route path="/features/team" element={<Team />} />
-            <Route path="/features/attendance" element={<Attendance />} />
-            <Route path="/features/leave" element={<Leave />} />
-            <Route path="/features/salary" element={<Salary />} />
-            <Route path="/features/calendar" element={<CalendarPage />} />
-            <Route path="/features/scheduling" element={<Scheduling />} />
-            <Route path="/features/automations" element={<Automations />} />
-            <Route path="/features/time-tracking" element={<FeaturesTimeTracking />} />
-            <Route path="/features/integrations" element={<Integrations />} />
-            <Route path="/features/demo" element={<WatchDemo />} />
-            <Route path="/features/ai-agents" element={<AIAgents />} />
+              {/* Platform */}
+              <Route path="/platform/project-management" element={<ProjectManagement />} />
+              <Route path="/platform/time-tracking" element={<TimeTracking />} />
+              <Route path="/platform/team-collaboration" element={<TeamCollaboration />} />
+              <Route path="/platform/boss-dashboard" element={<BossDashboard />} />
+              <Route path="/platform/profit-tracking" element={<ProfitTracking />} />
 
-            {/* Solutions */}
-            <Route path="/solutions/product-development" element={<ProductDevelopment />} />
-            <Route path="/solutions/operations" element={<Operations />} />
-            <Route path="/solutions/it" element={<IT />} />
-            <Route path="/solutions/marketing" element={<Marketing />} />
-            <Route path="/solutions/hr" element={<HR />} />
+              {/* Features */}
+              <Route path="/features/tasks" element={<Tasks />} />
+              <Route path="/features/dashboards" element={<Dashboards />} />
+              <Route path="/features/gantt" element={<Gantt />} />
+              <Route path="/features/chat" element={<Chat />} />
+              <Route path="/features/notifications" element={<Notifications />} />
+              <Route path="/features/team" element={<Team />} />
+              <Route path="/features/attendance" element={<Attendance />} />
+              <Route path="/features/leave" element={<Leave />} />
+              <Route path="/features/salary" element={<Salary />} />
+              <Route path="/features/calendar" element={<CalendarPage />} />
+              <Route path="/features/scheduling" element={<Scheduling />} />
+              <Route path="/features/automations" element={<Automations />} />
+              <Route path="/features/time-tracking" element={<FeaturesTimeTracking />} />
+              <Route path="/features/integrations" element={<Integrations />} />
+              <Route path="/features/demo" element={<WatchDemo />} />
+              <Route path="/features/ai-agents" element={<AIAgents />} />
 
-            <Route path="/solutions/enterprise" element={<Enterprise />} />
-            <Route path="/solutions/startup" element={<Startup />} />
-            <Route path="/solutions/non-profit" element={<NonProfit />} />
-            <Route path="/solutions/education" element={<Education />} />
-            <Route path="/solutions/agency" element={<Agency />} />
+              {/* Solutions */}
+              <Route path="/solutions/product-development" element={<ProductDevelopment />} />
+              <Route path="/solutions/operations" element={<Operations />} />
+              <Route path="/solutions/it" element={<IT />} />
+              <Route path="/solutions/marketing" element={<Marketing />} />
+              <Route path="/solutions/hr" element={<HR />} />
 
-            <Route path="/solutions/project-management" element={<TemplateProjectManagement />} />
-            <Route path="/solutions/crm" element={<TemplateCRM />} />
-            <Route path="/solutions/marketing" element={<TemplateMarketing />} />
+              <Route path="/solutions/enterprise" element={<Enterprise />} />
+              <Route path="/solutions/startup" element={<Startup />} />
+              <Route path="/solutions/non-profit" element={<NonProfit />} />
+              <Route path="/solutions/education" element={<Education />} />
+              <Route path="/solutions/agency" element={<Agency />} />
 
-            {/* Resources */}
-            <Route path="/resources/blog" element={<Blog />} />
-            <Route path="/resources/docs" element={<Documentation />} />
-            <Route path="/resources/demo" element={<Demo />} />
-            <Route path="/resources/tutorials" element={<VideoTutorials />} />
+              <Route path="/solutions/project-management" element={<TemplateProjectManagement />} />
+              <Route path="/solutions/crm" element={<TemplateCRM />} />
+              <Route path="/solutions/marketing" element={<TemplateMarketing />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </main>
+              {/* Resources */}
+              <Route path="/resources/blog" element={<Blog />} />
+              <Route path="/resources/docs" element={<Documentation />} />
+              <Route path="/resources/demo" element={<Demo />} />
+              <Route path="/resources/tutorials" element={<VideoTutorials />} />
 
-      <Footer />
-    </div>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
+
+        <Footer />
+      </div>
     </LoadingProvider>
   );
 }
