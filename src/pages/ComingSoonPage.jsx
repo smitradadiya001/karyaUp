@@ -63,7 +63,8 @@ function SpotlightHero() {
   };
 
   const torchRotation = useSpring(0, { stiffness: 60, damping: 20 });
-  
+  const invertedRotation = useTransform(torchRotation, (v) => -v);
+
   useEffect(() => {
     if (isHovering) {
       torchRotation.set(getAngle());
@@ -81,7 +82,7 @@ function SpotlightHero() {
       className="relative min-h-[75vh] w-full overflow-hidden bg-[#fafafa] pt-10"
     >
       {/* Grid Pattern Background - Masked to be visible only in middle */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.06] z-0"
         style={{
           backgroundImage: `
@@ -96,7 +97,7 @@ function SpotlightHero() {
 
       {/* Animated Rotating Yellow Halogen Torch Effect from Top */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none z-0">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 0.35, scale: 1 }}
           transition={{ duration: 1.8, ease: "easeOut" }}
@@ -106,18 +107,28 @@ function SpotlightHero() {
           }}
           className="absolute top-0 left-1/2 -ml-[600px] w-[1200px] h-[140%]"
         >
-          <div 
+          {/* Broad Torch Beam */}
+          <div
             style={{
-              background: 'linear-gradient(to bottom, rgba(168, 85, 247, 0.2), transparent)',
+              background: 'linear-gradient(to bottom, rgba(168, 85, 247, 0.35), rgba(168, 85, 247, 0.1), transparent)',
               clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-              filter: 'blur(70px)',
+              filter: 'blur(60px)',
             }}
             className="w-full h-full"
           />
+          {/* Torch Core Highlight */}
+          <div
+            style={{
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.15), transparent)',
+              clipPath: 'polygon(50% 0%, 40% 100%, 60% 100%)',
+              filter: 'blur(40px)',
+            }}
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[80%]"
+          />
         </motion.div>
-        
+
         {/* Top intensity glow source */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-12 bg-purple-100/30 blur-3xl rounded-full" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-12 bg-white/40 blur-3xl rounded-full" />
       </div>
 
       {/* Subtle Interactive Gray Spotlight Effect (Mouse Glow) */}
@@ -130,6 +141,60 @@ function SpotlightHero() {
         }}
         transition={{ duration: 0.1, ease: 'linear' }}
       />
+
+      {/* Half Purple Circle Shape - Glass Liquidity Effect */}
+      <div className="absolute top-[35%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] pointer-events-none z-0">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="relative w-full h-full rounded-full border border-white/40 backdrop-blur-xl"
+          style={{
+            background: 'radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.05) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.6) 100%)',
+            boxShadow: 'inset 0 10px 40px -20px rgba(168, 85, 247, 0.3), inset 0 -30px 60px rgba(255, 255, 255, 0.8), 0 20px 40px rgba(0, 0, 0, 0.05)'
+          }}
+        >
+          {/* Dynamic Shine Layer - Rotates perfectly with the torch */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{ rotate: invertedRotation }}
+          >
+            {/* Sharp bright boundary curve restricted to hit point */}
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{
+                boxShadow: `
+                  inset 0 4px 6px -1px rgba(255, 255, 255, 1),
+                  inset 0 15px 40px -5px rgba(192, 132, 252, 0.9),
+                  0 -4px 25px -2px rgba(216, 180, 254, 0.9)
+                `,
+                WebkitMaskImage: 'radial-gradient(circle at 50% 0%, black 0%, transparent 35%)',
+                maskImage: 'radial-gradient(circle at 50% 0%, black 0%, transparent 35%)',
+              }}
+            />
+            {/* Intense ambient glow at the hit point */}
+            <div
+              className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-[350px] h-[150px]"
+              style={{
+                background: 'radial-gradient(ellipse 60% 100% at 50% 0%, rgba(255, 255, 255, 0.9), rgba(192, 132, 252, 0.6), transparent)',
+                filter: 'blur(20px)',
+              }}
+            />
+          </motion.div>
+        </motion.div>
+
+        {/* Light rays from top */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ duration: 1.5, delay: 0.3 }}
+          className="absolute -top-20 left-1/2 -translate-x-1/2 w-[400px] h-[200px]"
+          style={{
+            background: 'radial-gradient(ellipse 60% 100% at 50% 100%, rgba(168, 85, 247, 0.3), transparent 70%)',
+            filter: 'blur(40px)',
+          }}
+        />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-20 text-center pointer-events-none">
@@ -153,7 +218,7 @@ function SpotlightHero() {
             transition={{ duration: 0.8 }}
             className="text-[2.6rem] sm:text-[3.2rem] lg:text-[4.5rem] font-black leading-[1.1] tracking-tight text-slate-950 pb-2"
           >
-           Something Powerful Is Coming 
+            Something Powerful Is Coming
           </motion.h1>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -161,7 +226,7 @@ function SpotlightHero() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="pb-2"
           >
-            <FlipText 
+            <FlipText
               className="text-[2.6rem] sm:text-[3.2rem] lg:text-[4.5rem] font-black leading-[1.1] tracking-tight text-slate-900"
               duration={4.5}
             >
@@ -710,7 +775,7 @@ function ShiftCard() {
       {/* RIGHT — OS IMAGE */}
       <div className="relative z-10 mt-12 md:mt-0 flex items-center justify-center">
         <div className="relative group/img">
-          
+
           <motion.img
             src={osImage}
             alt="Operating System"
@@ -945,7 +1010,7 @@ export default function ComingSoonPage() {
         <footer className="relative z-10 mx-auto max-w-7xl px-6 py-10">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row border-t border-slate-100 pt-8">
             <img src={logo2} alt="KaryaUp" className="h-8 w-auto" />
-            
+
             <div className="flex items-center gap-3">
               {socialLinks.map((link) => (
                 <a
@@ -960,7 +1025,7 @@ export default function ComingSoonPage() {
                 </a>
               ))}
             </div>
-            
+
             <p className="text-xs font-medium text-slate-400">
               © {new Date().getFullYear()} KaryaUp
             </p>
