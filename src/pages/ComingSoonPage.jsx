@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FlipText } from "../components/ui/FlipText";
-import { motion, useMotionValue, useSpring, useTransform, useInView, animate, AnimatePresence, useVelocity, useMotionTemplate } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useInView, animate, AnimatePresence, useVelocity, useMotionTemplate   } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import logo from "../assets/Logo(2).png";
 import { Countdown } from "../components/Countdown";
