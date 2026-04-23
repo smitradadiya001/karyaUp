@@ -8,7 +8,7 @@ import { ApplicationForm } from "../components/ApplicationForm";
 import ComingSoon from "../components/ComingSoon";
 import { XCircle, Layers, EyeOff, Shuffle, ArrowRight, Sparkles } from "lucide-react";
 
-import logo2 from "../assets/Logo.webp";
+import logo2 from "../assets/logo.webp";
 import osImage from "../assets/os.webp";
 import slackIcon from "../assets/slack.svg";
 import clickupIcon from "../assets/ClickUp.webp";
