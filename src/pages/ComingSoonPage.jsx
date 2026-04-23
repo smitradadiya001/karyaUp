@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FlipText } from "../components/ui/FlipText";
-import { motion, useMotionValue, useSpring, useTransform, useInView, animate, AnimatePresence, useVelocity } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useInView, animate, AnimatePresence, useVelocity, useMotionTemplate } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import logo from "../assets/Logo(2).png";
 import { Countdown } from "../components/Countdown";
@@ -64,6 +64,8 @@ function SpotlightHero() {
 
   const torchRotation = useSpring(0, { stiffness: 60, damping: 20 });
   const invertedRotation = useTransform(torchRotation, (v) => -v);
+
+  const maskImage = useMotionTemplate`conic-gradient(from ${torchRotation}deg at 50% 0%, transparent 150deg, black 165deg, black 195deg, transparent 210deg)`;
 
   useEffect(() => {
     if (isHovering) {
@@ -142,59 +144,24 @@ function SpotlightHero() {
         transition={{ duration: 0.1, ease: 'linear' }}
       />
 
-      {/* Half Purple Circle Shape - Glass Liquidity Effect */}
-      <div className="absolute top-[35%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] pointer-events-none z-0">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative w-full h-full rounded-full border border-white/40 backdrop-blur-xl"
-          style={{
-            background: 'radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.05) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.6) 100%)',
-            boxShadow: 'inset 0 10px 40px -20px rgba(168, 85, 247, 0.3), inset 0 -30px 60px rgba(255, 255, 255, 0.8), 0 20px 40px rgba(0, 0, 0, 0.05)'
-          }}
-        >
-          {/* Dynamic Shine Layer - Rotates perfectly with the torch */}
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{ rotate: invertedRotation }}
-          >
-            {/* Sharp bright boundary curve restricted to hit point */}
-            <div
-              className="absolute inset-0 rounded-full"
-              style={{
-                boxShadow: `
-                  inset 0 4px 6px -1px rgba(255, 255, 255, 1),
-                  inset 0 15px 40px -5px rgba(192, 132, 252, 0.9),
-                  0 -4px 25px -2px rgba(216, 180, 254, 0.9)
-                `,
-                WebkitMaskImage: 'radial-gradient(circle at 50% 0%, black 0%, transparent 35%)',
-                maskImage: 'radial-gradient(circle at 50% 0%, black 0%, transparent 35%)',
-              }}
-            />
-            {/* Intense ambient glow at the hit point */}
-            <div
-              className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-[350px] h-[150px]"
-              style={{
-                background: 'radial-gradient(ellipse 60% 100% at 50% 0%, rgba(255, 255, 255, 0.9), rgba(192, 132, 252, 0.6), transparent)',
-                filter: 'blur(20px)',
-              }}
-            />
-          </motion.div>
-        </motion.div>
 
-        {/* Light rays from top */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4 }}
-          transition={{ duration: 1.5, delay: 0.3 }}
-          className="absolute -top-20 left-1/2 -translate-x-1/2 w-[400px] h-[200px]"
-          style={{
-            background: 'radial-gradient(ellipse 60% 100% at 50% 100%, rgba(168, 85, 247, 0.3), transparent 70%)',
-            filter: 'blur(40px)',
-          }}
-        />
-      </div>
+
+      {/* Highlight Logo - Masked by full torch beam using conic gradient */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          WebkitMaskImage: maskImage,
+          maskImage: maskImage,
+        }}
+      >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] flex justify-center items-center">
+          <img
+            src={logo}
+            alt="KaryaUp Logo Illuminated"
+            className="w-full h-auto drop-shadow-[0_0_40px_rgba(168,85,247,0.8)] brightness-[1.5] contrast-125"
+          />
+        </div>
+      </motion.div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-20 text-center pointer-events-none">

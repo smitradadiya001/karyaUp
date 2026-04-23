@@ -277,7 +277,7 @@ export function ApplicationForm() {
                 {["Yes", "No"].map((opt) => (
                   <label key={opt} className="relative cursor-pointer">
                     <input type="radio" name="onboarding" value={opt} required className="peer sr-only" />
-                    <div className="flex items-center justify-center rounded-[2px] border-2 border-[#e5e3df] bg-[#fafaf9] py-2 text-[13px] font-medium text-[#192e44] transition-all duration-300 hover:border-[#7e22ce] hover:-translate-y-0.5 peer-checked:border-[#7e22ce] peer-checked:bg-gradient-to-br from-[#192e44] to-[#1e3a52] peer-checked:text-white peer-checked:shadow-[0_6px_20px_rgba(126,34,206,0.15)]">
+                    <div className="flex items-center justify-center rounded-[2px] border-2 border-[#e5e3df] bg-[#fafaf9] py-2 text-[13px] font-medium text-[#192e44] transition-all duration-300 hover:border-[#7e22ce] hover:-translate-y-0.5 peer-checked:border-[#7e22ce] peer-checked:bg-gray-100 peer-checked:text-[#192e44] peer-checked:shadow-[0_6px_20px_rgba(126,34,206,0.15)]">
                       {opt}
                     </div>
                   </label>
@@ -316,7 +316,7 @@ export function ApplicationForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="group relative flex h-[3.8em] w-full max-w-[18em] items-center justify-center overflow-hidden rounded-full bg-transparent font-bold text-[16px] transition-all duration-300 active:scale-95 shadow-[0_20px_50px_rgba(126,34,206,0.3)] disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
+            className="group relative flex h-[52px] w-full max-w-[18em] items-center justify-center overflow-hidden rounded-[2px] bg-transparent font-bold text-[16px] transition-all duration-300 active:scale-95 shadow-[0_20px_50px_rgba(126,34,206,0.3)] disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
           >
             {/* Background Layer */}
             <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
