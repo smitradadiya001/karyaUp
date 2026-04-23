@@ -11,15 +11,15 @@ import { XCircle, Layers, EyeOff, Shuffle, ArrowRight, Sparkles } from "lucide-r
 import logo2 from "../assets/logo.webp";
 import osImage from "../assets/os.webp";
 import slackIcon from "../assets/slack.svg";
-import clickupIcon from "../assets/ClickUp.webp";
+import clickupIcon from "../assets/ClickUp2.webp";
 import gmailIcon from "../assets/gmail.svg";
 import whatsappIcon from "../assets/whatsapp.webp";
-import jiraIcon from "../assets/Jira.webp";
+import jiraIcon from "../assets/Jira2.webp";
 import zapierIcon from "../assets/zapier.webp";
 import calIcon from "../assets/google-calendar.svg";
 import teamsIcon from "../assets/microsoft-teams.svg";
 import driveIcon from "../assets/google-drive.svg";
-import confusedLine from "../assets/confused-line.webp";
+import confusedLine from "../assets/confused-line(2).webp";
 import zoominfoIcon from "../assets/zoominfo.webp";
 import hubspotIcon from "../assets/hubspot.webp";
 import hubstaffIcon from "../assets/hubstaff.webp";
@@ -221,12 +221,17 @@ function SpotlightHero() {
         >
           <a
             href="#apply"
-            className="group relative flex h-[3.8em] w-full max-w-[19em] shrink-0 items-center justify-center overflow-hidden rounded-full font-bold text-[15px] transition-all duration-300 active:scale-95 bg-slate-950 text-white shadow-2xl shadow-slate-200"
+            className="group relative flex h-[3.8em] w-full max-w-[19em] shrink-0 items-center justify-center overflow-hidden rounded-full font-bold text-[15px] active:scale-95 shadow-2xl shadow-slate-200"
           >
-            <span className="relative z-10 flex items-center gap-2">
+            {/* White base background */}
+            <span className="absolute inset-0 -z-20 bg-white" />
+            
+            {/* Black gradient sliding out from left to right on hover */}
+            <span className="absolute inset-0 -z-10 origin-right scale-x-100 bg-gradient-to-r from-slate-900 to-slate-800 transition-transform duration-500 ease-in-out group-hover:scale-x-0" />
+            
+            <span className="relative z-10 flex items-center gap-2 transition-colors duration-500 text-white group-hover:text-slate-950">
               Apply for Early Access <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
             </span>
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-900 to-slate-800" />
           </a>
 
           <p className="text-xs font-bold tracking-[0.2em] uppercase text-slate-400">
@@ -533,31 +538,41 @@ function ChaosVsKarya() {
           </div>
 
           <div className="relative flex-grow flex items-center justify-center">
-            <div className="relative w-full max-w-[1000px] h-[380px] flex items-center justify-center">
+            <div className="relative w-full max-w-[1000px] h-[250px] sm:h-[380px] flex items-center justify-center">
               <motion.img
                 src={confusedLine}
                 alt="Chaos Stacks"
-                className="w-full h-full object-contain drop-shadow-xl select-none opacity-40 scale-[1.3] grayscale contrast-[0.8]"
+                className="w-full h-full object-contain drop-shadow-xl select-none opacity-40 scale-[1.1] sm:scale-[1.3] grayscale contrast-[0.8]"
               />
+              {/* Logos on Chaos Side */}
               {[
-                { icon: slackIcon, top: "15%", left: "12%", rotate: -15 },
+                { icon: slackIcon, top: "15%", left: "15%", rotate: -15 },
                 { icon: teamsIcon, top: "48%", left: "45%", rotate: 20 },
-                { icon: gmailIcon, top: "62%", left: "8%", rotate: -12 },
+                { icon: gmailIcon, top: "42%", left: "8%", rotate: -12 },
                 { icon: driveIcon, top: "28%", left: "28%", rotate: 25 },
                 { icon: whatsappIcon, top: "35%", left: "75%", rotate: -8 },
-                { icon: calIcon, top: "10%", left: "85%", rotate: 10 },
+                { icon: calIcon, top: "50%", left: "65%", rotate: 10 },
                 { icon: jiraIcon, top: "75%", left: "40%", rotate: 15 },
-                { icon: hubspotIcon, top: "5%", left: "45%", rotate: -20 },
-                { icon: hubstaffIcon, top: "70%", left: "78%", rotate: -10 },
+                { icon: hubspotIcon, top: "15%", left: "45%", rotate: -20 },
+                { icon: hubstaffIcon, top: "63%", left: "72%", rotate: -10 },
                 { icon: zapierIcon, top: "35%", left: "55%", rotate: 25 },
                 { icon: notionIcon, top: "20%", left: "65%", rotate: -18 },
                 { icon: clickupIcon, top: "55%", left: "25%", rotate: 12 },
-                { icon: zoominfoIcon, top: "80%", left: "60%", rotate: -22 },
+                { icon: zoominfoIcon, top: "70%", left: "60%", rotate: -22 },
               ].map((app, i) => (
                 <motion.div
                   key={i}
                   className="absolute flex h-14 w-14 items-center justify-center rounded-full bg-white/90 border border-rose-100 p-3"
                   style={{ top: app.top, left: app.left, rotate: app.rotate }}
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    delay: 0.1 + i * 0.08, 
+                    type: "spring", 
+                    stiffness: 260, 
+                    damping: 20 
+                  }}
                 >
                   <img src={app.icon} className="w-full h-full object-contain" alt="app" />
                 </motion.div>
@@ -573,14 +588,14 @@ function ChaosVsKarya() {
         <div className="relative flex flex-col justify-between p-8 sm:p-14 bg-emerald-50/10 min-h-[380px] overflow-hidden">
           <div className="absolute top-0 right-0 h-48 w-48 bg-emerald-500/15 blur-[80px] pointer-events-none rounded-bl-full" />
           <div className="absolute bottom-0 right-0 h-48 w-48 bg-emerald-500/10 blur-[80px] pointer-events-none rounded-tl-full" />
-          <div className="relative z-20 mb-12 flex items-center gap-2">
+          <div className="relative z-20 mb-12 flex items-center gap-2 justify-center md:justify-start">
             <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50" />
             <span className="text-xs font-black uppercase tracking-[0.2em] text-emerald-600">THE KARYAUP SHIFT</span>
           </div>
           <div className="flex-grow flex items-center justify-center">
             <IntegrationCircle />
           </div>
-          <p className="relative z-20 mt-12 text-lg font-medium text-emerald-600/80 italic flex items-center gap-2">
+          <p className="relative z-20 mt-12 text-lg font-medium text-emerald-600/80 italic flex items-center gap-2 justify-center md:justify-start text-center md:text-left">
             One source of truth. Absolute focus.
           </p>
         </div>
@@ -975,10 +990,12 @@ export default function ComingSoonPage() {
 
         {/* Footer */}
         <footer className="relative z-10 mx-auto max-w-7xl px-6 py-10">
-          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row border-t border-slate-100 pt-8">
-            <img src={logo2} alt="KaryaUp" className="h-8 w-auto" />
+          <div className="relative flex flex-col items-center sm:flex-row border-t border-slate-100 pt-8">
+            {/* Logo - Left */}
+            <img src={logo2} alt="KaryaUp" className="h-8 w-auto sm:absolute sm:left-0" />
 
-            <div className="flex items-center gap-3">
+            {/* Social Icons - Center */}
+            <div className="flex items-center gap-3 mx-auto mt-6 sm:mt-0">
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
@@ -993,8 +1010,9 @@ export default function ComingSoonPage() {
               ))}
             </div>
 
-            <p className="text-xs font-medium text-slate-400">
-              © {new Date().getFullYear()} KaryaUp
+            {/* Copyright - Right */}
+            <p className="text-xs font-medium text-slate-400 mt-6 sm:mt-0 sm:absolute sm:right-0">
+              © {new Date().getFullYear()} KaryaUp.All Rights Reserved.
             </p>
           </div>
         </footer>

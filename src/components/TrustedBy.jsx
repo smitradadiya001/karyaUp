@@ -26,7 +26,9 @@ const TrustedBy = () => {
 
     const LogoGroup = () => (
         <div className="flex flex-nowrap shrink-0 items-center gap-10 sm:gap-14 md:gap-16 lg:gap-20 pr-5 sm:pr-8 md:pr-10 lg:pr-15">
-            {brands.map((brand, index) => (
+            {brands.map((brand, index) => {
+                const isLarger = brand.name === 'Rayon' || brand.name === 'INOX';
+                return (
                 <div key={index} className="flex items-center shrink-0">
                     <img
                         src={brand.logo}
@@ -34,10 +36,11 @@ const TrustedBy = () => {
                         width="200"
                         height="80"
                         loading="lazy"
-                        className="h-10 sm:h-12 md:h-14 w-auto grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 block object-contain"
+                        className={`${isLarger ? 'h-12 sm:h-16 md:h-20' : 'h-10 sm:h-12 md:h-14'} w-auto grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 block object-contain`}
                     />
                 </div>
-            ))}
+                );
+            })}
         </div>
     );
 

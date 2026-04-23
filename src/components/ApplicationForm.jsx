@@ -11,7 +11,7 @@ const schema = z.object({
   company_type: z.string().min(1, "Select company type"),
   company_type_other: z.string().optional(),
   team_size: z.string().min(1, "Select team size"),
-  challenge: z.string().min(5, "Please describe your challenge (min 5 chars)"),
+  website: z.string().optional(),
   stack: z.array(z.string()).min(1, "Select at least one tool"),
   reason: z.string().min(10, "Please provide a reason (min 10 chars)"),
   onboarding: z.string().min(1, "This field is required"),
@@ -32,6 +32,9 @@ const TOOLS = [
   "Google Sheets",
   "CRM (Zoho, HubSpot, etc.)",
   "Project tools",
+  "ClickUp",
+  "Jira",
+  "None",
   "Other"
 ];
 
@@ -64,7 +67,7 @@ export function ApplicationForm() {
       company_name: fd.get("company_name"),
       company_type: selectedCompanyType === "Other" ? companyTypeOther : selectedCompanyType,
       team_size: fd.get("team_size"),
-      challenge: fd.get("challenge"),
+      website: fd.get("website"),
       stack: selectedTools,
       reason: fd.get("reason"),
       onboarding: fd.get("onboarding"),
@@ -92,7 +95,7 @@ export function ApplicationForm() {
         company_name: data.company_name,
         company_type: data.company_type,
         team_size: data.team_size,
-        challenge: data.challenge,
+        website: data.website || "Not provided",
         stack: data.stack.join(", "),
         reason: data.reason,
         onboarding: data.onboarding,
@@ -147,14 +150,14 @@ export function ApplicationForm() {
           {/* SECTION: Essentials */}
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <label className={labelCls}>Full Name <span className="text-[#7e22ce]">*</span></label>
-              <input name="fullname" required placeholder="John Doe" className={inputCls} />
+              <label className={labelCls}>Your Full Name <span className="text-[#7e22ce]">*</span></label>
+              <input name="fullname" required placeholder="Your Full Name" className={inputCls} />
               {errors.fullname && <p className={errorCls}>{errors.fullname}</p>}
             </div>
 
             <div>
-              <label className={labelCls}>Work Email <span className="text-[#7e22ce]">*</span></label>
-              <input name="workmail" type="email" required placeholder="john.doe@example.com" className={inputCls} />
+              <label className={labelCls}>Your Work Mail <span className="text-[#7e22ce]">*</span></label>
+              <input name="workmail" type="email" required placeholder="Your Work Mail" className={inputCls} />
               {errors.workmail && <p className={errorCls}>{errors.workmail}</p>}
             </div>
 
@@ -182,6 +185,7 @@ export function ApplicationForm() {
                   <option value="">Select a category</option>
                   <option value="Marketing Agency">Marketing Agency</option>
                   <option value="Startup">Startup</option>
+                  <option value="IT">IT</option>
                   <option value="Service Business">Service Business</option>
                   <option value="Product Company">Product Company</option>
                   <option value="Other">Other</option>
@@ -227,15 +231,13 @@ export function ApplicationForm() {
             <div className="h-px bg-gradient-to-r from-transparent via-[#e5e3df] to-transparent" />
             
             <div>
-              <label className={labelCls}>What is your biggest challenge right now? <span className="text-[#7e22ce]">*</span></label>
-              <textarea 
-                name="challenge" 
-                required
-                rows={3} 
-                placeholder="Briefly describe your current operational bottlenecks..." 
-                className={`${inputCls} min-h-[90px] resize-y leading-relaxed`}
+              <label className={labelCls}>Business Website <span className="text-slate-400 font-normal">(Optional)</span></label>
+              <input 
+                name="website" 
+                type="url"
+                placeholder="https://yourcompany.com" 
+                className={inputCls}
               />
-              {errors.challenge && <p className={errorCls}>{errors.challenge}</p>}
             </div>
 
             <div>
@@ -248,7 +250,7 @@ export function ApplicationForm() {
                     onClick={() => toggleTool(tool)}
                     className={`relative flex items-center justify-center overflow-hidden rounded-[2px] border-2 px-4 py-2 text-center text-[12px] font-medium transition-all duration-300 active:scale-[0.98]
                     ${selectedTools.includes(tool)
-                      ? "border-[#7e22ce] bg-gradient-to-br from-[#192e44] to-[#1e3a52] text-white shadow-[0_6px_20px_rgba(126,34,206,0.15)]"
+                      ? "border-[#7e22ce] bg-gray-100 text-[#192e44] shadow-[0_6px_20px_rgba(126,34,206,0.15)]"
                       : "border-[#e5e3df] bg-[#fafaf9] text-[#192e44] hover:border-[#7e22ce] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(126,34,206,0.08)]"
                     }`}
                   >
@@ -316,7 +318,7 @@ export function ApplicationForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="group relative flex h-[52px] w-full max-w-[18em] items-center justify-center overflow-hidden rounded-[2px] bg-transparent font-bold text-[16px] transition-all duration-300 active:scale-95 shadow-[0_20px_50px_rgba(126,34,206,0.3)] disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
+            className="group relative flex h-[52px] w-full max-w-[18em] items-center justify-center overflow-hidden rounded-[2px] bg-transparent font-bold text-[16px] transition-all duration-300 active:scale-95  disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
           >
             {/* Background Layer */}
             <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
@@ -360,4 +362,3 @@ export function ApplicationForm() {
     </div>
   );
 }
-
