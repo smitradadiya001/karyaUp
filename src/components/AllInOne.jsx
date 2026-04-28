@@ -22,6 +22,9 @@ import pagarbookIcon from '../assets/pagarbook.webp';
 import zoominfoIcon from '../assets/zoominfo.webp';
 import hubstaffIcon from '../assets/hubstaff.webp';
 import hubspotIcon from '../assets/hubspot.webp';
+import asanaIcon from '../assets/asana.webp'
+import pocketIcon from '../assets/pocket-hrms.webp'
+import salesforceIcon from '../assets/salesforce.webp'
 
 const APPS_LIST = [
     { name: "Zapier", icon: zapierIcon },
@@ -29,6 +32,10 @@ const APPS_LIST = [
     { name: "HubSpot", icon: hubspotIcon },
     { name: "ZoomInfo", icon: zoominfoIcon },
     { name: "Hubstaff", icon: hubstaffIcon },
+    { name: "asana", icon: asanaIcon },
+    { name: "salesforce", icon: salesforceIcon },
+      { name: "pocket-hrms", icon: pocketIcon },
+
 ];
 
 const LEAD_WORDS = ["Ask", "Search", "Find", "Query"];

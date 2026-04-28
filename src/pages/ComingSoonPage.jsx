@@ -37,131 +37,27 @@ const fadeUp = {
 
 // Spotlight/Torch Effect Component
 function SpotlightHero() {
-  const containerRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-
-  const handleMouseMove = (e) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
-
-  // Calculate angle for the rotating torch beam
-  const getAngle = () => {
-    if (!containerRef.current) return 0;
-    const rect = containerRef.current.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const dx = mousePosition.x - centerX;
-    const dy = mousePosition.y - 0; // Origin is top center
-    const angleRad = Math.atan2(dy, dx);
-    const angleDeg = (angleRad * 180) / Math.PI;
-    return angleDeg - 90; // Offset because polygon points down (90deg)
-  };
-
-  const torchRotation = useSpring(0, { stiffness: 60, damping: 20 });
-  const invertedRotation = useTransform(torchRotation, (v) => -v);
-
-  const maskImage = useMotionTemplate`conic-gradient(from ${torchRotation}deg at 50% 0%, transparent 150deg, black 165deg, black 195deg, transparent 210deg)`;
-
-  useEffect(() => {
-    if (isHovering) {
-      torchRotation.set(getAngle());
-    } else {
-      torchRotation.set(0);
-    }
-  }, [mousePosition, isHovering]);
-
   return (
     <div
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-      className="relative min-h-[75vh] w-full overflow-hidden bg-[#fafafa] pt-10"
+      className="relative min-h-[85vh] w-full overflow-hidden bg-slate-950 flex items-center justify-center pt-20"
     >
-      {/* Grid Pattern Background - Masked to be visible only in middle */}
-      <div
-        className="absolute inset-0 opacity-[0.06] z-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(#000 1px, transparent 1px),
-            linear-gradient(90deg, #000 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px',
-          maskImage: 'radial-gradient(circle at 50% 40%, #000 10%, transparent 70%)',
-          WebkitMaskImage: 'radial-gradient(circle at 50% 40%, #000 10%, transparent 70%)',
-        }}
-      />
-
-      {/* Animated Rotating Yellow Halogen Torch Effect from Top */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none z-0">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 0.35, scale: 1 }}
-          transition={{ duration: 1.8, ease: "easeOut" }}
-          style={{
-            rotate: torchRotation,
-            transformOrigin: 'top center',
-          }}
-          className="absolute top-0 left-1/2 -ml-[600px] w-[1200px] h-[140%]"
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover scale-105"
+          aria-hidden="true"
         >
-          {/* Broad Torch Beam */}
-          <div
-            style={{
-              background: 'linear-gradient(to bottom, rgba(168, 85, 247, 0.35), rgba(168, 85, 247, 0.1), transparent)',
-              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-              filter: 'blur(60px)',
-            }}
-            className="w-full h-full"
-          />
-          {/* Torch Core Highlight */}
-          <div
-            style={{
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.15), transparent)',
-              clipPath: 'polygon(50% 0%, 40% 100%, 60% 100%)',
-              filter: 'blur(40px)',
-            }}
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[80%]"
-          />
-        </motion.div>
-
-        {/* Top intensity glow source */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-12 bg-white/40 blur-3xl rounded-full" />
+          <source src="/KU logo 1.0 (1).mp4" type="video/mp4" />
+        </video>
+        {/* Dark Overlay for readability */}
+        <div className="absolute inset-0 bg-slate-950/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-transparent to-slate-950/40" />
       </div>
-
-      {/* Subtle Interactive Gray Spotlight Effect (Mouse Glow) */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 z-1"
-        animate={{
-          background: isHovering
-            ? `radial-gradient(350px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(126,34,206,0.04), transparent 70%)`
-            : 'radial-gradient(350px circle at 50% 40%, rgba(126,34,206,0.02), transparent 70%)',
-        }}
-        transition={{ duration: 0.1, ease: 'linear' }}
-      />
-
-
-
-      {/* Highlight Logo - Masked by full torch beam using conic gradient */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{
-          WebkitMaskImage: maskImage,
-          maskImage: maskImage,
-        }}
-      >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] flex justify-center items-center">
-          <img
-            src={logo}
-            alt="KaryaUp Logo Illuminated"
-            className="w-full h-auto drop-shadow-[0_0_40px_rgba(168,85,247,0.8)] brightness-[1.5] contrast-125"
-          />
-        </div>
-      </motion.div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-20 text-center pointer-events-none">
@@ -172,7 +68,7 @@ function SpotlightHero() {
           transition={{ duration: 0.6 }}
           className="mx-auto mb-10 w-fit pointer-events-auto"
         >
-          <div className="backdrop-blur-sm bg-slate-50/50 border border-slate-200 px-5 py-2 rounded-full shadow-sm text-slate-900">
+          <div className="backdrop-blur-xl bg-white/20 border border-white/40 px-6 py-3 rounded-full shadow-[0_8px_32px_rgba(255,255,255,0.1)] text-white">
             <Countdown />
           </div>
         </motion.div>
@@ -183,7 +79,7 @@ function SpotlightHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-[2.6rem] sm:text-[3.2rem] lg:text-[4.5rem] font-black leading-[1.1] tracking-tight text-slate-950 pb-2"
+            className="text-[2.6rem] sm:text-[3.2rem] lg:text-[4.5rem] font-black leading-[1.1] tracking-tight text-white pb-2"
           >
             Something Powerful Is Coming
           </motion.h1>
@@ -194,7 +90,7 @@ function SpotlightHero() {
             className="pb-2"
           >
             <FlipText
-              className="text-[2.6rem] sm:text-[3.2rem] lg:text-[4.5rem] font-black leading-[1.1] tracking-tight text-slate-900"
+              className="text-[2.6rem] sm:text-[3.2rem] lg:text-[4.5rem] font-black leading-[1.1] tracking-tight text-white"
               duration={4.5}
             >
               to Run Your Business
@@ -207,7 +103,7 @@ function SpotlightHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          className="mx-auto mt-10 max-w-2xl text-base font-medium leading-relaxed text-slate-500 sm:text-lg pointer-events-auto"
+          className="mx-auto mt-10 max-w-2xl text-base font-medium leading-relaxed text-white/80 sm:text-lg pointer-events-auto"
         >
           KaryaUp is opening access to only 100 companies before public launch.
         </motion.p>
@@ -221,20 +117,21 @@ function SpotlightHero() {
         >
           <a
             href="#apply"
-            className="group relative flex h-[3.8em] w-full max-w-[19em] shrink-0 items-center justify-center overflow-hidden rounded-full font-bold text-[15px] active:scale-95 shadow-2xl shadow-slate-200"
+            className="group relative flex h-[3.8em] w-full max-w-[19em] shrink-0 items-center justify-center overflow-hidden rounded-full font-bold text-[15px] active:scale-95"
+            style={{ boxShadow: "0 18px 40px rgba(126, 34, 206, 0.22)" }}
           >
-            {/* White base background */}
-            <span className="absolute inset-0 -z-20 bg-white" />
+            {/* Background Gradient */}
+            <div className="absolute inset-0 -z-20 bg-gradient-animated" />
             
-            {/* Black gradient sliding out from left to right on hover */}
-            <span className="absolute inset-0 -z-10 origin-right scale-x-100 bg-gradient-to-r from-slate-900 to-slate-800 transition-transform duration-500 ease-in-out group-hover:scale-x-0" />
+            {/* White slide-in effect on hover */}
+            <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-full bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
             
-            <span className="relative z-10 flex items-center gap-2 transition-colors duration-500 text-white group-hover:text-slate-950">
+            <span className="relative z-10 flex items-center gap-2 transition-colors duration-500 text-white group-hover:text-slate-900">
               Apply for Early Access <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
             </span>
           </a>
 
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-slate-400">
+          <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/50">
             Strictly limited to 100 spots
           </p>
         </motion.div>
@@ -542,7 +439,7 @@ function ChaosVsKarya() {
               <motion.img
                 src={confusedLine}
                 alt="Chaos Stacks"
-                className="w-full h-full object-contain drop-shadow-xl select-none opacity-40 scale-[1.1] sm:scale-[1.3] grayscale contrast-[0.8]"
+                className="w-full h-full object-contain drop-shadow-xl select-none opacity-40 scale-[1.35] sm:scale-[1.7] grayscale contrast-[0.8]"
               />
               {/* Logos on Chaos Side */}
               {[
@@ -746,7 +643,7 @@ function ShiftCard() {
           href="#apply"
           className="group relative mt-10 mx-auto md:mx-0 flex h-[3.8em] w-full max-w-[18em] shrink-0 items-center justify-center overflow-hidden rounded-full font-bold text-[16px] transition-all duration-300 active:scale-95 shadow-[0_20px_50px_rgba(126,34,206,0.3)]"
         >
-          <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+          <div className="absolute inset-0 -z-20 bg-gradient-animated" />
           <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-full bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
           <span className="relative z-10 flex items-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-900">
             Apply for Early Access <ArrowRight size={20} className="transition-transform group-hover:translate-x-1.5" />

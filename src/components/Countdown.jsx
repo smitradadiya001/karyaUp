@@ -44,9 +44,9 @@ function CircularUnit({ value, label, max, dotCount = 60, size = 110 }) {
             cx={cx}
             cy={cy}
             r={radius - dotRadius - 6}
-            fill="white"
-            stroke="#e2e8f0"
-            strokeWidth="1"
+            fill="rgba(255, 255, 255, 0.15)"
+            stroke="rgba(255, 255, 255, 0.25)"
+            strokeWidth="0.5"
           />
           {/* Dots ring */}
           {dots.map((dot, i) => (
@@ -55,7 +55,7 @@ function CircularUnit({ value, label, max, dotCount = 60, size = 110 }) {
               cx={dot.x}
               cy={dot.y}
               r={dotRadius}
-              fill={dot.isActive ? "#7e22ce" : "#e2e8f0"}
+              fill={dot.isActive ? "#a855f7" : "rgba(255, 255, 255, 0.15)"}
               style={{ transition: "fill 0.3s ease" }}
             />
           ))}
@@ -66,13 +66,13 @@ function CircularUnit({ value, label, max, dotCount = 60, size = 110 }) {
           <NumberFlow
             value={value}
             format={{ minimumIntegerDigits: 2 }}
-            className={`${size < 100 ? 'text-xl' : 'text-2xl'} font-black tabular-nums text-slate-800 leading-none`}
+            className={`${size < 100 ? 'text-xl' : 'text-2xl'} font-black tabular-nums text-white leading-none`}
           />
         </div>
       </div>
 
       {/* Label */}
-      <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">
+      <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/80">
         {label}
       </span>
     </div>

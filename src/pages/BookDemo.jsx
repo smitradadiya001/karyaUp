@@ -241,7 +241,7 @@ export default function BookDemo() {
                   boxShadow: "6px 6px 12px #d8dbe6, -6px -6px 12px #ffffff",
                 }}
               >
-                <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                <div className="absolute inset-0 -z-20 bg-gradient-animated" />
                 <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
                 <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
                   <Send className="h-4.5 w-4.5" />
@@ -389,7 +389,7 @@ export default function BookDemo() {
                 to="/contact-us"
                 className="group relative flex h-[3.4em] items-center justify-center overflow-hidden rounded-[30em] px-10 text-[15px] font-black transition-all duration-300 active:scale-95 shadow-[0_18px_40px_rgba(126,34,206,0.12)]"
               >
-                <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                <div className="absolute inset-0 -z-20 bg-gradient-animated" />
                 <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
                 <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800">
                   Contact Support

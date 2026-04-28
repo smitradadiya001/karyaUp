@@ -88,7 +88,7 @@ export default function SolProjectManagement() {
                 <p className="text-slate-600 text-sm font-medium leading-relaxed">
                   {card.desc}
                 </p>
-                <div className="absolute bottom-0 left-0 h-1.5 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 w-0 group-hover:w-full transition-all duration-500 rounded-b-[2.5rem]" />
+                <div className="absolute bottom-0 left-0 h-1.5 bg-gradient-animated w-0 group-hover:w-full transition-all duration-500 rounded-b-[2.5rem]" />
               </motion.div>
             ))}
           </div>

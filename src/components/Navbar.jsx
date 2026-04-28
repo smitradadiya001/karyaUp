@@ -226,7 +226,11 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      const threshold = location.pathname === "/" ? 500 : 20;
+      
+      // Handle background change
+      setIsScrolled(currentScrollY > threshold);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -236,7 +240,7 @@ const Navbar = () => {
       if (solutionsTimerRef.current) clearTimeout(solutionsTimerRef.current);
       if (resourcesTimerRef.current) clearTimeout(resourcesTimerRef.current);
     };
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     const shouldLockScroll = isOpen;
@@ -311,7 +315,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 w-full flex flex-col z-50 transition-all duration-300 ${isPlatformOpen || isFeaturesOpen || isSolutionsOpen || isResourcesOpen
+        className={`fixed top-0 w-full flex flex-col z-50 transition-all duration-700 ease-in-out ${isPlatformOpen || isFeaturesOpen || isSolutionsOpen || isResourcesOpen
           ? "bg-white md:shadow-md border-b border-gray-100"
           : isOpen
             ? "bg-white border-b border-slate-100"
@@ -320,7 +324,7 @@ const Navbar = () => {
               : "bg-transparent border-none shadow-none backdrop-blur-0"
           }`}
       >
-        <div className={`overflow-hidden bg-white border-none shadow-none transition-all duration-300 ease-in-out ${isScrolled || isIframeDark ? 'max-h-0 opacity-0' : 'max-h-[60px] opacity-100'}`}>
+        <div className={`overflow-hidden bg-white border-none shadow-none transition-all duration-700 ease-in-out ${isScrolled || isIframeDark ? 'max-h-0 opacity-0' : 'max-h-[60px] opacity-100'}`}>
           <Link
             to="/features/ai-agents"
             className="flex w-full items-center justify-center py-2 text-[13px] font-semibold tracking-wide transition-colors bg-white text-slate-900 border-none shadow-none outline-none ring-0 px-4"

@@ -23,6 +23,9 @@ import NumberFlow from "@number-flow/react";
 import hubspotLogo from "../assets/hubspot.webp";
 import hubstaffLogo from "../assets/hubstaff.webp";
 import pagarbookLogo from "../assets/pagarbook.webp";
+import pocketHrmsLogo from "../assets/pocket-hrms.webp";
+import salesforceLogo from "../assets/salesforce.webp";
+import asanaLogo from "../assets/asana.webp";
 import zoominfoLogo from "../assets/zoominfo.webp";
 import zapierLogo from "../assets/zapier.webp";
 import { Helmet } from "react-helmet-async";
@@ -37,10 +40,16 @@ const plans = [
     yearlyPrice: 0,
     features: [
       "5 Projects",
-      "100MB Storage",
-      "Basic Analytics",
-      "Community Support",
-      "Email Notifications",
+      "Unlimited Tasks",
+      "Unlimited Notes",
+      "Unlimited Reminders",
+      "2 Task Automations",
+      "Free Application Access",
+      "5 Clients",
+      "3 Whiteboards",
+      "5 Brands",
+      "Team Collaboration",
+      "Access Panel",
     ],
     notIncluded: [
       "Advanced Security",
@@ -54,15 +63,24 @@ const plans = [
   {
     name: "Basic",
     description: "Best for growing teams needing more control.",
-    monthlyPrice: 3500,
-    yearlyPrice: 2800,
+    monthlyPrice: 900,
+    yearlyPrice: 720,
     features: [
       "Unlimited Projects",
-      "10GB Storage",
-      "Advanced Analytics",
-      "Email Support",
+      "Unlimited Tasks",
+      "Unlimited Notes",
+      "Unlimited Reminders",
+      "2 Task Automations",
+      "Free Application Access",
+      "Unlimited Clients",
+      "Unlimited Whiteboards",
+      "Unlimited Brands",
       "Team Collaboration",
-      "API Access",
+      "Access Panel",
+      "Activity Captures",
+      "Attendance",
+      "Leave and Salary",
+      "Quotations",
     ],
     notIncluded: ["Advanced Security", "Custom Domain", "Priority Support"],
     buttonText: "Start Basic Trial",
@@ -72,15 +90,16 @@ const plans = [
   {
     name: "Pro",
     description: "Advanced features for professional organizations.",
-    monthlyPrice: 6500,
+    monthlyPrice: 1500,
     yearlyPrice: 5200,
     features: [
       "Everything in Basic",
-      "50GB Storage",
-      "Custom Domain",
-      "Priority Support",
-      "Advanced Security",
-      "Admin Controls",
+     
+      "Access Panel",
+      "CRM Analytics",
+      "Find Leads",
+      "Leads Mail",
+      "Mail Campaigns",
     ],
     notIncluded: ["Dedicated Manager"],
     buttonText: "Upgrade to Pro",
@@ -89,15 +108,16 @@ const plans = [
   {
     name: "Enterprise",
     description: "Custom solutions for large-scale enterprises.",
-    monthlyPrice: 10000,
-    yearlyPrice: 8000,
+    monthlyPrice: null,
+    yearlyPrice: null,
     features: [
       "Everything in Pro",
-      "Unlimited Storage",
-      "Dedicated Manager",
-      "SAML SSO",
-      "Custom Contracts",
-      "24/7 Phone Support",
+     
+      "Access Panel",
+      "Custom Features Development",
+      "Onboarding & Training Support",
+      "Scalable Infrastructure",
+      "Custom Branding",
     ],
     notIncluded: [],
     buttonText: "Book a Demo",
@@ -117,29 +137,36 @@ const comparisons = [
         enterprise: "Unlimited",
       },
       {
-        name: "Spaces",
-        free: "5 Spaces",
+        name: "Projects",
+        free: "5 Projects",
         basic: "Unlimited",
         pro: "Unlimited",
         enterprise: "Unlimited",
       },
       {
-        name: "Lists/Space",
-        free: "40",
-        basic: "200",
-        pro: "400",
+        name: "Clients",
+        free: "5 Clients",
+        basic: "Unlimited",
+        pro: "Unlimited",
         enterprise: "Unlimited",
       },
       {
-        name: "Folders/Space",
-        free: "100",
-        basic: "200",
-        pro: "400",
+        name: "Brands",
+        free: "5 Brands",
+        basic: "Unlimited",
+        pro: "Unlimited",
         enterprise: "Unlimited",
       },
       {
-        name: "Storage",
-        free: "100MB",
+        name: "Notes",
+        free: "Unlimited",
+        basic: "Unlimited",
+        pro: "Unlimited",
+        enterprise: "Unlimited",
+      },
+      {
+        name: "Reminders",
+        free: "Unlimited",
         basic: "Unlimited",
         pro: "Unlimited",
         enterprise: "Unlimited",
@@ -150,39 +177,32 @@ const comparisons = [
     category: "Views & Collaboration",
     items: [
       {
-        name: "Custom Views",
-        free: "Unlimited",
-        basic: "Unlimited",
-        pro: "Unlimited",
-        enterprise: "Unlimited",
-      },
-      {
-        name: "Mind Maps",
-        free: false,
-        basic: true,
-        pro: true,
-        enterprise: true,
-      },
-      {
-        name: "Timeline View",
-        free: false,
-        basic: false,
-        pro: true,
-        enterprise: true,
-      },
-      {
-        name: "Gantt Charts",
-        free: false,
-        basic: true,
-        pro: true,
-        enterprise: true,
-      },
-      {
         name: "Whiteboards",
         free: "3 Boards",
         basic: "Unlimited",
         pro: "Unlimited",
         enterprise: "Unlimited",
+      },
+      {
+        name: "App Integrations",
+        free: true,
+        basic: true,
+        pro: true,
+        enterprise: true,
+      },
+      {
+        name: "Team Collaboration",
+        free: true,
+        basic: true,
+        pro: true,
+        enterprise: true,
+      },
+      {
+        name: "Access Panel",
+        free: true,
+        basic: true,
+        pro: true,
+        enterprise: true,
       },
     ],
   },
@@ -191,71 +211,79 @@ const comparisons = [
     items: [
       {
         name: "Automations",
-        free: "100/mo",
-        basic: "1,000/mo",
-        pro: "10,000/mo",
-        enterprise: "Unlimited",
-      },
-      {
-        name: "Dashboards",
-        free: false,
-        basic: true,
-        pro: true,
-        enterprise: true,
-      },
-      {
-        name: "Advanced Reporting",
-        free: false,
-        basic: false,
-        pro: true,
-        enterprise: true,
-      },
-      { name: "Goals", free: false, basic: true, pro: true, enterprise: true },
-      {
-        name: "Portfolio",
-        free: false,
-        basic: false,
-        pro: true,
-        enterprise: true,
-      },
-    ],
-  },
-  {
-    category: "Admin & Security",
-    items: [
-      {
-        name: "Custom Fields",
-        free: "100",
+        free: "2",
         basic: "Unlimited",
         pro: "Unlimited",
         enterprise: "Unlimited",
       },
       {
-        name: "Sharing Permissions",
+        name: "CRM Analytics",
+        free: false,
+        basic: false,
+        pro: true,
+        enterprise: true,
+      },
+      {
+        name: "Find Leads",
+        free: false,
+        basic: false,
+        pro: true,
+        enterprise: true,
+      },
+      {
+        name: "Mail Campaigns",
+        free: false,
+        basic: false,
+        pro: true,
+        enterprise: true,
+      },
+      {
+        name: "Custom Features Development",
+        free: false,
+        basic: false,
+        pro: false,
+        enterprise: true,
+      },
+      {
+        name: "Onboarding & Training Support",
+        free: false,
+        basic: false,
+        pro: false,
+        enterprise: true,
+      },
+      {
+        name: "Scalable Infrastructure",
+        free: false,
+        basic: false,
+        pro: false,
+        enterprise: true,
+      },
+      {
+        name: "Custom Branding",
+        free: false,
+        basic: false,
+        pro: false,
+        enterprise: true,
+      },
+      {
+        name: "Activity Capture",
         free: false,
         basic: true,
         pro: true,
         enterprise: true,
       },
       {
-        name: "SAML SSO",
+        name: "Attendance",
         free: false,
-        basic: false,
-        pro: false,
+        basic: true,
+        pro: true,
         enterprise: true,
       },
       {
-        name: "Audit Logs",
+        name: "Leave and Salary",
         free: false,
-        basic: false,
-        pro: false,
-        enterprise: true,
-      },
-      {
-        name: "White Labeling",
-        free: false,
-        basic: false,
-        pro: false,
+        basic: true,
+        pro: true,
         enterprise: true,
       },
     ],
@@ -498,6 +526,24 @@ export default function Pricing() {
       logo: pagarbookLogo,
     },
     {
+      id: "pocket-hrms",
+      name: "Pocket HRMS",
+      price: 10,
+      logo: pocketHrmsLogo,
+    },
+    {
+      id: "salesforce",
+      name: "Salesforce",
+      price: 15,
+      logo: salesforceLogo,
+    },
+    {
+      id: "asana",
+      name: "Asana",
+      price: 7,
+      logo: asanaLogo,
+    },
+    {
       id: "zoominfo",
       name: "ZoomInfo",
       price: 5,
@@ -671,21 +717,31 @@ export default function Pricing() {
                           {plan.description}
                         </p>
 
-                        <div className="flex items-baseline gap-1">
-                          <span
-                            className={`text-4xl sm:text-5xl font-black ${plan.popular ? "text-white" : "text-slate-900"}`}
-                          >
-                            ₹
-                            {billingCycle === "monthly"
-                              ? plan.monthlyPrice
-                              : plan.yearlyPrice}
-                          </span>
-                          <span
-                            className={`text-base sm:text-lg font-bold ${plan.popular ? "text-white/60" : "text-slate-400"}`}
-                          >
-                            /mo
-                          </span>
-                        </div>
+                        {plan.name === "Enterprise" ? (
+                          <div className="flex items-center gap-1">
+                            <span
+                              className={`whitespace-nowrap text-2xl sm:text-3xl font-black ${plan.popular ? "text-white" : "text-slate-900"}`}
+                            >
+                              Custom pricing
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="flex items-baseline gap-1">
+                            <span
+                              className={`text-4xl sm:text-5xl font-black ${plan.popular ? "text-white" : "text-slate-900"}`}
+                            >
+                              ₹
+                              {billingCycle === "monthly"
+                                ? plan.monthlyPrice
+                                : plan.yearlyPrice}
+                            </span>
+                            <span
+                              className={`text-base sm:text-lg font-bold ${plan.popular ? "text-white/60" : "text-slate-400"}`}
+                            >
+                              /mo
+                            </span>
+                          </div>
+                        )}
                       </div>
 
                       <div className="space-y-3 sm:space-y-4 lg:space-y-5 mb-8 sm:mb-10 lg:mb-12 flex-grow">
@@ -725,7 +781,7 @@ export default function Pricing() {
                           boxShadow: "0 18px 40px rgba(126, 34, 206, 0.22)",
                         }}
                       >
-                        <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                        <div className="absolute inset-0 -z-20 bg-gradient-animated" />
                         <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
                         <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
                           {plan.buttonText}
@@ -798,7 +854,7 @@ export default function Pricing() {
                               </div>
                               <div className="text-[10px] sm:text-[11px] font-bold text-slate-400">
                                 {plan.name === "Enterprise"
-                                  ? "Contact us"
+                                  ? <span className="whitespace-nowrap">Custom pricing</span>
                                   : `₹${billingCycle === "monthly"
                                     ? plan.monthlyPrice
                                     : plan.yearlyPrice
@@ -815,7 +871,7 @@ export default function Pricing() {
                                     ? undefined
                                     : handleAuthRedirect
                                 }
-                                className="group relative mt-1 flex h-[2.5em] sm:h-[2.8em] items-center justify-center overflow-hidden rounded-[30em] bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 px-3 sm:px-6 text-[10px] sm:text-xs font-black transition-all duration-300 active:scale-95"
+                                className="group relative mt-1 flex h-[2.5em] sm:h-[2.8em] items-center justify-center overflow-hidden rounded-[30em] bg-gradient-animated px-3 sm:px-6 text-[10px] sm:text-xs font-black transition-all duration-300 active:scale-95"
                                 style={{
                                   boxShadow:
                                     "0 10px 24px rgba(126, 34, 206, 0.18)",
@@ -879,7 +935,7 @@ export default function Pricing() {
                                   </div>
                                   <div className="text-[10px] sm:text-[11px] font-bold text-slate-400">
                                     {plan.name === "Enterprise"
-                                      ? "Contact us"
+                                      ? <span className="whitespace-nowrap">Custom pricing</span>
                                       : `₹${billingCycle === "monthly"
                                         ? plan.monthlyPrice
                                         : plan.yearlyPrice
@@ -896,7 +952,7 @@ export default function Pricing() {
                                         ? undefined
                                         : handleAuthRedirect
                                     }
-                                    className="group relative mt-1 sm:mt-2 flex h-[2.7em] sm:h-[3em] items-center justify-center overflow-hidden rounded-[30em] bg-gradient-to-r from-[#7e22ce] to-fuchsia-500 px-3 sm:px-6 text-[10px] sm:text-xs font-black transition-all duration-300 active:scale-95"
+                                    className="group relative mt-1 sm:mt-2 flex h-[2.7em] sm:h-[3em] items-center justify-center overflow-hidden rounded-[30em] bg-gradient-animated px-3 sm:px-6 text-[10px] sm:text-xs font-black transition-all duration-300 active:scale-95"
                                     style={{
                                       boxShadow:
                                         "0 12px 28px rgba(126, 34, 206, 0.18)",
@@ -919,77 +975,46 @@ export default function Pricing() {
                           </tr>
                         </thead>
                         <tbody>
-                          {comparisons.map((cat) => (
-                            <React.Fragment key={cat.category}>
-                              <tr>
+                          {comparisons.flatMap((cat) => cat.items).map((item) => (
+                            <tr
+                              key={item.name}
+                              className="border-b border-slate-200 group hover:bg-slate-50 transition-colors"
+                            >
+                              <td className="py-3 sm:py-4 px-4 sm:px-10">
+                                <span className="text-xs sm:text-sm font-bold text-slate-600 group-hover:text-slate-900 transition-colors">
+                                  {item.name}
+                                </span>
+                              </td>
+                              {plans.map((plan) => (
                                 <td
-                                  colSpan="5"
-                                  className="py-4 sm:py-6 px-4 sm:px-10 bg-slate-50/30"
+                                  key={`${plan.name}-${item.name}`}
+                                  className="py-3 sm:py-4 px-3 sm:px-6 text-center"
                                 >
-                                  <motion.span
-                                    animate={{
-                                      backgroundPosition: [
-                                        "0% center",
-                                        "-200% center",
-                                      ],
-                                    }}
-                                    transition={{
-                                      duration: 4,
-                                      repeat: Infinity,
-                                      ease: "linear",
-                                    }}
-                                    className="text-sm sm:text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto] uppercase tracking-tight"
-                                  >
-                                    {cat.category}
-                                  </motion.span>
+                                  <div className="flex justify-center">
+                                    {(() => {
+                                      const val = item[plan.name.toLowerCase()];
+                                      if (typeof val === "boolean") {
+                                        return val ? (
+                                          <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                                            <Check size={12} strokeWidth={3} />
+                                          </div>
+                                        ) : (
+                                          <Minus
+                                            className="text-slate-100"
+                                            size={16}
+                                          />
+                                        );
+                                      }
+                                      return (
+                                        <span className="text-xs sm:text-sm font-black text-slate-900">
+                                          {val}
+                                        </span>
+                                      );
+                                    })()}
+                                  </div>
                                 </td>
-                              </tr>
-                              {cat.items.map((item) => (
-                                <tr
-                                  key={item.name}
-                                  className="border-b border-slate-200 group hover:bg-slate-50 transition-colors"
-                                >
-                                  <td className="py-3 sm:py-4 px-4 sm:px-10">
-                                    <span className="text-xs sm:text-sm font-bold text-slate-600 group-hover:text-slate-900 transition-colors">
-                                      {item.name}
-                                    </span>
-                                  </td>
-                                  {plans.map((plan) => (
-                                    <td
-                                      key={`${plan.name}-${item.name}`}
-                                      className="py-3 sm:py-4 px-3 sm:px-6 text-center"
-                                    >
-                                      <div className="flex justify-center">
-                                        {(() => {
-                                          const val =
-                                            item[plan.name.toLowerCase()];
-                                          if (typeof val === "boolean") {
-                                            return val ? (
-                                              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
-                                                <Check
-                                                  size={12}
-                                                  strokeWidth={3}
-                                                />
-                                              </div>
-                                            ) : (
-                                              <Minus
-                                                className="text-slate-100"
-                                                size={16}
-                                              />
-                                            );
-                                          }
-                                          return (
-                                            <span className="text-xs sm:text-sm font-black text-slate-900">
-                                              {val}
-                                            </span>
-                                          );
-                                        })()}
-                                      </div>
-                                    </td>
-                                  ))}
-                                </tr>
                               ))}
-                            </React.Fragment>
+                            </tr>
                           ))}
                         </tbody>
                       </table>
@@ -999,181 +1024,6 @@ export default function Pricing() {
               </motion.section>
             )}
           </AnimatePresence>
-
-          {/* ── Savings Calculator Section ── */}
-          <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-8 sm:mb-10">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 tracking-tight leading-[1.06]">
-                  The Consolidation <br />
-                  <motion.span
-                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
-                    animate={{
-                      backgroundPosition: ["0% center", "-200% center"],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  >
-                    Savings Are Real.
-                  </motion.span>
-                </h2>
-                <p className="text-slate-500 font-bold text-sm sm:text-base px-2">
-                  Stop paying for multiple tools and save thousands every year.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 shadow-[0_30px_60px_-15px_rgba(59,42,90,0.1)] p-5 sm:p-6 md:p-8 lg:p-10 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
-                {/* Left Side */}
-                <div className="flex-1">
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-6">
-                    Your apps today
-                  </h3>
-                  <p className="text-slate-400 font-bold text-[10px] mb-3 sm:mb-4 uppercase tracking-wider">
-                    Which apps do you use?
-                  </p>
-
-                  <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6 sm:mb-8">
-                    {apps.map((app) => (
-                      <motion.button
-                        key={app.id}
-                        onClick={() => toggleApp(app.id)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`relative aspect-square rounded-2xl sm:rounded-3xl flex items-center justify-center transition-all p-1 sm:p-1.5 overflow-hidden ${selectedApps.includes(app.id)
-                          ? "bg-[#7e22ce]/10"
-                          : "bg-transparent hover:bg-slate-50"
-                          }`}
-                      >
-                        {/* Blend wrapper – isolate from motion transform stacking context */}
-                        <span
-                          className="flex items-center justify-center w-full h-full"
-                          style={{ mixBlendMode: "multiply" }}
-                        >
-                          <img
-                            src={app.logo}
-                            alt={app.name}
-                            className="w-12 h-12 sm:w-16 sm:h-16 object-contain"
-                          />
-                        </span>
-                      </motion.button>
-                    ))}
-                  </div>
-
-                  <div className="bg-slate-50/50 p-3 sm:p-4 rounded-2xl border border-slate-100">
-                    <div className="flex justify-between items-center mb-3 sm:mb-4">
-                      <span className="text-slate-400 font-black text-[10px] uppercase tracking-wider">
-                        People strength
-                      </span>
-                      <span className="text-[#7e22ce] font-black text-sm sm:text-base">
-                        {userCount}
-                      </span>
-                    </div>
-                    <input
-                      type="range"
-                      min="5"
-                      max="1000"
-                      step="5"
-                      value={userCount}
-                      onChange={(e) => setUserCount(parseInt(e.target.value))}
-                      style={{
-                        background: `linear-gradient(to right, #7e22ce 0%, #7e22ce ${((userCount - 5) / 995) * 100}%, #e2e8f0 ${((userCount - 5) / 995) * 100}%, #e2e8f0 100%)`,
-                      }}
-                      className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-[#7e22ce]"
-                    />
-                  </div>
-                </div>
-
-                {/* Right Side */}
-                <div className="flex-1 bg-slate-50/30 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 md:p-8 border border-slate-100 flex flex-col justify-between">
-                  <div className="mb-4 sm:mb-6">
-                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-6">
-                      Apps to replace
-                    </h3>
-                    <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                      {apps
-                        .filter((a) => selectedApps.includes(a.id))
-                        .map((app) => (
-                          <div
-                            key={app.id}
-                            className="flex justify-between items-center pb-2 sm:pb-2.5 border-b border-slate-100 last:border-0 last:pb-0"
-                          >
-                            <span className="text-slate-500 font-bold text-xs sm:text-sm tracking-tight">
-                              {app.name}
-                            </span>
-                            <span className="text-slate-900 font-black text-xs sm:text-sm">
-                              ₹{app.price} / user
-                            </span>
-                          </div>
-                        ))}
-                    </div>
-
-                    <div className="pt-3 sm:pt-4 border-t border-slate-200 flex justify-between items-center mb-1">
-                      <span className="text-slate-900 font-black text-sm sm:text-base italic">
-                        Total
-                      </span>
-                      <div className="text-slate-900 font-black text-lg sm:text-xl flex items-center gap-1 uppercase tracking-tight">
-                        <NumberFlow
-                          value={currentTotal}
-                          prefix="₹"
-                          format={{ notation: "standard" }}
-                        />{" "}
-                        <span className="text-xs text-slate-400">/year</span>
-                      </div>
-                    </div>
-                    <p className="text-slate-400 font-bold text-[9px] uppercase tracking-widest text-right mb-5 sm:mb-8">
-                      KaryaUp for {userCount} users ={" "}
-                      <NumberFlow
-                        value={karyaUpPrice}
-                        prefix="₹"
-                        format={{ notation: "standard" }}
-                      />{" "}
-                      / YEAR
-                    </p>
-                  </div>
-
-                  <div className="bg-white/80 rounded-[1.25rem] sm:rounded-[1.5rem] p-3 sm:p-4 border border-white shadow-sm flex items-center justify-between mb-4 sm:mb-6">
-                    <div>
-                      <p className="text-slate-400 font-black text-[9px] uppercase tracking-widest mb-0.5">
-                        Savings
-                      </p>
-                      <div className="text-xl sm:text-2xl font-black text-[#7e22ce] tracking-tighter">
-                        <NumberFlow
-                          value={Math.max(0, savings)}
-                          prefix="₹"
-                          format={{ notation: "standard" }}
-                        />
-                      </div>
-                    </div>
-                    <div className="text-[9px] font-bold text-slate-400 leading-tight max-w-[100px] sm:max-w-[120px] text-right uppercase tracking-tighter">
-                      Estimated annual ROI compared to individual tools.
-                    </div>
-                  </div>
-
-                  <a
-                    href={authUrl}
-                    onClick={handleAuthRedirect}
-                    className="group relative z-10 flex h-[3.4em] w-full items-center justify-center overflow-hidden rounded-[30em] font-bold text-[14px] sm:text-[15px] transition-all duration-300 active:scale-95"
-                    style={{
-                      boxShadow: "0 18px 40px rgba(126, 34, 206, 0.22)",
-                    }}
-                  >
-                    <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
-                    <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
-                    <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
-                      Start Saving Today
-                      <ArrowRight
-                        size={16}
-                        className="transition-transform group-hover:translate-x-1 group-active:translate-x-1"
-                      />
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
 
           {/* ── FAQ Section ── */}
           <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
@@ -1215,7 +1065,7 @@ export default function Pricing() {
                     to="/contact-us"
                     className="group relative flex h-[3.4em] items-center justify-center overflow-hidden rounded-[30em] px-10 text-[15px] font-black transition-all duration-300 active:scale-95 shadow-[0_18px_40px_rgba(126,34,206,0.22)]"
                   >
-                    <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                    <div className="absolute inset-0 -z-20 bg-gradient-animated" />
                     <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
                     <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800">
                       Contact Our Team
@@ -1309,6 +1159,189 @@ export default function Pricing() {
             </div>
           </section>
 
+          {/* ── Savings Calculator Section ── */}
+          <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-8 sm:mb-10">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 tracking-tight leading-[1.06]">
+                  The Consolidation <br />
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#7e22ce] via-[#ec4899] to-[#7e22ce] bg-[length:200%_auto]"
+                    animate={{
+                      backgroundPosition: ["0% center", "-200% center"],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  >
+                    Savings Are Real.
+                  </motion.span>
+                </h2>
+                <p className="text-slate-500 font-bold text-sm sm:text-base px-2">
+                  Stop paying for multiple tools and save thousands every year.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 shadow-[0_30px_60px_-15px_rgba(59,42,90,0.1)] p-5 sm:p-6 md:p-8 lg:p-10 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
+                <div className="flex-1">
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-6">
+                    Your apps today
+                  </h3>
+                  <p className="text-slate-400 font-bold text-[10px] mb-3 sm:mb-4 uppercase tracking-wider">
+                    Which apps do you use?
+                  </p>
+
+                  <div className="grid grid-cols-3 justify-items-center gap-1 sm:gap-1.5 mb-6 sm:mb-8">
+                    {apps.map((app) => (
+                      <motion.button
+                        key={app.id}
+                        onClick={() => toggleApp(app.id)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`group relative aspect-square w-full max-w-[92px] sm:max-w-[112px] rounded-lg sm:rounded-xl flex items-center justify-center transition-all p-1 overflow-hidden ${selectedApps.includes(app.id)
+                          ? "bg-[#7e22ce]/10"
+                          : "bg-transparent hover:bg-slate-50"
+                          }`}
+                      >
+                        {selectedApps.includes(app.id) && (
+                          <div className="absolute top-1 right-1 z-10 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/25">
+                            <Check size={10} strokeWidth={4} className="text-white" />
+                          </div>
+                        )}
+                        <span
+                          className="flex items-center justify-center w-full h-full"
+                          style={{ mixBlendMode: "multiply" }}
+                        >
+                          <img
+                            src={app.logo}
+                            alt={app.name}
+                            className={`object-contain ${["Pocket HRMS", "Salesforce", "Asana"].includes(app.name)
+                              ? "w-9 h-9 sm:w-11 sm:h-11"
+                              : "w-7 h-7 sm:w-9 sm:h-9"
+                              }`}
+                          />
+                        </span>
+                        <div className="absolute inset-x-0 bottom-0 bg-black/90 text-white text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.18em] py-1.5 text-center opacity-0 translate-y-full transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
+                          {app.name}
+                        </div>
+                      </motion.button>
+                    ))}
+                  </div>
+
+                  <div className="bg-slate-50/50 p-3 sm:p-4 rounded-2xl border border-slate-100">
+                    <div className="flex justify-between items-center mb-3 sm:mb-4">
+                      <span className="text-slate-400 font-black text-[10px] uppercase tracking-wider">
+                        People strength
+                      </span>
+                      <span className="text-[#7e22ce] font-black text-sm sm:text-base">
+                        {userCount}
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min="5"
+                      max="1000"
+                      step="5"
+                      value={userCount}
+                      onChange={(e) => setUserCount(parseInt(e.target.value))}
+                      style={{
+                        background: `linear-gradient(to right, #7e22ce 0%, #7e22ce ${((userCount - 5) / 995) * 100}%, #e2e8f0 ${((userCount - 5) / 995) * 100}%, #e2e8f0 100%)`,
+                      }}
+                      className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-[#7e22ce]"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex-1 bg-slate-50/30 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 md:p-8 border border-slate-100 flex flex-col justify-between">
+                  <div className="mb-4 sm:mb-6">
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-6">
+                      Apps to replace
+                    </h3>
+                    <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                      {apps
+                        .filter((a) => selectedApps.includes(a.id))
+                        .map((app) => (
+                          <div
+                            key={app.id}
+                            className="flex justify-between items-center pb-2 sm:pb-2.5 border-b border-slate-100 last:border-0 last:pb-0"
+                          >
+                            <span className="text-slate-500 font-bold text-xs sm:text-sm tracking-tight">
+                              {app.name}
+                            </span>
+                            <span className="text-slate-900 font-black text-xs sm:text-sm">
+                              ₹{app.price} / user
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+
+                    <div className="pt-3 sm:pt-4 border-t border-slate-200 flex justify-between items-center mb-1">
+                      <span className="text-slate-900 font-black text-sm sm:text-base italic">
+                        Total
+                      </span>
+                      <div className="text-slate-900 font-black text-lg sm:text-xl flex items-center gap-1 uppercase tracking-tight">
+                        <NumberFlow
+                          value={currentTotal}
+                          prefix="₹"
+                          format={{ notation: "standard" }}
+                        />{" "}
+                        <span className="text-xs text-slate-400">/year</span>
+                      </div>
+                    </div>
+                    <p className="text-slate-400 font-bold text-[9px] uppercase tracking-widest text-right mb-5 sm:mb-8">
+                      KaryaUp for {userCount} users ={" "}
+                      <NumberFlow
+                        value={karyaUpPrice}
+                        prefix="₹"
+                        format={{ notation: "standard" }}
+                      />{" "}
+                      / YEAR
+                    </p>
+                  </div>
+
+                  <div className="bg-white/80 rounded-[1.25rem] sm:rounded-[1.5rem] p-3 sm:p-4 border border-white shadow-sm flex items-center justify-between mb-4 sm:mb-6">
+                    <div>
+                      <p className="text-slate-400 font-black text-[9px] uppercase tracking-widest mb-0.5">
+                        Savings
+                      </p>
+                      <div className="text-xl sm:text-2xl font-black text-[#7e22ce] tracking-tighter">
+                        <NumberFlow
+                          value={Math.max(0, savings)}
+                          prefix="₹"
+                          format={{ notation: "standard" }}
+                        />
+                      </div>
+                    </div>
+                    <div className="text-[9px] font-bold text-slate-400 leading-tight max-w-[100px] sm:max-w-[120px] text-right uppercase tracking-tighter">
+                      Estimated annual ROI compared to individual tools.
+                    </div>
+                  </div>
+
+                  <a
+                    href={authUrl}
+                    onClick={handleAuthRedirect}
+                    className="group relative z-10 flex h-[3.4em] w-full items-center justify-center overflow-hidden rounded-[30em] font-bold text-[14px] sm:text-[15px] transition-all duration-300 active:scale-95"
+                    style={{
+                      boxShadow: "0 18px 40px rgba(126, 34, 206, 0.22)",
+                    }}
+                  >
+                    <div className="absolute inset-0 -z-20 bg-gradient-animated" />
+                    <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100 group-active:scale-x-100" />
+                    <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800 group-active:text-slate-800">
+                      Start Saving Today
+                      <ArrowRight
+                        size={16}
+                        className="transition-transform group-hover:translate-x-1 group-active:translate-x-1"
+                      />
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* ── Premium CTA ── */}
           <section className="py-8 sm:py-10 lg:py-10 px-4 sm:px-6 lg:px-8 relative">
             <motion.div
@@ -1397,7 +1430,7 @@ export default function Pricing() {
                     className="group relative z-10 flex h-[3.5em] w-full sm:w-auto min-w-[16em] items-center justify-center overflow-hidden rounded-[30em] font-bold text-[15px] transition-all duration-300 active:scale-95"
                     style={{ boxShadow: "0 18px 40px rgba(126, 34, 206, 0.22)" }}
                   >
-                    <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                    <div className="absolute inset-0 -z-20 bg-gradient-animated" />
                     <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
                     <span className="relative z-10 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-slate-800">
                       Get Started for Free
@@ -1419,3 +1452,5 @@ export default function Pricing() {
     </>
   );
 }
+
+

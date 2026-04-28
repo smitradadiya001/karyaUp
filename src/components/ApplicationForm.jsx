@@ -321,7 +321,7 @@ export function ApplicationForm() {
             className="group relative flex h-[52px] w-full max-w-[18em] items-center justify-center overflow-hidden rounded-[2px] bg-transparent font-bold text-[16px] transition-all duration-300 active:scale-95  disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
           >
             {/* Background Layer */}
-            <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+            <div className="absolute inset-0 z-0 bg-gradient-animated" />
             
             {/* Hover white fill effect */}
             <div className="absolute inset-0 z-0 origin-left scale-x-0 bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />

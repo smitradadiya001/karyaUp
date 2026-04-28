@@ -89,7 +89,7 @@ const FinalCTA = () => {
                   boxShadow: "6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff"
                 }}
               >
-                <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+                <div className="absolute inset-0 -z-20 bg-gradient-animated" />
                 <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
                 <span className="relative z-10 flex items-center justify-center gap-2.5 text-white transition-colors duration-300 group-hover:text-slate-800">
                   Start Free Workspace

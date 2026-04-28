@@ -257,7 +257,7 @@ export default function FeatureCTA({
               boxShadow: "0 18px 40px rgba(126, 34, 206, 0.22)",
             }}
           >
-            <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#7e22ce] to-fuchsia-500" />
+            <div className="absolute inset-0 -z-20 bg-gradient-animated" />
             <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-[30em] bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
             <span className="relative z-10 flex items-center justify-center gap-3 text-white transition-colors duration-300 group-hover:text-slate-800">
               {buttonText}
