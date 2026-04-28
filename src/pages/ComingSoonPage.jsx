@@ -11,10 +11,10 @@ import { XCircle, Layers, EyeOff, Shuffle, ArrowRight, Sparkles } from "lucide-r
 import logo2 from "../assets/logo.webp";
 import osImage from "../assets/os.webp";
 import slackIcon from "../assets/slack.svg";
-import clickupIcon from "../assets/ClickUp2.webp";
+import clickupIcon from "../assets/clickup2.webp";
 import gmailIcon from "../assets/gmail.svg";
 import whatsappIcon from "../assets/whatsapp.webp";
-import jiraIcon from "../assets/Jira2.webp";
+import jiraIcon from "../assets/jira2.webp";
 import zapierIcon from "../assets/zapier.webp";
 import calIcon from "../assets/google-calendar.svg";
 import teamsIcon from "../assets/microsoft-teams.svg";
