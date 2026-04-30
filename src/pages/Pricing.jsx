@@ -91,7 +91,7 @@ const plans = [
     name: "Pro",
     description: "Advanced features for professional organizations.",
     monthlyPrice: 1500,
-    yearlyPrice: 5200,
+    yearlyPrice: 1200,
     features: [
       "Everything in Basic",
      
