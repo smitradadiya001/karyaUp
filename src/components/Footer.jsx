@@ -121,8 +121,8 @@ const Footer = () => {
         aria-hidden="true"
       >
         <div className="flex w-full max-w-[100vw] justify-center px-0 [perspective:min(100vw,600px)] sm:[perspective:min(120vw,1400px)] lg:[perspective:min(140vw,2400px)]">
-          <div className="origin-bottom max-sm:origin-[50%_100%] translate-x-0 sm:translate-x-16 sm:scale-100 md:translate-x-[4.5rem] lg:translate-x-24">
-            <div className="flex max-w-full origin-bottom max-sm:origin-[50%_100%] items-end justify-center gap-0 [transform:translate(0,80%)_scale(2.2)_rotateY(4deg)_skewY(-0.5deg)] [transform-style:preserve-3d] sm:origin-bottom sm:gap-px sm:[transform:translate(0,90%)_scale(2.2)_rotateY(12deg)_skewY(-2deg)] md:[transform:translate(0,100%)_scale(2.5)_rotateY(12deg)_skewY(-2deg)] lg:[transform:translate(0,110%)_scale(2.8)_rotateY(12deg)_skewY(-2deg)]">
+          <div className="origin-bottom max-sm:origin-[50%_100%] translate-x-0 sm:scale-100 md:translate-x-4 lg:translate-x-12">
+            <div className="flex max-w-full origin-bottom max-sm:origin-[50%_100%] items-end justify-center gap-0 [transform:translate(0,40%)_scale(1)] [transform-style:preserve-3d] sm:origin-bottom sm:gap-px sm:[transform:translate(0,100%)_scale(2.6)_rotateY(12deg)] md:[transform:translate(0,110%)_scale(2.8)_rotateY(12deg)] lg:[transform:translate(0,125%)_scale(3.1)_rotateY(12deg)]">
               <img
                 src={watermark}
                 alt="KaryaUp Watermark"
@@ -253,7 +253,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="relative mt-auto flex flex-col items-center gap-4 border-t border-slate-100 pt-8 text-center sm:flex-row sm:justify-between sm:text-left">
+        <div className="relative mt-auto flex flex-col items-center gap-4 border-t border-slate-100 pt-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <p className="relatve z-10 text-xs font-medium text-slate-600 max-sm:[text-shadow:0_1px_0_rgba(255,255,255,0.92),0_0_12px_rgba(255,255,255,0.75)]">
             &copy; 2026 KaryaUp. All rights reserved.
           </p>

@@ -39,8 +39,7 @@ export default function ActivityCapture() {
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm mb-2 sm:mb-4"
                 >
-                  <Activity className="w-3.5 h-3.5" />
-                  ACTIVITY CAPTURE
+                  <span>ACTIVITY CAPTURE — TRACK EVERY MOMENT</span>
                 </Motion.div>
 
                 <Motion.h1

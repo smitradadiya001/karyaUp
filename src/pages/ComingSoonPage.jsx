@@ -25,6 +25,7 @@ import hubspotIcon from "../assets/hubspot.webp";
 import hubstaffIcon from "../assets/hubstaff.webp";
 import notionIcon from "../assets/notion.webp";
 import TangledPipes from "../components/TangledPipes";
+import TangledPipesMobile from "../components/TangledPipesMobile";
 import CollabTiltCard from "../components/CollabTiltCard";
 import NotebookExclusivity from "../components/NotebookExclusivity";
 
@@ -343,7 +344,7 @@ function IntegrationCircle() {
                   opacity: [0, 1, 0]
                 }}
                 transition={{
-                  duration: isOuter ? 2.5 : 2,
+                  duration: 2,
                   repeat: Infinity,
                   delay: i * 0.6,
                   ease: "easeInOut"
@@ -352,36 +353,49 @@ function IntegrationCircle() {
 
               {/* Traveling Pulse Dot */}
               <motion.circle
-                r={isOuter ? "3" : "4"}
+                r={isOuter ? "2" : "2.5"}
                 fill="#22c55e"
                 initial={{ cx: x, cy: y, opacity: 0 }}
                 animate={{
                   cx: [x, centerX],
                   cy: [y, centerY],
-                  opacity: [0, 1, 0]
+                  opacity: [0, 1, 1, 0]
                 }}
                 transition={{
-                  duration: isOuter ? 2.5 : 2,
+                  duration: 2,
                   repeat: Infinity,
                   delay: i * 0.6,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
+                  times: [0, 0.2, 0.9, 1]
                 }}
-                className="shadow-[0_0_10px_#22c55e]"
+                className="shadow-[0_0_8px_#22c55e]"
               />
             </g>
           );
         })}
       </svg>
 
-      {/* Center KaryaUp Logo Hub - Scale adjust */}
-      <motion.div
-        className="relative z-20 flex h-24 w-24 items-center justify-center rounded-full border-2 border-emerald-500/30 bg-white"
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
+      {/* Center KaryaUp Logo Hub */}
+      <div className="relative z-20 flex h-24 w-24 items-center justify-center rounded-full border-2 border-emerald-500/30 bg-white shadow-xl shadow-emerald-500/5">
         <img src={logo} alt="KaryaUp" className="h-12 w-12 object-contain" />
-        <div className="absolute inset-0 rounded-full animate-ping bg-emerald-500/10" />
-      </motion.div>
+
+        {/* Single Large Hub Blink synchronized with TangledPipes pulse */}
+        <motion.div 
+          className="absolute inset-0 rounded-full bg-emerald-500/30"
+          initial={{ scale: 1, opacity: 0 }}
+          animate={{ 
+            scale: [1, 3.5], 
+            opacity: [0, 0.7, 0] 
+          }}
+          transition={{ 
+            duration: 0.8,
+            repeat: Infinity,
+            repeatDelay: 9.2, // 10s cycle
+            delay: 10, // First impact at 10s
+            ease: "easeOut"
+          }}
+        />
+      </div>
 
       {/* Render All App Circles across two rings */}
       {[...innerApps, ...outerApps].map((app, i) => {
@@ -422,7 +436,12 @@ function IntegrationCircle() {
 function ChaosVsKarya() {
   return (
     <div className="relative mx-auto mt-2 max-w-6xl overflow-hidden rounded-[2.5rem] border border-slate-200 bg-[#f9fafc] shadow-2xl shadow-purple-900/5">
-      <TangledPipes className="absolute inset-0 w-full h-full object-cover object-left opacity-70 z-0 pointer-events-none" />
+      <TangledPipes 
+        className="absolute inset-0 w-full h-full object-cover object-left opacity-70 z-0 pointer-events-none hidden md:block" 
+      />
+      <TangledPipesMobile 
+        className="absolute inset-0 w-full h-full object-cover opacity-70 z-0 pointer-events-none block md:hidden -translate-y-24" 
+      />
       <div className="relative z-10 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
 
         {/* LEFT: Chaos */}
@@ -440,23 +459,23 @@ function ChaosVsKarya() {
               {/* Logos on Chaos Side */}
               {/* Logos on Chaos Side */}
               {[
-                { icon: slackIcon, top: "15%", left: "15%", rotate: -15 },
-                { icon: teamsIcon, top: "48%", left: "45%", rotate: 20 },
-                { icon: gmailIcon, top: "42%", left: "8%", rotate: -12 },
-                { icon: driveIcon, top: "28%", left: "28%", rotate: 25 },
-                { icon: whatsappIcon, top: "35%", left: "75%", rotate: -8 },
-                { icon: calIcon, top: "50%", left: "65%", rotate: 10 },
-                { icon: jiraIcon, top: "75%", left: "40%", rotate: 15 },
-                { icon: hubspotIcon, top: "15%", left: "45%", rotate: -20 },
-                { icon: hubstaffIcon, top: "63%", left: "72%", rotate: -10 },
+                { icon: slackIcon, top: "6%", left: "5%", rotate: -15 },
+                { icon: teamsIcon, top: "65%", left: "-5%", rotate: 20 },
+                { icon: gmailIcon, top: "42%", left: "-1%", rotate: -12 },
+                { icon: driveIcon, top: "26%", left: "30%", rotate: 25 },
+                { icon: whatsappIcon, top: "45%", left: "43%", rotate: -8 },
+                { icon: calIcon, top: "97%", left: "0%", rotate: 10 },
+                { icon: jiraIcon, top: "75%", left: "44%", rotate: 15 },
+                { icon: hubspotIcon, top: "20%", left: "45%", rotate: -20 },
+                { icon: hubstaffIcon, top: "63%", left: "69%", rotate: -10 },
                 { icon: zapierIcon, top: "35%", left: "55%", rotate: 25 },
-                { icon: notionIcon, top: "20%", left: "65%", rotate: -18 },
+                { icon: notionIcon, top: "83%", left: "20%", rotate: -18 },
                 { icon: clickupIcon, top: "55%", left: "25%", rotate: 12 },
-                { icon: zoominfoIcon, top: "70%", left: "60%", rotate: -22 },
+                { icon: zoominfoIcon, top: "94%", left: "30%", rotate: -22 },
               ].map((app, i) => (
                 <motion.div
                   key={i}
-                  className="absolute flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/90 border border-rose-100 p-2 sm:p-3"
+                  className="absolute flex h-9 w-9 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-white/90 border border-rose-100 p-1.5 sm:p-2"
                   style={{ top: app.top, left: app.left, rotate: app.rotate }}
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
@@ -479,22 +498,22 @@ function ChaosVsKarya() {
         </div>
 
         {/* RIGHT: Success */}
-        <div className="relative flex flex-col justify-between p-8 sm:p-14 bg-emerald-50/10 min-h-[380px] overflow-hidden">
+        <div className="relative flex flex-col justify-between p-6 md:p-14 bg-emerald-50/10 min-h-[280px] md:min-h-[380px] overflow-hidden">
           <div className="absolute top-0 right-0 h-48 w-48 bg-emerald-500/15 blur-[80px] pointer-events-none rounded-bl-full" />
           <div className="absolute bottom-0 right-0 h-48 w-48 bg-emerald-500/10 blur-[80px] pointer-events-none rounded-tl-full" />
-          <div className="relative z-20 mb-12 flex items-center gap-2 justify-center md:justify-start">
+          <div className="relative z-20 mb-6 md:mb-12 flex items-center gap-2 justify-center md:justify-start">
             <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50" />
             <span className="text-xs font-black uppercase tracking-[0.2em] text-emerald-600">THE KARYAUP SHIFT</span>
           </div>
-          <div className="flex-grow flex items-center justify-center">
+          <div className="flex-grow flex items-center justify-center py-2 md:py-0">
             <IntegrationCircle />
           </div>
-          <p className="relative z-20 mt-12 text-lg font-medium text-emerald-600/80 italic flex items-center gap-2 justify-center md:justify-start text-center md:text-left">
+          <p className="relative z-20 mt-6 md:mt-12 text-lg font-medium text-emerald-600/80 italic flex items-center gap-2 justify-center md:justify-start text-center md:text-left">
             One source of truth. Absolute focus.
           </p>
         </div>
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex h-14 w-14 items-center justify-center rounded-full bg-white border-2 border-slate-200 z-30 font-black text-sm text-slate-500">
+        <div className="absolute top-[40%] md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-14 w-14 items-center justify-center rounded-full bg-white border-2 border-slate-200 z-30 font-black text-sm text-slate-500 shadow-xl">
           VS
         </div>
       </div>

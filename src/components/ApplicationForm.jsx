@@ -116,8 +116,8 @@ export function ApplicationForm() {
         company_type: data.company_type,
         team_size: data.team_size,
         website: data.website || "Not provided",
-        stack: data.stack.join(", "),
-        reason: data.reason,
+        tools_used: data.stack.join(", "),
+        problems_faced: data.reason,
         onboarding: data.onboarding,
         role: data.role,
       };
@@ -223,10 +223,10 @@ export function ApplicationForm() {
                   }}
                 >
                   <option value="">Choose scale</option>
-                  <option value="1–5">1–5</option>
-                  <option value="6–15">6–15</option>
-                  <option value="16–50">16–50</option>
-                  <option value="50+">50+</option>
+                  <option value="1–50">1–50</option>
+                  <option value="50–200">50–200</option>
+                  <option value="200–500">200–500</option>
+                  <option value="500+">500+</option>
                 </select>
               </div>
               {errors.team_size && <p className={errorCls}>{errors.team_size}</p>}

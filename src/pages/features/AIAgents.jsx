@@ -19,11 +19,11 @@ export default function AIAgents() {
         <meta name="description" content="Meet Super Agents -Maximize human productivity with custom AI teammates." />
       </Helmet>
 
-      <div style={{ 
-        width: "100%", 
-        height: "100vh", 
-        overflow: "hidden", 
-        margin: 0, 
+      <div style={{
+        width: "100%",
+        height: "100vh",
+        overflow: "hidden",
+        margin: 0,
         padding: 0,
         background: "white" // Matches main site background while loading
       }}>

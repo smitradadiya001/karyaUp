@@ -64,9 +64,19 @@ const TrustedBy = () => {
                     <div className="absolute left-0 top-0 bottom-0 z-10 w-24 bg-gradient-to-r from-white to-transparent pointer-events-none" />
                     <div className="absolute right-0 top-0 bottom-0 z-10 w-24 bg-gradient-to-l from-white to-transparent pointer-events-none" />
 
-                    <div className="flex flex-nowrap w-max animate-infinite-scroll">
-                        <LogoGroup />
-                        <LogoGroup />
+                    <div className="flex flex-nowrap w-max animate-infinite-scroll" style={{ willChange: 'transform' }}>
+                        {/* Part 1 */}
+                        <div className="flex flex-nowrap shrink-0">
+                            <LogoGroup />
+                            <LogoGroup />
+                            <LogoGroup />
+                        </div>
+                        {/* Part 2 (Exact Clone) */}
+                        <div className="flex flex-nowrap shrink-0" aria-hidden="true">
+                            <LogoGroup />
+                            <LogoGroup />
+                            <LogoGroup />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,13 +84,15 @@ const TrustedBy = () => {
             {/* Injected CSS for the smooth marquee effect */}
             <style dangerouslySetInnerHTML={{ __html: `
                 @keyframes scroll {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
+                    0% { transform: translate3d(0, 0, 0); }
+                    100% { transform: translate3d(-50%, 0, 0); }
                 }
                 .animate-infinite-scroll {
                     display: flex;
                     width: max-content;
                     animation: scroll 30s linear infinite;
+                    -webkit-backface-visibility: hidden;
+                    backface-visibility: hidden;
                 }
                 .animate-infinite-scroll:hover {
                     animation-play-state: paused;

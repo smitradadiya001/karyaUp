@@ -30,8 +30,8 @@ const PIPE_D =
   "S 400,50 500,200 " +
   "S 200,450 350,350 " +
   "S 600,50 650,250 " +
-  "S 760,260 780,260 " +
-  "C 850,260 900,250 1080,250";
+  "S 760,250 800,250 " +
+  "C 900,250 1000,250 1050,250";
 
 // Approximate path length for this massive tangled path
 const PATH_LEN = 8500;
@@ -69,34 +69,26 @@ export default function TangledPipes({
           <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
 
-        {/* Pulse Gradients (Red to Green transition) */}
-        <linearGradient id={`pulse-core-${uid}`} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#ff3a3a">
-            <animate attributeName="stop-color" values="#ff3a3a;#ffbaba;#ff3a3a" dur="2s" repeatCount="indefinite" />
-          </stop>
-          <stop offset="65%" stopColor="#ff3a3a">
-            <animate attributeName="stop-color" values="#ff3a3a;#ffbaba;#ff3a3a" dur="2s" repeatCount="indefinite" />
-          </stop>
-          <stop offset="67%" stopColor="#059669" />
-          <stop offset="100%" stopColor="#059669" />
+        {/* Pulse Gradients - Fixed in Space (Red on Left, Green on Right) */}
+        <linearGradient id={`pulse-core-${uid}`} x1="0" y1="0" x2={VIEW_W} y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#ef4444" />
+          <stop offset="48%" stopColor="#ef4444" />
+          <stop offset="52%" stopColor="#10b981" />
+          <stop offset="100%" stopColor="#10b981" />
         </linearGradient>
 
-        <linearGradient id={`pulse-halo-${uid}`} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#ff1818">
-            <animate attributeName="stop-color" values="#ff1818;#ff9999;#ff1818" dur="2s" repeatCount="indefinite" />
-          </stop>
-          <stop offset="65%" stopColor="#ff1818">
-            <animate attributeName="stop-color" values="#ff1818;#ff9999;#ff1818" dur="2s" repeatCount="indefinite" />
-          </stop>
-          <stop offset="67%" stopColor="#34d399" />
+        <linearGradient id={`pulse-halo-${uid}`} x1="0" y1="0" x2={VIEW_W} y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#f87171" />
+          <stop offset="48%" stopColor="#f87171" />
+          <stop offset="52%" stopColor="#34d399" />
           <stop offset="100%" stopColor="#34d399" />
         </linearGradient>
 
-        <linearGradient id={`pulse-trail-${uid}`} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#ff2424" />
-          <stop offset="65%" stopColor="#ff2424" />
-          <stop offset="67%" stopColor="#10b981" />
-          <stop offset="100%" stopColor="#10b981" />
+        <linearGradient id={`pulse-trail-${uid}`} x1="0" y1="0" x2={VIEW_W} y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#fca5a5" stopOpacity="0.5" />
+          <stop offset="48%" stopColor="#fca5a5" stopOpacity="0.5" />
+          <stop offset="52%" stopColor="#6ee7b7" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#6ee7b7" stopOpacity="0.5" />
         </linearGradient>
 
         <filter id={redBlur} x="-20%" y="-20%" width="140%" height="140%">
@@ -118,8 +110,8 @@ export default function TangledPipes({
         </clipPath>
       </defs>
 
-      {/* Static Pipe Body - Made faint so it doesn't overpower the icons */}
-      <g opacity="0.3">
+      {/* Static Pipe Body - Increased visibility for 'messy lines' effect */}
+      <g opacity="0.55">
         {/* 1. Dark outline */}
         <path
           d={PIPE_D}
