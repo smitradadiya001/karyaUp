@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import NumberFlow from "@number-flow/react";
 
 const TARGET = new Date("2026-05-13T00:00:00").getTime();
@@ -44,8 +44,8 @@ function CircularUnit({ value, label, max, dotCount = 60, size = 110 }) {
             cx={cx}
             cy={cy}
             r={radius - dotRadius - 6}
-            fill="rgba(255, 255, 255, 0.15)"
-            stroke="rgba(255, 255, 255, 0.25)"
+            fill="rgba(255, 255, 255, 0.12)"
+            stroke="rgba(255, 255, 255, 0.35)"
             strokeWidth="0.5"
           />
           {/* Dots ring */}
@@ -80,13 +80,10 @@ function CircularUnit({ value, label, max, dotCount = 60, size = 110 }) {
 }
 
 export function Countdown() {
-  const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [mounted, setMounted] = useState(false);
+  const [time, setTime] = useState(() => getTimeLeft());
   const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1200);
 
   useEffect(() => {
-    setMounted(true);
-    setTime(getTimeLeft());
     const id = setInterval(() => setTime(getTimeLeft()), 1000);
     
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -110,7 +107,7 @@ export function Countdown() {
   return (
     <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4">
       {items.map((it, i) => (
-        <motion.div
+        <Motion.div
           key={it.label}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -119,13 +116,13 @@ export function Countdown() {
           className="flex-shrink-0"
         >
           <CircularUnit
-            value={mounted ? it.value : 0}
+            value={it.value}
             label={it.label}
             max={it.max}
             dotCount={it.dotCount}
             size={circleSize}
           />
-        </motion.div>
+        </Motion.div>
       ))}
     </div>
   );

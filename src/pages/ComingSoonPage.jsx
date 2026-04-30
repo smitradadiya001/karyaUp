@@ -1,12 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FlipText } from "../components/ui/FlipText";
-import { motion, useMotionValue, useSpring, useTransform, useInView, animate, AnimatePresence, useVelocity, useMotionTemplate   } from "framer-motion";
+// eslint-disable-next-line no-unused-vars
+import { motion, useMotionValue, useSpring, useTransform, useInView, animate, AnimatePresence, useVelocity } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import logo from "../assets/Logo(2).png";
 import { Countdown } from "../components/Countdown";
 import { ApplicationForm } from "../components/ApplicationForm";
 import ComingSoon from "../components/ComingSoon";
-import { XCircle, Layers, EyeOff, Shuffle, ArrowRight, Sparkles } from "lucide-react";
+import { XCircle, Layers, EyeOff, Shuffle, ArrowRight, Sparkles, CheckCircle2, Users, BarChart3, MessageSquare, Zap, Quote } from "lucide-react";
 
 import logo2 from "../assets/logo.webp";
 import osImage from "../assets/os.webp";
@@ -19,14 +20,13 @@ import zapierIcon from "../assets/zapier.webp";
 import calIcon from "../assets/google-calendar.svg";
 import teamsIcon from "../assets/microsoft-teams.svg";
 import driveIcon from "../assets/google-drive.svg";
-import confusedLine from "../assets/confused-line(2).webp";
 import zoominfoIcon from "../assets/zoominfo.webp";
 import hubspotIcon from "../assets/hubspot.webp";
 import hubstaffIcon from "../assets/hubstaff.webp";
 import notionIcon from "../assets/notion.webp";
+import TangledPipes from "../components/TangledPipes";
 import CollabTiltCard from "../components/CollabTiltCard";
 import NotebookExclusivity from "../components/NotebookExclusivity";
-
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -68,7 +68,7 @@ function SpotlightHero() {
           transition={{ duration: 0.6 }}
           className="mx-auto mb-10 w-fit pointer-events-auto"
         >
-          <div className="backdrop-blur-xl bg-white/20 border border-white/40 px-6 py-3 rounded-full shadow-[0_8px_32px_rgba(255,255,255,0.1)] text-white">
+          <div className="backdrop-blur-xl bg-white/12 border border-white/55 px-6 py-3 rounded-full shadow-[0_8px_32px_rgba(255,255,255,0.06)] text-white">
             <Countdown />
           </div>
         </motion.div>
@@ -122,10 +122,10 @@ function SpotlightHero() {
           >
             {/* Background Gradient */}
             <div className="absolute inset-0 -z-20 bg-gradient-animated" />
-            
+
             {/* White slide-in effect on hover */}
             <div className="absolute -inset-[3px] -z-10 origin-left scale-x-0 rounded-full bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
-            
+
             <span className="relative z-10 flex items-center gap-2 transition-colors duration-500 text-white group-hover:text-slate-900">
               Apply for Early Access <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
             </span>
@@ -422,7 +422,8 @@ function IntegrationCircle() {
 function ChaosVsKarya() {
   return (
     <div className="relative mx-auto mt-2 max-w-6xl overflow-hidden rounded-[2.5rem] border border-slate-200 bg-[#f9fafc] shadow-2xl shadow-purple-900/5">
-      <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+      <TangledPipes className="absolute inset-0 w-full h-full object-cover object-left opacity-70 z-0 pointer-events-none" />
+      <div className="relative z-10 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
 
         {/* LEFT: Chaos */}
         <div className="relative p-8 sm:p-14 bg-red-50/10 min-h-[380px] flex flex-col justify-between overflow-hidden text-center md:text-left">
@@ -436,11 +437,7 @@ function ChaosVsKarya() {
 
           <div className="relative flex-grow flex items-center justify-center">
             <div className="relative w-full max-w-[1000px] h-[250px] sm:h-[380px] flex items-center justify-center">
-              <motion.img
-                src={confusedLine}
-                alt="Chaos Stacks"
-                className="w-full h-full object-contain drop-shadow-xl select-none opacity-40 scale-[1.35] sm:scale-[1.7] grayscale contrast-[0.8]"
-              />
+              {/* Logos on Chaos Side */}
               {/* Logos on Chaos Side */}
               {[
                 { icon: slackIcon, top: "15%", left: "15%", rotate: -15 },
@@ -459,16 +456,16 @@ function ChaosVsKarya() {
               ].map((app, i) => (
                 <motion.div
                   key={i}
-                  className="absolute flex h-14 w-14 items-center justify-center rounded-full bg-white/90 border border-rose-100 p-3"
+                  className="absolute flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/90 border border-rose-100 p-2 sm:p-3"
                   style={{ top: app.top, left: app.left, rotate: app.rotate }}
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ 
-                    delay: 0.1 + i * 0.08, 
-                    type: "spring", 
-                    stiffness: 260, 
-                    damping: 20 
+                  transition={{
+                    delay: 0.1 + i * 0.08,
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20
                   }}
                 >
                   <img src={app.icon} className="w-full h-full object-contain" alt="app" />
@@ -868,21 +865,98 @@ export default function ComingSoonPage() {
         </section>
 
         {/* SECTION 5 — APPLICATION */}
-        <section id="apply" className="relative z-10 mx-auto max-w-3xl px-6 py-16">
-          <motion.div {...fadeUp} className="mb-10 text-center">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#7e22ce]">
-              Application form
-            </p>
-            <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-slate-900">
-              Tell us about your company.
-            </h2>
-            <p className="mt-3 text-slate-900 font-medium">
-              Tell us about your company and its operations. Our team reviews every application to ensure a high-execution community.
-            </p>
-          </motion.div>
-          <motion.div {...fadeUp}>
-            <ApplicationForm />
-          </motion.div>
+        <section id="apply" className="relative z-10 mx-auto max-w-7xl px-6 py-16">
+          <div className="mx-auto w-fit grid lg:grid-cols-[384px_minmax(auto,720px)] lg:gap-12 lg:items-start justify-center">
+            {/* LEFT: Heading + Content */}
+            <motion.div {...fadeUp} className="flex flex-col items-center text-center lg:items-start lg:text-left lg:sticky lg:top-28">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#7e22ce]">
+                Application form
+              </p>
+              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-slate-900">
+                Tell us about your company.
+              </h2>
+              <p className="mt-3 text-slate-600 font-medium max-w-md">
+                Our team reviews every application to ensure a high-execution community.
+              </p>
+
+              {/* 1. Spots Counter */}
+              <div className="mt-10 w-full max-w-sm rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                    <Zap size={16} className="text-[#7e22ce]" /> Early Access Spots
+                  </span>
+                  <span className="text-sm font-black text-[#7e22ce]">
+                    <Counter target={26} /> / 100
+                  </span>
+                </div>
+                <div className="h-3 w-full overflow-hidden rounded-full bg-slate-200">
+                  <motion.div
+                    className="h-full rounded-full bg-gradient-to-r from-[#7e22ce] to-fuchsia-500"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "26%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.8, ease: "easeOut", delay: 0.3 }}
+                  />
+                </div>
+                <p className="mt-2 text-xs font-medium text-rose-500">Only 74 spots remaining — act fast</p>
+              </div>
+
+              {/* 2. Social Proof */}
+              <div className="mt-6 flex items-center gap-3">
+                <div className="flex -space-x-3">
+                  {["#7e22ce", "#a855f7", "#c084fc", "#e879f9", "#f0abfc"].map((bg, i) => (
+                    <div
+                      key={i}
+                      className="h-9 w-9 rounded-full border-2 border-white flex items-center justify-center text-white text-[11px] font-bold shadow-md transition-all duration-300 hover:scale-[1.35] hover:z-50 hover:shadow-lg hover:border-purple-200 cursor-pointer"
+                      style={{ background: bg, zIndex: 5 - i }}
+                    >
+                      {["S", "A", "R", "K", "P"][i]}
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-800">120+ founders & teams</p>
+                  <p className="text-xs text-slate-500">already on the waitlist</p>
+                </div>
+              </div>
+
+              {/* 3. Mini Testimonial */}
+              <div className="mt-6 w-full max-w-sm rounded-2xl border border-purple-100 bg-purple-50/50 p-5">
+                <Quote size={18} className="text-[#7e22ce] mb-2 opacity-60" />
+                <p className="text-sm font-medium text-slate-700 italic leading-relaxed">
+                  "KaryaUp already improved our workflow and saved us 12 hours a week."
+                </p>
+                <p className="mt-2 text-xs font-bold text-[#7e22ce]">— Product Manager, TechScale</p>
+              </div>
+
+              {/* 4. Feature Highlights */}
+              <div className="mt-6 space-y-3 w-full max-w-sm">
+                {[
+                  { icon: CheckCircle2, text: "Smart task tracking & automation" },
+                  { icon: Users, text: "Real-time team collaboration" },
+                  { icon: BarChart3, text: "Live insights & analytics" },
+                  { icon: MessageSquare, text: "Unified communication hub" },
+                ].map((feat, i) => (
+                  <motion.div
+                    key={feat.text}
+                    className="flex items-center gap-3 rounded-xl bg-white border border-slate-100 px-4 py-3 shadow-sm transition-all duration-300 hover:border-purple-300 hover:shadow-md cursor-pointer group/feat"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * i, duration: 0.5 }}
+                  >
+                    <feat.icon size={18} className="text-[#7e22ce]/60 shrink-0 transition-all duration-300 group-hover/feat:text-[#7e22ce] group-hover/feat:scale-110 group-hover/feat:drop-shadow-[0_0_6px_rgba(126,34,206,0.4)]" />
+                    <span className="text-sm font-medium text-slate-700 transition-colors duration-300 group-hover/feat:text-slate-900">{feat.text}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* RIGHT: Form Only */}
+            <motion.div {...fadeUp}>
+              <ApplicationForm />
+            </motion.div>
+          </div>
         </section>
 
         {/* Footer */}

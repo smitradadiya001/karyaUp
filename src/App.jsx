@@ -50,6 +50,8 @@ const Automations = lazy(() => import("./pages/features/Automations"));
 const FeaturesTimeTracking = lazy(() => import("./pages/features/FeaturesTimeTracking"));
 const Integrations = lazy(() => import("./pages/features/Integrations"));
 const WatchDemo = lazy(() => import("./pages/features/Watch_Demo"));
+const ActivityCapture = lazy(() => import("./pages/features/ActivityCapture"));
+const LeadGeneration = lazy(() => import("./pages/features/LeadGeneration"));
 
 // Solutions
 const ProductDevelopment = lazy(() => import("./pages/solutions/ProductDevelopment"));
@@ -149,6 +151,8 @@ function App() {
               <Route path="/features/automations" element={<Automations />} />
               <Route path="/features/time-tracking" element={<FeaturesTimeTracking />} />
               <Route path="/features/integrations" element={<Integrations />} />
+              <Route path="/features/activity-capture" element={<ActivityCapture />} />
+              <Route path="/features/lead-generation" element={<LeadGeneration />} />
               <Route path="/features/demo" element={<WatchDemo />} />
               <Route path="/features/ai-agents" element={<AIAgents />} />
 

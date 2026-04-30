@@ -43,14 +43,27 @@ export function ApplicationForm() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(""); // 'success' | 'error' | ''
   const [selectedTools, setSelectedTools] = useState([]);
+  const [otherTools, setOtherTools] = useState("");
   const [companyType, setCompanyType] = useState("");
 
   const toggleTool = (tool) => {
-    setSelectedTools(prev =>
-      prev.includes(tool)
-        ? prev.filter(t => t !== tool)
-        : [...prev, tool]
-    );
+    setSelectedTools(prev => {
+      // If clicking "None"
+      if (tool === "None") {
+        return prev.includes("None") ? [] : ["None"];
+      }
+      
+      // If clicking any other tool while "None" was selected
+      let next = prev.filter(t => t !== "None");
+      
+      if (next.includes(tool)) {
+        // Deselect
+        return next.filter(t => t !== tool);
+      } else {
+        // Select
+        return [...next, tool];
+      }
+    });
   };
 
   async function onSubmit(e) {
@@ -61,6 +74,13 @@ export function ApplicationForm() {
     const selectedCompanyType = fd.get("company_type");
     const companyTypeOther = fd.get("company_type_other");
     
+    // Process tools: if "Other" is selected, replace "Other" with the custom text
+    let processedStack = [...selectedTools];
+    if (processedStack.includes("Other") && otherTools.trim()) {
+      processedStack = processedStack.filter(t => t !== "Other");
+      processedStack.push(`Other: ${otherTools.trim()}`);
+    }
+
     const data = {
       fullname: fd.get("fullname"),
       workmail: fd.get("workmail"),
@@ -68,7 +88,7 @@ export function ApplicationForm() {
       company_type: selectedCompanyType === "Other" ? companyTypeOther : selectedCompanyType,
       team_size: fd.get("team_size"),
       website: fd.get("website"),
-      stack: selectedTools,
+      stack: processedStack,
       reason: fd.get("reason"),
       onboarding: fd.get("onboarding"),
       role: fd.get("role"),
@@ -111,6 +131,7 @@ export function ApplicationForm() {
       setStatus("success");
       e.target.reset();
       setSelectedTools([]);
+      setOtherTools("");
       setCompanyType("");
     } catch (err) {
       console.error("EMAILJS ERROR:", err);
@@ -121,7 +142,7 @@ export function ApplicationForm() {
   }
 
   const inputCls =
-    "w-full rounded-[2px] border-2 border-[#e5e3df] bg-[#fafaf9] px-[16px] py-[12px] text-[15px] text-[#192e44] outline-none transition-all duration-300 focus:border-[#7e22ce] focus:bg-white focus:shadow-[0_0_0_4px_rgba(126,34,206,0.08),0_4px_16px_rgba(25,46,68,0.06)] placeholder:text-[#9ca3af] font-sans";
+    "w-full rounded-xl border-2 border-[#e5e3df] bg-[#fafaf9] px-[16px] py-[12px] text-[15px] text-[#192e44] outline-none transition-all duration-300 focus:border-[#7e22ce] focus:bg-white focus:shadow-[0_0_0_4px_rgba(126,34,206,0.08),0_4px_16px_rgba(25,46,68,0.06)] placeholder:text-[#9ca3af] font-sans";
   
   const labelCls =
     "mb-[8px] block text-[12px] font-bold uppercase tracking-[0.5px] text-[#192e44] font-sans";
@@ -129,21 +150,7 @@ export function ApplicationForm() {
   const errorCls = "mt-1.5 text-xs font-semibold text-[#7e22ce]";
 
   return (
-    <div className="mx-auto max-w-[720px] w-full overflow-hidden rounded-[2px] border-t-[4px] border-[#7e22ce] bg-white shadow-[0_20px_80px_rgba(25,46,68,0.08),0_2px_8px_rgba(25,46,68,0.04)]">
-      {/* Form Header */}
-      <div className="border-b border-[#e5e3df] bg-gradient-to-b from-[#fafaf9] to-white px-6 py-6 sm:px-12 text-center">
-        <div className="mb-3 flex flex-col items-center gap-2">
-          <div className="text-[12px] font-normal uppercase tracking-[2px] text-[#7e22ce] font-serif">
-            KaryaUp · Exclusive Access
-          </div>
-        </div>
-        <h1 className="mb-1 text-[26px] sm:text-[30px] font-normal leading-tight tracking-[-0.3px] text-[#192e44] font-serif">
-          Request Early Access
-        </h1>
-        <p className="mx-auto max-w-md text-xs sm:text-sm leading-relaxed text-[#5a6672] font-sans">
-          Apply for one of the strictly limited 100 spots in our early adopter community.
-        </p>
-      </div>
+    <div className="mx-auto max-w-[720px] w-full overflow-hidden rounded-2xl border-t-[4px] border-[#7e22ce] bg-white shadow-[0_20px_80px_rgba(25,46,68,0.08),0_2px_8px_rgba(25,46,68,0.04)]">
 
       <form onSubmit={onSubmit} className="px-6 py-8 sm:px-12">
         <div className="space-y-5">
@@ -248,7 +255,7 @@ export function ApplicationForm() {
                     key={tool}
                     type="button"
                     onClick={() => toggleTool(tool)}
-                    className={`relative flex items-center justify-center overflow-hidden rounded-[2px] border-2 px-4 py-2 text-center text-[12px] font-medium transition-all duration-300 active:scale-[0.98]
+                    className={`relative flex items-center justify-center overflow-hidden rounded-full border-2 px-4 py-2 text-center text-[12px] font-medium transition-all duration-300 active:scale-[0.98]
                     ${selectedTools.includes(tool)
                       ? "border-[#7e22ce] bg-gray-100 text-[#192e44] shadow-[0_6px_20px_rgba(126,34,206,0.15)]"
                       : "border-[#e5e3df] bg-[#fafaf9] text-[#192e44] hover:border-[#7e22ce] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(126,34,206,0.08)]"
@@ -258,6 +265,26 @@ export function ApplicationForm() {
                   </button>
                 ))}
               </div>
+
+              <AnimatePresence>
+                {selectedTools.includes("Other") && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-4"
+                  >
+                    <label className={labelCls}>Please specify other tools</label>
+                    <input
+                      value={otherTools}
+                      onChange={(e) => setOtherTools(e.target.value)}
+                      placeholder="e.g. Trello, Asana, etc."
+                      className={inputCls}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              
               {errors.stack && <p className={errorCls}>{errors.stack}</p>}
             </div>
 
@@ -279,7 +306,7 @@ export function ApplicationForm() {
                 {["Yes", "No"].map((opt) => (
                   <label key={opt} className="relative cursor-pointer">
                     <input type="radio" name="onboarding" value={opt} required className="peer sr-only" />
-                    <div className="flex items-center justify-center rounded-[2px] border-2 border-[#e5e3df] bg-[#fafaf9] py-2 text-[13px] font-medium text-[#192e44] transition-all duration-300 hover:border-[#7e22ce] hover:-translate-y-0.5 peer-checked:border-[#7e22ce] peer-checked:bg-gray-100 peer-checked:text-[#192e44] peer-checked:shadow-[0_6px_20px_rgba(126,34,206,0.15)]">
+                    <div className="flex items-center justify-center rounded-full border-2 border-[#e5e3df] bg-[#fafaf9] py-2 text-[13px] font-medium text-[#192e44] transition-all duration-300 hover:border-[#7e22ce] hover:-translate-y-0.5 peer-checked:border-[#7e22ce] peer-checked:bg-gray-100 peer-checked:text-[#192e44] peer-checked:shadow-[0_6px_20px_rgba(126,34,206,0.15)]">
                       {opt}
                     </div>
                   </label>
@@ -318,13 +345,13 @@ export function ApplicationForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="group relative flex h-[52px] w-full max-w-[18em] items-center justify-center overflow-hidden rounded-[2px] bg-transparent font-bold text-[16px] transition-all duration-300 active:scale-95  disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
+            className="group relative flex h-[52px] w-full max-w-[18em] items-center justify-center overflow-hidden rounded-full bg-transparent font-bold text-[16px] transition-all duration-300 active:scale-95  disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
           >
             {/* Background Layer */}
             <div className="absolute inset-0 z-0 bg-gradient-animated" />
             
             {/* Hover white fill effect */}
-            <div className="absolute inset-0 z-0 origin-left scale-x-0 bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
+            <div className="absolute inset-0 z-0 origin-left scale-x-0 rounded-full bg-white transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
             
             <span className={`relative z-10 flex items-center gap-2 transition-colors duration-300 ${isSubmitting ? 'text-black' : 'text-white group-hover:text-slate-900'}`}>
               {isSubmitting ? "Processing..." : (

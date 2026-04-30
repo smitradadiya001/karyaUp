@@ -10,6 +10,7 @@ import textson from '../assets/logo-textson.webp';
 import tqs from '../assets/logo-tqs.webp';
 import zaab from '../assets/logo-zaab.png';
 import zenith from '../assets/logo-zenithive.webp';
+import hoc from '../assets/logo-hoc.webp';
 
 const TrustedBy = () => {
     const brands = [
@@ -21,13 +22,15 @@ const TrustedBy = () => {
         
         { name: 'TQS', logo: tqs },
         { name: 'Zaab', logo: zaab },
-       
+        { name: 'HOC', logo: hoc },
     ];
 
     const LogoGroup = () => (
         <div className="flex flex-nowrap shrink-0 items-center gap-10 sm:gap-14 md:gap-16 lg:gap-20 pr-5 sm:pr-8 md:pr-10 lg:pr-15">
             {brands.map((brand, index) => {
+                const isHOC = brand.name === 'HOC';
                 const isLarger = brand.name === 'Rayon' || brand.name === 'INOX';
+                
                 return (
                 <div key={index} className="flex items-center shrink-0">
                     <img
@@ -36,7 +39,11 @@ const TrustedBy = () => {
                         width="200"
                         height="80"
                         loading="lazy"
-                        className={`${isLarger ? 'h-12 sm:h-16 md:h-20' : 'h-10 sm:h-12 md:h-14'} w-auto grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 block object-contain`}
+                        className={`${
+                            isHOC ? 'h-24 sm:h-32 md:h-36' : 
+                            isLarger ? 'h-12 sm:h-16 md:h-20' : 
+                            'h-10 sm:h-12 md:h-14'
+                        } w-auto grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 block object-contain mix-blend-multiply`}
                     />
                 </div>
                 );
@@ -45,10 +52,10 @@ const TrustedBy = () => {
     );
 
     return (
-        <section className="group bg-white border-y border-black/[0.08] overflow-hidden w-full pt-6 pb-6 sm:pt-8 sm:pb-8">
+        <section className="group bg-white border-y border-black/[0.08] overflow-hidden w-full pt-3 pb-3 sm:pt-4 sm:pb-4">
             <div className="flex flex-col items-center">
                 
-                <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.25em] m-0 mb-6 leading-[1.05]">
+                <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.25em] m-0 mb-2 leading-[1.05]">
                     Trusted by the best teams
                 </p>
 

@@ -232,7 +232,7 @@ export default function FeatureCTA({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.25 }}
-              className="mb-5 w-full max-w-md mx-auto lg:mx-0 space-y-2.5 text-left"
+              className="mb-5 w-fit mx-auto lg:mx-0 space-y-2.5 text-left flex flex-col items-start"
             >
               {highlights.map((line, i) => (
                 <li

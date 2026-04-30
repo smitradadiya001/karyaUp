@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 import MovingPurpleRing from "./MovingPurpleRing";
 import { 
   Check, Users, Calendar, Target, ListTree, Zap, MessageSquare, ShieldCheck, 
@@ -46,12 +46,13 @@ const getIconForLabel = (label) => {
   return Check;
 };
 
-const FeatureStack = ({ items = [], interval = 2500 }) => {
+const FeatureStack = ({ items = [], interval = 2500, size = "default", className = "" }) => {
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState(false);
   const containerRef = useRef(null);
+  const isSmall = size === "sm";
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
     handleResize();
@@ -90,11 +91,19 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
   if (items.length === 0) return null;
 
   return (
-    <motion.div
+    <Motion.div
       ref={containerRef}
-      className={`relative z-20 mx-auto mt-4 w-full max-w-[240px] overflow-visible sm:mt-6 sm:mb-12 sm:max-w-[320px] md:mb-0 lg:mx-0 lg:mt-8 transition-all duration-500 ease-in-out cursor-pointer sm:cursor-default ${
-        isExpanded ? "min-h-[132px] sm:min-h-[92px] lg:min-h-[92px]" : "min-h-[54px] sm:min-h-[92px] lg:min-h-[92px]"
-      } pb-0`}
+      className={`relative z-20 mx-auto mt-4 w-full overflow-visible sm:mt-6 sm:mb-12 md:mb-0 lg:mx-0 lg:mt-8 transition-all duration-500 ease-in-out cursor-pointer sm:cursor-default ${
+        isSmall ? "max-w-[210px] sm:max-w-[265px]" : "max-w-[240px] sm:max-w-[320px]"
+      } ${
+        isExpanded
+          ? isSmall
+            ? "min-h-[116px] sm:min-h-[86px] lg:min-h-[86px]"
+            : "min-h-[132px] sm:min-h-[92px] lg:min-h-[92px]"
+          : isSmall
+            ? "min-h-[46px] sm:min-h-[86px] lg:min-h-[86px]"
+            : "min-h-[54px] sm:min-h-[92px] lg:min-h-[92px]"
+      } pb-0 ${isSmall ? "scale-[0.92] origin-top-left" : ""} ${className}`}
       onMouseEnter={() => {
         if (!isMobile) setHovered(true);
       }}
@@ -111,7 +120,7 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
           const color = item.iconColor;
 
           return (
-            <motion.div
+            <Motion.div
               key={item.label}
               initial={{ opacity: 0, y: 15, scale: 0.9 }}
               animate={
@@ -150,24 +159,30 @@ const FeatureStack = ({ items = [], interval = 2500 }) => {
                 delayIndex={offset}
                 compact
                 subtleOutline
-                innerClassName="flex items-center justify-center gap-3 border border-slate-200/90 bg-white px-4 py-1.5 sm:py-2"
+                innerClassName={`flex items-center justify-center gap-3 border border-slate-200/90 bg-white ${
+                  isSmall ? "px-3 py-[5px] sm:px-3.5 sm:py-1.5" : "px-4 py-1.5 sm:py-2"
+                }`}
               >
-                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-slate-200/60 bg-white/80 sm:h-[26px] sm:w-[26px]">
+                <div className={`flex shrink-0 items-center justify-center rounded-md border border-slate-200/60 bg-white/80 ${
+                  isSmall ? "h-5 w-5 sm:h-[22px] sm:w-[22px]" : "h-6 w-6 sm:h-[26px] sm:w-[26px]"
+                }`}>
                   <Icon
-                    className="h-3 w-3 sm:h-3.5 sm:w-3.5"
+                    className={isSmall ? "h-2.5 w-2.5 sm:h-3 sm:w-3" : "h-3 w-3 sm:h-3.5 sm:w-3.5"}
                     style={{ color: color || "#9333ea" }}
                     strokeWidth={2.5}
                   />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-900 sm:text-[11.5px]">
+                <span className={`font-black uppercase tracking-widest text-slate-900 ${
+                  isSmall ? "text-[9px] sm:text-[10px]" : "text-[10px] sm:text-[11.5px]"
+                }`}>
                   {item.label}
                 </span>
               </MovingPurpleRing>
-            </motion.div>
+            </Motion.div>
           );
         })}
       </AnimatePresence>
-    </motion.div>
+    </Motion.div>
   );
 };
 

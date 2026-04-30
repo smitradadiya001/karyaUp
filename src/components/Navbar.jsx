@@ -5,7 +5,7 @@ import {
   CheckSquare, Kanban, Users, Clock, BarChart2, LayoutDashboard, CircleDollarSign,
   Megaphone, Contact,
   AlignLeft, MessageSquare, Video, UserCheck, CalendarOff, Banknote, Calendar, Zap, Blocks, PlayCircle, Bell,
-  FileText, FileCode, LogIn, Briefcase, Network, PieChart, Wallet
+  FileText, FileCode, LogIn, Briefcase, Network, PieChart, Wallet, Activity
 } from "lucide-react";
 import logo from "../assets/logo.webp";
 import KaryaUpBtn from "../assets/KaryaupBtn.png";
@@ -70,6 +70,8 @@ const featuresMegaSections = [
     heading: "MORE",
     items: [
       { label: "Integrations", to: "/features/integrations", icon: Blocks, iconColor: "text-cyan-600", sublabel: "Connected tools" },
+      { label: "Activity Capture", to: "/features/activity-capture", icon: Activity, iconColor: "text-indigo-600", sublabel: "Capture user activity" },
+      { label: "Lead Generation", to: "/features/lead-generation", icon: Megaphone, iconColor: "text-rose-600", sublabel: "Capture and convert leads" },
       { label: "Watch demo", to: "/features/demo", icon: PlayCircle, iconColor: "text-slate-600", sublabel: "Product walkthrough" },
     ],
   },
